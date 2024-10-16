@@ -4,14 +4,14 @@
 
 @font-face {
   font-family: 'Gotham';
-  src: url(/fonts/gotham-medium-webfont.woff2) format('woff2');
-  font-weight: 400;
+  src: url(/fonts/gotham-book-webfont.woff2) format('woff2');
+  font-weight: 200;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Gotham';
-  src: url(/fonts/gotham-bold-webfont.woff) format('woff2');
-  font-weight: 700;
+  font-family: 'Aptos';
+  src: url(/fonts/Aptos.woff2) format('woff2');
+  font-weight: 200;
   font-style: normal;
 }
