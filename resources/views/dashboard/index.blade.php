@@ -2,7 +2,7 @@
 
 @section('content')
   {{-- content  --}}
-  <div class="p-4 sm:ml-64">
+  <div class="p-4 sm:ml-64 font-aptos">
     <div class="p-4 mt-12">
       {{-- breadcrumb  --}}
       <nav
