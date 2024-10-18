@@ -25,7 +25,12 @@
 
   @include('layouts.admin.partials.sidebar')
 
-  @yield('content')
+  <div class="p-4 sm:ml-64 font-aptos">
+    @include('layouts.admin.partials.breadcrumb')
+    @yield('content')
+  </div>
+
+  @yield('scripts')
 
 </body>
 

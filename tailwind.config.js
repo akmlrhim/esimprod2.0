@@ -14,6 +14,9 @@ export default {
         gotham: ['Gotham', 'sans-serif'],
         aptos: ['Aptos', 'sans-serif'],
       },
+      colors: {
+        tvri_base_color: '#1e3164',
+      },
     },
   },
   plugins: [require('flowbite/plugin')],
