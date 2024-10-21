@@ -16,7 +16,7 @@ class CreditModel extends Model
         'system_analyst',
         'frontend_developer',
         'backend_developer',
-        'ui/ux_designer',
+        'uiux_designer',
         'administrator_contact',
         'guidebook'
     ];

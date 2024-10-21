@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\CreditModel;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class Credit extends Controller
 {
     protected $creditModel;
+
     public function __construct()
     {
         $this->creditModel = new CreditModel();
@@ -23,26 +27,45 @@ class Credit extends Controller
 
     public function edit($uuid)
     {
-        $data = [
-            'credit' => $this->creditModel->first(),
-            'title' => 'Edit Credit',
-        ];
-        return view('credit.edit', $data);
+        $credit = $this->creditModel->where('uuid', $uuid)->firstOrFail();
+        return response()->json($credit);
     }
 
-    public function update($uuid)
+    public function update(Request $request, $uuid)
     {
-        $data = [
-            'project_leader' => request('project_leader'),
-            'system_analyst' => request('system_analyst'),
-            'frontend_developer' => request('frontend_developer'),
-            'backend_developer' => request('backend_developer'),
-            'ui/ux_designer' => request('ui/ux_designer'),
-            'administrator_contact' => request('administrator_contact'),
-            'guidebook' => request('guidebook'),
-            'updated_at' => now(),
-        ];
+        $request->validate([
+            'project_leader' => 'required|string',
+            'system_analyst' => 'required|string',
+            'frontend_developer' => 'required|string',
+            'backend_developer' => 'required|string',
+            'uiux_designer' => 'required|string',
+            'administrator_contact' => 'required|string',
+            'guidebook' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+        ]);
+
+        $data = $request->except(['_token', '_method', 'guidebook']);
+
+        if ($request->hasFile('guidebook')) {
+            $file = $request->file('guidebook');
+            $randomName = Str::random(16) . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('uploads/guidebooks', $randomName, 'public');
+            $data['guidebook'] = $randomName;
+        }
+
         $this->creditModel->where('uuid', $uuid)->update($data);
-        return redirect()->route('credit.index')->with('success', 'Credit updated successfully');
+
+        return response()->json(['success' => true, 'message' => 'Update Berhasil !']);
+    }
+
+
+    public function guidebook($uuid)
+    {
+        $credit = $this->creditModel->where('uuid', $uuid)->firstOrFail();
+
+        $data = [
+            'title' => 'Guidebook',
+            'fileUrl' => $credit->guidebook ? asset('storage/uploads/guidebooks/' . $credit->guidebook) : null
+        ];
+        return view('credit.guidebook', $data);
     }
 }
