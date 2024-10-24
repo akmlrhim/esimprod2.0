@@ -6,6 +6,7 @@ use App\Models\CreditModel;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class Credit extends Controller
 {
@@ -33,7 +34,7 @@ class Credit extends Controller
 
     public function update(Request $request, $uuid)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'project_leader' => 'required|string',
             'system_analyst' => 'required|string',
             'frontend_developer' => 'required|string',
@@ -42,6 +43,11 @@ class Credit extends Controller
             'administrator_contact' => 'required|string',
             'guidebook' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()]);
+        }
+
 
         $data = $request->except(['_token', '_method', 'guidebook']);
 

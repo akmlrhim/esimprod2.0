@@ -28,6 +28,19 @@
           </div>
 
           <div class="p-4">
+            <div id="flash-success"
+              class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+              role="alert">
+              <strong class="font-bold">Sukses</strong>
+              <span class="block sm:inline">Credit Berhasil Diperbarui!</span>
+            </div>
+
+            <div id="flash-error"
+              class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+              <strong class="font-bold">Error!</strong>
+              <span class="block sm:inline">Failed to update credit!</span>
+            </div>
+
             <form id="updateForm" enctype="multipart/form-data">
               @csrf
               @method('PUT')
@@ -39,47 +52,61 @@
                       Leader</label>
                     <input type="text" name="project_leader" id="project_leader"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <div class="text-red-500 text-sm mt-1" id="error-project_leader"></div>
                   </div>
+
                   <div>
                     <label for="system_analyst" class="block mb-2 text-sm font-medium text-gray-900">System
                       Analyst</label>
                     <input type="text" name="system_analyst" id="system_analyst"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <div class="text-red-500 text-sm mt-1" id="error-system_analyst"></div>
                   </div>
+
                   <div>
                     <label for="frontend_developer" class="block mb-2 text-sm font-medium text-gray-900">Frontend
                       Developer</label>
                     <input type="text" name="frontend_developer" id="frontend_developer"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <div class="text-red-500 text-sm mt-1" id="error-frontend_developer"></div>
                   </div>
                 </div>
+
                 <div class="space-y-4">
                   <div>
                     <label for="backend_developer" class="block mb-2 text-sm font-medium text-gray-900">Backend
                       Developer</label>
                     <input type="text" name="backend_developer" id="backend_developer"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <div class="text-red-500 text-sm mt-1" id="error-backend_developer"></div>
                   </div>
+
                   <div>
                     <label for="uiux_designer" class="block mb-2 text-sm font-medium text-gray-900">UI/UX Designer</label>
                     <input type="text" name="uiux_designer" id="uiux_designer"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <div class="text-red-500 text-sm mt-1" id="error-uiux_designer"></div>
                   </div>
+
                   <div>
                     <label for="administrator_contact" class="block mb-2 text-sm font-medium text-gray-900">Administrator
                       Contact</label>
                     <input type="text" name="administrator_contact" id="administrator_contact"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <div class="text-red-500 text-sm mt-1" id="error-administrator_contact"></div>
                   </div>
                 </div>
               </div>
+
               <div class="mt-4">
                 <label class="block mb-2 text-sm font-medium text-gray-900" for="guidebook">Upload Guidebook</label>
                 <input
                   class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                   id="guidebook" name="guidebook" type="file">
                 <div class="mt-1 text-sm text-gray-500" id="guidebook_help">Format File: PDF, DOC, DOCX (Max 2MB)</div>
+                <div class="text-red-500 text-sm mt-1" id="error-guidebook"></div>
               </div>
+
               <div class="flex justify-end mt-6">
                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Simpan
                   Perubahan</button>
@@ -158,7 +185,6 @@
       </div>
     </div>
   </div>
-  </div>
 @endsection
 
 @section('scripts')
@@ -168,7 +194,26 @@
       const editButtons = document.querySelectorAll('.edit-credit');
       const closeButtons = document.querySelectorAll('.close-modal');
       const form = document.getElementById('updateForm');
+      const successAlert = document.getElementById('flash-success');
 
+      function displayErrors(errors) {
+        Object.keys(errors).forEach(function(field) {
+          const errorContainer = document.getElementById(`error-${field}`);
+          if (errorContainer) {
+            errorContainer.textContent = errors[field][0];
+          }
+        });
+      }
+
+      // Fungsi untuk membersihkan pesan error sebelumnya
+      function clearErrors() {
+        const errorFields = document.querySelectorAll('[id^="error-"]');
+        errorFields.forEach(function(errorField) {
+          errorField.textContent = ''; // Kosongkan pesan error sebelumnya
+        });
+      }
+
+      // Tombol edit untuk menampilkan modal
       editButtons.forEach(button => {
         button.addEventListener('click', function() {
           const uuid = this.getAttribute('data-uuid');
@@ -180,6 +225,7 @@
       closeButtons.forEach(button => {
         button.addEventListener('click', function() {
           modal.style.display = 'none';
+          clearErrors();
         });
       });
 
@@ -199,41 +245,35 @@
 
       form.addEventListener('submit', function(event) {
         event.preventDefault();
+        clearErrors();
+
         const formData = new FormData(form);
         const uuid = form['credit_uuid'].value;
 
         fetch(`/credit/update/${uuid}`, {
             method: 'POST',
             body: formData,
+            headers: {
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+              'Accept': 'application/json',
+            }
           })
           .then(response => response.json())
           .then(data => {
             if (data.success) {
-              Swal.fire({
-                title: 'Success!',
-                text: data.message,
-                icon: 'success',
-                confirmButtonText: 'OK'
-              }).then(() => {
-                modal.style.display = 'none';
-                location.reload();
-              });
+              successAlert.classList.remove('hidden');
+
+              setTimeout(function() {
+                successAlert.classList.add('hidden');
+              }, 3000);
+
+              clearErrors();
             } else {
-              Swal.fire({
-                title: 'Error!',
-                text: 'Something went wrong!',
-                icon: 'error',
-                confirmButtonText: 'OK'
-              });
+              displayErrors(data.errors);
             }
           })
           .catch(error => {
-            Swal.fire({
-              title: 'Error!',
-              text: 'Failed to update credit!',
-              icon: 'error',
-              confirmButtonText: 'OK'
-            });
+            console.log('An error occurred:', error);
           });
       });
     });
