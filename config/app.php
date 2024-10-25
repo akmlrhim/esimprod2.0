@@ -104,7 +104,13 @@ return [
             explode(',', env('APP_PREVIOUS_KEYS', ''))
         ),
     ],
+    // 'providers' => [
+    //     Barryvdh\DomPDF\ServiceProvider::class,
+    // ],
 
+    'aliases' => [
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+    ],
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver
