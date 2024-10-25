@@ -17,7 +17,7 @@
 
         {{-- Logo --}}
         <a href="/" class="flex ms-2 md:me-24">
-          <img src="{{ asset('img/esimprod_logo.png') }}" class="h-8 me-3 bg-white p-1 rounded-lg"
+          <img src="{{ asset('img/assets/esimprod_logo.png') }}" class="h-8 me-3 bg-white p-1 rounded-lg"
             alt="FlowBite Logo" />
           <span class="self-center text-xl font-semibold whitespace-nowrap text-white"> <small
               class="text-xs font-thin">Version 2.0</small></span>

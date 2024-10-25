@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\CreditModel;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class Credit extends Controller
@@ -41,7 +40,16 @@ class Credit extends Controller
             'backend_developer' => 'required|string',
             'uiux_designer' => 'required|string',
             'administrator_contact' => 'required|string',
-            'guidebook' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'guidebook' => 'nullable|file|mimes:pdf|max:2048',
+        ], [
+            'project_leader.required' => 'Project Leader wajib diisi.',
+            'system_analyst.required' => 'System Analyst wajib diisi.',
+            'frontend_developer.required' => 'Frontend Developer wajib diisi.',
+            'backend_developer.required' => 'Backend Developer wajib diisi.',
+            'uiux_designer.required' => 'UI/UX Designer wajib diisi.',
+            'administrator_contact.required' => 'Administrator Contact wajib diisi.',
+            'guidebook.mimes' => 'Guidebook harus dalam format PDF.',
+            'guidebook.max' => 'Ukuran file guidebook maksimal adalah 2MB.',
         ]);
 
         if ($validator->fails()) {

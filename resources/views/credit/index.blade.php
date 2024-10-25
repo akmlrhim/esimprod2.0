@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="flex flex-col p-3 ml-3 mr-3">
-    <div class="text-end mb-3">
+    <div class="text-end mb-1">
       @foreach ($credit as $c)
         <button data-uuid="{{ $c->uuid }}"
           class="edit-credit inline-flex items-center px-4 py-2 text-sm bg-yellow-400 border border-transparent rounded-md font-semibold text-white hover:bg-yellow-700 focus:ring focus:ring-yellow-500"
@@ -35,12 +35,6 @@
               <span class="block sm:inline">Credit Berhasil Diperbarui!</span>
             </div>
 
-            <div id="flash-error"
-              class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-              <strong class="font-bold">Error!</strong>
-              <span class="block sm:inline">Failed to update credit!</span>
-            </div>
-
             <form id="updateForm" enctype="multipart/form-data">
               @csrf
               @method('PUT')
@@ -52,7 +46,7 @@
                       Leader</label>
                     <input type="text" name="project_leader" id="project_leader"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                    <div class="text-red-500 text-sm mt-1" id="error-project_leader"></div>
+                    <div class="text-red-500 text-sm mt-1" id="error-projectleader"></div>
                   </div>
 
                   <div>
@@ -103,7 +97,7 @@
                 <input
                   class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                   id="guidebook" name="guidebook" type="file">
-                <div class="mt-1 text-sm text-gray-500" id="guidebook_help">Format File: PDF, DOC, DOCX (Max 2MB)</div>
+                <div class="mt-1 text-sm text-gray-500" id="guidebook_help">Format File: PDF (Max 2MB)</div>
                 <div class="text-red-500 text-sm mt-1" id="error-guidebook"></div>
               </div>
 
@@ -121,70 +115,80 @@
   </div>
 
   {{-- data --}}
-  <div class="-m-1.5 overflow-x-auto ml-3">
-    <div class="p-1.5 min-w-full inline-block align-middle">
-      <div class="border rounded overflow-hidden dark:border-neutral-700">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-          <div class="container mx-auto p-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              @foreach ($credit as $c)
-                <div class="flex flex-col space-y-4">
-                  <div>
-                    <label class="block text-sm font-bold text-black">Project Leader</label>
-                    <input type="text" readonly
-                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $c->project_leader }}" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-black">System Analyst</label>
-                    <input type="text" readonly
-                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $c->system_analyst }}" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-black">UI/UX Designer</label>
-                    <input type="text" readonly
-                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $c->uiux_designer }}" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-black">Administrator Contact</label>
-                    <input type="text" readonly
-                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $c->administrator_contact }}" />
-                  </div>
-                </div>
-                <div class="flex flex-col space-y-4">
-                  <div>
-                    <label class="block text-sm font-bold text-black">Frontend Developer</label>
-                    <input type="text" readonly
-                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $c->frontend_developer }}" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-black">Backend Developer</label>
-                    <input type="text" readonly
-                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $c->backend_developer }}" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-black">Guidebook</label>
-                    @if ($c->guidebook)
-                      <a href="{{ route('credit.guidebook', $c->uuid) }}"
-                        class="inline-flex items-center px-4 py-2 bg-yellow-400 border border-transparent rounded-md font-semibold text-white hover:bg-yellow-700 focus:ring focus:ring-yellow-500"><i
-                          class="fa-solid fa-eye"></i></a>
-                    @else
-                      <span class="text-red-500">Guidebook tidak tersedia.</span>
-                    @endif
-                  </div>
-                </div>
-              @endforeach
-            </div>
-          </div>
-        </table>
+  @if ($credit == null)
+    <div class="-m-1.5 overflow-x-auto ml-5 mr-3">
+      <div class="p-1.5 min-w-full inline-block align-middle">
+        <div class="bg-red-100 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+          <strong class="font-bold">Tidak ada data</strong>
+        </div>
       </div>
     </div>
-  </div>
+  @else
+    <div class="-m-1.5 overflow-x-auto ml-5 mr-3">
+      <div class="p-1.5 min-w-full inline-block align-middle">
+        <div class="border rounded overflow-hidden dark:border-neutral-700">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+            <div class="container mx-auto p-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @foreach ($credit as $c)
+                  <div class="flex flex-col space-y-4">
+                    <div>
+                      <label class="block text-sm font-bold text-black">Project Leader</label>
+                      <input type="text" readonly
+                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="{{ $c->project_leader }}" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-bold text-black">System Analyst</label>
+                      <input type="text" readonly
+                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="{{ $c->system_analyst }}" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-bold text-black">UI/UX Designer</label>
+                      <input type="text" readonly
+                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="{{ $c->uiux_designer }}" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-bold text-black">Administrator Contact</label>
+                      <input type="text" readonly
+                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="{{ $c->administrator_contact }}" />
+                    </div>
+                  </div>
+                  <div class="flex flex-col space-y-4">
+                    <div>
+                      <label class="block text-sm font-bold text-black">Frontend Developer</label>
+                      <input type="text" readonly
+                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="{{ $c->frontend_developer }}" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-bold text-black">Backend Developer</label>
+                      <input type="text" readonly
+                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="{{ $c->backend_developer }}" />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-bold text-black">Guidebook</label>
+                      @if ($c->guidebook)
+                        <a href="{{ route('credit.guidebook', $c->uuid) }}"
+                          class="inline-flex items-center px-4 py-2 bg-yellow-400 border border-transparent rounded-md font-semibold text-white hover:bg-yellow-700 focus:ring focus:ring-yellow-500"><i
+                            class="fa-solid fa-eye"></i></a>
+                      @else
+                        <span class="text-red-500">Guidebook tidak tersedia.</span>
+                      @endif
+                    </div>
+                  </div>
+                @endforeach
+              </div>
+            </div>
+          </table>
+        </div>
+      </div>
+    </div>
+  @endif
 @endsection
 
 @section('scripts')
@@ -205,11 +209,10 @@
         });
       }
 
-      // Fungsi untuk membersihkan pesan error sebelumnya
       function clearErrors() {
         const errorFields = document.querySelectorAll('[id^="error-"]');
         errorFields.forEach(function(errorField) {
-          errorField.textContent = ''; // Kosongkan pesan error sebelumnya
+          errorField.textContent = '';
         });
       }
 
@@ -266,6 +269,10 @@
               setTimeout(function() {
                 successAlert.classList.add('hidden');
               }, 3000);
+
+              setTimeout(function() {
+                location.reload();
+              }, 1000);
 
               clearErrors();
             } else {

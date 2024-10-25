@@ -8,7 +8,7 @@
     <!-- Right side with Home/$title -->
     <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
       <li class="inline-flex items-center">
-        <a href="#"
+        <a href="{{ route('dashboard.index') }}"
           class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-tvri_base_color dark:text-gray-400 dark:hover:text-white">
           Home
         </a>

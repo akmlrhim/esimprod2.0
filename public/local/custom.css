@@ -1,5 +1,5 @@
-.bg-tvri {
-    height: 100vh; /* Pastikan body memiliki tinggi penuh */
+body {
+    height: 100%; /* Pastikan body memiliki tinggi penuh */
     background:
         linear-gradient(
             to bottom right,
