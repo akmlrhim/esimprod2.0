@@ -1,3 +1,3 @@
 import "./bootstrap";
 import "flowbite";
-import $ from "jquery";
+import "laravel-datatables-vite";

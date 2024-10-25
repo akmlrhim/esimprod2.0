@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Barang extends Controller
+class JenisBarangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -12,10 +12,10 @@ class Barang extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Barang',
+            'title' => 'Jenis Barang',
         ];
 
-        return view('barang.index', $data);
+        return view('jenis_barang.index', $data);
     }
 
     /**

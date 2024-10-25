@@ -21,7 +21,7 @@ class CreditSeeder extends Seeder
             'backend_developer' => 'Lionel',
             'uiux_designer' => 'Lionel',
             'administrator_contact' => '2393579272',
-            'guidebook' => 'Lionel',
+            'guidebook' => '',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

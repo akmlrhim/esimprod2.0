@@ -2,20 +2,33 @@
 @section('content')
   <div class="flex p-3 ml-3 mr-3">
     <a href="#"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
+      class="px-3 py-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
         class="fa-solid fa-cube mr-2"></i>
       Tambah Barang</a>
+
+    <a href="{{ route('jenis_barang.index') }}"
+      class="text-white bg-orange-700 hover:bg-orange-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-orange-600 dark:hover:bg-orange-700 focus:outline-none dark:focus:ring-orange-800"><i
+        class="fa-solid fa-layer-group mr-2"></i>Jenis Barang</a>
+
     <a href="#"
-      class="text-white bg-orange-700 hover:bg-orange-400 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
-        class="fa-solid fa-layer-group mr-2"></i>Tambah Jenis Barang</a>
+      class="text-white bg-green-700 hover:bg-green-400 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"><i
+        class="fa-solid fa-qrcode mr-2"></i>Cetak Semua QR Code</a>
+
+    <a href="#"
+      class="text-white bg-gray-700 hover:bg-gray-400 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"><i
+        class="fa-solid fa-print mr-2"></i>Cetak Semua Barang</a>
   </div>
 
   {{-- card barang  --}}
   <div class="flex-col p-3 ml-3 mr-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
-    <div class="max-w-xs bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+    <div
+      class="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
       <a href="#">
         <img class="rounded-t-lg w-full h-auto object-cover" src="{{ asset('img/pexels-hikaique-243757.jpg') }}"
           alt="Image Description" />
+        <span class="absolute top-3 left-3 bg-tvri_base_color text-white text-sm font-semibold px-2 py-0.5 rounded-full">
+          Tersedia
+        </span>
       </a>
       <div class="p-5">
         <div class="flex justify-between items-center">
@@ -47,6 +60,5 @@
         </a>
       </div>
     </div>
-
   </div>
 @endsection

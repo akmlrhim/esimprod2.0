@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class JenisBarang extends Controller
+class BarangController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $data = [
+            'title' => 'Barang',
+        ];
+
+        return view('barang.index', $data);
     }
 
     /**

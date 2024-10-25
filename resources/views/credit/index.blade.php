@@ -114,8 +114,9 @@
     </div>
   </div>
 
+
   {{-- data --}}
-  @if ($credit == null)
+  @if ($credit->isEmpty())
     <div class="-m-1.5 overflow-x-auto ml-5 mr-3">
       <div class="p-1.5 min-w-full inline-block align-middle">
         <div class="bg-red-100 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -172,10 +173,11 @@
                     </div>
                     <div>
                       <label class="block text-sm font-bold text-black">Guidebook</label>
-                      @if ($c->guidebook)
+                      @if (!empty($c->guidebook))
                         <a href="{{ route('credit.guidebook', $c->uuid) }}"
-                          class="inline-flex items-center px-4 py-2 bg-yellow-400 border border-transparent rounded-md font-semibold text-white hover:bg-yellow-700 focus:ring focus:ring-yellow-500"><i
-                            class="fa-solid fa-eye"></i></a>
+                          class="inline-flex items-center px-4 py-2 bg-yellow-400 border border-transparent rounded-md font-semibold text-white hover:bg-yellow-700 focus:ring focus:ring-yellow-500">
+                          <i class="fa-solid fa-eye"></i>
+                        </a>
                       @else
                         <span class="text-red-500">Guidebook tidak tersedia.</span>
                       @endif
@@ -189,6 +191,8 @@
       </div>
     </div>
   @endif
+
+
 @endsection
 
 @section('scripts')

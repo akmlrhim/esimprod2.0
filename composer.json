@@ -8,7 +8,8 @@
         "php": "^8.2",
         "barryvdh/laravel-dompdf": "^3.0",
         "laravel/framework": "^11.9",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "yajra/laravel-datatables": "^11.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",

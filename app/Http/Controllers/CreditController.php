@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CreditModel;
+use App\Models\Credit;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class Credit extends Controller
+class CreditController extends Controller
 {
     protected $creditModel;
 
     public function __construct()
     {
-        $this->creditModel = new CreditModel();
+        $this->creditModel = new Credit();
     }
 
     public function index()

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('backend_developer');
             $table->string('uiux_designer');
             $table->string('administrator_contact');
-            $table->string('guidebook');
+            $table->string('guidebook')->nullable();
             $table->timestamps();
         });
     }

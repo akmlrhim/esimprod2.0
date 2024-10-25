@@ -33,8 +33,6 @@
 
   @yield('scripts')
 
-  <script src="{{ asset('build/assets/app-B1UdaKpJ.js   ') }}"></script>
-
 </body>
 
 </html>
