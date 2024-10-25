@@ -116,8 +116,6 @@
           <span class="ms-3">Logout</span>
         </a>
       </li>
-
-      >>>>>>> fae5597c5e1c5ba8504bf4aaaacb1add33af59f8
     </ul>
   </div>
 </aside>
