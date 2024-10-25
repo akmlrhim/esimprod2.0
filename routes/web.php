@@ -4,15 +4,18 @@ use Illuminate\Support\Facades\Route;
 
 // Route for the Home page
 Route::get('/', function () {
-    return view('home'); // The 'home' view will be loaded
+    return view('dashboard.index'); // The 'home' view will be loaded
 });
 
-// Route for the About page
-Route::get('/about', function () {
-    return view('about'); // The 'about' view will be loaded
+// Route to rot in hell
+Route::get('/peminjaman', function () {
+    return view('user.peminjaman.index');
 });
 
-// Route for the Test page
-Route::get('/test', function () {
-    return view('test');
+Route::get('/pengembalian', function () {
+    return view('user.pengembalian.index');
+});
+
+Route::get('/login', function () {
+    return view('auth.index');
 });

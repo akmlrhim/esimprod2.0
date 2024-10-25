@@ -21,17 +21,14 @@
 
 <body class="bg-gray-50 dark:bg-neutral-900">
 
-  @include('layouts.partials.navbar')
+  @include('layouts.user.partials.navbar')
 
+  {{-- main content  --}}
+  <div class="p-4 mt-12">
 
-  {{-- sidebar  --}}
-  @include('layouts.partials.sidebar')
+    @yield('content')
 
-
-  @yield('content')
-
-
-
+  </div>
 
 </body>
 
