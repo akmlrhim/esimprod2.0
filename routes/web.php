@@ -28,9 +28,8 @@ Route::prefix('barang')->group(function () {
 
 Route::prefix('jenis_barang')->group(function () {
     Route::get('/', [JenisBarangController::class, 'index'])->name('jenis_barang.index');
-    // Route::get('/create', [JenisBarang::class, 'create'])->name('jenis_barang.create');
-    // Route::post('/store', [JenisBarang::class, 'store'])->name('jenis_barang.store');
-    // Route::get('/edit/{uuid}', [JenisBarang::class, 'edit'])->name('jenis_barang.edit');
-    // Route::put('/update/{uuid}', [JenisBarang::class, 'update'])->name('jenis_barang.update');
-    // Route::delete('/destroy/{uuid}', [JenisBarang::class, 'destroy'])->name('jenis_barang.destroy');
+    Route::post('/store', [JenisBarangController::class, 'store'])->name('jenis_barang.store');
+    Route::get('/edit/{uuid}', [JenisBarangController::class, 'edit'])->name('jenis_barang.edit');
+    Route::put('/update/{uuid}', [JenisBarangController::class, 'update'])->name('jenis_barang.update');
+    Route::delete('/destroy/{uuid}', [JenisBarangController::class, 'destroy'])->name('jenis_barang.destroy');
 });

@@ -2,20 +2,20 @@
 @section('content')
   <div class="flex p-3 ml-3 mr-3">
     <a href="#"
-      class="px-3 py-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
+      class="px-3 py-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 font-medium rounded-lg text-xs me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"><i
         class="fa-solid fa-cube mr-2"></i>
       Tambah Barang</a>
 
     <a href="{{ route('jenis_barang.index') }}"
-      class="text-white bg-orange-700 hover:bg-orange-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-orange-600 dark:hover:bg-orange-700 focus:outline-none dark:focus:ring-orange-800"><i
+      class="text-white bg-orange-700 hover:bg-orange-400 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-orange-600 dark:hover:bg-orange-700 focus:outline-none"><i
         class="fa-solid fa-layer-group mr-2"></i>Jenis Barang</a>
 
     <a href="#"
-      class="text-white bg-green-700 hover:bg-green-400 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"><i
+      class="text-white bg-green-700 hover:bg-green-400 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none"><i
         class="fa-solid fa-qrcode mr-2"></i>Cetak Semua QR Code</a>
 
     <a href="#"
-      class="text-white bg-gray-700 hover:bg-gray-400 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"><i
+      class="text-white bg-gray-700 hover:bg-gray-400 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none"><i
         class="fa-solid fa-print mr-2"></i>Cetak Semua Barang</a>
   </div>
 
@@ -50,7 +50,7 @@
           <strong>Harga</strong> 1.00.000
         </p>
         <a href="#"
-          class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800  focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           Read more
           <svg class="rtl:rotate-180 w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
             viewBox="0 0 14 10">

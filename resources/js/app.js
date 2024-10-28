@@ -1,3 +1,5 @@
 import "./bootstrap";
 import "flowbite";
-import "laravel-datatables-vite";
+
+import $ from "jquery";
+window.$ = window.jQuery = $;

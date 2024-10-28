@@ -3,15 +3,23 @@
 @section('content')
   <div class="flex flex-col p-3 ml-3 mr-3">
     <div class="text-end mb-1">
-      @foreach ($credit as $c)
-        <button data-uuid="{{ $c->uuid }}"
-          class="edit-credit inline-flex items-center px-4 py-2 text-sm bg-yellow-400 border border-transparent rounded-md font-semibold text-white hover:bg-yellow-700 focus:ring focus:ring-yellow-500"
-          type="button">
-          <i class="fa-solid fa-pen-to-square mr-3"></i> Edit
-        </button>
-      @endforeach
+      @if ($credit->isEmpty())
+        <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mb-4">
+          <span>Data tidak tersedia.</span>
+        </div>
+        <a href="{{ route('credit.create') }}"
+          class="inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-white hover:bg-green-700 focus:ring focus:ring-green-500">
+          Tambah
+        </a>
+      @else
+        @foreach ($credit as $c)
+          <button type="button" data-uuid="{{ $c->uuid }}"
+            class="edit-credit text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">
+            <i class="fa-solid fa-pen-to-square mr-2"></i> Edit
+          </button>
+        @endforeach
+      @endif
     </div>
-
 
     {{-- modal --}}
     <div id="edit-credit-modal" class="fixed inset-0 z-50 hidden overflow-auto bg-black bg-opacity-50">
@@ -28,13 +36,6 @@
           </div>
 
           <div class="p-4">
-            <div id="flash-success"
-              class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
-              role="alert">
-              <strong class="font-bold">Sukses</strong>
-              <span class="block sm:inline">Credit Berhasil Diperbarui!</span>
-            </div>
-
             <form id="updateForm" enctype="multipart/form-data">
               @csrf
               @method('PUT')
@@ -102,7 +103,8 @@
               </div>
 
               <div class="flex justify-end mt-6">
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Simpan
+                <button type="submit"
+                  class="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan
                   Perubahan</button>
                 <button type="button"
                   class="ml-2 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 close-modal">Kembali</button>
@@ -116,83 +118,71 @@
 
 
   {{-- data --}}
-  @if ($credit->isEmpty())
-    <div class="-m-1.5 overflow-x-auto ml-5 mr-3">
-      <div class="p-1.5 min-w-full inline-block align-middle">
-        <div class="bg-red-100 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-          <strong class="font-bold">Tidak ada data</strong>
-        </div>
-      </div>
-    </div>
-  @else
-    <div class="-m-1.5 overflow-x-auto ml-5 mr-3">
-      <div class="p-1.5 min-w-full inline-block align-middle">
-        <div class="border rounded overflow-hidden dark:border-neutral-700">
-          <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-            <div class="container mx-auto p-4">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                @foreach ($credit as $c)
-                  <div class="flex flex-col space-y-4">
-                    <div>
-                      <label class="block text-sm font-bold text-black">Project Leader</label>
-                      <input type="text" readonly
-                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="{{ $c->project_leader }}" />
-                    </div>
-                    <div>
-                      <label class="block text-sm font-bold text-black">System Analyst</label>
-                      <input type="text" readonly
-                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="{{ $c->system_analyst }}" />
-                    </div>
-                    <div>
-                      <label class="block text-sm font-bold text-black">UI/UX Designer</label>
-                      <input type="text" readonly
-                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="{{ $c->uiux_designer }}" />
-                    </div>
-                    <div>
-                      <label class="block text-sm font-bold text-black">Administrator Contact</label>
-                      <input type="text" readonly
-                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="{{ $c->administrator_contact }}" />
-                    </div>
+  <div class="-m-1.5 overflow-x-auto ml-5 mr-3">
+    <div class="p-1.5 min-w-full inline-block align-middle">
+      <div class="border rounded overflow-hidden dark:border-neutral-700">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+          <div class="container mx-auto p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              @foreach ($credit as $c)
+                <div class="flex flex-col space-y-4">
+                  <div>
+                    <label class="block text-sm font-bold text-black">Project Leader</label>
+                    <input type="text" readonly
+                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ $c->project_leader }}" />
                   </div>
-                  <div class="flex flex-col space-y-4">
-                    <div>
-                      <label class="block text-sm font-bold text-black">Frontend Developer</label>
-                      <input type="text" readonly
-                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="{{ $c->frontend_developer }}" />
-                    </div>
-                    <div>
-                      <label class="block text-sm font-bold text-black">Backend Developer</label>
-                      <input type="text" readonly
-                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="{{ $c->backend_developer }}" />
-                    </div>
-                    <div>
-                      <label class="block text-sm font-bold text-black">Guidebook</label>
-                      @if (!empty($c->guidebook))
-                        <a href="{{ route('credit.guidebook', $c->uuid) }}"
-                          class="inline-flex items-center px-4 py-2 bg-yellow-400 border border-transparent rounded-md font-semibold text-white hover:bg-yellow-700 focus:ring focus:ring-yellow-500">
-                          <i class="fa-solid fa-eye"></i>
-                        </a>
-                      @else
-                        <span class="text-red-500">Guidebook tidak tersedia.</span>
-                      @endif
-                    </div>
+                  <div>
+                    <label class="block text-sm font-bold text-black">System Analyst</label>
+                    <input type="text" readonly
+                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ $c->system_analyst }}" />
                   </div>
-                @endforeach
-              </div>
+                  <div>
+                    <label class="block text-sm font-bold text-black">UI/UX Designer</label>
+                    <input type="text" readonly
+                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ $c->uiux_designer }}" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-bold text-black">Administrator Contact</label>
+                    <input type="text" readonly
+                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ $c->administrator_contact }}" />
+                  </div>
+                </div>
+                <div class="flex flex-col space-y-4">
+                  <div>
+                    <label class="block text-sm font-bold text-black">Frontend Developer</label>
+                    <input type="text" readonly
+                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ $c->frontend_developer }}" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-bold text-black">Backend Developer</label>
+                    <input type="text" readonly
+                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ $c->backend_developer }}" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-bold text-black">Guidebook</label>
+                    @if (!empty($c->guidebook))
+                      <a href="{{ route('credit.guidebook', $c->uuid) }}"
+                        class="inline-flex items-center px-4 py-2 bg-yellow-400 border border-transparent rounded-md font-semibold text-white hover:bg-yellow-700 focus:ring focus:ring-yellow-500">
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    @else
+                      <span class="text-red-500">Guidebook tidak tersedia.</span>
+                    @endif
+                  </div>
+                </div>
+              @endforeach
             </div>
-          </table>
-        </div>
+          </div>
+        </table>
       </div>
     </div>
-  @endif
-
-
+  </div>
 @endsection
 
 @section('scripts')
@@ -202,7 +192,6 @@
       const editButtons = document.querySelectorAll('.edit-credit');
       const closeButtons = document.querySelectorAll('.close-modal');
       const form = document.getElementById('updateForm');
-      const successAlert = document.getElementById('flash-success');
 
       function displayErrors(errors) {
         Object.keys(errors).forEach(function(field) {
@@ -268,12 +257,6 @@
           .then(response => response.json())
           .then(data => {
             if (data.success) {
-              successAlert.classList.remove('hidden');
-
-              setTimeout(function() {
-                successAlert.classList.add('hidden');
-              }, 3000);
-
               setTimeout(function() {
                 location.reload();
               }, 1000);
