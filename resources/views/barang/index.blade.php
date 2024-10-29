@@ -1,22 +1,36 @@
 @extends('layouts.admin.main')
 @section('content')
   <div class="flex p-3 ml-3 mr-3">
-    <a href="#"
-      class="px-3 py-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
-        class="fa-solid fa-cube mr-2"></i>
-      Tambah Barang</a>
+    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      type="button">Opsi / Tindakan <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+        fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+      </svg>
+    </button>
 
-    <a href="{{ route('jenis_barang.index') }}"
-      class="text-white bg-orange-700 hover:bg-orange-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-orange-600 dark:hover:bg-orange-700 focus:outline-none dark:focus:ring-orange-800"><i
-        class="fa-solid fa-layer-group mr-2"></i>Jenis Barang</a>
-
-    <a href="#"
-      class="text-white bg-green-700 hover:bg-green-400 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"><i
-        class="fa-solid fa-qrcode mr-2"></i>Cetak Semua QR Code</a>
-
-    <a href="#"
-      class="text-white bg-gray-700 hover:bg-gray-400 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"><i
-        class="fa-solid fa-print mr-2"></i>Cetak Semua Barang</a>
+    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+        <li>
+          <a href="{{ route('barang.create') }}"
+            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tambah
+            Barang</a>
+        </li>
+        <li>
+          <a href="{{ route('jenis_barang.index') }}"
+            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Jenis
+            Barang</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cetak
+            Semua QR Code</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cetak
+            Semua Barang</a>
+        </li>
+      </ul>
+    </div>
   </div>
 
   {{-- card barang  --}}
@@ -26,8 +40,8 @@
       <a href="#">
         <img class="rounded-t-lg w-full h-auto object-cover" src="{{ asset('img/pexels-hikaique-243757.jpg') }}"
           alt="Image Description" />
-        <span class="absolute top-3 left-3 bg-tvri_base_color text-white text-sm font-semibold px-2 py-0.5 rounded-full">
-          Tersedia
+        <span class="absolute top-3 left-3 bg-tvri_base_color text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+          Drone
         </span>
       </a>
       <div class="p-5">
@@ -50,7 +64,7 @@
           <strong>Harga</strong> 1.00.000
         </p>
         <a href="#"
-          class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800  focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          class="inline-flex items-center px-4 py-2 text-xs font-semibold text-white bg-blue-700 rounded-lg hover:bg-blue-800  focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           Read more
           <svg class="rtl:rotate-180 w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
             viewBox="0 0 14 10">

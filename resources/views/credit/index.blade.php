@@ -1,24 +1,14 @@
 @extends('layouts.admin.main')
 
 @section('content')
-  <div class="flex flex-col p-3 ml-3 mr-3">
+  <div class="flex flex-col p-3 ml-3 sm:ml-2">
     <div class="text-end mb-1">
-      @if ($credit->isEmpty())
-        <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mb-4">
-          <span>Data tidak tersedia.</span>
-        </div>
-        <a href="{{ route('credit.create') }}"
-          class="inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-white hover:bg-green-700 focus:ring focus:ring-green-500">
-          Tambah
-        </a>
-      @else
-        @foreach ($credit as $c)
-          <button type="button" data-uuid="{{ $c->uuid }}"
-            class="edit-credit text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">
-            <i class="fa-solid fa-pen-to-square mr-2"></i> Edit
-          </button>
-        @endforeach
-      @endif
+      @foreach ($credit as $c)
+        <button type="button" data-uuid="{{ $c->uuid }}"
+          class="edit-credit text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">
+          <i class="fa-solid fa-pen-to-square mr-2"></i> Edit
+        </button>
+      @endforeach
     </div>
 
     {{-- modal --}}
