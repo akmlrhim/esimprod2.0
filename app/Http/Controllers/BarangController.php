@@ -55,8 +55,8 @@ class BarangController extends Controller
             'status.required' => 'Status wajib diisi.',
             'limit.required' => 'Limit wajib diisi.',
             'limit.numeric' => 'Limit harus berupa angka.',
-            'fotos.mimes' => 'File harus dalam format jpg, jpeg, png.',
-            'fotos.max' => 'Ukuran file maksimal adalah 2MB.',
+            'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
+            'foto.max' => 'Ukuran file maksimal adalah 2MB.',
         ]);
 
         if ($validator->fails()) {
@@ -86,7 +86,7 @@ class BarangController extends Controller
         ]);
 
         notify()->success('Barang Berhasil Ditambahkan');
-        return redirect()->route('barang.index');
+        return redirect()->route('barang.create');
     }
 
     /**
