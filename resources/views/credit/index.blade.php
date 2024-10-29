@@ -118,27 +118,6 @@
 
 
   {{-- data --}}
-<<<<<<< HEAD
-  <div class="-m-1.5 overflow-x-auto ml-5 mr-3">
-    <div class="p-1.5 min-w-full inline-block align-middle">
-      <div class="border rounded overflow-hidden dark:border-neutral-700">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-          <div class="container mx-auto p-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              @foreach ($credit as $c)
-                <div class="flex flex-col space-y-4">
-                  <div>
-                    <label class="block text-sm font-bold text-black">Project Leader</label>
-                    <input type="text" readonly
-                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $c->project_leader }}" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-black">System Analyst</label>
-                    <input type="text" readonly
-                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $c->system_analyst }}" />
-=======
   @if ($credit->isEmpty())
     <div class="-m-1.5 overflow-x-auto ml-5 mr-3">
       <div class="p-1.5 min-w-full inline-block align-middle">
@@ -205,7 +184,6 @@
                         <span class="text-red-500">Guidebook tidak tersedia.</span>
                       @endif
                     </div>
->>>>>>> 1f47649 (fix)
                   </div>
                   <div>
                     <label class="block text-sm font-bold text-black">UI/UX Designer</label>
@@ -251,13 +229,9 @@
         </table>
       </div>
     </div>
-<<<<<<< HEAD
-  </div>
-=======
   @endif
 
 
->>>>>>> 1f47649 (fix)
 @endsection
 
 @section('scripts')

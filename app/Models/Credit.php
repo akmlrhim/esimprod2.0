@@ -8,10 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Credit extends Model
 {
     use HasFactory;
-<<<<<<< HEAD
-=======
     protected $table = 'credits';
->>>>>>> 1f47649 (fix)
 
     protected $fillable = [
         'project_leader',

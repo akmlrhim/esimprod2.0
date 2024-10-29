@@ -1,26 +1,4 @@
 {
-<<<<<<< HEAD
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "watch": "npx tailwindcss -i resources/css/app.css -o public/css/output.css --watch"
-    },
-    "devDependencies": {
-        "autoprefixer": "^10.4.20",
-        "axios": "^1.7.4",
-        "flowbite": "^2.5.2",
-        "laravel-vite-plugin": "^1.0",
-        "postcss": "^8.4.47",
-        "prettier": "^3.3.3",
-        "tailwindcss": "^3.4.13",
-        "vite": "^5.0"
-    },
-    "dependencies": {
-        "jquery": "^3.7.1"
-    }
-=======
   "private": true,
   "type": "module",
   "scripts": {
@@ -42,5 +20,4 @@
   "dependencies": {
     "jquery": "^3.7.1"
   }
->>>>>>> 1f47649 (fix)
 }

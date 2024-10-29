@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PrintController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\DashboardController;

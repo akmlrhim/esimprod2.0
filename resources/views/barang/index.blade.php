@@ -2,26 +2,11 @@
 @section('content')
   <div class="flex p-3 ml-3 mr-3">
     <a href="#"
-<<<<<<< HEAD
-      class="px-3 py-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 font-medium rounded-lg text-xs me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"><i
-=======
       class="px-3 py-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
->>>>>>> 1f47649 (fix)
         class="fa-solid fa-cube mr-2"></i>
       Tambah Barang</a>
 
     <a href="{{ route('jenis_barang.index') }}"
-<<<<<<< HEAD
-      class="text-white bg-orange-700 hover:bg-orange-400 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-orange-600 dark:hover:bg-orange-700 focus:outline-none"><i
-        class="fa-solid fa-layer-group mr-2"></i>Jenis Barang</a>
-
-    <a href="#"
-      class="text-white bg-green-700 hover:bg-green-400 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none"><i
-        class="fa-solid fa-qrcode mr-2"></i>Cetak Semua QR Code</a>
-
-    <a href="#"
-      class="text-white bg-gray-700 hover:bg-gray-400 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none"><i
-=======
       class="text-white bg-orange-700 hover:bg-orange-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-orange-600 dark:hover:bg-orange-700 focus:outline-none dark:focus:ring-orange-800"><i
         class="fa-solid fa-layer-group mr-2"></i>Jenis Barang</a>
 
@@ -31,7 +16,6 @@
 
     <a href="#"
       class="text-white bg-gray-700 hover:bg-gray-400 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-2 me-2  dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"><i
->>>>>>> 1f47649 (fix)
         class="fa-solid fa-print mr-2"></i>Cetak Semua Barang</a>
   </div>
 
