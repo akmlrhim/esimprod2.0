@@ -6,7 +6,6 @@ export default {
         "./resources/**/*.js",
         "./resources/**/*.vue",
         "./node_modules/flowbite/**/*.js",
-        // './node_modules/preline/dist/*.js',
     ],
     theme: {
         extend: {
@@ -20,9 +19,5 @@ export default {
         },
     },
 
-    plugins: [
-        require("flowbite/plugin")({
-            datatables: true,
-        }),
-    ],
+    plugins: [require("flowbite/plugin")],
 };

@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('barang', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_barang')->unique();
-            $table->unsignedBigInteger('jenis_barang_id');
+            $table->string('uuid');
+            $table->string('nama_barang');
+            $table->string('jenis_barang_id')->unique();
             $table->string('status');
-            $table->string('qr_code')->unique();
+            $table->text('deskripsi');
+            $table->string('qr_code');
             $table->integer('limit');
             $table->integer('sisa_limit');
             $table->string('foto', 2048)->nullable();
-            $table->foreign('jenis_barang_id')->references('id')->on('jenis_barang')->onDelete('cascade');
+            $table->foreign('jenis_barang_id')->references('kode_jenis_barang')->on('jenis_barang')->onDelete('cascade');
             $table->timestamps();
         });
     }

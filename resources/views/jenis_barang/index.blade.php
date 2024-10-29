@@ -19,7 +19,7 @@
 
 
     {{-- data  --}}
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg border">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg border rounded-lg">
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 font-bold">
           <tr>
@@ -40,7 +40,7 @@
                   class="edit-item font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
                 <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
                   onclick="confirmDelete('{{ route('jenis_barang.destroy', ['uuid' => $row->uuid]) }}')"
-                  class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3" type="button">
+                  class="font-medium text-red-600 dark:text-red-500 hover:underline ml-2" type="button">
                   Delete
                 </button>
               </td>
