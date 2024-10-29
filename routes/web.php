@@ -20,22 +20,21 @@ Route::prefix('credit')->group(function () {
 Route::prefix('barang')->group(function () {
     Route::get('/', [BarangController::class, 'index'])->name('barang.index');
     Route::get('/create', [BarangController::class, 'create'])->name('barang.create');
-    // Route::post('/store', [Barang::class, 'store'])->name('barang.store');
-    // Route::get('/edit/{uuid}', [Barang::class, 'edit'])->name('barang.edit');
-    // Route::put('/update/{uuid}', [Barang::class, 'update'])->name('barang.update');
-    // Route::delete('/destroy/{uuid}', [Barang::class, 'destroy'])->name('barang.destroy');
+    Route::post('/store', [Barang::class, 'store'])->name('barang.store');
+    Route::get('/edit/{uuid}', [Barang::class, 'edit'])->name('barang.edit');
+    Route::put('/update/{uuid}', [Barang::class, 'update'])->name('barang.update');
+    Route::delete('/destroy/{uuid}', [Barang::class, 'destroy'])->name('barang.destroy');
 });
 
 Route::prefix('jenis_barang')->group(function () {
     Route::get('/', [JenisBarangController::class, 'index'])->name('jenis_barang.index');
-    // Route::get('/create', [JenisBarang::class, 'create'])->name('jenis_barang.create');
-    // Route::post('/store', [JenisBarang::class, 'store'])->name('jenis_barang.store');
-    // Route::get('/edit/{uuid}', [JenisBarang::class, 'edit'])->name('jenis_barang.edit');
-    // Route::put('/update/{uuid}', [JenisBarang::class, 'update'])->name('jenis_barang.update');
-    // Route::delete('/destroy/{uuid}', [JenisBarang::class, 'destroy'])->name('jenis_barang.destroy');
+    Route::post('/store', [JenisBarangController::class, 'store'])->name('jenis_barang.store');
+    Route::get('/edit/{uuid}', [JenisBarangController::class, 'edit'])->name('jenis_barang.edit');
+    Route::put('/update/{uuid}', [JenisBarangController::class, 'update'])->name('jenis_barang.update');
+    Route::delete('/destroy/{uuid}', [JenisBarangController::class, 'destroy'])->name('jenis_barang.destroy');
 });
 
-// Route to rot in hell
+
 Route::get('/peminjaman', function () {
     return view('user.peminjaman.index');
 });
@@ -51,3 +50,6 @@ Route::get('/login', function () {
 Route::get('/laporan', function () {
     return view('user.laporan.index');
 });
+Route::get('/testTable', [PrintController::class, 'index'])->name('pdf.index');
+Route::get('export', [PrintController::class, 'exportPDF'])->name('export.pdf');
+

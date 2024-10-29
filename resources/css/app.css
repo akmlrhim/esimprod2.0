@@ -3,15 +3,17 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Gotham';
-  src: url(/fonts/gotham-book-webfont.woff2) format('woff2');
-  font-weight: 200;
-  font-style: normal;
+    font-family: "Gotham";
+    src: url(/fonts/gotham-book-webfont.woff2) format("woff2");
+    font-weight: 200;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'Aptos';
-  src: url(/fonts/Aptos.woff2) format('woff2');
-  font-weight: 200;
-  font-style: normal;
+    font-family: "Aptos";
+    src: url(/fonts/Aptos.woff2) format("woff2");
+    font-weight: 200;
+    font-style: normal;
 }
+
+/* @import "~simple-datatables/dist/style.css"; */

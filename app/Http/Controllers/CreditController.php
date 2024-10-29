@@ -56,7 +56,6 @@ class CreditController extends Controller
             return response()->json(['success' => false, 'errors' => $validator->errors()]);
         }
 
-
         $data = $request->except(['_token', '_method', 'guidebook']);
 
         if ($request->hasFile('guidebook')) {
@@ -67,8 +66,8 @@ class CreditController extends Controller
         }
 
         $this->creditModel->where('uuid', $uuid)->update($data);
-
-        return response()->json(['success' => true, 'message' => 'Update Berhasil !']);
+        notify()->success('Data Berhasil Diperbarui');
+        return response()->json(['success' => true]);
     }
 
 
