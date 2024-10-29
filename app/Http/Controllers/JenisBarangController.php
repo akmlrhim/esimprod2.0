@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\JenisBarang;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -24,6 +25,19 @@ class JenisBarangController extends Controller
         $data = [
             'title' => 'Jenis Barang',
             'jenis_barang' => $this->jenisBarang->all(),
+=======
+use Illuminate\Http\Request;
+
+class JenisBarangController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $data = [
+            'title' => 'Jenis Barang',
+>>>>>>> 1f47649 (fix)
         ];
 
         return view('jenis_barang.index', $data);
@@ -32,13 +46,21 @@ class JenisBarangController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+<<<<<<< HEAD
     public function create() {}
+=======
+    public function create()
+    {
+        //
+    }
+>>>>>>> 1f47649 (fix)
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
         $validator = Validator::make($request->all(), [
             'kode_jenis_barang' => 'required|string|unique:jenis_barang,kode_jenis_barang', // Pastikan ini menggunakan nama kolom yang benar
             'jenis_barang' => 'required|string|unique:jenis_barang,jenis_barang',
@@ -65,6 +87,11 @@ class JenisBarangController extends Controller
     }
 
 
+=======
+        //
+    }
+
+>>>>>>> 1f47649 (fix)
     /**
      * Display the specified resource.
      */
@@ -76,15 +103,22 @@ class JenisBarangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+<<<<<<< HEAD
     public function edit(string $uuid)
     {
         $jenisBarang = $this->jenisBarang->where('uuid', $uuid)->firstOrFail();
         return response()->json($jenisBarang);
+=======
+    public function edit(string $id)
+    {
+        //
+>>>>>>> 1f47649 (fix)
     }
 
     /**
      * Update the specified resource in storage.
      */
+<<<<<<< HEAD
     public function update(Request $request, string $uuid)
     {
         $validator = Validator::make($request->all(), [
@@ -105,11 +139,17 @@ class JenisBarangController extends Controller
         $this->jenisBarang->where('uuid', $uuid)->update($data);
         notify()->success('Data Berhasil Diperbarui');
         return response()->json(['success' => true]);
+=======
+    public function update(Request $request, string $id)
+    {
+        //
+>>>>>>> 1f47649 (fix)
     }
 
     /**
      * Remove the specified resource from storage.
      */
+<<<<<<< HEAD
     public function destroy(Request $request)
     {
         $uuid = $request->uuid;
@@ -117,5 +157,10 @@ class JenisBarangController extends Controller
 
         notify()->success('Data Berhasil Dihapus');
         return redirect()->route('jenis_barang.index');
+=======
+    public function destroy(string $id)
+    {
+        //
+>>>>>>> 1f47649 (fix)
     }
 }

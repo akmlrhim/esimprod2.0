@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class JenisBarang extends Model
 {
     use HasFactory;
+<<<<<<< HEAD
 
     protected $table = 'jenis_barang';
     protected $fillable = [
@@ -15,4 +16,6 @@ class JenisBarang extends Model
         'kode_jenis_barang',
         'jenis_barang',
     ];
+=======
+>>>>>>> 1f47649 (fix)
 }
