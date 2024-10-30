@@ -21,8 +21,9 @@ Route::prefix('barang')->group(function () {
     Route::get('/', [BarangController::class, 'index'])->name('barang.index');
     Route::get('/create', [BarangController::class, 'create'])->name('barang.create');
     Route::post('/store', [BarangController::class, 'store'])->name('barang.store');
-    // Route::get('/edit/{uuid}', [Barang::class, 'edit'])->name('barang.edit');
-    // Route::put('/update/{uuid}', [Barang::class, 'update'])->name('barang.update');
+    Route::get('/edit/{uuid}', [BarangController::class, 'edit'])->name('barang.edit');
+    Route::get('/detail/{uuid}', [BarangController::class, 'show'])->name('barang.show');
+    Route::put('/update/{uuid}', [BarangController::class, 'update'])->name('barang.update');
     // Route::delete('/destroy/{uuid}', [Barang::class, 'destroy'])->name('barang.destroy');
 });
 

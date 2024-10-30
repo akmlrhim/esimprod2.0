@@ -45,13 +45,14 @@ class BarangController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_barang' => 'required',
-            'jenis_barang_id' => 'required',
+            'jenis_barang_id' => 'required|exists:jenis_barang,kode_jenis_barang',
             'status' => 'required',
             'limit' => 'required|numeric',
             'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         ], [
             'nama_barang.required' => 'Nama barang wajib diisi.',
             'jenis_barang_id.required' => 'Jenis Barang wajib diisi.',
+            'jenis_barang_id.exists' => 'Jenis barang tidak ditemukan.',
             'status.required' => 'Status wajib diisi.',
             'limit.required' => 'Limit wajib diisi.',
             'limit.numeric' => 'Limit harus berupa angka.',
@@ -73,7 +74,10 @@ class BarangController extends Controller
             $randomName = time() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('uploads/foto_barang', $randomName, 'public');
             $data['foto'] = $randomName;
+        } else {
+            $data['foto'] = 'default.jpeg';
         }
+
         Barang::create([
             'uuid' => $uuid,
             'nama_barang' => $request->nama_barang,
@@ -81,13 +85,15 @@ class BarangController extends Controller
             'status' => $request->status,
             'limit' => $request->limit,
             'sisa_limit' => $request->limit,
-            'foto' => $data['foto'] ?? null,
+            'foto' => $data['foto'],
             'qr_code' => $qrCodeFileName,
         ]);
 
         notify()->success('Barang Berhasil Ditambahkan');
-        return redirect()->route('barang.create');
+        return redirect()->back();
     }
+
+
 
     /**
      * Display the specified resource.
@@ -100,17 +106,42 @@ class BarangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $uuid)
     {
-        //
+        $data = [
+            'title' => 'Edit Barang',
+            'barang' => Barang::where('uuid', $uuid)->first(),
+            'jenis_barang' => JenisBarang::all()
+        ];
+
+        return view('barang.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $uuid)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama_barang' => 'required',
+            'jenis_barang_id' => 'required|exists:jenis_barang,kode_jenis_barang',
+            'status' => 'required',
+            'limit' => 'required|numeric',
+            'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+        ], [
+            'nama_barang.required' => 'Nama barang wajib diisi.',
+            'jenis_barang_id.required' => 'Jenis Barang wajib diisi.',
+            'jenis_barang_id.exists' => 'Jenis barang tidak ditemukan.',
+            'status.required' => 'Status wajib diisi.',
+            'limit.required' => 'Limit wajib diisi.',
+            'limit.numeric' => 'Limit harus berupa angka.',
+            'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
+            'foto.max' => 'Ukuran file maksimal adalah 2MB.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
     }
 
     /**
