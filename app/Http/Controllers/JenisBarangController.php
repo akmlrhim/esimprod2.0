@@ -10,12 +10,6 @@ use Illuminate\Support\Facades\Validator;
 class JenisBarangController extends Controller
 {
 
-    protected $jenisBarang;
-    public function __construct(JenisBarang $jenisBarang)
-    {
-        $this->jenisBarang = $jenisBarang;
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -23,7 +17,7 @@ class JenisBarangController extends Controller
     {
         $data = [
             'title' => 'Jenis Barang',
-            'jenis_barang' => $this->jenisBarang->all(),
+            'jenis_barang' => JenisBarang::all(),
         ];
 
         return view('jenis_barang.index', $data);
@@ -54,7 +48,7 @@ class JenisBarangController extends Controller
             return redirect()->back()->withErrors($validator)->withInput()->with('showModal', true);
         }
 
-        $this->jenisBarang->create([
+        JenisBarang::create([
             'uuid' => Str::random(10),
             'kode_jenis_barang' => $request->kode_jenis_barang,
             'jenis_barang' => $request->jenis_barang,
@@ -78,7 +72,7 @@ class JenisBarangController extends Controller
      */
     public function edit(string $uuid)
     {
-        $jenisBarang = $this->jenisBarang->where('uuid', $uuid)->firstOrFail();
+        $jenisBarang = JenisBarang::where('uuid', $uuid)->firstOrFail();
         return response()->json($jenisBarang);
     }
 
@@ -102,7 +96,7 @@ class JenisBarangController extends Controller
 
         $data = $request->except(['_token', '_method']);
 
-        $this->jenisBarang->where('uuid', $uuid)->update($data);
+        JenisBarang::where('uuid', $uuid)->update($data);
         notify()->success('Data Berhasil Diperbarui');
         return response()->json(['success' => true]);
     }
@@ -110,10 +104,9 @@ class JenisBarangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(string $uuid)
     {
-        $uuid = $request->uuid;
-        $this->jenisBarang->where('uuid', $uuid)->delete();
+        JenisBarang::where('uuid', $uuid)->delete();
 
         notify()->success('Data Berhasil Dihapus');
         return redirect()->route('jenis_barang.index');
