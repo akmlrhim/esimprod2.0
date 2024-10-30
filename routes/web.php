@@ -20,10 +20,10 @@ Route::prefix('credit')->group(function () {
 Route::prefix('barang')->group(function () {
     Route::get('/', [BarangController::class, 'index'])->name('barang.index');
     Route::get('/create', [BarangController::class, 'create'])->name('barang.create');
-    Route::post('/store', [Barang::class, 'store'])->name('barang.store');
-    Route::get('/edit/{uuid}', [Barang::class, 'edit'])->name('barang.edit');
-    Route::put('/update/{uuid}', [Barang::class, 'update'])->name('barang.update');
-    Route::delete('/destroy/{uuid}', [Barang::class, 'destroy'])->name('barang.destroy');
+    Route::post('/store', [BarangController::class, 'store'])->name('barang.store');
+    // Route::get('/edit/{uuid}', [Barang::class, 'edit'])->name('barang.edit');
+    // Route::put('/update/{uuid}', [Barang::class, 'update'])->name('barang.update');
+    // Route::delete('/destroy/{uuid}', [Barang::class, 'destroy'])->name('barang.destroy');
 });
 
 Route::prefix('jenis_barang')->group(function () {

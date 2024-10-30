@@ -6,14 +6,15 @@
       <div class="border rounded-lg shadow overflow-hidden dark:border-neutral-700">
         <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
           <div class="container mx-auto p-4">
-            <form action="">
+            <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
               @csrf
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="flex flex-col space-y-4">
                   <div>
                     <label class="block text-sm font-bold text-black">Nama Barang</label>
                     <input type="text" name="nama_barang"
-                      class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                      class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ old('nama_barang') }}" />
                     @error('nama_barang')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
@@ -24,7 +25,9 @@
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option value="">-- Pilih Jenis Barang --</option>
                       @foreach ($jenis_barang as $j)
-                        <option value="{{ $j->id }}">{{ $j->jenis_barang }}</option>
+                        <option value="{{ $j->id }}" {{ old('jenis_barang_id') == $j->id ? 'selected' : '' }}>
+                          {{ $j->jenis_barang }}
+                        </option>
                       @endforeach
                     </select>
                     @error('jenis_barang_id')
@@ -33,9 +36,12 @@
                   </div>
                   <div>
                     <label class="block text-sm font-bold text-black">Status</label>
-                    <select id="countries" name="status"
+                    <select name="status"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option value="">-- Pilih Status --</option>
+                      <option value="Tersedia" {{ old('status') == 'Tersedia' ? 'selected' : '' }}>Tersedia</option>
+                      <option value="Tidak Tersedia" {{ old('status') == 'Tidak Tersedia' ? 'selected' : '' }}>Tidak
+                        Tersedia</option>
                     </select>
                     @error('status')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
@@ -46,7 +52,8 @@
                   <div>
                     <label class="block text-sm font-bold text-black">Limit</label>
                     <input type="number" name="limit" min="1"
-                      class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                      class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ old('limit') }}" />
                     @error('limit')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
@@ -56,7 +63,7 @@
                     <label class="block text-sm font-bold text-black">Upload Foto Barang</label>
                     <input
                       class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                      type="file" name="foto">
+                      value="{{ old('foto') }}" type="file" name="foto">
                     @error('foto')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
