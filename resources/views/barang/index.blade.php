@@ -34,45 +34,56 @@
   </div>
 
   {{-- card barang  --}}
-  <div class="flex-col p-3 ml-3 mr-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
-    <div
-      class="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
-      <a href="#">
-        <img class="rounded-t-lg w-full h-auto object-cover" src="{{ asset('img/pexels-hikaique-243757.jpg') }}"
-          alt="Image Description" />
-        <span class="absolute top-3 left-3 bg-tvri_base_color text-white text-xs font-semibold px-2 py-0.5 rounded-full">
-          Drone
-        </span>
-      </a>
-      <div class="p-5">
-        <div class="flex justify-between items-center">
-          <h5 class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
-            Kamera
-          </h5>
+  <div class="flex-col p-3 ml-3 mr-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+    @foreach ($barang as $b)
+      <div
+        class="relative max-w-xs bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+        <a href="#">
+          <img class="rounded-t-lg w-full h-48 object-contain"
+            src="{{ asset('storage/uploads/foto_barang/' . $b->foto) }}" alt="Image Description" />
           <span
-            class="bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
-            Tersedia
+            class="absolute top-3 left-3 bg-tvri_base_color text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+            {{ $b->jenisBarang->jenis_barang }}
           </span>
-        </div>
-        <p class="font-normal text-gray-700 dark:text-gray-400">
-          <strong>Kode</strong> BRG-1102
-        </p>
-        <p class="font-normal text-gray-700 dark:text-gray-400">
-          <strong>Harga</strong> 1.00.000
-        </p>
-        <p class="font-normal text-gray-700 dark:text-gray-400 mb-3">
-          <strong>Harga</strong> 1.00.000
-        </p>
-        <a href="#"
-          class="inline-flex items-center px-4 py-2 text-xs font-semibold text-white bg-blue-700 rounded-lg hover:bg-blue-800  focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          Read more
-          <svg class="rtl:rotate-180 w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-            viewBox="0 0 14 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9" />
-          </svg>
         </a>
+        <div class="p-5">
+          <div class="flex justify-between items-center">
+            <h5 class="text-lg font-extrabold leading-tight text-gray-900 dark:text-white">
+              {{ $b->nama_barang }}
+            </h5>
+            @if ($b->status == 'Tersedia')
+              <span
+                class="bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                Tersedia
+              </span>
+            @else
+              <span
+                class="bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
+                Habis
+              </span>
+            @endif
+          </div>
+          <p class="font-normal text-gray-700 dark:text-gray-400">
+            <strong>Kode :</strong> {{ $b->uuid }}
+          </p>
+          <p class="font-normal text-gray-700 dark:text-gray-400">
+            <strong>Limit : </strong> {{ $b->limit }}
+          </p>
+          <p class="font-normal text-gray-700 dark:text-gray-400">
+            <strong>Sisa Limit : </strong> {{ $b->sisa_limit }}
+          </p>
+          <div class="mt-3">
+            <a href="{{ route('barang.edit', $b->uuid) }}"
+              class="inline-flex items-center px-2 py-1 text-sm font-medium text-white bg-yellow-400 rounded-lg hover:bg-yellow-800">
+              Edit
+            </a>
+            <a href="{{ route('barang.show', $b->uuid) }}"
+              class="inline-flex items-center px-2 py-1 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800">
+              Detail
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
+    @endforeach
   </div>
 @endsection

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('uuid');
             $table->string('nama_barang');
-            $table->string('jenis_barang_id')->unique();
+            $table->string('jenis_barang_id');
             $table->string('status');
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
             $table->string('qr_code');
             $table->integer('limit');
             $table->integer('sisa_limit');
