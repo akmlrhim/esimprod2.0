@@ -33,3 +33,23 @@ Route::prefix('jenis_barang')->group(function () {
     Route::put('/update/{uuid}', [JenisBarangController::class, 'update'])->name('jenis_barang.update');
     Route::delete('/destroy/{uuid}', [JenisBarangController::class, 'destroy'])->name('jenis_barang.destroy');
 });
+
+
+Route::get('/peminjaman', function () {
+    return view('user.peminjaman.index');
+});
+
+Route::get('/pengembalian', function () {
+    return view('user.pengembalian.index');
+});
+
+Route::get('/login', function () {
+    return view('auth.index');
+});
+
+Route::get('/laporan', function () {
+    return view('user.laporan.index');
+});
+Route::get('/testTable', [PrintController::class, 'index'])->name('pdf.index');
+Route::get('export', [PrintController::class, 'exportPDF'])->name('export.pdf');
+

@@ -1,4 +1,4 @@
-<nav class="fixed top-0 z-50 w-full bg-tvri_base_color  dark:bg-gray-800 dark:border-gray-700 font-aptos">
+<nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 font-aptos">
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start rtl:justify-end">
@@ -16,24 +16,22 @@
 
 
         {{-- Logo --}}
-        <a href="/" class="flex ms-2 md:me-24">
-          <img src="{{ asset('img/assets/esimprod_logo.png') }}" class="h-8 me-3 bg-white p-1 rounded-lg"
-            alt="FlowBite Logo" />
-          <span class="self-center text-xl font-semibold whitespace-nowrap text-white"> <small
-              class="text-xs font-thin">Version 2.0</small></span>
+        <a href="https://flowbite.com" class="flex ms-2 md:me-24">
+          <img src="{{ asset('img/New_Logo_TVRI.png') }}" class="h-8 me-3" alt="FlowBite Logo" />
+          <span class="self-center text-xl font-semibold  whitespace-nowrap dark:text-white">ESIMPROD 2.0</span>
         </a>
 
-      </div>
 
+      </div>
       <div class="flex items-center">
-        <div class="flex items-center ms-3">
-          <div class="mr-3">
-            <button type="button"
-              class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-              aria-expanded="false" data-dropdown-toggle="dropdown-user">
+        <div class="flex items-center">
+          <div>
+            <button type="button" class="flex text-sm rounded-full
+              aria-expanded="false"
+              data-dropdown-toggle="dropdown-user">
               <span class="sr-only">Open user menu</span>
-              <img class="w-8 h-8 rounded-full bg-white p-1"
-                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+              <img class="w-8 h-8 mr-4 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                alt="user photo">
             </button>
           </div>
           <div
@@ -41,20 +39,17 @@
             id="dropdown-user">
             <div class="px-4 py-3" role="none">
               <p class="text-sm text-gray-900 dark:text-white" role="none">
-                <strong>Nama</strong> : User
+                Neil Sims
               </p>
               <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                <strong>NIP</strong> : 35937870293212
-              </p>
-              <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                <strong>Jabatan</strong> : Tata Usaha
+                neil.sims@flowbite.com
               </p>
             </div>
             <ul class="py-1" role="none">
               <li>
                 <a href="#"
-                  class="font-bold block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                  role="menuitem">Logout</a>
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                  role="menuitem">Sign out</a>
               </li>
             </ul>
           </div>
