@@ -24,7 +24,7 @@ Route::prefix('barang')->group(function () {
     Route::get('/edit/{uuid}', [BarangController::class, 'edit'])->name('barang.edit');
     Route::get('/detail/{uuid}', [BarangController::class, 'show'])->name('barang.show');
     Route::put('/update/{uuid}', [BarangController::class, 'update'])->name('barang.update');
-    // Route::delete('/destroy/{uuid}', [Barang::class, 'destroy'])->name('barang.destroy');
+    Route::delete('/destroy/{uuid}', [BarangController::class, 'destroy'])->name('barang.destroy');
 });
 
 Route::prefix('jenis_barang')->group(function () {

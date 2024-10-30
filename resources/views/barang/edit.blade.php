@@ -6,6 +6,7 @@
         <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
           <div class="container mx-auto p-4">
             <form action="{{ route('barang.update', $barang->uuid) }}" method="POST" enctype="multipart/form-data">
+              @method('PUT')
               @csrf
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="flex flex-col space-y-4">

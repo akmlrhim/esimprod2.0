@@ -86,6 +86,7 @@ class BarangController extends Controller
             'limit' => $request->limit,
             'sisa_limit' => $request->limit,
             'foto' => $data['foto'],
+            'deskripsi' => $request->deskripsi,
             'qr_code' => $qrCodeFileName,
         ]);
 
@@ -98,9 +99,14 @@ class BarangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $uuid)
     {
-        //
+        $data = [
+            'title' => 'Detail Barang',
+            'barang' => Barang::where('uuid', $uuid)->first(),
+        ];
+
+        return view('barang.detail', $data);
     }
 
     /**
@@ -142,13 +148,58 @@ class BarangController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        $barang = Barang::where('uuid', $uuid)->first();
+
+        if (!$barang) {
+            emotify('error', 'Barang tidak ditemukan');
+            return redirect()->back();
+        }
+
+        $randomName = $barang->foto;
+        if ($request->hasFile('foto')) {
+            if ($barang->foto && $barang->foto !== 'default.jpeg') {
+                Storage::disk('public')->delete('uploads/foto_barang/' . $barang->foto);
+            }
+
+            $file = $request->file('foto');
+            $randomName = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('uploads/foto_barang', $randomName, 'public');
+        }
+
+        $barang->update([
+            'nama_barang' => $request->nama_barang,
+            'jenis_barang_id' => $request->jenis_barang_id,
+            'status' => $request->status,
+            'limit' => $request->limit,
+            'sisa_limit' => $request->limit,
+            'deskripsi' => $request->deskripsi,
+            'foto' => $randomName,
+        ]);
+
+        notify()->success('Barang Berhasil Diupdate');
+        return redirect()->back();
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $barang = Barang::where('uuid', $id)->first();
+        if ($barang) {
+            if ($barang->qr_code && $barang->qr_code !== 'default.jpeg') {
+                Storage::disk('public')->delete('uploads/qr_codes/' . $barang->qr_code);
+            }
+
+            if ($barang->foto && $barang->foto !== 'default.jpeg') {
+                Storage::disk('public')->delete('uploads/foto_barang/' . $barang->foto);
+            }
+
+            $barang->delete();
+            notify()->success('Barang Berhasil Dihapus');
+            return redirect()->back();
+        }
     }
 }
