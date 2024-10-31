@@ -13,6 +13,10 @@
     </button>
   </div>
 
+  <div class="p-3 ml-3 mr-3">
+    {{ $jenis_barang->links() }}
+  </div>
+
   <div class="flex flex-col p-3 ml-3 mr-3">
     {{-- data  --}}
     <div class="relative overflow-x-auto sm:rounded-lg border rounded-lg">
@@ -47,11 +51,7 @@
     </div>
   </div>
 
-  <div class="p-3 ml-3 mr-3">
-    {{ $jenis_barang->links() }}
-  </div>
-
-
+  {{-- modal tambah data  --}}
   <div id="create-modal" tabindex="-1" aria-hidden="true"
     class="{{ session('showModal') || $errors->any() ? 'flex' : 'hidden' }} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">

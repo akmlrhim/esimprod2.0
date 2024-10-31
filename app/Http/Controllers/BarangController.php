@@ -20,7 +20,7 @@ class BarangController extends Controller
     {
         $data = [
             'title' => 'Barang',
-            'barang' => Barang::paginate(5),
+            'barang' => Barang::cursorPaginate(5),
         ];
 
         return view('barang.index', $data);

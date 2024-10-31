@@ -17,7 +17,7 @@ class JenisBarangController extends Controller
     {
         $data = [
             'title' => 'Jenis Barang',
-            'jenis_barang' => JenisBarang::simplePaginate(5),
+            'jenis_barang' => JenisBarang::cursorPaginate(5),
         ];
         return view('jenis-barang.index', $data);
     }
