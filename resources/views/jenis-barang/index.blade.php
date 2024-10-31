@@ -36,7 +36,7 @@
                 <button type="button" data-uuid="{{ $row->uuid }}"
                   class="edit-item font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
                 <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
-                  onclick="confirmDelete('{{ route('jenis_barang.destroy', ['uuid' => $row->uuid]) }}')"
+                  onclick="confirmDelete('{{ route('jenis-barang.destroy', ['uuid' => $row->uuid]) }}')"
                   class="font-medium text-red-600 dark:text-red-500 hover:underline ml-2" type="button">
                   Delete
                 </button>
@@ -68,7 +68,7 @@
           </button>
         </div>
         <div class="p-4">
-          <form action="{{ route('jenis_barang.store') }}" method="POST">
+          <form action="{{ route('jenis-barang.store') }}" method="POST">
             @csrf
             <div class="space-y-4">
               <div>
@@ -232,7 +232,7 @@
       });
 
       function fetchItemData(uuid) {
-        fetch(`/jenis_barang/edit/${uuid}`)
+        fetch(`/jenis-barang/edit/${uuid}`)
           .then(response => response.json())
           .then(data => {
             document.getElementById('jenis_barang_uuid').value = uuid;
@@ -248,7 +248,7 @@
         const formData = new FormData(form);
         const uuid = form['jenis_barang_uuid'].value;
 
-        fetch(`/jenis_barang/update/${uuid}`, {
+        fetch(`/jenis-barang/update/${uuid}`, {
             method: 'POST',
             body: formData,
             headers: {

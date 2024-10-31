@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\JenisBarang;
+use Barryvdh\DomPDF\Facade\Pdf as Pdf;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Expr\FuncCall;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class BarangController extends Controller
@@ -158,7 +162,7 @@ class BarangController extends Controller
 
         $randomName = $barang->foto;
         if ($request->hasFile('foto')) {
-            if ($barang->foto && $barang->foto !== 'default.jpeg') {
+            if ($barang->foto && $barang->foto !== 'default.jpg') {
                 Storage::disk('public')->delete('uploads/foto_barang/' . $barang->foto);
             }
 
@@ -189,7 +193,7 @@ class BarangController extends Controller
     {
         $barang = Barang::where('uuid', $id)->first();
         if ($barang) {
-            if ($barang->qr_code && $barang->qr_code !== 'default.jpeg') {
+            if ($barang->qr_code) {
                 Storage::disk('public')->delete('uploads/qr_codes/' . $barang->qr_code);
             }
 
@@ -201,5 +205,49 @@ class BarangController extends Controller
             notify()->success('Barang Berhasil Dihapus');
             return redirect()->back();
         }
+    }
+
+    public function resetLimit(string $uuid)
+    {
+        $barang = Barang::where('uuid', $uuid)->first();
+        if ($barang) {
+            if ($barang->sisa_limit == $barang->limit) {
+                notify()->warning('Barang sudah direset sebelumnya');
+                return redirect()->back();
+            }
+
+            $barang->update([
+                'sisa_limit' => $barang->limit
+            ]);
+            notify()->success('Limit Berhasil Direset');
+            return redirect()->back();
+        }
+    }
+
+
+    public function printBarang()
+    {
+        $data['barang'] = Barang::all();
+
+        if ($data['barang']->isEmpty()) {
+            emotify('error', 'Barang tidak ditemukan');
+            return redirect()->back();
+        }
+
+        $pdf = Pdf::loadView('barang.barang_pdf', $data)->setPaper('a4', 'potrait');
+        return $pdf->download('Barang-' . time() . '.pdf');
+    }
+
+    public function printQrCode()
+    {
+        $data['barang'] = Barang::all();
+
+        if ($data['barang']->isEmpty()) {
+            emotify('error', 'Barang tidak ditemukan');
+            return redirect()->back();
+        }
+
+        $pdf = Pdf::loadView('barang.qrcode_pdf', $data)->setPaper('a4', 'potrait');
+        return $pdf->download('QRCode-Barang-' . time() . '.pdf');
     }
 }

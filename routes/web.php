@@ -25,12 +25,15 @@ Route::prefix('barang')->group(function () {
     Route::get('/detail/{uuid}', [BarangController::class, 'show'])->name('barang.show');
     Route::put('/update/{uuid}', [BarangController::class, 'update'])->name('barang.update');
     Route::delete('/destroy/{uuid}', [BarangController::class, 'destroy'])->name('barang.destroy');
+    Route::put('reset-limit/{uuid}', [BarangController::class, 'resetLimit'])->name('barang.reset-limit');
+    Route::get('/print-barang', [BarangController::class, 'printBarang'])->name('barang.print-barang');
+    Route::get('/print-qrcode', [BarangController::class, 'printQrCode'])->name('barang.print-qrcode');
 });
 
-Route::prefix('jenis_barang')->group(function () {
-    Route::get('/', [JenisBarangController::class, 'index'])->name('jenis_barang.index');
-    Route::post('/store', [JenisBarangController::class, 'store'])->name('jenis_barang.store');
-    Route::get('/edit/{uuid}', [JenisBarangController::class, 'edit'])->name('jenis_barang.edit');
-    Route::put('/update/{uuid}', [JenisBarangController::class, 'update'])->name('jenis_barang.update');
-    Route::delete('/destroy/{uuid}', [JenisBarangController::class, 'destroy'])->name('jenis_barang.destroy');
+Route::prefix('jenis-barang')->group(function () {
+    Route::get('/', [JenisBarangController::class, 'index'])->name('jenis-barang.index');
+    Route::post('/store', [JenisBarangController::class, 'store'])->name('jenis-barang.store');
+    Route::get('/edit/{uuid}', [JenisBarangController::class, 'edit'])->name('jenis-barang.edit');
+    Route::put('/update/{uuid}', [JenisBarangController::class, 'update'])->name('jenis-barang.update');
+    Route::delete('/destroy/{uuid}', [JenisBarangController::class, 'destroy'])->name('jenis-barang.destroy');
 });

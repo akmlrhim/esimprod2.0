@@ -53,8 +53,6 @@
       </div>
 
       <div class="mt-8 order-first lg:order-none">
-        {{-- <img class="w-full rounded-lg shadow-lg" src="{{ asset('storage/uploads/foto_barang/' . $barang->foto) }}"
-          alt="Barang Image"> --}}
         <img class="w-3/4 h-auto rounded-lg shadow-lg mx-auto"
           src="{{ asset('storage/uploads/foto_barang/' . $barang->foto) }}" alt="Image Description" />
       </div>

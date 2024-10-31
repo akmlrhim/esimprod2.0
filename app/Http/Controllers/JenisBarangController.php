@@ -13,14 +13,14 @@ class JenisBarangController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         $data = [
             'title' => 'Jenis Barang',
             'jenis_barang' => JenisBarang::all(),
         ];
 
-        return view('jenis_barang.index', $data);
+        return view('jenis-barang.index', $data);
     }
 
     /**
@@ -55,7 +55,7 @@ class JenisBarangController extends Controller
         ]);
 
         notify()->success('Data Berhasil Disimpan');
-        return redirect()->route('jenis_barang.index');
+        return redirect()->route('jenis-barang.index');
     }
 
 
@@ -109,6 +109,6 @@ class JenisBarangController extends Controller
         JenisBarang::where('uuid', $uuid)->delete();
 
         notify()->success('Data Berhasil Dihapus');
-        return redirect()->route('jenis_barang.index');
+        return redirect()->route('jenis-barang.index');
     }
 }
