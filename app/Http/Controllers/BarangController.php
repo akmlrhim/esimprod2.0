@@ -5,13 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\JenisBarang;
 use Barryvdh\DomPDF\Facade\Pdf as Pdf;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use PhpParser\Node\Expr\FuncCall;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class BarangController extends Controller
@@ -23,7 +20,7 @@ class BarangController extends Controller
     {
         $data = [
             'title' => 'Barang',
-            'barang' => Barang::all(),
+            'barang' => Barang::paginate(5),
         ];
 
         return view('barang.index', $data);
@@ -79,7 +76,7 @@ class BarangController extends Controller
             $file->storeAs('uploads/foto_barang', $randomName, 'public');
             $data['foto'] = $randomName;
         } else {
-            $data['foto'] = 'default.jpeg';
+            $data['foto'] = 'default.jpg';
         }
 
         Barang::create([
