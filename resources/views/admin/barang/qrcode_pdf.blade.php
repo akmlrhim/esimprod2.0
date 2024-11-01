@@ -5,7 +5,7 @@
   <title>QR Code Barang</title>
   <style>
     body {
-      font-family: 'Times New Roman', Times, serif;
+      font-family: 'Arial', sans-serif;
       margin: 20px;
     }
 

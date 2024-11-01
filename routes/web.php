@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PerawatanController;
 use App\Http\Controllers\JenisBarangController;
-use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -36,4 +37,8 @@ Route::prefix('jenis-barang')->group(function () {
     Route::get('/edit/{uuid}', [JenisBarangController::class, 'edit'])->name('jenis-barang.edit');
     Route::put('/update/{uuid}', [JenisBarangController::class, 'update'])->name('jenis-barang.update');
     Route::delete('/destroy/{uuid}', [JenisBarangController::class, 'destroy'])->name('jenis-barang.destroy');
+});
+
+Route::prefix('perawatan')->group(function () {
+    Route::get('/', [PerawatanController::class, 'index'])->name('perawatan.index');
 });

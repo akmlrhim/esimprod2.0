@@ -48,8 +48,6 @@
     </div>
   </div>
 
-
-
   @yield('scripts')
 
   <script>
@@ -60,7 +58,7 @@
       loader.addEventListener("transitionend", function() {
         loader.style.display = "none";
       });
-    }, 1500);
+    }, 1000);
   </script>
 
 </body>
