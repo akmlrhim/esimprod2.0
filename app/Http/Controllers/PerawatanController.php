@@ -17,7 +17,7 @@ class PerawatanController extends Controller
             'perawatan' => Barang::where('status', 'Tidak Tersedia')->simplePaginate(5),
         ];
 
-        return view('perawatan.index', $data);
+        return view('admin.perawatan.index', $data);
     }
 
     /**

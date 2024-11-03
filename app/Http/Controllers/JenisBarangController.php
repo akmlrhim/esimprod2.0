@@ -19,7 +19,7 @@ class JenisBarangController extends Controller
             'title' => 'Jenis Barang',
             'jenis_barang' => JenisBarang::cursorPaginate(5),
         ];
-        return view('jenis-barang.index', $data);
+        return view('admin.jenis-barang.index', $data);
     }
 
     /**
@@ -54,7 +54,7 @@ class JenisBarangController extends Controller
         ]);
 
         notify()->success('Data Berhasil Disimpan');
-        return redirect()->route('jenis-barang.index');
+        return redirect()->route('admin.jenis-barang.index');
     }
 
 
@@ -108,6 +108,6 @@ class JenisBarangController extends Controller
         JenisBarang::where('uuid', $uuid)->delete();
 
         notify()->success('Data Berhasil Dihapus');
-        return redirect()->route('jenis-barang.index');
+        return redirect()->route('admin.jenis-barang.index');
     }
 }

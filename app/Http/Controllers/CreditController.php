@@ -22,7 +22,7 @@ class CreditController extends Controller
             'credit' => $this->creditModel->all(),
             'title' => 'Credit',
         ];
-        return view('credit.index', $data);
+        return view('admin.credit.index', $data);
     }
 
     public function edit($uuid)
@@ -79,6 +79,6 @@ class CreditController extends Controller
             'title' => 'Guidebook',
             'fileUrl' => $credit->guidebook ? asset('storage/uploads/guidebooks/' . $credit->guidebook) : null
         ];
-        return view('credit.guidebook', $data);
+        return view('admin.credit.guidebook', $data);
     }
 }

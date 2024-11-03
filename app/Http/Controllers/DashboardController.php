@@ -13,6 +13,6 @@ class DashboardController extends Controller
             'title' => 'Dashboard',
             'barang' => Barang::count()
         ];
-        return view('dashboard.index', $data);
+        return view('admin.dashboard.index', $data);
     }
 }

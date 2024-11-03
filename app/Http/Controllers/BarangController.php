@@ -20,10 +20,10 @@ class BarangController extends Controller
     {
         $data = [
             'title' => 'Barang',
-            'barang' => Barang::cursorPaginate(5),
+            'barang' => Barang::simplePaginate(5),
         ];
 
-        return view('barang.index', $data);
+        return view('admin.barang.index', $data);
     }
 
     /**
@@ -36,7 +36,7 @@ class BarangController extends Controller
             'jenis_barang' => JenisBarang::all()
         ];
 
-        return view('barang.create', $data);
+        return view('admin.barang.create', $data);
     }
 
     /**
@@ -107,7 +107,7 @@ class BarangController extends Controller
             'barang' => Barang::where('uuid', $uuid)->first(),
         ];
 
-        return view('barang.detail', $data);
+        return view('admin.barang.detail', $data);
     }
 
     /**
@@ -121,7 +121,7 @@ class BarangController extends Controller
             'jenis_barang' => JenisBarang::all()
         ];
 
-        return view('barang.edit', $data);
+        return view('admin.barang.edit', $data);
     }
 
     /**
@@ -246,5 +246,33 @@ class BarangController extends Controller
 
         $pdf = Pdf::loadView('barang.qrcode_pdf', $data)->setPaper('a4', 'potrait');
         return $pdf->download('QRCode-Barang-' . time() . '.pdf');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $barang = Barang::where('nama_barang', 'like', '%' . $search . '%')
+            ->orWhereHas('jenisBarang', function ($q) use ($search) {
+                $q->where('jenis_barang', 'like', '%' . $search . '%');
+            })->simplePaginate(5);
+
+        $data = [
+            'title' => 'Barang',
+            'barang' => $barang
+        ];
+
+        return view('admin.barang.index', $data);
+    }
+
+    public function jenisBarang(JenisBarang $jenisBarang)
+    {
+        $barang = $jenisBarang->barang()->with('jenisBarang')->simplePaginate(5);
+
+        $data = [
+            'title' => $jenisBarang->jenis_barang . ' - Barang',
+            'barang' => $barang
+        ];
+        return view('admin.barang.index', $data);
     }
 }
