@@ -23,14 +23,14 @@ Route::prefix('barang')->group(function () {
     Route::get('/create', [BarangController::class, 'create'])->name('barang.create');
     Route::post('/store', [BarangController::class, 'store'])->name('barang.store');
     Route::get('/edit/{uuid}', [BarangController::class, 'edit'])->name('barang.edit');
-    Route::get('/detail/{uuid}', [BarangController::class, 'show'])->name('barang.show');
+    Route::get('/{uuid}', [BarangController::class, 'show'])->name('barang.show');
     Route::put('/update/{uuid}', [BarangController::class, 'update'])->name('barang.update');
     Route::delete('/destroy/{uuid}', [BarangController::class, 'destroy'])->name('barang.destroy');
     Route::put('reset-limit/{uuid}', [BarangController::class, 'resetLimit'])->name('barang.reset-limit');
     Route::get('/print-barang', [BarangController::class, 'printBarang'])->name('barang.print-barang');
     Route::get('/print-qrcode', [BarangController::class, 'printQrCode'])->name('barang.print-qrcode');
     Route::get('/q', [BarangController::class, 'search'])->name('barang.search');
-    Route::get('jenis-barang/{jenisBarang:kode_jenis_barang}', [BarangController::class, 'jenisBarang'])->name('barang.jenis-barang');
+    Route::get('jenis-barang/{jenisBarang:uuid}', [BarangController::class, 'jenisBarang'])->name('barang.jenis-barang');
 });
 
 Route::prefix('jenis-barang')->group(function () {

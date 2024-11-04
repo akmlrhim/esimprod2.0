@@ -38,7 +38,7 @@
         <ul role="list" class="space-y-2 text-gray-500 dark:text-gray-400">
           <li class="flex space-x-2 rtl:space-x-reverse items-center">
             <i class="fa-brands fa-codepen text-sm"></i>
-            <span class="leading-tight font-bold">Kode Barang : </span><span> {{ $barang->uuid }}</span>
+            <span class="leading-tight font-bold">Kode Barang : </span><span> {{ $barang->kode_barang }}</span>
           </li>
           <li class="flex space-x-2 rtl:space-x-reverse items-center">
             <i class="fa-solid fa-arrows-up-to-line text-sm"></i>

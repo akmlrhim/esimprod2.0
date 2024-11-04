@@ -65,8 +65,9 @@ class BarangController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $uuid = Str::random(10);
-        $qrCode = QrCode::format('png')->size(200)->generate($uuid);
+        $uuid = Str::random(16);
+        $kode_barang = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 12);
+        $qrCode = QrCode::format('png')->size(200)->generate($kode_barang);
         $qrCodeFileName = time() . '_qr.png';
         Storage::disk('public')->put('uploads/qr_codes/' . $qrCodeFileName, $qrCode);
 
@@ -81,6 +82,7 @@ class BarangController extends Controller
 
         Barang::create([
             'uuid' => $uuid,
+            'kode_barang' => $kode_barang,
             'nama_barang' => $request->nama_barang,
             'jenis_barang_id' => $request->jenis_barang_id,
             'status' => $request->status,
@@ -186,9 +188,9 @@ class BarangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $uuid)
     {
-        $barang = Barang::where('uuid', $id)->first();
+        $barang = Barang::where('uuid', $uuid)->first();
         if ($barang) {
             if ($barang->qr_code) {
                 Storage::disk('public')->delete('uploads/qr_codes/' . $barang->qr_code);
@@ -270,7 +272,7 @@ class BarangController extends Controller
         $barang = $jenisBarang->barang()->with('jenisBarang')->simplePaginate(5);
 
         $data = [
-            'title' => $jenisBarang->jenis_barang . ' - Barang',
+            'title' => 'Jenis Barang : ' . $jenisBarang->jenis_barang,
             'barang' => $barang
         ];
         return view('admin.barang.index', $data);

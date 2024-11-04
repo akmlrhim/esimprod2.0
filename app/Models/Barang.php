@@ -14,6 +14,7 @@ class Barang extends Model
 
     protected $fillable = [
         'uuid',
+        'kode_barang',
         'nama_barang',
         'jenis_barang_id',
         'status',

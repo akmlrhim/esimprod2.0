@@ -2,8 +2,8 @@
 @section('content')
   <div class="flex items-center justify-between p-3 ml-3 mr-3">
     <button id="dropdownRightButton" data-dropdown-toggle="dropdownRight" data-dropdown-placement="right"
-      class="md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      type="button" title="Menu"><i class="fa solid fa-gear"></i>
+      class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+      type="button" title="Menu"><i class="fa solid fa-gear mr-2"></i> Opsi
     </button>
 
     <div id="dropdownRight" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
@@ -84,7 +84,7 @@
             <img class="w-full rounded-md h-48 object-cover mx-auto"
               src="{{ asset('storage/uploads/foto_barang/' . $b->foto) }}" alt="Image Description" />
           </a>
-          <a href="{{ route('barang.jenis-barang', $b->jenisBarang->kode_jenis_barang) }}"
+          <a href="{{ route('barang.jenis-barang', $b->jenisBarang->uuid) }}"
             class="absolute top-3 left-3 bg-tvri_base_color text-white text-xs font-semibold px-2 py-0.5 rounded-full">
             {{ $b->jenisBarang->jenis_barang }}
           </a>

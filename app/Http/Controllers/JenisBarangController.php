@@ -17,7 +17,7 @@ class JenisBarangController extends Controller
     {
         $data = [
             'title' => 'Jenis Barang',
-            'jenis_barang' => JenisBarang::cursorPaginate(5),
+            'jenis_barang' => JenisBarang::cursorPaginate(10),
         ];
         return view('admin.jenis-barang.index', $data);
     }
@@ -54,7 +54,7 @@ class JenisBarangController extends Controller
         ]);
 
         notify()->success('Data Berhasil Disimpan');
-        return redirect()->route('admin.jenis-barang.index');
+        return redirect()->route('jenis-barang.index');
     }
 
 
