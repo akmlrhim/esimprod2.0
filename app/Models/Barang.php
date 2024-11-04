@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Barang extends Model
 {
     use HasFactory;
     protected $table = 'barang';
-    protected $with = ['jenisBarang'];
+    protected $with = ['jenisBarang', 'peminjaman', 'perawatan'];
 
     protected $fillable = [
         'uuid',
@@ -28,5 +29,15 @@ class Barang extends Model
     public function jenisBarang(): BelongsTo
     {
         return $this->belongsTo(JenisBarang::class, 'jenis_barang_id', 'kode_jenis_barang');
+    }
+
+    public function peminjaman(): HasMany
+    {
+        return $this->hasMany(Peminjaman::class, 'kode_barang', 'kode_barang');
+    }
+
+    public function perawatan(): HasMany
+    {
+        return $this->hasMany(Perawatan::class, 'kode_barang', 'kode_barang');
     }
 }
