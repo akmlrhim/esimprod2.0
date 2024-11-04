@@ -1,5 +1,7 @@
 @extends('layouts.user.master')
 
+@section('title', 'Pengembalian')
+
 @section('content')
 
 {{-- breadcrumb --}}

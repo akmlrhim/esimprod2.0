@@ -45,7 +45,7 @@ Route::get('/pengembalian', function () {
 });
 
 Route::get('/login', function () {
-    return view('auth.index');
+    return view('auth');
 });
 
 Route::get('/laporan', function () {

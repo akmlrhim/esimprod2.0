@@ -16,21 +16,32 @@
     padding: 10px;
   }
 
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Pushes h1 and logo to opposite ends */
+    /* border-bottom: 2px solid #dd3333;
+            padding-bottom: 10px; */
+  }
+
   h1 {
-    text-align: left;
+    margin: 0;
+    /* font-size: 24px; */
+  }
+
+  /* Style for the logo */
+  .logo {
+    width: 100px;
+    /* Adjust the width as needed */
+    height: auto;
   }
 
   .info-section {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* gap: 10px; */
     margin-top: 20px;
     margin-bottom: 20px;
-  }
-
-  .info-section .item {
-    /* border: 1px solid #d3d3d3; */
-    padding: none;
   }
 
   table {
@@ -46,7 +57,7 @@
   }
 
   table th {
-    background-color: #1b75bb;
+    background-color: #3251ad;
     color: white;
   }
 
@@ -56,7 +67,7 @@
   }
 
   .btn {
-    background-color: #00a2e8;
+    background-color: #1e3164;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -66,15 +77,21 @@
   }
 
   .btn:hover {
-    background-color: #007bb8;
+    transition-duration: 0.5s;
+    background-color: #3251ad;
   }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>Daftar Barang Pinjam</h1>
-    <p><strong>No Peminjaman:</strong> 2023-10-0007</p>
+    <!-- Header section with h1 and logo aligned -->
+    <div class="header">
+      <h1>Daftar Barang Pinjam</h1>
+      <img src="img/assets/esimprod_logo.png" alt="Logo" class="logo">
+    </div>
+
+    <h3 style="font-weight: normal;"><strong>No Peminjaman:</strong> 2023-10-0007</h3>
     <p><strong>Waktu Peminjaman:</strong> 10 Oktober 2023, 19:23 WITA</p>
 
     <div class="info-section">
@@ -93,7 +110,7 @@
       <div class="item">
         <p><strong>Code:</strong> PMB0001</p>
         <p><strong>QR Pengembalian:</strong></p>
-        <img src="{{ asset('img/assets/qr-code-placeholder.svg') }}" alt="QR Code" style="width: 85px; height: 85px;">
+        <img src="img/assets/qr-code-placeholder.svg" alt="QR Code" style="width: 85px; height: 85px;">
       </div>
     </div>
 
