@@ -94,7 +94,7 @@ class BarangController extends Controller
         ]);
 
         notify()->success('Barang Berhasil Ditambahkan');
-        return redirect()->back();
+        return redirect()->route('barang.index');
     }
 
 
@@ -181,7 +181,7 @@ class BarangController extends Controller
         ]);
 
         notify()->success('Barang Berhasil Diupdate');
-        return redirect()->back();
+        return redirect()->route('barang.index');
     }
 
 
@@ -233,7 +233,7 @@ class BarangController extends Controller
             return redirect()->back();
         }
 
-        $pdf = Pdf::loadView('barang.barang_pdf', $data)->setPaper('a4', 'potrait');
+        $pdf = Pdf::loadView('admin.barang.barang_pdf', $data)->setPaper('a4', 'potrait');
         return $pdf->download('Barang-' . time() . '.pdf');
     }
 
@@ -246,7 +246,7 @@ class BarangController extends Controller
             return redirect()->back();
         }
 
-        $pdf = Pdf::loadView('barang.qrcode_pdf', $data)->setPaper('a4', 'potrait');
+        $pdf = Pdf::loadView('admin.barang.qrcode_pdf', $data)->setPaper('a4', 'potrait');
         return $pdf->download('QRCode-Barang-' . time() . '.pdf');
     }
 

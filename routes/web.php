@@ -6,7 +6,7 @@ use App\Http\Controllers\CreditController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerawatanController;
 use App\Http\Controllers\JenisBarangController;
-
+use App\Http\Controllers\PeminjamanController;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
@@ -23,7 +23,7 @@ Route::prefix('barang')->group(function () {
     Route::get('/create', [BarangController::class, 'create'])->name('barang.create');
     Route::post('/store', [BarangController::class, 'store'])->name('barang.store');
     Route::get('/edit/{uuid}', [BarangController::class, 'edit'])->name('barang.edit');
-    Route::get('/{uuid}', [BarangController::class, 'show'])->name('barang.show');
+    Route::get('/detail/{uuid}', [BarangController::class, 'show'])->name('barang.show');
     Route::put('/update/{uuid}', [BarangController::class, 'update'])->name('barang.update');
     Route::delete('/destroy/{uuid}', [BarangController::class, 'destroy'])->name('barang.destroy');
     Route::put('reset-limit/{uuid}', [BarangController::class, 'resetLimit'])->name('barang.reset-limit');
@@ -43,4 +43,8 @@ Route::prefix('jenis-barang')->group(function () {
 
 Route::prefix('perawatan')->group(function () {
     Route::get('/', [PerawatanController::class, 'index'])->name('perawatan.index');
+});
+
+Route::prefix('peminjaman')->group(function () {
+    Route::get('/', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 });

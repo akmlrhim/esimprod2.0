@@ -11,19 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengembalian', function (Blueprint $table) {
+        Schema::create('detail_peminjaman', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
-            $table->string('kode_pengembalian')->unique();
-            $table->string('kode_detail_pengembalian');
-            $table->string('kode_barang');
+            $table->string('kode_detail_peminjaman')->unique();
             $table->string('kode_peminjaman');
-            $table->date('tanggal_kembali');
-            $table->string('petugas');
-            $table->string('peminjam');
+            $table->string('kode_barang');
             $table->timestamps();
 
-            $table->foreign('kode_peminjaman')->references('kode_peminjaman')->on('peminjaman')->onDelete('cascade');
             $table->foreign('kode_barang')->references('kode_barang')->on('barang')->onDelete('cascade');
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengembalian');
+        Schema::dropIfExists('detail_peminjaman');
     }
 };

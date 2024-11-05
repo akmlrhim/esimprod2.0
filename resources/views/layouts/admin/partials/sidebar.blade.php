@@ -10,7 +10,7 @@
       </div>
 
       <li>
-        <a href="/"
+        <a href=" /"
           class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
           <i class="fa-solid fa-house"></i>
           <span class="ms-3">Dashboard</span>
@@ -39,7 +39,7 @@
       </li>
 
       <li>
-        <a href="#"
+        <a href="{{ route('peminjaman.index') }}"
           class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
           <i class="fa-solid fa-paper-plane"></i>
           <span class="ms-3">Data Peminjaman</span>
@@ -47,7 +47,7 @@
       </li>
 
       <li>
-        <a href="#"
+        <a href="{{ route('perawatan.index') }}"
           class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
           <i class="fa-solid fa-screwdriver-wrench"></i>
           <span class="ms-3">Data Perawatan</span>

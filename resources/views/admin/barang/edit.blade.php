@@ -12,7 +12,7 @@
                 <div class="flex flex-col space-y-4">
                   <div>
                     <label class="block text-sm font-bold text-black">Nama Barang</label>
-                    <input type="text" name="nama_barang"
+                    <input type="text" name="nama_barang" autocomplete="off"
                       class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       value="{{ $barang->nama_barang }}" />
                     @error('nama_barang')
@@ -56,7 +56,7 @@
                 <div class="flex flex-col space-y-4">
                   <div>
                     <label class="block text-sm font-bold text-black">Limit</label>
-                    <input type="number" name="limit" min="1"
+                    <input type="number" name="limit" min="1" autocomplete="off"
                       class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       value="{{ $barang->limit }}" />
                     @error('limit')

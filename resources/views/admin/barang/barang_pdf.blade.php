@@ -78,7 +78,7 @@
           <td class="center-text">
             <img src="{{ public_path('storage/uploads/qr_codes/' . $b->qr_code) }}" width="45px">
           </td>
-          <td class="center-text">{{ $b->uuid }}</td>
+          <td class="center-text">{{ $b->kode_barang }}</td>
           <td class="center-text">{{ $b->nama_barang }}</td>
           <td class="center-text">{{ $b->jenisBarang->jenis_barang }}</td>
         </tr>

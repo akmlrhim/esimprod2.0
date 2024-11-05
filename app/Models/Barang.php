@@ -11,7 +11,7 @@ class Barang extends Model
 {
     use HasFactory;
     protected $table = 'barang';
-    protected $with = ['jenisBarang', 'peminjaman', 'perawatan'];
+    protected $with = ['jenisBarang'];
 
     protected $fillable = [
         'uuid',

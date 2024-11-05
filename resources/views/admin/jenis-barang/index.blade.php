@@ -27,39 +27,38 @@
           <span class="font-bold">Info!</span> Tidak ada data
         </div>
       </div>
-    @else
-      <div class="flex flex-col p-3 ml-3">
-        <div class="relative overflow-x-auto sm:rounded-lg border rounded-lg">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 font-bold">
-              <tr>
-                <th scope="col" class="px-6 py-3">Kode</th>
-                <th scope="col" class="px-6 py-3">Jenis Barang</th>
-                <th scope="col" class="px-6 py-3">Action</th>
+    </div>
+  @else
+    <div class="flex flex-col p-3 ml-3">
+      <div class="relative overflow-x-auto sm:rounded-lg border rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 font-bold">
+            <tr>
+              <th scope="col" class="px-6 py-3">Kode</th>
+              <th scope="col" class="px-6 py-3">Jenis Barang</th>
+              <th scope="col" class="px-6 py-3">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($jenis_barang as $row)
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {{ $row->kode_jenis_barang }}
+                </th>
+                <td class="px-6 py-4">{{ $row->jenis_barang }}</td>
+                <td class="flex items-center px-6 py-4">
+                  <button type="button" data-uuid="{{ $row->uuid }}"
+                    class="edit-item font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
+                  <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
+                    onclick="confirmDelete('{{ route('jenis-barang.destroy', ['uuid' => $row->uuid]) }}')"
+                    class="font-medium text-red-600 dark:text-red-500 hover:underline ml-2" type="button">
+                    Delete
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              @foreach ($jenis_barang as $row)
-                <tr
-                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ $row->kode_jenis_barang }}
-                  </th>
-                  <td class="px-6 py-4">{{ $row->jenis_barang }}</td>
-                  <td class="flex items-center px-6 py-4">
-                    <button type="button" data-uuid="{{ $row->uuid }}"
-                      class="edit-item font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
-                    <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
-                      onclick="confirmDelete('{{ route('jenis-barang.destroy', ['uuid' => $row->uuid]) }}')"
-                      class="font-medium text-red-600 dark:text-red-500 hover:underline ml-2" type="button">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
+            @endforeach
+          </tbody>
+        </table>
       </div>
     </div>
   @endif
@@ -89,7 +88,7 @@
             <div class="space-y-4">
               <div>
                 <label for="uuid" class="block text-sm font-medium text-gray-900">Kode Barang</label>
-                <input type="text" name="kode_jenis_barang" id="kode_jenis_barang"
+                <input type="text" name="kode_jenis_barang" id="kode_jenis_barang" autocomplete="off"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2" />
                 @error('kode_jenis_barang')
                   <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
@@ -98,7 +97,7 @@
 
               <div>
                 <label for="jenis_barang" class="block text-sm font-medium text-gray-900">Jenis Barang</label>
-                <input type="text" name="jenis_barang" id="jenis_barang"
+                <input type="text" name="jenis_barang" id="jenis_barang" autocomplete="off"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2" />
                 @error('jenis_barang')
                   <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
@@ -137,14 +136,14 @@
             <div class="space-y-4">
               <div>
                 <label for="uuid" class="block text-sm font-medium text-gray-900">Kode Barang</label>
-                <input type="text" name="kode_jenis_barang" id="kode_jenis_barang"
+                <input type="text" name="kode_jenis_barang" id="kode_jenis_barang" autocomplete="off"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2">
                 <div class="text-red-500 text-sm mt-1" id="error-kode_jenis_barang"></div>
               </div>
 
               <div>
                 <label for="jenis_barang" class="block text-sm font-medium text-gray-900">Jenis Barang</label>
-                <input type="text" name="jenis_barang" id="jenis_barang"
+                <input type="text" name="jenis_barang" id="jenis_barang" autocomplete="off"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2">
                 <div class="text-red-500 text-sm mt-1" id="error-jenis_barang"></div>
               </div>
