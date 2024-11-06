@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\JenisBarang;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;

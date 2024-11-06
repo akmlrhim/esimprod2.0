@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BarangController;
-use App\Http\Controllers\CreditController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PerawatanController;
-use App\Http\Controllers\JenisBarangController;
-use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\Admin\BarangController;
+use App\Http\Controllers\Admin\CreditController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PerawatanController;
+use App\Http\Controllers\Admin\JenisBarangController;
+use App\Http\Controllers\Admin\PeminjamanController;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 

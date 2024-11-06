@@ -1,17 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 
-class PengembalianController extends Controller
+class PeminjamanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $data = [
+            'title' => 'Peminjaman',
+            'peminjaman' => Peminjaman::simplePaginate(10),
+        ];
+
+        return view('admin.peminjaman.index', $data);
     }
 
     /**
