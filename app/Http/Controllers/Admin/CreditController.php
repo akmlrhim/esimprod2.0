@@ -10,17 +10,10 @@ use Illuminate\Support\Facades\Validator;
 
 class CreditController extends Controller
 {
-    protected $creditModel;
-
-    public function __construct()
-    {
-        $this->creditModel = new Credit();
-    }
-
     public function index()
     {
         $data = [
-            'credit' => $this->creditModel->all(),
+            'credit' => Credit::all(),
             'title' => 'Credit',
         ];
         return view('admin.credit.index', $data);
@@ -28,7 +21,7 @@ class CreditController extends Controller
 
     public function edit($uuid)
     {
-        $credit = $this->creditModel->where('uuid', $uuid)->firstOrFail();
+        $credit = Credit::where('uuid', $uuid)->firstOrFail();
         return response()->json($credit);
     }
 
@@ -66,7 +59,7 @@ class CreditController extends Controller
             $data['guidebook'] = $randomName;
         }
 
-        $this->creditModel->where('uuid', $uuid)->update($data);
+        Credit::where('uuid', $uuid)->update($data);
         notify()->success('Data Berhasil Diperbarui');
         return response()->json(['success' => true]);
     }
@@ -74,7 +67,7 @@ class CreditController extends Controller
 
     public function guidebook($uuid)
     {
-        $credit = $this->creditModel->where('uuid', $uuid)->firstOrFail();
+        $credit = Credit::where('uuid', $uuid)->firstOrFail();
 
         $data = [
             'title' => 'Guidebook',
