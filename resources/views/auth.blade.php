@@ -21,7 +21,7 @@
       <div class="input-container">
         <input type="text" class="right-container__input" placeholder="" autofocus>
       </div>
-      <button class="btn">MASUK</button>
+      <button class="btn">Masuk</button>
     </div>
   </div>
 </body>

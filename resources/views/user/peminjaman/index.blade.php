@@ -127,7 +127,7 @@
               <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                 <div class="flex items-center h-5">
                   <input id="helper-radio-4" name="helper-radio" type="radio" value=""
-                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    class="w-4 h-4 text-blue-900 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                 </div>
                 <div class="ms-2 text-sm">
                   <label for="helper-radio-4" class="font-medium text-gray-900 dark:text-gray-300">
@@ -180,11 +180,9 @@
 
 {{-- ? --}}
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
-
   <!-- Added mt-4 here -->
   <div
     class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
-
   </div>
   <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -287,5 +285,14 @@
     class="text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Simpan</button>
 </div>
 
+
+<script>
+// Set the minimum date for both start and end date inputs
+document.addEventListener("DOMContentLoaded", function() {
+  var today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+  document.getElementById("datepicker-range-start").setAttribute("min", today);
+  document.getElementById("datepicker-range-end").setAttribute("min", today);
+});
+</script>
 
 @endsection

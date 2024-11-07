@@ -29,7 +29,7 @@ body {
 }
 
 .left-container {
-  background-image: url(background.png);
+  background-image: url(/img/background.png);
   background-position: left;
   background-size: cover;
   background-repeat: no-repeat;
@@ -60,6 +60,7 @@ body {
   margin-top: 10px; /* Adjusted margin */
   font-size: 16px; /* Adjusted font size */
   color: #0F123B; /* Adjusted text color */
+  margin-bottom: 30px;
 }
 
 .right-container__input {
@@ -125,7 +126,7 @@ body {
   background-color: #0F123B; /* Adjusted background color */
   border: none; /* Removed border */
   width: 300px; /* Adjusted button width */
-  padding: 15px; /* Adjusted padding */
+  padding: 13px; /* Adjusted padding */
   border-radius: 5px; /* Adjusted border-radius */
   color: #fff;
   font-size: 16px;

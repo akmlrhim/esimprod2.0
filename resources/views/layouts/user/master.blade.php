@@ -19,7 +19,7 @@
   </head>
 </head>
 
-<body class="bg-gray-50 dark:bg-neutral-900">
+<body class="bg-gray-50 dark:bg-neutral-900 flex flex-col min-h-screen">
 
   @include('layouts.user.partials.navbar')
 

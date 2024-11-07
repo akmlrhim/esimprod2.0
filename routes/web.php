@@ -51,3 +51,7 @@ Route::get('/login', function () {
 Route::get('/laporan', function () {
     return view('user.laporan.index');
 });
+
+Route::get('/opsi', function () {
+    return view('options');
+});
