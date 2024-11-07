@@ -18,7 +18,7 @@ class JenisBarangController extends Controller
     {
         $data = [
             'title' => 'Jenis Barang',
-            'jenis_barang' => JenisBarang::cursorPaginate(10),
+            'jenis_barang' => JenisBarang::simplePaginate(5),
         ];
         return view('admin.jenis-barang.index', $data);
     }
@@ -34,7 +34,7 @@ class JenisBarangController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kode_jenis_barang' => 'required|string|unique:jenis_barang,kode_jenis_barang', // Pastikan ini menggunakan nama kolom yang benar
+            'kode_jenis_barang' => 'required|string|unique:jenis_barang,kode_jenis_barang',
             'jenis_barang' => 'required|string|unique:jenis_barang,jenis_barang',
         ], [
             'kode_jenis_barang.required' => 'Kode Barang harus diisi',

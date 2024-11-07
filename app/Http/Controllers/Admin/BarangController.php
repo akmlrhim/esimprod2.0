@@ -22,6 +22,7 @@ class BarangController extends Controller
         $data = [
             'title' => 'Barang',
             'barang' => Barang::simplePaginate(5),
+            'count' => Barang::count()
         ];
 
         return view('admin.barang.index', $data);
@@ -203,7 +204,7 @@ class BarangController extends Controller
 
             $barang->delete();
             notify()->success('Barang Berhasil Dihapus');
-            return redirect()->back();
+            return redirect()->route('barang.index');
         }
     }
 
@@ -262,7 +263,8 @@ class BarangController extends Controller
 
         $data = [
             'title' => 'Barang',
-            'barang' => $barang
+            'barang' => $barang,
+            'count' => Barang::count()
         ];
 
         return view('admin.barang.index', $data);

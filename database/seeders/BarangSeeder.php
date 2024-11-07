@@ -18,7 +18,7 @@ class BarangSeeder extends Seeder
             'uuid' => Str::random(12),
             'kode_barang' => 'B6A8IX20P13D',
             'nama_barang' => 'Canon EOS 6D',
-            'jenis_barang' => 'JBR-001',
+            'jenis_barang_id' => 'JBR-001',
             'status' => 'Tersedia',
             'deskripsi' => null,
             'qr_code' => '1730858574_qr.png',
@@ -31,9 +31,9 @@ class BarangSeeder extends Seeder
 
         Barang::create([
             'uuid' => Str::random(12),
-            'kode_barang' => 'B6A8IX20P13D',
+            'kode_barang' => 'B6A8IX20P13H',
             'nama_barang' => 'Nikon D800E',
-            'jenis_barang' => 'JBR-001',
+            'jenis_barang_id' => 'JBR-001',
             'status' => 'Tersedia',
             'deskripsi' => null,
             'qr_code' => '1730858608_qr.png',

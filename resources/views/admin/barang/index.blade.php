@@ -55,14 +55,14 @@
     </button>
   </form>
 
-
-  <div class="p-3 ml-3 mr-3">
-    {{ $barang->links() }}
-  </div>
-
+  @if ($count > 5)
+    <div class="p-3 ml-3 mr-3">
+      {{ $barang->links() }}
+    </div>
+  @endif
 
   @if ($barang->isEmpty())
-    <div class="flex flex-col p-3 ml-3 sm:ml-2">
+    <div class="flex flex-col p-3 ml-3 justify-center items-center">
       <div class="flex items-center p-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
         role="alert">
         <i class="fa-solid fa-circle-info mr-3"></i>

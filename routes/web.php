@@ -31,7 +31,7 @@ Route::prefix('barang')->group(function () {
     Route::put('reset-limit/{uuid}', [BarangController::class, 'resetLimit'])->name('barang.reset-limit');
     Route::get('/print-barang', [BarangController::class, 'printBarang'])->name('barang.print-barang');
     Route::get('/print-qrcode', [BarangController::class, 'printQrCode'])->name('barang.print-qrcode');
-    Route::get('/q', [BarangController::class, 'search'])->name('barang.search');
+    Route::get('/result', [BarangController::class, 'search'])->name('barang.search');
     Route::get('jenis-barang/{jenisBarang:uuid}', [BarangController::class, 'jenisBarang'])->name('barang.jenis-barang');
 });
 
