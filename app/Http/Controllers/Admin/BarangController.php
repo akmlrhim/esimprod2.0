@@ -97,8 +97,6 @@ class BarangController extends Controller
         return redirect()->route('barang.index');
     }
 
-
-
     /**
      * Display the specified resource.
      */

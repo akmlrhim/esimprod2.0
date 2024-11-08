@@ -1,64 +1,84 @@
 @extends('layouts.admin.main')
 @section('content')
-  <div class="-m-1.5 overflow-x-auto ml-5 mr-3">
-    <div class="p-1.5 min-w-full inline-block align-middle">
-      <div class="border rounded-lg shadow overflow-hidden dark:border-neutral-700">
+  <div class="-m-1.5 ml-5 mr-3 overflow-x-auto">
+    <div class="inline-block min-w-full p-1.5 align-middle">
+      <div class="overflow-hidden rounded-lg border shadow dark:border-neutral-700">
         <div class="container mx-auto p-4">
-          <form action="{{ route('perawatan.store') }}" method="POST" enctype="multipart/form-data">
+          <form
+            action="{{ route('perawatan.store') }}"
+            method="POST"
+          >
             @csrf
             <div class="grid grid-cols-1 gap-4"> <!-- Mengubah menjadi 1 kolom penuh -->
               <div class="flex flex-col space-y-4">
                 <div>
                   <label class="block text-sm font-bold text-black">Nama Barang</label>
-                  <select name="kode_barang"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">-- Pilih Barang --</option>
+                  <select
+                    name="kode_barang"
+                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                  >
+                    <option value="">Pilih Barang</option>
                     @foreach ($barang as $b)
-                      <option value="{{ $b->kode_barang }}" {{ old('kode_barang') == $b->kode_barang ? 'selected' : '' }}>
+                      <option
+                        value="{{ $b->kode_barang }}"
+                        {{ old('kode_barang') == $b->kode_barang ? 'selected' : '' }}
+                      >
                         {{ $b->kode_barang }} - {{ $b->nama_barang }}
                       </option>
                     @endforeach
                   </select>
-                  @error('jenis_barang_id')
-                    <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                  @error('kode_barang')
+                    <small class="mt-1 text-sm text-red-500"> {{ $message }}</small>
                   @enderror
                 </div>
 
                 <div>
-                  <label class="block text-sm font-bold text-black">Limit</label>
-                  <input type="number" name="limit" min="1" autocomplete="off"
-                    class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    value="{{ old('limit') }}" />
-                  @error('limit')
-                    <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                  <label class="block text-sm font-bold text-black">Jenis Perawatan</label>
+                  <select
+                    name="jenis_perawatan"
+                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                  >
+                    <option
+                      value=""
+                      {{ old('jenis_perawatan') == '' ? 'selected' : '' }}
+                    >Pilih Jenis Perawatan
+                    </option>
+                    <option
+                      value="maintenance"
+                      {{ old('jenis_perawatan') == 'maintenance' ? 'selected' : '' }}
+                    >Maintenance</option>
+                    <option
+                      value="servis-ringan"
+                      {{ old('jenis_perawatan') == 'servis-ringan' ? 'selected' : '' }}
+                    >Servis Ringan</option>
+                  </select>
+
+                  @error('jenis_perawatan')
+                    <small class="mt-1 text-sm text-red-500"> {{ $message }}</small>
                   @enderror
                 </div>
 
                 <div>
-                  <label class="block text-sm font-bold text-black">Upload Foto Barang</label>
-                  <input
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    value="{{ old('foto') }}" type="file" name="foto">
-                  @error('foto')
-                    <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                  @enderror
-                </div>
-
-                <div>
-                  <label class="block text-sm font-bold text-black">Deskripsi</label>
-                  <textarea id="message" rows="4"
-                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Tambahkan deskripsi...." name="deskripsi"></textarea>
+                  <label class="block text-sm font-bold text-black">Keterangan</label>
+                  <textarea
+                    rows="4"
+                    class="block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    placeholder="Tambahkan keterangan (opsional)...."
+                    name="keterangan"
+                  ></textarea>
                 </div>
               </div>
             </div>
 
             <div class="mt-4">
-              <a href="{{ route('barang.index') }}"
-                class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Kembali</a>
-              <button type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan
-                Data</button>
+              <a
+                href="{{ route('perawatan.index') }}"
+                class="rounded-lg bg-gray-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+              >Kembali</a>
+              <button
+                type="submit"
+                class="rounded-lg bg-blue-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >Simpan Data</button>
             </div>
           </form>
         </div>
