@@ -15,7 +15,6 @@
     name="csrf-token"
     content="{{ csrf_token() }}"
   >
-  <title>ESIMPROD - Login</title>
   <link
     rel="stylesheet"
     href="{{ asset('css/login.css') }}"
@@ -50,12 +49,20 @@
             name="kode_user"
           />
       </div>
-      </form>
       <button
-        onclick="window.location.href='{{ route('login.v2') }}'"
+        type="submit"
         class="btn"
-        style="font-size: 12px"
-      >Tidak bisa masuk menggunakan QR Code?</button>
+      >Masuk</button>
+      </form>
+
+      <br />
+      <br />
+      <br />
+
+      <button
+        onclick="window.location.href = '{{ route('login') }}'"
+        class="btn-kembali"
+      >Kembali ?</button>
     </div>
   </div>
 </body>

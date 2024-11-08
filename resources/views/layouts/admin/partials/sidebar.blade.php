@@ -1,6 +1,8 @@
-<aside id="logo-sidebar"
+<aside
+  id="logo-sidebar"
   class="fixed top-0 left-0 z-40 w-64 h-screen pt-16 transition-transform -translate-x-full bg-tvri_base_color  sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
-  aria-label="Sidebar">
+  aria-label="Sidebar"
+>
   <div class="h-full px-3 pb-4 overflow-y-auto bg-tvri_base_color dark:bg-gray-800">
     <ul class="space-y-2 font-medium font-aptos">
 
@@ -10,16 +12,20 @@
       </div>
 
       <li>
-        <a href=" /"
-          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
+        <a
+          href="{{ route('dashboard.index') }}"
+          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
+        >
           <i class="fa-solid fa-house"></i>
           <span class="ms-3">Dashboard</span>
         </a>
       </li>
 
       <li>
-        <a href="{{ route('credit.index') }}"
-          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
+        <a
+          href="{{ route('credit.index') }}"
+          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
+        >
           <i class="fa-solid fa-copyright"></i>
           <span class="ms-3">Credit</span>
         </a>
@@ -31,24 +37,30 @@
       </div>
 
       <li>
-        <a href="{{ route('barang.index') }}"
-          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-white hover:text-tvri_base_color dark:hover:bg-gray-700 group">
+        <a
+          href="{{ route('barang.index') }}"
+          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-white hover:text-tvri_base_color dark:hover:bg-gray-700 group"
+        >
           <i class="fa-solid fa-cube"></i>
           <span class="ms-3">Data Barang</span>
         </a>
       </li>
 
       <li>
-        <a href="{{ route('peminjaman.index') }}"
-          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
+        <a
+          href="{{ route('peminjaman.index') }}"
+          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
+        >
           <i class="fa-solid fa-paper-plane"></i>
           <span class="ms-3">Data Peminjaman</span>
         </a>
       </li>
 
       <li>
-        <a href="{{ route('perawatan.index') }}"
-          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
+        <a
+          href="{{ route('perawatan.index') }}"
+          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
+        >
           <i class="fa-solid fa-screwdriver-wrench"></i>
           <span class="ms-3">Data Perawatan</span>
         </a>
@@ -88,16 +100,20 @@
       </div>
 
       <li>
-        <a href="#"
-          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
+        <a
+          href="{{ route('user.index') }}"
+          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
+        >
           <i class="fa-solid fa-user"></i>
           <span class="ms-3">Data User</span>
         </a>
       </li>
 
       <li>
-        <a href="#"
-          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
+        <a
+          href="#"
+          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
+        >
           <i class="fa-solid fa-right-from-bracket"></i>
           <span class="ms-3">Logout</span>
         </a>

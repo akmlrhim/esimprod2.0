@@ -3,16 +3,24 @@
 use Illuminate\Support\Facades\Route;
 
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\Admin\CreditController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PerawatanController;
-use App\Http\Controllers\Admin\JenisBarangController;
 use App\Http\Controllers\Admin\PeminjamanController;
+use App\Http\Controllers\Admin\JenisBarangController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
+Route::prefix('/')->group(function () {
+    Route::get('/', [AuthController::class, 'index'])->name('login');
+    Route::get('/login/v2', [AuthController::class, 'indexv2'])->name('login.v2');
+    Route::get('/options', [AuthController::class, 'options'])->name('options');
+});
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
 Route::prefix('credit')->group(function () {
     Route::get('/', [CreditController::class, 'index'])->name('credit.index');
@@ -45,16 +53,18 @@ Route::prefix('jenis-barang')->group(function () {
 });
 
 Route::prefix('perawatan')->group(function () {
-    Route::get('/', [PerawatanController::class, 'index'])->name('perawatan.index');
-    Route::get('/tambah', [PerawatanController::class, 'create'])->name('perawatan.create');
-    Route::post('/store', [PerawatanController::class, 'store'])->name('perawatan.store');
-    Route::get('/edit/{uuid}', [PerawatanController::class, 'edit'])->name('perawatan.edit');
-    Route::put('/update/{uuid}', [PerawatanController::class, 'update'])->name('perawatan.update');
-    Route::delete('/destroy/{uuid}', [PerawatanController::class, 'destroy'])->name('perawatan.destroy');
-    Route::get('/barang', [PerawatanController::class, 'barangTidakTersedia'])->name('perawatan.barang');
+    Route::get('/', [PerawatanController::class, 'barangTidakTersedia'])->name('perawatan.index');
+    // Route::get('/tambah', [PerawatanController::class, 'create'])->name('perawatan.create');
+    // Route::post('/store', [PerawatanController::class, 'store'])->name('perawatan.store');
+    // Route::get('/barang', [PerawatanController::class, 'barangTidakTersedia'])->name('perawatan.barang');
     Route::get('/barang/detail/{uuid}', [PerawatanController::class, 'detailBarang'])->name('perawatan.barang.detail');
     Route::put('reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');
 });
+
+Route::prefix('user')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('user.index');
+});
+
 
 Route::prefix('peminjaman')->group(function () {
     Route::get('/', [PeminjamanController::class, 'index'])->name('peminjaman.index');

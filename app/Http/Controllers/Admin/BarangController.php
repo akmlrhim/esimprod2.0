@@ -269,7 +269,8 @@ class BarangController extends Controller
 
         $data = [
             'title' => 'Jenis Barang : ' . $jenisBarang->jenis_barang,
-            'barang' => $barang
+            'barang' => $barang,
+            'count' => $barang->count()
         ];
         return view('admin.barang.index', $data);
     }

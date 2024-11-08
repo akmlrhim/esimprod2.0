@@ -104,7 +104,7 @@ class PerawatanController extends Controller
     public function barangTidakTersedia()
     {
         $data = [
-            'title' => 'Barang Tidak Tersedia',
+            'title' => 'Perawatan',
             'barang' => Barang::where('sisa_limit', 0)->simplePaginate(10),
             'count' => Barang::where('sisa_limit', 0)->count()
         ];

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('jenis_perawatan');
             $table->string('status');
             $table->text('keterangan')->nullable();
+            $table->string('surat')->nullable();
             $table->foreign('kode_barang')->references('kode_barang')->on('barang')->onDelete('cascade');
             $table->timestamps();
         });

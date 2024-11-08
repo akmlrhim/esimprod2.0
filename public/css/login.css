@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif; /* Changed font */
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    background-color: #f7f8fa; /* Changed background */
+    color: #0f123b; /* Adjusted text color */
+
+    @media (max-width: 860px) {
+        flex-direction: column;
+    }
+}
+
+.right-container,
+.left-container {
+    flex: 1;
+    flex-shrink: 0;
+
+    @media (max-width: 860px) {
+        flex: 1 0 auto;
+    }
+}
+
+.left-container {
+    background-image: url("../img/assets/login.png");
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.right-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #fff; /* Added background color */
+    padding: 50px; /* Added padding */
+    max-width: 660px; /* Added max-width for better layout control */
+    width: 100%; /* Ensures responsiveness */
+}
+
+.right-container-box {
+    text-align: center;
+}
+
+.right-container__h2 {
+    font-size: 32px; /* Adjusted font size */
+    color: #0f123b; /* Adjusted text color */
+}
+
+.right-container__p {
+    margin-top: 10px; /* Adjusted margin */
+    font-size: 16px; /* Adjusted font size */
+    color: #0f123b; /* Adjusted text color */
+    margin-bottom: 30px;
+}
+
+.right-container__input {
+    width: 300px; /* Adjusted width */
+    padding: 10px; /* Adjusted padding */
+    border: 2px solid #d9d9d9; /* Adjusted border */
+    border-radius: 5px; /* Adjusted border-radius */
+    margin-bottom: 20px;
+    background: transparent;
+    color: #0f123b; /* Adjusted input color */
+
+    &:focus {
+        outline: none;
+        border-color: #000; /* Changes the border to black when focused */
+    }
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.toggle-container {
+    margin: 24px 0;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle-box {
+    appearance: none;
+    width: 32px;
+    height: 16px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    position: relative;
+
+    &:checked {
+        background-color: #30a2ff;
+
+        &::after {
+            transform: translateX(16px);
+            transition: 0.4s ease-in-out;
+        }
+    }
+
+    &::after {
+        position: absolute;
+        content: "";
+        top: 3px;
+        left: 3px;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        background-color: #fff;
+    }
+}
+
+.btn {
+    background-color: #0f123b; /* Adjusted background color */
+    border: none; /* Removed border */
+    width: 300px; /* Adjusted button width */
+    padding: 13px; /* Adjusted padding */
+    border-radius: 5px; /* Adjusted border-radius */
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #2d7db5; /* Adjusted hover background color */
+    }
+}
+
+.btn-kembali {
+    /* color: black;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: underline; */
+    all: unset;
+    cursor: pointer;
+    color: blue;
+
+    &:hover {
+        text-decoration: underline;
+        font-weight: bold;
+    }
+}
+
+.right-container__label {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.right-container__bottom-text {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+
+    > strong {
+        color: #fff;
+    }
+}

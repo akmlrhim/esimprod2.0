@@ -155,7 +155,7 @@
             </p>
             <p class="font-normal text-gray-700 dark:text-gray-400">
               <strong>Status : </strong>
-              @if ($b->status == 'tidak-tersedia')
+              @if ($b->sisa_limit == 0)
                 <span
                   class="bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
                 >
