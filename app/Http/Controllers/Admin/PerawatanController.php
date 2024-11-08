@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
+use App\Models\Perawatan;
 use Illuminate\Http\Request;
 
 class PerawatanController extends Controller
@@ -15,7 +16,7 @@ class PerawatanController extends Controller
     {
         $data = [
             'title' => 'Perawatan',
-            'perawatan' => Barang::where('status', 'Tidak Tersedia')->simplePaginate(5),
+            'perawatan' => Perawatan::simplePaginate(10),
         ];
 
         return view('admin.perawatan.index', $data);
@@ -26,7 +27,12 @@ class PerawatanController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'title' => 'Tambah Perawatan',
+            'barang' => Barang::where('sisa_limit', 0)->get()
+        ];
+
+        return view('admin.perawatan.create', $data);
     }
 
     /**
@@ -67,5 +73,44 @@ class PerawatanController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function barangTidakTersedia()
+    {
+        $data = [
+            'title' => 'Barang Tidak Tersedia',
+            'barang' => Barang::where('sisa_limit', 0)->simplePaginate(10),
+            'count' => Barang::where('sisa_limit', 0)->count()
+        ];
+
+        return view('admin.perawatan.barang', $data);
+    }
+
+    public function resetLimit(string $uuid)
+    {
+        $barang = Barang::where('uuid', $uuid)->first();
+        if ($barang) {
+            if ($barang->sisa_limit == $barang->limit) {
+                notify()->warning('Barang sudah direset sebelumnya');
+                return redirect()->back();
+            }
+
+            $barang->update([
+                'sisa_limit' => $barang->limit
+            ]);
+            notify()->success('Limit Berhasil Direset');
+            return redirect()->route('perawatan.index');
+        }
+    }
+
+    public function detailBarang(string $uuid)
+    {
+        $data = [
+            'title' => 'Detail Barang',
+            'barang' => Barang::where('uuid', $uuid)->first(),
+        ];
+
+        return view('admin.perawatan.detail-barang', $data);
     }
 }

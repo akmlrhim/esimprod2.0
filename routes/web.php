@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PerawatanController;
 use App\Http\Controllers\Admin\JenisBarangController;
 use App\Http\Controllers\Admin\PeminjamanController;
+use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
@@ -22,7 +23,7 @@ Route::prefix('credit')->group(function () {
 
 Route::prefix('barang')->group(function () {
     Route::get('/', [BarangController::class, 'index'])->name('barang.index');
-    Route::get('/create', [BarangController::class, 'create'])->name('barang.create');
+    Route::get('/tambah', [BarangController::class, 'create'])->name('barang.create');
     Route::post('/store', [BarangController::class, 'store'])->name('barang.store');
     Route::get('/edit/{uuid}', [BarangController::class, 'edit'])->name('barang.edit');
     Route::get('/detail/{uuid}', [BarangController::class, 'show'])->name('barang.show');
@@ -45,8 +46,20 @@ Route::prefix('jenis-barang')->group(function () {
 
 Route::prefix('perawatan')->group(function () {
     Route::get('/', [PerawatanController::class, 'index'])->name('perawatan.index');
+    Route::get('/tambah', [PerawatanController::class, 'create'])->name('perawatan.create');
+    Route::post('/store', [PerawatanController::class, 'store'])->name('perawatan.store');
+    Route::get('/edit/{uuid}', [PerawatanController::class, 'edit'])->name('perawatan.edit');
+    Route::put('/update/{uuid}', [PerawatanController::class, 'update'])->name('perawatan.update');
+    Route::delete('/destroy/{uuid}', [PerawatanController::class, 'destroy'])->name('perawatan.destroy');
+    Route::get('/barang', [PerawatanController::class, 'barangTidakTersedia'])->name('perawatan.barang');
+    Route::get('/barang/detail/{uuid}', [PerawatanController::class, 'detailBarang'])->name('perawatan.barang.detail');
+    Route::put('reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');
 });
 
 Route::prefix('peminjaman')->group(function () {
     Route::get('/', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+});
+
+Route::prefix('user/peminjaman')->group(function () {
+    Route::get('/', [PeminjamanUser::class, 'index'])->name('user.peminjaman.index');
 });

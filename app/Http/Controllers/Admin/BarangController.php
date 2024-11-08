@@ -21,7 +21,7 @@ class BarangController extends Controller
     {
         $data = [
             'title' => 'Barang',
-            'barang' => Barang::simplePaginate(5),
+            'barang' => Barang::where('sisa_limit', '>', 0)->simplePaginate(5),
             'count' => Barang::count()
         ];
 
@@ -49,14 +49,12 @@ class BarangController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_barang' => 'required',
             'jenis_barang_id' => 'required|exists:jenis_barang,kode_jenis_barang',
-            'status' => 'required',
             'limit' => 'required|numeric',
             'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         ], [
             'nama_barang.required' => 'Nama barang wajib diisi.',
             'jenis_barang_id.required' => 'Jenis Barang wajib diisi.',
             'jenis_barang_id.exists' => 'Jenis barang tidak ditemukan.',
-            'status.required' => 'Status wajib diisi.',
             'limit.required' => 'Limit wajib diisi.',
             'limit.numeric' => 'Limit harus berupa angka.',
             'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
@@ -87,7 +85,7 @@ class BarangController extends Controller
             'kode_barang' => $kode_barang,
             'nama_barang' => $request->nama_barang,
             'jenis_barang_id' => $request->jenis_barang_id,
-            'status' => $request->status,
+            'status' => $request->sisa_limit == 0 ? 'tidak-tersedia' : 'tersedia',
             'limit' => $request->limit,
             'sisa_limit' => $request->limit,
             'foto' => $data['foto'],
@@ -136,16 +134,17 @@ class BarangController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_barang' => 'required',
             'jenis_barang_id' => 'required|exists:jenis_barang,kode_jenis_barang',
-            'status' => 'required',
             'limit' => 'required|numeric',
+            'sisa_limit' => 'required|numeric',
             'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         ], [
             'nama_barang.required' => 'Nama barang wajib diisi.',
             'jenis_barang_id.required' => 'Jenis Barang wajib diisi.',
             'jenis_barang_id.exists' => 'Jenis barang tidak ditemukan.',
-            'status.required' => 'Status wajib diisi.',
             'limit.required' => 'Limit wajib diisi.',
             'limit.numeric' => 'Limit harus berupa angka.',
+            'sisa_limit.required' => 'Sisa Limit wajib diisi.',
+            'sisa_limit.numeric' => 'Sisa Limit harus berupa angka.',
             'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
             'foto.max' => 'Ukuran file maksimal adalah 2MB.',
         ]);
@@ -154,12 +153,7 @@ class BarangController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $barang = Barang::where('uuid', $uuid)->first();
-
-        if (!$barang) {
-            emotify('error', 'Barang tidak ditemukan');
-            return redirect()->back();
-        }
+        $barang = Barang::where('uuid', $uuid)->firstOrFail();
 
         $randomName = $barang->foto;
         if ($request->hasFile('foto')) {
@@ -175,9 +169,9 @@ class BarangController extends Controller
         $barang->update([
             'nama_barang' => $request->nama_barang,
             'jenis_barang_id' => $request->jenis_barang_id,
-            'status' => $request->status,
+            'status' => $request->sisa_limit == 0 ? 'tidak-tersedia' : 'tersedia',
             'limit' => $request->limit,
-            'sisa_limit' => $request->limit,
+            'sisa_limit' => $request->sisa_limit,
             'deskripsi' => $request->deskripsi,
             'foto' => $randomName,
         ]);
@@ -185,6 +179,7 @@ class BarangController extends Controller
         notify()->success('Barang Berhasil Diupdate');
         return redirect()->route('barang.index');
     }
+
 
 
     /**
@@ -208,22 +203,22 @@ class BarangController extends Controller
         }
     }
 
-    public function resetLimit(string $uuid)
-    {
-        $barang = Barang::where('uuid', $uuid)->first();
-        if ($barang) {
-            if ($barang->sisa_limit == $barang->limit) {
-                notify()->warning('Barang sudah direset sebelumnya');
-                return redirect()->back();
-            }
+    // public function resetLimit(string $uuid)
+    // {
+    //     $barang = Barang::where('uuid', $uuid)->first();
+    //     if ($barang) {
+    //         if ($barang->sisa_limit == $barang->limit) {
+    //             notify()->warning('Barang sudah direset sebelumnya');
+    //             return redirect()->back();
+    //         }
 
-            $barang->update([
-                'sisa_limit' => $barang->limit
-            ]);
-            notify()->success('Limit Berhasil Direset');
-            return redirect()->back();
-        }
-    }
+    //         $barang->update([
+    //             'sisa_limit' => $barang->limit
+    //         ]);
+    //         notify()->success('Limit Berhasil Direset');
+    //         return redirect()->route('barang.index');
+    //     }
+    // }
 
 
     public function printBarang()
@@ -232,7 +227,7 @@ class BarangController extends Controller
 
         if ($data['barang']->isEmpty()) {
             emotify('error', 'Barang tidak ditemukan');
-            return redirect()->back();
+            return redirect()->route('barang.index');
         }
 
         $pdf = Pdf::loadView('admin.barang.barang_pdf', $data)->setPaper('a4', 'potrait');
@@ -245,7 +240,7 @@ class BarangController extends Controller
 
         if ($data['barang']->isEmpty()) {
             emotify('error', 'Barang tidak ditemukan');
-            return redirect()->back();
+            return redirect()->route('barang.index');
         }
 
         $pdf = Pdf::loadView('admin.barang.qrcode_pdf', $data)->setPaper('a4', 'potrait');

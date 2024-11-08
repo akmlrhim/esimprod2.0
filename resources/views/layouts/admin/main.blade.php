@@ -30,7 +30,7 @@
 
   @include('layouts.admin.partials.sidebar')
 
-  <div class="p-4 sm:ml-64 font-aptos" id="primary-content">
+  <div class="p-4 sm:ml-64 font-sans" id="primary-content">
     @include('layouts.admin.partials.breadcrumb')
     @yield('content')
     <x-notify::notify />

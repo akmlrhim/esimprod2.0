@@ -1,33 +1,21 @@
 @extends('layouts.admin.main')
-
 @section('content')
   <div class="-m-1.5 overflow-x-auto ml-5 mr-3">
     <div class="p-1.5 min-w-full inline-block align-middle">
       <div class="border rounded-lg shadow overflow-hidden dark:border-neutral-700">
         <div class="container mx-auto p-4">
-          <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
+          <form action="{{ route('perawatan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="grid grid-cols-1 gap-4"> <!-- Mengubah menjadi 1 kolom penuh -->
               <div class="flex flex-col space-y-4">
                 <div>
                   <label class="block text-sm font-bold text-black">Nama Barang</label>
-                  <input type="text" name="nama_barang" autocomplete="off"
-                    class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    value="{{ old('nama_barang') }}" />
-                  @error('nama_barang')
-                    <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                  @enderror
-                </div>
-
-                <div>
-                  <label class="block text-sm font-bold text-black">Jenis Barang</label>
-                  <select name="jenis_barang_id"
+                  <select name="kode_barang"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">-- Pilih Jenis Barang --</option>
-                    @foreach ($jenis_barang as $j)
-                      <option value="{{ $j->kode_jenis_barang }}"
-                        {{ old('jenis_barang_id') == $j->jenis_barang_id ? 'selected' : '' }}>
-                        {{ $j->kode_jenis_barang }} - {{ $j->jenis_barang }}
+                    <option value="">-- Pilih Barang --</option>
+                    @foreach ($barang as $b)
+                      <option value="{{ $b->kode_barang }}" {{ old('kode_barang') == $b->kode_barang ? 'selected' : '' }}>
+                        {{ $b->kode_barang }} - {{ $b->nama_barang }}
                       </option>
                     @endforeach
                   </select>

@@ -38,22 +38,25 @@
 
 
   {{-- search form --}}
-  <form class="flex items-center max-w-sm mx-auto p-3 ml-3 mr-3" action="{{ route('barang.search') }}" method="GET">
-    <label for="simple-search" class="sr-only">Search</label>
-    <div class="relative w-full">
-      <input type="text" id="search" autocomplete="off"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Cari nama barang..." required name="search" />
-    </div>
-    <button type="submit"
-      class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-      <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="m19 19-4-4m0-7A7 7 0 1 1   1 8a7 7 0 0 1 14 0Z" />
-      </svg>
-      <span class="sr-only">Search</span>
-    </button>
-  </form>
+  @if (!$barang->isEmpty())
+    <form class="flex items-center max-w-sm mx-auto p-3 ml-3 mr-3" action="{{ route('barang.search') }}" method="GET">
+      <label for="simple-search" class="sr-only">Search</label>
+      <div class="relative w-full">
+        <input type="text" id="search" autocomplete="off"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Cari nama barang..." required name="search" />
+      </div>
+      <button type="submit"
+        class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m19 19-4-4m0-7A7 7 0 1 1   1 8a7 7 0 0 1 14 0Z" />
+        </svg>
+        <span class="sr-only">Search</span>
+      </button>
+    </form>
+  @endif
+
 
   @if ($count > 5)
     <div class="p-3 ml-3 mr-3">
@@ -62,7 +65,7 @@
   @endif
 
   @if ($barang->isEmpty())
-    <div class="flex flex-col p-3 ml-3 justify-center items-center">
+    <div class="flex flex-col p-3 ml-3">
       <div class="flex items-center p-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
         role="alert">
         <i class="fa-solid fa-circle-info mr-3"></i>
@@ -99,15 +102,15 @@
             </p>
             <p class="font-normal text-gray-700 dark:text-gray-400">
               <strong>Status : </strong>
-              @if ($b->status == 'Tersedia')
-                <span
-                  class="bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                  Tersedia
-                </span>
-              @else
+              @if ($b->status == 'tidak-tersedia')
                 <span
                   class="bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
                   Habis
+                </span>
+              @else
+                <span
+                  class="bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                  Tersedia
                 </span>
               @endif
             </p>
@@ -126,12 +129,12 @@
                 type="button" title="Hapus">
                 <i class="fa-solid fa-trash"></i>
               </button>
-              <button data-modal-target="reset-modal" data-modal-toggle="reset-modal"
+              {{-- <button data-modal-target="reset-modal" data-modal-toggle="reset-modal"
                 onclick="resetLimit('{{ route('barang.reset-limit', ['uuid' => $b->uuid]) }}')"
                 class="inline-flex text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600"
                 type="button" title="Reset Sisa Limit">
                 <i class="fa-solid fa-spinner"></i>
-              </button>
+              </button> --}}
             </div>
           </div>
         </div>
@@ -149,8 +152,7 @@
         <button type="button"
           class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
           data-modal-hide="delete-modal">
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-            viewBox="0 0 14 14">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
           </svg>

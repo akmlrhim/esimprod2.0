@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require("tailwindcss/defaultTheme");
 export default {
     content: [
         "./resources/**/*.blade.php",
@@ -11,9 +10,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Inter var", ...defaultTheme.fontFamily.sans],
-                gotham: ["Gotham", "sans-serif"],
-                aptos: ["Aptos", "sans-serif"],
+                sans: ["Aptos", "system-ui", "sans-serif"],
+                gotham: ["Gotham", "sans-serif", "system-ui"],
             },
             colors: {
                 tvri_base_color: "#1e3164",
