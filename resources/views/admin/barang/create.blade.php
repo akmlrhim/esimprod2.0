@@ -26,7 +26,7 @@
                     <option value="">-- Pilih Jenis Barang --</option>
                     @foreach ($jenis_barang as $j)
                       <option value="{{ $j->kode_jenis_barang }}"
-                        {{ old('jenis_barang_id') == $j->jenis_barang_id ? 'selected' : '' }}>
+                        {{ old('jenis_barang_id') == $j->kode_jenis_barang ? 'selected' : '' }}>
                         {{ $j->kode_jenis_barang }} - {{ $j->jenis_barang }}
                       </option>
                     @endforeach
