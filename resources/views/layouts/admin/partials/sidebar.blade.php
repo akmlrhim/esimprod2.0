@@ -110,18 +110,22 @@
       </li>
 
       <li>
+        <a
+          href="#"
+          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
+          onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"
+        >
+          <i class="fa-solid fa-sign-out"></i>
+          <span class="ms-3">Logout</span>
+        </a>
+
         <form
-          method="POST"
+          id="logoutForm"
           action="{{ route('logout') }}"
+          method="POST"
+          style="display: none;"
         >
           @csrf
-          <button
-            type="submit"
-            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
-          >
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span class="ms-3">Logout</span>
-          </button>
         </form>
       </li>
 
