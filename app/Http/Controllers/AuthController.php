@@ -35,7 +35,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return redirect()->back()->withInput()->with('error', 'Kolom input tidak boleh kosong !');
         }
 
         $user = User::where('kode_user', $request->kode_user)->first();
@@ -45,16 +45,15 @@ class AuthController extends Controller
 
             //redirect
             if ($user->role == 'admin' || $user->role == 'superadmin') {
-                notify()->success('Login Berhasil');
-                return redirect()->route('password');
+                return redirect()->route('password')->with('success', 'Berhasil, silahkan isi password anda !');
             } elseif ($user->role == 'user') {
                 notify()->success('Login Berhasil');
-                return redirect()->route('options');
+                return redirect()->route('options')
+                    ->with('success', 'Berhasil login, silahkan pilih apakah anda ingin meminjam atau mengembalikan ?');
             }
         }
 
-        notify()->error('Login Gagal');
-        return redirect()->back();
+        return redirect()->back()->with('error', 'Kode user tidak valid atau tidak terdaftar !');
     }
 
     public function passwordValidation(Request $request)
@@ -64,7 +63,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return redirect()->back()->withInput()->with('error', 'Password tidak boleh kosong !');
         }
 
         $user = Auth::user();
@@ -73,12 +72,11 @@ class AuthController extends Controller
                 notify()->success('Login Berhasil');
                 return redirect()->route('dashboard.index');
             } else {
-                return redirect()->back()->withErrors(['notValid' => 'Password tidak valid.']);
+                return redirect()->back()->with('error', 'Password tidak valid !');
             }
         }
 
-        notify()->error('Akses tidak sah atau sesi telah berakhir.');
-        return redirect()->back();
+        return redirect()->back()->with('error', 'Akses tidak sah atau sesi telah berakhir.');
     }
 
     public function logout(Request $request)
