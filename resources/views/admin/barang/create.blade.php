@@ -11,42 +11,77 @@
             enctype="multipart/form-data"
           >
             @csrf
-            <div class="grid grid-cols-1 gap-4">
+            <div class="gap-4">
+
+
               <div class="flex flex-col space-y-4">
-                <div>
-                  <label class="block text-sm font-bold text-black">Nama Barang</label>
-                  <input
-                    type="text"
-                    name="nama_barang"
-                    autocomplete="off"
-                    class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    value="{{ old('nama_barang') }}"
-                  />
-                  @error('nama_barang')
-                    <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                  @enderror
+                <div class="grid md:grid-cols-2 md:gap-6">
+                  <div>
+                    <label class="block text-sm font-bold text-black">Nama Barang</label>
+                    <input
+                      type="text"
+                      name="nama_barang"
+                      autocomplete="off"
+                      class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ old('nama_barang') }}"
+                    />
+                    @error('nama_barang')
+                      <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                    @enderror
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-bold text-black">Jenis Barang</label>
+                    <select
+                      name="jenis_barang_id"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      <option value="">-- Pilih Jenis Barang --</option>
+                      @foreach ($jenis_barang as $j)
+                        <option
+                          value="{{ $j->kode_jenis_barang }}"
+                          {{ old('jenis_barang_id') == $j->kode_jenis_barang ? 'selected' : '' }}
+                        >
+                          {{ $j->kode_jenis_barang }} - {{ $j->jenis_barang }}
+                        </option>
+                      @endforeach
+                    </select>
+                    @error('jenis_barang_id')
+                      <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                    @enderror
+                  </div>
                 </div>
 
-                <div>
-                  <label class="block text-sm font-bold text-black">Jenis Barang</label>
-                  <select
-                    name="jenis_barang_id"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  >
-                    <option value="">-- Pilih Jenis Barang --</option>
-                    @foreach ($jenis_barang as $j)
-                      <option
-                        value="{{ $j->kode_jenis_barang }}"
-                        {{ old('jenis_barang_id') == $j->kode_jenis_barang ? 'selected' : '' }}
-                      >
-                        {{ $j->kode_jenis_barang }} - {{ $j->jenis_barang }}
-                      </option>
-                    @endforeach
-                  </select>
-                  @error('jenis_barang_id')
-                    <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                  @enderror
+                <div class="grid md:grid-cols-2 md:gap-6">
+                  <div>
+                    <label class="block text-sm font-bold text-black">Nomor Seri</label>
+                    <input
+                      type="text"
+                      name="nomor_seri"
+                      autocomplete="off"
+                      class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ old('nomor_seri') }}"
+                    />
+                    @error('nomor_seri')
+                      <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                    @enderror
+                  </div>
+                  <div>
+                    <label class="block text-sm font-bold text-black">Merk</label>
+                    <input
+                      type="text"
+                      name="merk"
+                      autocomplete="off"
+                      class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ old('merk') }}"
+                    />
+                    @error('merk')
+                      <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                    @enderror
+                  </div>
                 </div>
+
+
 
                 <div>
                   <label class="block text-sm font-bold text-black">Limit</label>

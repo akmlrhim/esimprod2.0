@@ -48,11 +48,15 @@ class BarangController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_barang' => 'required',
+            'merk' => 'required',
+            'nomor_seri' => 'required',
             'jenis_barang_id' => 'required|exists:jenis_barang,kode_jenis_barang',
             'limit' => 'required|numeric',
             'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         ], [
             'nama_barang.required' => 'Nama barang wajib diisi.',
+            'merk.required' => 'Merk wajib diisi.',
+            'nomor_seri.required' => 'Nomor Seri wajib diisi.',
             'jenis_barang_id.required' => 'Jenis Barang wajib diisi.',
             'jenis_barang_id.exists' => 'Jenis barang tidak ditemukan.',
             'limit.required' => 'Limit wajib diisi.',
@@ -65,7 +69,6 @@ class BarangController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $uuid = Str::random(16);
         $kode_barang = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 12);
         $qrCode = QrCode::format('png')->size(200)->generate($kode_barang);
         $qrCodeFileName = time() . '_qr.png';
@@ -81,11 +84,13 @@ class BarangController extends Controller
         }
 
         Barang::create([
-            'uuid' => $uuid,
+            'uuid' => Str::uuid(),
             'kode_barang' => $kode_barang,
             'nama_barang' => $request->nama_barang,
+            'nomor_seri' => $request->nomor_seri,
+            'merk' => $request->merk,
             'jenis_barang_id' => $request->jenis_barang_id,
-            'status' => $request->sisa_limit == 0 ? 'tidak-tersedia' : 'tersedia',
+            'status' => $request->limit == 0 ? 'tidak-tersedia' : 'tersedia',
             'limit' => $request->limit,
             'sisa_limit' => $request->limit,
             'foto' => $data['foto'],
@@ -131,12 +136,16 @@ class BarangController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_barang' => 'required',
+            'nomor_seri' => 'required',
+            'merk' => 'required',
             'jenis_barang_id' => 'required|exists:jenis_barang,kode_jenis_barang',
             'limit' => 'required|numeric',
             'sisa_limit' => 'required|numeric',
             'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         ], [
             'nama_barang.required' => 'Nama barang wajib diisi.',
+            'nomor_seri.required' => 'Nomor Seri wajib diisi.',
+            'merk.required' => 'Merk wajib diisi.',
             'jenis_barang_id.required' => 'Jenis Barang wajib diisi.',
             'jenis_barang_id.exists' => 'Jenis barang tidak ditemukan.',
             'limit.required' => 'Limit wajib diisi.',
@@ -166,6 +175,8 @@ class BarangController extends Controller
 
         $barang->update([
             'nama_barang' => $request->nama_barang,
+            'nomor_seri' => $request->nomor_seri,
+            'merk' => $request->merk,
             'jenis_barang_id' => $request->jenis_barang_id,
             'status' => $request->sisa_limit == 0 ? 'tidak-tersedia' : 'tersedia',
             'limit' => $request->limit,

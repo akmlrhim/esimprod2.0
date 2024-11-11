@@ -11,14 +11,20 @@ use App\Http\Controllers\Admin\PerawatanController;
 use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\JenisBarangController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\OptionsController;
 use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
 
 
 Route::prefix('/')->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
     Route::get('/login/v2', [AuthController::class, 'indexv2'])->name('login.v2');
-    Route::get('/options', [AuthController::class, 'options'])->name('options');
+    Route::get('/password', [AuthController::class, 'password'])->name('password');
+    Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
+    Route::post('/password', [AuthController::class, 'passwordValidation'])->name('password.validation');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+Route::get('/options', [OptionsController::class, 'index'])->name('options');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 

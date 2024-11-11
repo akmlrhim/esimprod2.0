@@ -4,7 +4,7 @@
   aria-label="Sidebar"
 >
   <div class="h-full px-3 pb-4 overflow-y-auto bg-tvri_base_color dark:bg-gray-800">
-    <ul class="space-y-2 font-medium font-aptos">
+    <ul class="space-y-2 font-medium font-sans">
 
       <div class="flex items-center my-2">
         <small class="mx-2 text-white opacity-65">GENERAL</small>
@@ -110,13 +110,19 @@
       </li>
 
       <li>
-        <a
-          href="#"
-          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
+        <form
+          method="POST"
+          action="{{ route('logout') }}"
         >
-          <i class="fa-solid fa-right-from-bracket"></i>
-          <span class="ms-3">Logout</span>
-        </a>
+          @csrf
+          <button
+            type="submit"
+            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
+          >
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span class="ms-3">Logout</span>
+          </button>
+        </form>
       </li>
 
     </ul>

@@ -24,6 +24,8 @@
     href="{{ asset('img/assets/esimprod_logo_bg.png') }}"
     type="image/x-icon"
   >
+  <title>ESIMPR0D - Password</title>
+
 </head>
 
 <body>
@@ -32,22 +34,29 @@
   <div class="right-container">
     <div class="right-container__box">
       <div class="right-container-box">
-        <h3 class="right-container__h2">Login</h3>
-        <p class="right-container__p">Scan QR Anda Untuk Masuk</p>
+        <h3 class="right-container__h2">Password</h3>
+        <p class="right-container__p">Masukkan Password</p>
       </div>
       <div class="input-container">
         <form
-          action=""
-          method="GET"
+          action="{{ route('password.validation') }}"
+          method="POST"
         >
           @csrf
           <input
-            type="text"
+            type="password"
             class="right-container__input"
             placeholder=""
             autofocus
-            name="kode_user"
+            name="password"
           />
+          @error('password')
+            <small style="color: red"> {{ $message }}</small>
+          @enderror
+
+          @if ($errors->has('notValid'))
+            <small style="color: red">{{ $errors->first('notValid') }}</small>
+          @endif
       </div>
       <button
         type="submit"

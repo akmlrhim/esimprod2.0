@@ -89,20 +89,18 @@
             </span><span>{{ $barang->jenisBarang->jenis_barang }}</span>
           </li>
           <li class="flex space-x-2 rtl:space-x-reverse items-center">
-            @if ($barang->status == 'Tersedia')
+            @if ($barang->sisa_limit > 0)
               <i class="fa-solid fa-circle-check text-sm text-green-600"></i>
               <span class="leading-tight font-bold text-green-600">Status :
-              </span><span class="text-green-600">{{ $barang->status }}</span>
+              </span><span class="text-green-600">Tersedia</span>
             @else
               <i class="fa-solid fa-circle-xmark text-sm text-red-600"></i>
               <span class="leading-tight font-bold text-red-600">Status :</span>
-              <span class="text-red-600">{{ $barang->status }}</span>
+              <span class="text-red-600">Tidak Tersedia</span>
             @endif
-
           </li>
         </ul>
       </div>
-
 
       <div
         class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
@@ -115,7 +113,7 @@
             class="h-auto max-w-full rounded-lg shadow-md"
             src="{{ asset('storage/uploads/foto_barang/' . $barang->foto) }}"
             alt="image description"
-          >
+          />
           <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
             {{ $barang->nama_barang }}
           </figcaption>
