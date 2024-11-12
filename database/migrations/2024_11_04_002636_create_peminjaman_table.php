@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('uuid');
             $table->string('kode_peminjaman')->unique();
-            $table->string('kode_detail_peminjaman');
             $table->string('nomor_surat');
             $table->date('tanggal_peminjaman');
             $table->date('tanggal_kembali');

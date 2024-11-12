@@ -15,12 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('uuid');
             $table->string('kode_perawatan')->unique();
-            $table->string('kode_barang');
-            $table->string('jenis_perawatan');
-            $table->string('status');
-            $table->text('keterangan')->nullable();
             $table->string('surat')->nullable();
-            $table->foreign('kode_barang')->references('kode_barang')->on('barang')->onDelete('cascade');
             $table->timestamps();
         });
     }

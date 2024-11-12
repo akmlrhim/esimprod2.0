@@ -163,10 +163,13 @@
       </div>
       </form>
 
-      <button
-        onclick="window.location.href = '{{ route('login') }}'"
-        class="btn-kembali"
-      >Kembali ?</button>
+      <form
+        action="{{ route('logout') }}"
+        method="POST"
+      >
+        @csrf
+        <button class="btn-kembali">Kembali ?</button>
+      </form>
     </div>
   </div>
 

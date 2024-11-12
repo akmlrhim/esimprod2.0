@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('uuid');
             $table->string('kode_pengembalian')->unique();
-            $table->string('kode_detail_pengembalian');
-            $table->string('kode_barang');
             $table->string('kode_peminjaman');
             $table->date('tanggal_kembali');
             $table->string('petugas');
@@ -24,7 +22,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('kode_peminjaman')->references('kode_peminjaman')->on('peminjaman')->onDelete('cascade');
-            $table->foreign('kode_barang')->references('kode_barang')->on('barang')->onDelete('cascade');
         });
     }
 

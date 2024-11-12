@@ -78,3 +78,7 @@ Route::prefix('peminjaman')->group(function () {
 Route::prefix('user/peminjaman')->group(function () {
     Route::get('/', [PeminjamanUser::class, 'index'])->name('user.peminjaman.index');
 });
+
+Route::get('/tes', function () {
+    return view('user.peminjaman.index');
+});
