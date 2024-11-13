@@ -21,7 +21,7 @@ class BarangController extends Controller
     {
         $data = [
             'title' => 'Barang',
-            'barang' => Barang::where('sisa_limit', '>', 0)->simplePaginate(5),
+            'barang' => Barang::where('sisa_limit', '>', 0)->paginate(5),
             'count' => Barang::count()
         ];
 
@@ -76,15 +76,15 @@ class BarangController extends Controller
 
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
-            $randomName = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('uploads/foto_barang', $randomName, 'public');
-            $data['foto'] = $randomName;
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('uploads/foto_barang', $filename, 'public');
+            $data['foto'] = $filename;
         } else {
             $data['foto'] = 'default.jpg';
         }
 
         Barang::create([
-            'uuid' => Str::uuid(),
+            'uuid' => Str::random(16),
             'kode_barang' => $kode_barang,
             'nama_barang' => $request->nama_barang,
             'nomor_seri' => $request->nomor_seri,
@@ -162,15 +162,15 @@ class BarangController extends Controller
 
         $barang = Barang::where('uuid', $uuid)->firstOrFail();
 
-        $randomName = $barang->foto;
+        $filename = $barang->foto;
         if ($request->hasFile('foto')) {
             if ($barang->foto && $barang->foto !== 'default.jpg') {
                 Storage::disk('public')->delete('uploads/foto_barang/' . $barang->foto);
             }
 
             $file = $request->file('foto');
-            $randomName = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('uploads/foto_barang', $randomName, 'public');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('uploads/foto_barang', $filename, 'public');
         }
 
         $barang->update([
@@ -182,7 +182,7 @@ class BarangController extends Controller
             'limit' => $request->limit,
             'sisa_limit' => $request->sisa_limit,
             'deskripsi' => $request->deskripsi,
-            'foto' => $randomName,
+            'foto' => $filename,
         ]);
 
         notify()->success('Barang Berhasil Diupdate');
@@ -201,6 +201,8 @@ class BarangController extends Controller
             if ($barang->qr_code) {
                 Storage::disk('public')->delete('uploads/qr_codes/' . $barang->qr_code);
             }
+
+
 
             if ($barang->foto && $barang->foto !== 'default.jpg') {
                 Storage::disk('public')->delete('uploads/foto_barang/' . $barang->foto);

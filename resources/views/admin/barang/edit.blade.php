@@ -8,17 +8,19 @@
             <form action="{{ route('barang.update', $barang->uuid) }}" method="POST" enctype="multipart/form-data">
               @method('PUT')
               @csrf
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
+                {{-- sebelah kiri --}}
                 <div class="flex flex-col space-y-4">
                   <div>
                     <label class="block text-sm font-bold text-black">Nama Barang</label>
                     <input type="text" name="nama_barang" autocomplete="off"
-                      class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       value="{{ $barang->nama_barang }}" />
                     @error('nama_barang')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
                   </div>
+
                   <div>
                     <label class="block text-sm font-bold text-black">Jenis Barang</label>
                     <select name="jenis_barang_id"
@@ -31,42 +33,63 @@
                         </option>
                       @endforeach
                     </select>
-
                     @error('jenis_barang_id')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
                   </div>
 
+                  <div class="flex w-full space-x-4">
+                    <div class="w-1/2">
+                      <label class="block text-sm font-bold text-black">Limit</label>
+                      <input type="number" name="limit" min="0" autocomplete="off"
+                        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="{{ $barang->limit }}" />
+                      @error('limit')
+                        <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                      @enderror
+                    </div>
+                    <div class="w-1/2">
+                      <label class="block text-sm font-bold text-black">Sisa Limit</label>
+                      <input type="number" name="sisa_limit" min="0" autocomplete="off"
+                        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="{{ $barang->sisa_limit }}" />
+                      @error('sisa_limit')
+                        <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                      @enderror
+                    </div>
+                  </div>
+
+
                   <div>
-                    <label class="block text-sm font-bold text-black">Limit</label>
-                    <input type="number" name="limit" min="0" autocomplete="off"
-                      class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $barang->limit }}" />
-                    @error('limit')
+                    <label class="block text-sm font-bold text-black">Nomor Seri</label>
+                    <input type="text" name="nomor_seri" autocomplete="off"
+                      class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ $barang->nomor_seri }}" />
+                    @error('nomor_seri')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
                   </div>
 
                   <div>
-                    <label class="block text-sm font-bold text-black">Sisa Limit</label>
-                    <input type="number" name="sisa_limit" min="0" autocomplete="off"
-                      class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $barang->sisa_limit }}" />
-                    @error('sisa_limit')
+                    <label class="block text-sm font-bold text-black">Merk</label>
+                    <input type="text" name="merk" autocomplete="off"
+                      class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ $barang->merk }}" />
+                    @error('merk')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
                   </div>
                 </div>
+
+                {{-- sebelah kanan  --}}
                 <div class="flex flex-col space-y-4">
                   <div>
                     <label class="block text-sm font-bold text-black">Upload Foto Barang</label>
-
                     <div class="mb-2">
                       <img id="photoPreview"
                         src="{{ $barang->foto ? asset('storage/uploads/foto_barang/' . $barang->foto) : 'https://via.placeholder.com/150' }}"
                         alt="Photo Preview" class="w-28 h-28 object-cover rounded-lg shadow-md">
                     </div>
-
                     <input
                       class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                       type="file" name="foto" id="foto" accept="image/*">
@@ -83,6 +106,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="mt-4">
                 <a href="{{ route('barang.index') }}"
                   class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Kembali</a>

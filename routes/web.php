@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\PerawatanController;
 use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\JenisBarangController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\OptionsController;
+use App\Http\Controllers\User\OptionsController;
 use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
 
 
@@ -66,8 +66,14 @@ Route::prefix('perawatan')->group(function () {
     Route::put('reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');
 });
 
-Route::prefix('user')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('user.index');
+Route::prefix('users')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('users.index');
+    Route::get('/tambah', [UserController::class, 'create'])->name('users.create');
+    Route::post('/store', [UserController::class, 'store'])->name('users.store');
+    Route::get('/edit/{uuid}', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/update/{uuid}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/destroy/{uuid}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/filter', [UserController::class, 'filterByRole'])->name('users.role');
 });
 
 

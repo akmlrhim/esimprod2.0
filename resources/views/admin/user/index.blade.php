@@ -2,22 +2,47 @@
 
 @section('content')
   <div class="flex p-3 ml-3 mr-3">
-    <a href="{{ route('barang.index') }}"
-      class="mr-2 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none font-bold rounded-lg text-xs text-center px-3 py-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
-      type="button">
-      Kembali
+    <a href="{{ route('users.create') }}"
+      class="mr-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+      Tambah User
     </a>
-    <button data-modal-target="create-modal" data-modal-toggle="create-modal"
-      class="mr-3 text-blue-900 hover:text-white border border-blue-800 hover:bg-blue-900  focus:outline-none font-bold rounded-lg text-xs text-center px-3 py-2 dark:border-blue-600 dark:text-blue-400 dark:hover:text-white dark:hover:bg-blue-600 ">
-      Tambah Jenis Barang
-    </button>
   </div>
 
-  <div class="p-3 ml-3 mr-3">
-    {{ $jenis_barang->links() }}
-  </div>
 
-  @if ($jenis_barang->isEmpty())
+  @if (!$user->isEmpty())
+    <div class="flex items-center space-x-3 w-full p-3 ml-3">
+      <form class="flex items-center w-1/3 justify-center">
+        <div class="w-full relative">
+          <input type="text" id="search" autocomplete="off"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Masukkan kata kunci, + Enter" required name="search" />
+          <svg class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-tvri_base_color" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+          </svg>
+        </div>
+      </form>
+
+      <form class="flex items-center w-1/3 justify-center" action="{{ route('users.role') }}" method="GET">
+        <div class="w-full flex items-center space-x-2">
+          <select id="role" name="role"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected>-- Pilih Role, tekan Cari --</option>
+            <option value="Superadmin">Superadmin</option>
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+          </select>
+          <button
+            class="text-white bg-tvri_base_color hover:bg-tvri_base_color focus:ring-4 focus:outline-none focus:ring-tvri_base_color font-medium rounded-lg text-sm px-3 py-2"
+            type="submit">Cari</button>
+        </div>
+      </form>
+    </div>
+  @endif
+
+
+  @if ($user->isEmpty())
     <div class="flex flex-col p-3 ml-3">
       <div class="flex items-center p-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
         role="alert">
@@ -32,27 +57,45 @@
     <div class="flex flex-col p-3 ml-3">
       <div class="relative overflow-x-auto sm:rounded-lg border rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 font-bold">
+          <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 font-bold">
             <tr>
-              <th scope="col" class="px-6 py-3">Kode</th>
-              <th scope="col" class="px-6 py-3">Jenis Barang</th>
-              <th scope="col" class="px-6 py-3">Action</th>
+              <th scope="col" class="px-6 py-3 text-center">Kode User</th>
+              <th scope="col" class="px-6 py-3 text-center">Nama Lengkap</th>
+              <th scope="col" class="px-6 py-3 text-center">Role</th>
+              <th scope="col" class="px-6 py-3 text-center">Jabatan</th>
+              <th scope="col" class="px-6 py-3 text-center">Aksi</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($jenis_barang as $row)
+            @foreach ($user as $row)
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {!! $row->kode_jenis_barang !!}
+                <th scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
+                  {!! $row->kode_user !!}
                 </th>
-                <td class="px-6 py-4">{!! $row->jenis_barang !!}</td>
-                <td class="flex items-center px-6 py-4">
+                <td class="px-6 py-4 text-center">{!! $row->nama_lengkap !!}</td>
+                <td class="px-6 py-4 text-center">
+                  @if ($row->role == 'admin')
+                    <span
+                      class="bg-blue-100 text-blue-800 text-md font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Admin</span>
+                  @elseif($row->role == 'superadmin')
+                    <span
+                      class="bg-green-100 text-green-800 text-md font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Superadmin</span>
+                  @else
+                    <span
+                      class="bg-red-100 text-red-800 text-md font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">User</span>
+                  @endif
+                </td>
+                <td class="px-6 py-4 text-center">{!! $row->jabatan !!}</td>
+                <td class="flex items-center px-6 py-4 justify-center">
                   <button type="button" data-uuid="{{ $row->uuid }}"
-                    class="edit-item font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
+                    class="edit-item font-medium text-yellow-600 dark:text-yellow-500 hover:underline">Detail</button>
+                  <button type="button" data-uuid="{{ $row->uuid }}"
+                    class="edit-item font-medium text-blue-600 dark:text-blue-500 hover:underline ml-2">Ubah</button>
                   <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
-                    onclick="confirmDelete('{{ route('jenis-barang.destroy', ['uuid' => $row->uuid]) }}')"
+                    onclick="confirmDelete('{{ route('users.destroy', ['uuid' => $row->uuid]) }}')"
                     class="font-medium text-red-600 dark:text-red-500 hover:underline ml-2" type="button">
-                    Delete
+                    Hapus
                   </button>
                 </td>
               </tr>
@@ -62,6 +105,11 @@
       </div>
     </div>
   @endif
+
+  <div class="p-3 ml-3 mr-3">
+    {{ $user->links() }}
+  </div>
+
 
   {{-- modal tambah data  --}}
   <div id="create-modal" tabindex="-1" aria-hidden="true"
@@ -204,98 +252,6 @@
 
 @section('scripts')
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      @if ($errors->any() || session('showModal'))
-        document.getElementById('create-modal').classList.remove('hidden');
-        document.getElementById('create-modal').classList.add('flex');
-      @endif
-
-      const modal = document.getElementById('edit-modal');
-      const editButtons = document.querySelectorAll('.edit-item');
-      const closeButtons = document.querySelectorAll('.close-modal');
-      const form = document.getElementById('updateForm');
-
-      function displayErrors(errors) {
-        Object.keys(errors).forEach(function(field) {
-          const errorContainer = document.getElementById(`error-${field}`);
-          if (errorContainer) {
-            errorContainer.textContent = errors[field][0];
-          }
-        });
-      }
-
-      function clearErrors() {
-        const errorFields = document.querySelectorAll('[id^="error-"]');
-        errorFields.forEach(function(errorField) {
-          errorField.textContent = '';
-        });
-      }
-
-      editButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const uuid = this.getAttribute('data-uuid');
-          fetchItemData(uuid);
-          modal.style.display = 'block';
-        });
-      });
-
-      closeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          modal.style.display = 'none';
-          clearErrors();
-        });
-      });
-
-      function fetchItemData(uuid) {
-        fetch(`/jenis-barang/edit/${uuid}`)
-          .then(response => response.json())
-          .then(data => {
-            document.getElementById('jenis_barang_uuid').value = uuid;
-            form['kode_jenis_barang'].value = data.kode_jenis_barang;
-            form['jenis_barang'].value = data.jenis_barang;
-          });
-      }
-
-      form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        clearErrors();
-
-        const formData = new FormData(form);
-        const uuid = form['jenis_barang_uuid'].value;
-
-        fetch(`/jenis-barang/update/${uuid}`, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-              'Accept': 'application/json',
-            }
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              setTimeout(function() {
-                location.reload();
-              }, 1000);
-              clearErrors();
-            } else {
-              displayErrors(data.errors);
-            }
-          })
-          .catch(error => {
-            console.log('An error occurred:', error);
-          });
-      });
-
-    });
-
-    document.querySelector('[data-modal-hide="create-modal"]').addEventListener('click', function() {
-      document.getElementById('create-modal').classList.add('hidden');
-      document.getElementById('create-modal').classList.remove('flex');
-    });
-
-
-    // hapus
     function confirmDelete(url) {
       const form = document.getElementById('deleteForm');
       form.action = url;

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_lengkap');
             $table->string('kode_user')->unique();
             $table->string('email')->unique();
-            $table->string('NIP')->unique();
+            $table->string('nip')->unique();
             $table->string('qr_code');
             $table->string('role')->default('user');
             $table->string('jabatan');

@@ -20,6 +20,8 @@ class Barang extends Model
         'jenis_barang_id',
         'status',
         'deskripsi',
+        'nomor_seri',
+        'merk',
         'qr_code',
         'limit',
         'sisa_limit',

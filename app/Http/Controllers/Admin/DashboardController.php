@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -12,7 +13,9 @@ class DashboardController extends Controller
     {
         $data = [
             'title' => 'Dashboard',
-            'barang' => Barang::count()
+            'barang' => Barang::count(),
+            'user' => User::count(),
+            'perawatan' => Barang::where('sisa_limit', 0)->count(),
         ];
         return view('admin.dashboard.index', $data);
     }
