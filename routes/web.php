@@ -55,3 +55,7 @@ Route::get('/laporan', function () {
 Route::get('/opsi', function () {
     return view('options');
 });
+
+Route::get('/test', function () {
+    return view('user.pengembalian.test');
+});
