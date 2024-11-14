@@ -42,7 +42,7 @@
   }
 
   table.products {
-    font-size: 0.875rem;
+    font-size: 14px;
   }
 
   table.products tr {
@@ -61,80 +61,91 @@
   table tr.items td {
     padding: 0.5rem;
   }
+
+  .content-border {
+    border: 1px solid #000;
+    padding: 1rem;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 </style>
 
 <body>
-  <table style="width: 100%;">
-    <tr>
-      <td style="width: 50%;">
-        <div style="font-weight: bold; font-size: 30px;">Daftar Barang Pinjam</div>
-        <div style="font-size: 20px;">Nomor Peminjaman: 3526830510190</div>
-        <div>Tanggal Pinjam: 2021</div>
-      </td>
-      <td style="width: 50%; text-align: right;">
-        <img src="{{ public_path('img/assets/esimprod_logo.png') }}" alt="Esimprod" width="100" />
-        <div>Version 2.0</div>
-      </td>
-    </tr>
-  </table>
-
-
-  <div class="margin-top">
-    <table class="w-full">
+  <div class="content-border">
+    <table style="width: 100%;">
       <tr>
-        <td class="w-half">
-          <div>Peminjam : John Doe</div>
-          <div>NIP : 123456</div>
-          <div>No. HP : 08123456789</div>
-          <div>Jabatan : Technical Director</div>
+        <td style="width: 50%;">
+          <div style="font-weight: bold; font-size: 30px;">Daftar Barang Pinjam</div>
+          <div style="font-size: 20px;">Nomor Peminjaman: 3526830510190</div>
+          <div>Tanggal Pinjam: 2021</div>
         </td>
-        <td class="w-half">
-          <div>Surat Tugas : AGCSVD/123/45/1019</div>
-          <div>Peruntukan : PT. ABC</div>
-          <div>Tgl. Penggunaan : 2023-01-01</div>
-          <div>Sampai : 2023-01-01</div>
-        </td>
-        <td class="w-half">
-          <div>QR Pengembalian : <img src="{{ public_path('storage/uploads/qr_codes/1730858608_qr.png') }}""
-              alt="" width="50px"></div>
-          <div>Kode : PMB014</div>
+        <td style="width: 50%; text-align: right;">
+          <img src="{{ public_path('img/assets/esimprod_logo.png') }}" alt="Esimprod" width="100" />
+          <div>Version 2.0</div>
         </td>
       </tr>
     </table>
-  </div>
 
-  <div class="margin-top">
-    <table class="products" style="width: 100%; border-collapse: collapse;">
-      <tr>
-        <th style="text-align: left;">NO</th>
-        <th style="text-align: left;">Nama Barang</th>
-        <th style="text-align: left;">Merk</th>
-        <th style="text-align: left;">No. Seri</th>
-        <th style="text-align: left;">Checklist</th>
-      </tr>
-      <tr class="items">
-        <td style="text-align: left;">Data 1</td>
-        <td style="text-align: left;">Data 2</td>
-        <td style="text-align: left;">Data 3</td>
-        <td style="text-align: left;">Data 3</td>
-        <td style="text-align: left;">Data 3</td>
-      </tr>
-      <tr class="items">
-        <td style="text-align: left;">Data 1</td>
-        <td style="text-align: left;">Data 2</td>
-        <td style="text-align: left;">Data 3</td>
-        <td style="text-align: left;">Data 3</td>
-        <td style="text-align: left;">Data 3</td>
-      </tr>
-      <tr class="items">
-        <td style="text-align: left;">Data 1</td>
-        <td style="text-align: left;">Data 2</td>
-        <td style="text-align: left;">Data 3</td>
-        <td style="text-align: left;">Data 3</td>
-        <td style="text-align: left;">Data 3</td>
-      </tr>
-    </table>
-  </div>
+
+    <div class="margin-top">
+      <table class="w-full">
+        <tr>
+          <td class="w-half">
+            <div>Peminjam : John Doe</div>
+            <div>NIP : 123456</div>
+            <div>No. HP : 08123456789</div>
+            <div>Jabatan : Technical Director</div>
+          </td>
+          <td class="w-half">
+            <div>Surat Tugas : AGCSVD/123/45/1019</div>
+            <div>Peruntukan : PT. ABC</div>
+            <div>Tgl. Penggunaan : 2023-01-01</div>
+            <div>Sampai : 2023-01-01</div>
+          </td>
+          <td class="w-half">
+            <div>QR Pengembalian : <img src="{{ public_path('storage/uploads/qr_codes/1730858608_qr.png') }}""
+                alt="" width="50px"></div>
+            <div>Kode : PMB014</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="margin-top">
+      <table class="products" style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <th style="text-align: left;">NO</th>
+          <th style="text-align: left;">Nama Barang</th>
+          <th style="text-align: left;">Merk</th>
+          <th style="text-align: left;">No. Seri</th>
+          <th style="text-align: left;">Checklist</th>
+        </tr>
+        <tr class="items">
+          <td style="text-align: left;">Data 1</td>
+          <td style="text-align: left;">Data 2</td>
+          <td style="text-align: left;">Data 3</td>
+          <td style="text-align: left;">Data 3</td>
+          <td style="text-align: left;">Data 3</td>
+        </tr>
+        <tr class="items">
+          <td style="text-align: left;">Data 1</td>
+          <td style="text-align: left;">Data 2</td>
+          <td style="text-align: left;">Data 3</td>
+          <td style="text-align: left;">Data 3</td>
+          <td style="text-align: left;">Data 3</td>
+        </tr>
+        <tr class="items">
+          <td style="text-align: left;">Data 1</td>
+          <td style="text-align: left;">Data 2</td>
+          <td style="text-align: left;">Data 3</td>
+          <td style="text-align: left;">Data 3</td>
+          <td style="text-align: left;">Data 3</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </body>
 

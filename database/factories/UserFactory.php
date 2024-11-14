@@ -30,6 +30,7 @@ class UserFactory extends Factory
             'kode_user' => 'USR' . random_int(1, 999999),
             'email' => fake()->unique()->safeEmail(),
             'nip' => str_pad(rand(1, 99999), 12),
+            'nomor_hp' => random_int(1000000000, 9999999999),
             'password' => static::$password ?? Hash::make('admin'),
             'role' => Arr::random(['admin', 'superadmin', 'user']),
             'qr_code' => time() . '_qr.png',

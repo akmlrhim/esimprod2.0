@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('uuid');
             $table->string('kode_peminjaman')->unique();
             $table->string('nomor_surat');
+            $table->string('peruntukan');
             $table->date('tanggal_peminjaman');
             $table->date('tanggal_kembali');
             $table->string('peminjam');
