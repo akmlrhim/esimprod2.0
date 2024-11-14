@@ -3,7 +3,7 @@
 @section('content')
   <div class="flex p-3 ml-3 mr-3">
     <a href="{{ route('users.create') }}"
-      class="mr-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+      class="mr-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
       Tambah User
     </a>
   </div>
@@ -34,7 +34,7 @@
             <option value="User">User</option>
           </select>
           <button
-            class="text-white bg-tvri_base_color hover:bg-tvri_base_color focus:ring-4 focus:outline-none focus:ring-tvri_base_color font-medium rounded-lg text-sm px-3 py-2"
+            class="text-white bg-tvri_base_color hover:bg-tvri_base_color focus:outline-none focus:ring-tvri_base_color font-medium rounded-lg text-sm px-3 py-2"
             type="submit">Cari</button>
         </div>
       </form>
@@ -87,17 +87,34 @@
                   @endif
                 </td>
                 <td class="px-6 py-4 text-center">{!! $row->jabatan !!}</td>
-                <td class="flex items-center px-6 py-4 justify-center">
+                <td class="flex items-center px-6 py-4 justify-center space-x-2">
                   <button type="button" data-uuid="{{ $row->uuid }}"
-                    class="edit-item font-medium text-yellow-600 dark:text-yellow-500 hover:underline">Detail</button>
-                  <button type="button" data-uuid="{{ $row->uuid }}"
-                    class="edit-item font-medium text-blue-600 dark:text-blue-500 hover:underline ml-2">Ubah</button>
+                    class="edit-item focus:outline-none text-white bg-green-400 hover:bg-green-500 font-medium rounded-lg text-sm px-2 py-1"
+                    title="Detail">
+                    <i class="fas fa-info-circle"></i>
+                  </button>
+
+                  <a href="{{ route('users.edit', $row->uuid) }}"
+                    class="edit-item focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-2 py-1"
+                    title="Ubah">
+                    <i class="fas fa-edit"></i>
+                  </a>
+
                   <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
                     onclick="confirmDelete('{{ route('users.destroy', ['uuid' => $row->uuid]) }}')"
-                    class="font-medium text-red-600 dark:text-red-500 hover:underline ml-2" type="button">
-                    Hapus
+                    class="focus:outline-none text-white bg-red-600 hover:bg-red-500 font-medium rounded-lg text-sm px-2 py-1"
+                    type="button" title="Hapus">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+
+                  <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
+                    onclick="confirmDelete('{{ route('users.destroy', ['uuid' => $row->uuid]) }}')"
+                    class="focus:outline-none text-white bg-black hover:bg-gray-800 font-medium rounded-lg text-sm px-2 py-1"
+                    type="button" title="Cetak ID Card">
+                    <i class="fas fa-print"></i>
                   </button>
                 </td>
+
               </tr>
             @endforeach
           </tbody>
@@ -111,104 +128,6 @@
   </div>
 
 
-  {{-- modal tambah data  --}}
-  <div id="create-modal" tabindex="-1" aria-hidden="true"
-    class="{{ session('showModal') || $errors->any() ? 'flex' : 'hidden' }} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-md max-h-full font-aptos">
-      <div class="relative bg-white rounded-lg shadow-xl border-gray-400 dark:bg-gray-700">
-        <div class="flex items-center justify-between p-3 md:p-4 border-b rounded-t dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Tambah Jenis Barang
-          </h3>
-          <button type="button"
-            class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            data-modal-hide="create-modal">
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-            </svg>
-            <span class="sr-only">Close modal</span>
-          </button>
-        </div>
-        <div class="p-4">
-          <form action="{{ route('jenis-barang.store') }}" method="POST">
-            @csrf
-            <div class="space-y-4">
-              <div>
-                <label for="uuid" class="block text-sm font-medium text-gray-900">Kode Barang</label>
-                <input type="text" name="kode_jenis_barang" id="kode_jenis_barang" autocomplete="off"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2" />
-                @error('kode_jenis_barang')
-                  <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                @enderror
-              </div>
-
-              <div>
-                <label for="jenis_barang" class="block text-sm font-medium text-gray-900">Jenis Barang</label>
-                <input type="text" name="jenis_barang" id="jenis_barang" autocomplete="off"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2" />
-                @error('jenis_barang')
-                  <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                @enderror
-              </div>
-            </div>
-            <button type="submit"
-              class="w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan
-              Data</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {{-- edit modal  --}}
-  <div id="edit-modal" class="fixed inset-0 z-50 hidden overflow-auto bg-black bg-opacity-50 font-aptos">
-    <div class="flex items-center justify-center min-h-screen">
-      <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
-        <div class="flex items-center justify-between p-4 border-b">
-          <h3 class="text-lg font-semibold text-gray-900">Edit Jenis Barang</h3>
-          <button type="button" class="text-gray-400 hover:text-gray-900 close-modal">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-
-        <div class="p-4">
-          <form id="updateForm">
-            @csrf
-            @method('PUT')
-            <input type="hidden" id="jenis_barang_uuid" name="uuid">
-
-            <div class="space-y-4">
-              <div>
-                <label for="uuid" class="block text-sm font-medium text-gray-900">Kode Barang</label>
-                <input type="text" name="kode_jenis_barang" id="kode_jenis_barang" autocomplete="off"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2">
-                <div class="text-red-500 text-sm mt-1" id="error-kode_jenis_barang"></div>
-              </div>
-
-              <div>
-                <label for="jenis_barang" class="block text-sm font-medium text-gray-900">Jenis Barang</label>
-                <input type="text" name="jenis_barang" id="jenis_barang" autocomplete="off"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2">
-                <div class="text-red-500 text-sm mt-1" id="error-jenis_barang"></div>
-              </div>
-            </div>
-
-            <div class="flex justify-end mt-6">
-              <button type="submit"
-                class="px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Simpan
-                Data</button>
-              <button type="button" class="btn ml-2 px-4 py-2 bg-gray-200 close-modal">Kembali</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
   {{-- modal konfirmasi hapus ? --}}
   <div id="delete-modal" tabindex="-1"
     class="font-aptos hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -217,8 +136,7 @@
         <button type="button"
           class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
           data-modal-hide="delete-modal">
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-            viewBox="0 0 14 14">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
           </svg>
@@ -236,11 +154,11 @@
             @csrf
             @method('DELETE')
             <button type="submit"
-              class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+              class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
               Ya
             </button>
             <button data-modal-hide="delete-modal" type="button"
-              class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
               Tidak
             </button>
           </form>

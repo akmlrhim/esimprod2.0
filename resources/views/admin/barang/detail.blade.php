@@ -85,8 +85,8 @@
       <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="gambar" role="tabpanel"
         aria-labelledby="gambar-tab">
         <figure class="flex flex-col items-center justify-center max-w-lg mx-auto">
-          <img class="h-auto max-w-full rounded-lg shadow-md"
-            src="{{ asset('storage/uploads/foto_barang/' . $barang->foto) }}" alt="image description">
+          <img class="h-auto w-64 rounded-lg shadow-md" src="{{ asset('storage/uploads/foto_barang/' . $barang->foto) }}"
+            alt="image description">
           <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
             {{ $barang->nama_barang }}
           </figcaption>

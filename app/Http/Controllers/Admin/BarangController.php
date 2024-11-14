@@ -202,8 +202,6 @@ class BarangController extends Controller
                 Storage::disk('public')->delete('uploads/qr_codes/' . $barang->qr_code);
             }
 
-
-
             if ($barang->foto && $barang->foto !== 'default.jpg') {
                 Storage::disk('public')->delete('uploads/foto_barang/' . $barang->foto);
             }

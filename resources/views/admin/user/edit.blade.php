@@ -5,66 +5,50 @@
     <div class="p-1.5 min-w-full inline-block align-middle">
       <div class="border rounded-lg shadow overflow-hidden dark:border-neutral-700">
         <div class="container mx-auto p-4">
-          <form action="{{ route('users.store') }}" enctype="multipart/form-data" method="POST">
+          <form action="{{ route('users.update', $user->uuid) }}" enctype="multipart/form-data" method="POST">
             @csrf
+            @method('PUT')
             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
               <div class="sw-full">
                 <label for="nama_lengkap" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                   Lengkap</label>
                 <input type="text" name="nama_lengkap" id="nama_lengkap"
+                  value="{{ old('nama_lengkap', $user->nama_lengkap) }}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Masukkan nama lengkap" value="{{ old('nama_lengkap') }}" />
+                  placeholder="Masukkan nama lengkap" />
                 @error('nama_lengkap')
                   <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                 @enderror
               </div>
 
-
               <div class="w-full">
                 <label for="nip" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIP</label>
-                <input type="text" name="nip" id="nip"
+                <input type="text" name="nip" id="nip" value="{{ old('nip', $user->nip) }}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  autocomplete="off" placeholder="Masukkan NIP" value="{{ old('nip') }}">
+                  autocomplete="off" placeholder="Masukkan NIP">
                 @error('nip')
                   <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                 @enderror
               </div>
 
 
-              <div class="w-full flex space-x-4">
-                <div class="w-1/2">
-                  <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                  <input type="email" name="email" id="email"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    autocomplete="off" placeholder="Contoh. user@gmail.com" value="{{ old('email') }}">
-                  @error('email')
-                    <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                  @enderror
-                </div>
-                <div class="w-1/2">
-                  <label for="nomor_hp" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
-                    HP</label>
-                  <input type="nomor_hp" name="nomor_hp" id="nomor_hp"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    autocomplete="off" placeholder="Contoh. 0813XXXXXX" value="{{ old('nomor_hp') }}">
-                  @error('nomor_hp')
-                    <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                  @enderror
-                </div>
+              <div class="w-full">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  autocomplete="off" placeholder="Contoh. user@gmail.com">
+                @error('email')
+                  <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                @enderror
               </div>
 
-              <div class="w-full relative">
-                <label for="password"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                <div class="relative">
-                  <input type="password" name="password" id="password"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    autocomplete="off" placeholder="Masukkan password" value="{{ old('password') }}">
-                  <span class="absolute inset-y-0 right-3 flex items-center cursor-pointer" onclick="togglePassword()">
-                    <i id="eyeIcon" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>
-                  </span>
-                </div>
-                @error('password')
+              <div class="w-full">
+                <label for="nomor_hp" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
+                  HP</label>
+                <input type="nomor_hp" name="nomor_hp" id="nomor_hp" value="{{ old('nomor_hp', $user->nomor_hp) }}"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  autocomplete="off" placeholder="Contoh. 0813XXXXXX">
+                @error('nomor_hp')
                   <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                 @enderror
               </div>
@@ -73,7 +57,9 @@
                 <label for="jabatan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jabatan</label>
                 <select id="jabatan" name="jabatan"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                  <option value="" {{ old('jabatan') == '' ? 'selected' : '' }}>--- Pilih Jabatan ---</option>
+                  <option value="{{ $user->jabatan }}" {{ old('jabatan') == '' ? 'selected' : '' }}>
+                    {{ $user->jabatan }}
+                  </option>
                   <option value="Technical Director" {{ old('jabatan') == 'Technical Director' ? 'selected' : '' }}>
                     Technical Director</option>
                   <option value="Cameramen" {{ old('jabatan') == 'Cameramen' ? 'selected' : '' }}>Cameramen</option>
@@ -90,7 +76,8 @@
                 <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
                 <select id="role" name="role"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                  <option value="" {{ old('role') == '' ? 'selected' : '' }}>--- Pilih Role ---</option>
+                  <option value="{!! $user->role !!}" {{ old('role') == '' ? 'selected' : '' }}>
+                    {!! $user->role !!}</option>
                   <option value="superadmin" {{ old('role') == 'superadmin' ? 'selected' : '' }}>Superadmin</option>
                   <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                   <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
@@ -122,23 +109,4 @@
       </div>
     </div>
   </div>
-@endsection
-
-@section('scripts')
-  <script>
-    function togglePassword() {
-      const passwordInput = document.getElementById("password");
-      const eyeIcon = document.getElementById("eyeIcon");
-
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.classList.remove("fa-eye");
-        eyeIcon.classList.add("fa-eye-slash");
-      } else {
-        passwordInput.type = "password";
-        eyeIcon.classList.remove("fa-eye-slash");
-        eyeIcon.classList.add("fa-eye");
-      }
-    }
-  </script>
 @endsection

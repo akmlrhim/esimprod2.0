@@ -15,7 +15,7 @@
                     <label class="block text-sm font-bold text-black">Nama Barang</label>
                     <input type="text" name="nama_barang" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $barang->nama_barang }}" />
+                      value="{{ old('nama_barang'), $barang->nama_barang }}" />
                     @error('nama_barang')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
@@ -43,7 +43,7 @@
                       <label class="block text-sm font-bold text-black">Limit</label>
                       <input type="number" name="limit" min="0" autocomplete="off"
                         class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="{{ $barang->limit }}" />
+                        value="{{ old('limit'), $barang->limit }}" />
                       @error('limit')
                         <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                       @enderror
@@ -52,7 +52,7 @@
                       <label class="block text-sm font-bold text-black">Sisa Limit</label>
                       <input type="number" name="sisa_limit" min="0" autocomplete="off"
                         class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="{{ $barang->sisa_limit }}" />
+                        value="{{ old('sisa_limit'), $barang->sisa_limit }}" />
                       @error('sisa_limit')
                         <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                       @enderror
@@ -64,7 +64,7 @@
                     <label class="block text-sm font-bold text-black">Nomor Seri</label>
                     <input type="text" name="nomor_seri" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $barang->nomor_seri }}" />
+                      value={{ old('nomor_seri'), $barang->nomor_seri }} />
                     @error('nomor_seri')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
@@ -74,7 +74,7 @@
                     <label class="block text-sm font-bold text-black">Merk</label>
                     <input type="text" name="merk" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ $barang->merk }}" />
+                      value="{{ old('merk'), $barang->merk }}" />
                     @error('merk')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
@@ -102,7 +102,7 @@
                     <label class="block text-sm font-bold text-black">Deskripsi</label>
                     <textarea id="message" rows="3"
                       class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Tambahkan deskripsi...." name="deskripsi">{{ $barang->deskripsi }}</textarea>
+                      placeholder="Tambahkan deskripsi...." name="deskripsi">{{ old('deskripsi', $barang->deskripsi) }}</textarea>
                   </div>
                 </div>
               </div>

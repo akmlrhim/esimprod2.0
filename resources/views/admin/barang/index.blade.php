@@ -74,7 +74,7 @@
         <div
           class="w-full bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 relative">
           <a href="{{ route('barang.show', $b->uuid) }}">
-            <img class="w-full rounded-lg h-48 object-cover mx-auto"
+            <img class="w-full rounded-lg h-auto object-cover mx-auto"
               src="{{ asset('storage/uploads/foto_barang/' . $b->foto) }}" alt="Image Description" />
           </a>
           <a href="{{ route('barang.jenis-barang', $b->jenisBarang->uuid) }}"

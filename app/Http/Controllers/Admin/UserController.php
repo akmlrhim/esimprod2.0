@@ -45,6 +45,7 @@ class UserController extends Controller
             [
                 'nama_lengkap' => 'required',
                 'email' => 'required|email|unique:users,email',
+                'nomor_hp' => 'required|numeric',
                 'password' => 'required|min:8',
                 'role' => 'required',
                 'jabatan' => 'required',
@@ -56,6 +57,8 @@ class UserController extends Controller
                 'email.required' => 'Email wajib diisi.',
                 'email.email' => 'Email tidak valid.',
                 'email.unique' => 'Email sudah terdaftar.',
+                'nomor_hp.required' => 'Nomor HP wajib diisi.',
+                'nomor_hp.numeric' => 'Nomor HP harus berupa angka.',
                 'role.required' => 'Role wajib diisi.',
                 'jabatan.required' => 'Jabatan wajib diisi.',
                 'nip.required' => 'NIP wajib diisi.',
@@ -86,7 +89,7 @@ class UserController extends Controller
         }
 
         User::create([
-            'uuid' => Str::random(16),
+            'uuid' => Str::uuid(),
             'kode_user' => $kode_user,
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
@@ -114,17 +117,75 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $uuid)
     {
-        //
+        $data = [
+            'title' => 'Edit User',
+            'user' => User::where('uuid', $uuid)->first(),
+        ];
+        // dd($data);
+        return view('admin.user.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $uuid)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nama_lengkap' => 'required',
+                'email' => 'required|email',
+                'nomor_hp' => 'required|numeric',
+                'role' => 'required',
+                'jabatan' => 'required',
+                'nip' => 'required|numeric',
+                'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+            ],
+            [
+                'nama_lengkap.required' => 'Nama Lengkap wajib diisi.',
+                'email.required' => 'Email wajib diisi.',
+                'email.email' => 'Email tidak valid.',
+                'nomor_hp.required' => 'Nomor HP wajib diisi.',
+                'nomor_hp.numeric' => 'Nomor HP harus berupa angka.',
+                'role.required' => 'Role wajib diisi.',
+                'jabatan.required' => 'Jabatan wajib diisi.',
+                'nip.required' => 'NIP wajib diisi.',
+                'nip.numeric' => 'NIP harus berupa angka.',
+                'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
+                'foto.max' => 'Ukuran file maksimal adalah 2MB.',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::where('uuid', $uuid)->firstOrFail();
+
+        $filename = $user->foto;
+        if ($request->hasFile('foto')) {
+            if ($user->foto && $user->foto !== 'default.jpeg') {
+                Storage::disk('public')->delete('uploads/foto_user/' . $user->foto);
+            }
+            $file = $request->file('foto');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('uploads/foto_user', $filename, 'public');
+        }
+
+        $user->update([
+            'nama_lengkap' => $request->nama_lengkap,
+            'email' => $request->email,
+            'nomor_hp' => $request->nomor_hp,
+            'role' => $request->role,
+            'jabatan' => $request->jabatan,
+            'nip' => $request->nip,
+            'foto' => $filename
+        ]);
+
+        notify()->success('User Berhasil Diupdate');
+        return redirect()->route('users.index');
     }
 
     /**

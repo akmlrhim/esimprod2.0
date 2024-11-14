@@ -8,25 +8,26 @@
           <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="gap-4">
+              <div class="flex flex-col space-y-6">
 
-              <div class="flex flex-col space-y-4">
-
-                {{-- nama barang dan jenis barang --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 md:gap-6">
+                {{-- Nama Barang dan Jenis Barang --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label class="block text-sm font-bold text-black">Nama Barang</label>
-                    <input type="text" name="nama_barang" autocomplete="off"
+                    <label for="nama_barang" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                      Barang</label>
+                    <input type="text" id="nama_barang" name="nama_barang" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       value="{{ old('nama_barang') }}" />
                     @error('nama_barang')
-                      <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                      <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
                     @enderror
                   </div>
 
                   <div>
-                    <label class="block text-sm font-bold text-black mt-3">Jenis Barang</label>
-                    <select name="jenis_barang_id"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <label for="jenis_barang_id"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Barang</label>
+                    <select id="jenis_barang_id" name="jenis_barang_id"
+                      class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option value="">-- Pilih Jenis Barang --</option>
                       @foreach ($jenis_barang as $j)
                         <option value="{{ $j->kode_jenis_barang }}"
@@ -36,65 +37,70 @@
                       @endforeach
                     </select>
                     @error('jenis_barang_id')
-                      <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                      <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
                     @enderror
                   </div>
                 </div>
 
-                {{-- nomor seri dan merk --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 md:gap-6">
+                {{-- Nomor Seri dan Merk --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label class="block text-sm font-bold text-black">Nomor Seri</label>
-                    <input type="text" name="nomor_seri" autocomplete="off"
+                    <label for="nomor_seri" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
+                      Seri</label>
+                    <input type="text" id="nomor_seri" name="nomor_seri" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       value="{{ old('nomor_seri') }}" />
                     @error('nomor_seri')
-                      <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                      <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
                     @enderror
                   </div>
 
                   <div>
-                    <label class="block text-sm font-bold text-black mt-3">Merk</label>
-                    <input type="text" name="merk" autocomplete="off"
+                    <label for="merk"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Merk</label>
+                    <input type="text" id="merk" name="merk" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       value="{{ old('merk') }}" />
                     @error('merk')
-                      <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                      <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
                     @enderror
                   </div>
                 </div>
 
-                {{-- limit  --}}
-                <div>
-                  <label class="block text-sm font-bold text-black">Limit</label>
-                  <input type="number" name="limit" min="1" autocomplete="off"
-                    class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    value="{{ old('limit') }}" />
-                  @error('limit')
-                    <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                  @enderror
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label for="limit"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Limit</label>
+                    <input type="number" id="limit" name="limit" min="1" autocomplete="off"
+                      class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      value="{{ old('limit') }}" />
+                    @error('limit')
+                      <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
+                    @enderror
+                  </div>
+
+                  <div>
+                    <label for="foto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Foto
+                      Barang</label>
+                    <input type="file" id="foto" name="foto"
+                      class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                    @error('foto')
+                      <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
+                    @enderror
+                  </div>
                 </div>
 
-                {{-- upload foto barang  --}}
-                <div>
-                  <label class="block text-sm font-bold text-black">Upload Foto Barang</label>
-                  <input
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    value="{{ old('foto') }}" type="file" name="foto" />
-                  @error('foto')
-                    <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                  @enderror
-                </div>
 
-                {{-- deskripsi  --}}
                 <div>
-                  <label class="block text-sm font-bold text-black">Deskripsi</label>
-                  <textarea id="message" rows="4"
+                  <label for="deskripsi"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
+                  <textarea id="deskripsi" name="deskripsi" rows="4"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Tambahkan deskripsi...." name="deskripsi"></textarea>
+                    placeholder="Tambahkan deskripsi....">{{ old('deskripsi') }}</textarea>
                 </div>
               </div>
             </div>
+
 
 
             <div class="mt-4">

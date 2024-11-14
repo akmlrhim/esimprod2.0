@@ -76,7 +76,6 @@ Route::prefix('users')->group(function () {
     Route::get('/filter', [UserController::class, 'filterByRole'])->name('users.role');
 });
 
-
 Route::prefix('peminjaman')->group(function () {
     Route::get('/', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 });
