@@ -88,3 +88,5 @@ Route::prefix('user/peminjaman')->group(function () {
 Route::get('/tes', function () {
     return view('user.peminjaman.index');
 });
+
+Route::get('print', [PeminjamanUser::class, 'index']);

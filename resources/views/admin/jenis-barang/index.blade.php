@@ -13,9 +13,6 @@
     </button>
   </div>
 
-  <div class="p-3 ml-3 mr-3">
-    {{ $jenis_barang->links() }}
-  </div>
 
   @if ($jenis_barang->isEmpty())
     <div class="flex flex-col p-3 ml-3">
@@ -62,6 +59,10 @@
       </div>
     </div>
   @endif
+
+  <div class="p-3 ml-6 mr-1">
+    {{ $jenis_barang->links() }}
+  </div>
 
   {{-- modal tambah data  --}}
   <div id="create-modal" tabindex="-1" aria-hidden="true"
