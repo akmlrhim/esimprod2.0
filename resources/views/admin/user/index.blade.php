@@ -114,7 +114,6 @@
                     <i class="fas fa-print"></i>
                   </button>
                 </td>
-
               </tr>
             @endforeach
           </tbody>

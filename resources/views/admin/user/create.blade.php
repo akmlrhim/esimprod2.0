@@ -53,22 +53,6 @@
                 </div>
               </div>
 
-              <div class="w-full relative">
-                <label for="password"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                <div class="relative">
-                  <input type="password" name="password" id="password"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    autocomplete="off" placeholder="Masukkan password" value="{{ old('password') }}">
-                  <span class="absolute inset-y-0 right-3 flex items-center cursor-pointer" onclick="togglePassword()">
-                    <i id="eyeIcon" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>
-                  </span>
-                </div>
-                @error('password')
-                  <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                @enderror
-              </div>
-
               <div>
                 <label for="jabatan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jabatan</label>
                 <select id="jabatan" name="jabatan"
@@ -78,7 +62,6 @@
                     Technical Director</option>
                   <option value="Petugas Khusus" {{ old('jabatan') == 'Petugas Khusus' ? 'selected' : '' }}>Petugas
                     Khusus</option>
-
                 </select>
                 @error('jabatan')
                   <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
@@ -98,6 +81,23 @@
                   <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                 @enderror
               </div>
+
+              <div class="w-full relative" id="passwordContainer" style="display: none;">
+                <label for="password"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                <div class="relative">
+                  <input type="password" name="password" id="password"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    autocomplete="off" placeholder="Masukkan password">
+                  <span class="absolute inset-y-0 right-3 flex items-center cursor-pointer" onclick="togglePassword()">
+                    <i id="eyeIcon" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>
+                  </span>
+                </div>
+                @error('password')
+                  <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                @enderror
+              </div>
+
 
               <div class="sm:col-span-2">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Foto Profil</label>
@@ -125,6 +125,23 @@
 
 @section('scripts')
   <script>
+    function togglePasswordVisibility() {
+      const roleSelect = document.getElementById("role");
+      const passwordContainer = document.getElementById("passwordContainer");
+      const passwordInput = document.getElementById("password");
+
+      if (roleSelect.value === "superadmin" || roleSelect.value === "admin") {
+        passwordContainer.style.display = "block";
+        passwordInput.setAttribute("required", "required");
+      } else {
+        passwordContainer.style.display = "none";
+        passwordInput.removeAttribute("required");
+      }
+    }
+
+    document.getElementById("role").addEventListener("change", togglePasswordVisibility);
+    window.onload = togglePasswordVisibility;
+
     function togglePassword() {
       const passwordInput = document.getElementById("password");
       const eyeIcon = document.getElementById("eyeIcon");

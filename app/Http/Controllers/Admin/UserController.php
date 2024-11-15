@@ -46,7 +46,6 @@ class UserController extends Controller
                 'nama_lengkap' => 'required',
                 'email' => 'required|email|unique:users,email',
                 'nomor_hp' => 'required|numeric',
-                'password' => 'required|min:8',
                 'role' => 'required',
                 'jabatan' => 'required',
                 'nip' => 'required|numeric',
@@ -65,8 +64,6 @@ class UserController extends Controller
                 'nip.numeric' => 'NIP harus berupa angka.',
                 'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
                 'foto.max' => 'Ukuran file maksimal adalah 2MB.',
-                'password.required' => 'Password wajib diisi.',
-                'password.min' => 'Password minimal 8 karakter.',
             ]
         );
 
@@ -95,6 +92,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'jabatan' => $request->jabatan,
+            'nomor_hp' => $request->nomor_hp,
             'nip' => $request->nip,
             'role' => $request->role,
             'qr_code' => $qrCodeFilename,

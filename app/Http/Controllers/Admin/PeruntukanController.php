@@ -14,7 +14,7 @@ class PeruntukanController extends Controller
     {
         $data = [
             'title' => 'Peruntukan',
-            'peruntukan' => Peruntukan::all(),
+            'peruntukan' => Peruntukan::paginate(5)
         ];
         return view('admin.peruntukan.index', $data);
     }
@@ -29,11 +29,11 @@ class PeruntukanController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return redirect()->back()->withErrors($validator)->withInput()->with('showModal', true);
         }
 
         Peruntukan::create([
-            'uuid ' => Str::uuid(),
+            'uuid' => Str::uuid(),
             'peruntukan' => $request->peruntukan
         ]);
 
@@ -47,5 +47,30 @@ class PeruntukanController extends Controller
         return response()->json($data);
     }
 
-    public function update(Request $request, string $uuid) {}
+    public function update(Request $request, string $uuid)
+    {
+        $validator = Validator::make($request->all(), [
+            'peruntukan' => 'required'
+        ], [
+            'peruntukan.required' => 'Peruntukan harus diisi',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()]);
+        }
+
+        $data = $request->except(['_token', '_method']);
+
+        Peruntukan::where('uuid', $uuid)->update($data);
+        notify()->success('Data Berhasil Diperbarui');
+        return response()->json(['success' => true]);
+    }
+
+    public function destroy(string $uuid)
+    {
+        Peruntukan::where('uuid', $uuid)->delete();
+
+        notify()->success('Data Berhasil Dihapus');
+        return redirect()->route('peruntukan.index');
+    }
 }

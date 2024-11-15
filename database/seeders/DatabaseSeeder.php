@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
                 CreditSeeder::class,
                 JenisBarangSeeder::class,
                 BarangSeeder::class,
+                PeruntukanSeeder::class
             ]
         );
     }
