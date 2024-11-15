@@ -4,15 +4,15 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\Admin\CreditController;
+use App\Http\Controllers\User\OptionsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PerawatanController;
 use App\Http\Controllers\Admin\PeminjamanController;
+use App\Http\Controllers\Admin\PeruntukanController;
 use App\Http\Controllers\Admin\JenisBarangController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\User\OptionsController;
-use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
 
 
 Route::prefix('/')->group(function () {
@@ -76,16 +76,19 @@ Route::prefix('users')->group(function () {
     Route::get('/filter', [UserController::class, 'filterByRole'])->name('users.role');
 });
 
+Route::prefix('peruntukan')->group(function () {
+    Route::get('/', [PeruntukanController::class, 'index'])->name('peruntukan.index');
+    Route::post('/store', [PeruntukanController::class, 'store'])->name('peruntukan.store');
+    Route::get('/edit/{uuid}', [PeruntukanController::class, 'edit'])->name('peruntukan.edit');
+    Route::put('/update/{uuid}', [PeruntukanController::class, 'update'])->name('peruntukan.update');
+    Route::delete('/destroy/{uuid}', [PeruntukanController::class, 'destroy'])->name('peruntukan.destroy');
+});
+
 Route::prefix('peminjaman')->group(function () {
     Route::get('/', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+    Route::get('/tambah', [PeminjamanController::class, 'create'])->name('peminjaman.create');
+    Route::post('/store', [PeminjamanController::class, 'store'])->name('peminjaman.store');
+    Route::get('/edit/{uuid}', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
+    Route::put('/update/{uuid}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
+    Route::delete('/destroy/{uuid}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
 });
-
-Route::prefix('user/peminjaman')->group(function () {
-    Route::get('/', [PeminjamanUser::class, 'index'])->name('user.peminjaman.index');
-});
-
-Route::get('/tes', function () {
-    return view('user.peminjaman.index');
-});
-
-Route::get('print', [PeminjamanUser::class, 'index']);

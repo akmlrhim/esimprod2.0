@@ -2,7 +2,7 @@
 @section('content')
   <div class="flex items-center justify-between p-3 ml-3 mr-3">
     <button id="dropdownRightButton" data-dropdown-toggle="dropdownRight" data-dropdown-placement="right"
-      class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300  rounded-lg text-sm px-2 py-1 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800 font-bold"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
       type="button" title="Menu"><i class="fa solid fa-gear mr-2"></i> Opsi
     </button>
 
@@ -12,12 +12,6 @@
           <a href="{{ route('barang.create') }}"
             class="block px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
             Tambah Barang
-          </a>
-        </li>
-        <li>
-          <a href="{{ route('jenis-barang.index') }}"
-            class="block px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-            Jenis Barang
           </a>
         </li>
         <li>

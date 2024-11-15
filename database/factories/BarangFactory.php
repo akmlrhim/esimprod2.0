@@ -24,7 +24,7 @@ class BarangFactory extends Factory
             'nama_barang' => fake()->word(),
             'nomor_seri' => substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 16),
             'merk' => fake()->company(),
-            'jenis_barang_id' => Arr::random(['JBR-001', 'JBR-002', 'JBR-003', 'JBR-004', 'JBR-005', 'JBR-006', 'JBR-007', 'JBR-008', 'JBR-009', 'JBR-010']),
+            'jenis_barang_id' => Arr::random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             'status' => 'tersedia',
             'deskripsi' => fake()->sentence(),
             'limit' => rand(1, 5),

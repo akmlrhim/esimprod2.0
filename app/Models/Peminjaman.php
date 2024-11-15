@@ -16,6 +16,7 @@ class Peminjaman extends Model
         'uuid',
         'kode_peminjaman',
         'kode_barang',
+        'peruntukan_id',
         'nomor_surat',
         'tanggal_peminjaman',
         'tanggal_kembali',
@@ -26,5 +27,10 @@ class Peminjaman extends Model
     public function barang(): BelongsTo
     {
         return $this->belongsTo(Barang::class, 'kode_barang', 'kode_barang');
+    }
+
+    public function peruntukan(): BelongsTo
+    {
+        return $this->belongsTo(Peruntukan::class, 'peruntukan_id');
     }
 }

@@ -18,14 +18,14 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->string('nomor_seri');
             $table->string('merk');
-            $table->string('jenis_barang_id');
+            $table->unsignedBigInteger('jenis_barang_id');
             $table->string('status');
             $table->text('deskripsi')->nullable();
             $table->string('qr_code');
             $table->integer('limit');
             $table->integer('sisa_limit');
             $table->string('foto', 2048)->nullable();
-            $table->foreign('jenis_barang_id')->references('kode_jenis_barang')->on('jenis_barang')->onDelete('cascade');
+            $table->foreign('jenis_barang_id')->references('id')->on('jenis_barang')->onDelete('cascade');
             $table->timestamps();
         });
     }

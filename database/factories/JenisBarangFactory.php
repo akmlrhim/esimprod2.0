@@ -20,8 +20,7 @@ class JenisBarangFactory extends Factory
     public function definition(): array
     {
         return [
-            'uuid' => Str::random(10),
-            'kode_jenis_barang' => 'JBR' . random_int(1, 100),
+            'uuid' => Str::uuid(),
             'jenis_barang' => fake()->word(),
             'created_at' => now(),
             'updated_at' => now(),

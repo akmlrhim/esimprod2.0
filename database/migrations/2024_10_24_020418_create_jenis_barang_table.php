@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('jenis_barang', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
-            $table->string('kode_jenis_barang')->unique();
-            $table->string('jenis_barang')->unique();
+            $table->string('jenis_barang');
             $table->timestamps();
         });
     }

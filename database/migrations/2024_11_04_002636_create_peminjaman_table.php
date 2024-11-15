@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('uuid');
             $table->string('kode_peminjaman')->unique();
             $table->string('nomor_surat');
-            $table->string('kode_peruntukan');
+            $table->unsignedBigInteger('peruntukan_id');
             $table->date('tanggal_peminjaman');
             $table->date('tanggal_kembali');
             $table->string('peminjam');
             $table->string('petugas');
             $table->string('status');
-            $table->foreign('kode_peruntukan')->references('uuid')->on('peruntukan')->onDelete('cascade');
+            $table->foreign('peruntukan_id')->references('id')->on('peruntukan')->onDelete('cascade');
             $table->timestamps();
         });
     }

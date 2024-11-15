@@ -30,8 +30,8 @@
         <button type="button"
           class="flex items-center w-full p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700"
           aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-          <i class="fa-solid fa-cube"></i>
-          <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">?</span>
+          <i class="fa-solid fa-database"></i>
+          <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Data Master</span>
           <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="m1 1 4 4 4-4" />
@@ -39,16 +39,17 @@
         </button>
         <ul id="dropdown-example" class="hidden py-2 space-y-2">
           <li>
-            <a href="#"
-              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Products</a>
+            <a href="{{ route('jenis-barang.index') }}"
+              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Jenis
+              Barang</a>
+          </li>
+          <li>
+            <a href="{{ route('peruntukan.index') }}"
+              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Peruntukan</a>
           </li>
           <li>
             <a href="#"
-              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Billing</a>
-          </li>
-          <li>
-            <a href="#"
-              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Invoice</a>
+              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Jabatan</a>
           </li>
         </ul>
       </li>

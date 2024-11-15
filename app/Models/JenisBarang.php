@@ -14,12 +14,11 @@ class JenisBarang extends Model
 
     protected $fillable = [
         'uuid',
-        'kode_jenis_barang',
         'jenis_barang',
     ];
 
     public function barang(): HasMany
     {
-        return $this->hasMany(Barang::class, 'jenis_barang_id', 'kode_jenis_barang');
+        return $this->hasMany(Barang::class);
     }
 }

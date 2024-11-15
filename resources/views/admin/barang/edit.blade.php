@@ -15,7 +15,7 @@
                     <label class="block text-sm font-bold text-black">Nama Barang</label>
                     <input type="text" name="nama_barang" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ old('nama_barang'), $barang->nama_barang }}" />
+                      value="{{ old('nama_barang', $barang->nama_barang) }}" />
                     @error('nama_barang')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
@@ -27,9 +27,9 @@
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option value="" disabled>Select jenis barang</option>
                       @foreach ($jenis_barang as $j)
-                        <option value="{{ $j->kode_jenis_barang }}"
-                          {{ old('jenis_barang_id', $barang->jenis_barang_id) == $j->kode_jenis_barang ? 'selected' : '' }}>
-                          {{ $j->kode_jenis_barang }} - {{ $j->jenis_barang }}
+                        <option value="{{ $j->id }}"
+                          {{ old('jenis_barang_id', $barang->jenis_barang_id) == $j->id ? 'selected' : '' }}>
+                          {{ $j->jenis_barang }}
                         </option>
                       @endforeach
                     </select>
@@ -43,7 +43,7 @@
                       <label class="block text-sm font-bold text-black">Limit</label>
                       <input type="number" name="limit" min="0" autocomplete="off"
                         class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="{{ old('limit'), $barang->limit }}" />
+                        value="{{ old('limit', $barang->limit) }}" />
                       @error('limit')
                         <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                       @enderror
@@ -52,19 +52,18 @@
                       <label class="block text-sm font-bold text-black">Sisa Limit</label>
                       <input type="number" name="sisa_limit" min="0" autocomplete="off"
                         class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="{{ old('sisa_limit'), $barang->sisa_limit }}" />
+                        value="{{ old('sisa_limit', $barang->sisa_limit) }}" />
                       @error('sisa_limit')
                         <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                       @enderror
                     </div>
                   </div>
 
-
                   <div>
                     <label class="block text-sm font-bold text-black">Nomor Seri</label>
                     <input type="text" name="nomor_seri" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value={{ old('nomor_seri'), $barang->nomor_seri }} />
+                      value="{{ old('nomor_seri', $barang->nomor_seri) }}" />
                     @error('nomor_seri')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror
@@ -74,7 +73,7 @@
                     <label class="block text-sm font-bold text-black">Merk</label>
                     <input type="text" name="merk" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ old('merk'), $barang->merk }}" />
+                      value="{{ old('merk', $barang->merk) }}" />
                     @error('merk')
                       <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                     @enderror

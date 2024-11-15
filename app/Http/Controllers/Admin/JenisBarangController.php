@@ -34,12 +34,8 @@ class JenisBarangController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kode_jenis_barang' => 'required|string|unique:jenis_barang,kode_jenis_barang',
             'jenis_barang' => 'required|string|unique:jenis_barang,jenis_barang',
         ], [
-            'kode_jenis_barang.required' => 'Kode Barang harus diisi',
-            'kode_jenis_barang.unique' => 'Kode Barang sudah ada',
-            'kode_jenis_barang.string' => 'Kode Barang harus berupa string',
             'jenis_barang.required' => 'Jenis Barang harus diisi',
             'jenis_barang.unique' => 'Jenis Barang sudah ada',
         ]);
@@ -49,8 +45,7 @@ class JenisBarangController extends Controller
         }
 
         JenisBarang::create([
-            'uuid' => Str::random(10),
-            'kode_jenis_barang' => $request->kode_jenis_barang,
+            'uuid' => Str::uuid(),
             'jenis_barang' => $request->jenis_barang,
         ]);
 
@@ -82,11 +77,8 @@ class JenisBarangController extends Controller
     public function update(Request $request, string $uuid)
     {
         $validator = Validator::make($request->all(), [
-            'kode_jenis_barang' => 'required|string',
             'jenis_barang' => 'required',
         ], [
-            'kode_jenis_barang.required' => 'Kode Barang harus diisi',
-            'kode_jenis_barang.string' => 'Kode Barang harus berupa string',
             'jenis_barang.required' => 'Jenis Barang harus diisi',
         ]);
 
@@ -109,6 +101,6 @@ class JenisBarangController extends Controller
         JenisBarang::where('uuid', $uuid)->delete();
 
         notify()->success('Data Berhasil Dihapus');
-        return redirect()->route('admin.jenis-barang.index');
+        return redirect()->route('jenis-barang.index');
     }
 }

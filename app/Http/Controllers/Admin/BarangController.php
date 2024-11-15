@@ -50,7 +50,7 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'merk' => 'required',
             'nomor_seri' => 'required',
-            'jenis_barang_id' => 'required|exists:jenis_barang,kode_jenis_barang',
+            'jenis_barang_id' => 'required|exists:jenis_barang,id',
             'limit' => 'required|numeric',
             'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         ], [
@@ -138,7 +138,7 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'nomor_seri' => 'required',
             'merk' => 'required',
-            'jenis_barang_id' => 'required|exists:jenis_barang,kode_jenis_barang',
+            'jenis_barang_id' => 'required|exists:jenis_barang,id',
             'limit' => 'required|numeric',
             'sisa_limit' => 'required|numeric',
             'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
