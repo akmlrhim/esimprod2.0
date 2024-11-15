@@ -85,12 +85,16 @@ class UserController extends Controller
             $data['foto'] = 'default.jpeg';
         }
 
+        $password = in_array($request->role, ['admin', 'superadmin'])
+            ? Hash::make($request->password)
+            : null;
+
         User::create([
             'uuid' => Str::uuid(),
             'kode_user' => $kode_user,
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $password,
             'jabatan' => $request->jabatan,
             'nomor_hp' => $request->nomor_hp,
             'nip' => $request->nip,
@@ -98,7 +102,6 @@ class UserController extends Controller
             'qr_code' => $qrCodeFilename,
             'foto' => $data['foto'],
         ]);
-
 
         notify()->success('User Berhasil Ditambahkan');
         return redirect()->route('users.index');

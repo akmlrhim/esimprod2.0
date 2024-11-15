@@ -37,19 +37,24 @@
               d="m1 1 4 4 4-4" />
           </svg>
         </button>
-        <ul id="dropdown-example" class="hidden py-2 space-y-2">
+        <ul id="dropdown-example" class="hidden py-2">
+          <li>
+            <a href="{{ route('barang.index') }}"
+              class="flex items-center w-full p-1 text-white transition duration-75 rounded-lg pl-9 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">
+              Barang</a>
+          </li>
           <li>
             <a href="{{ route('jenis-barang.index') }}"
-              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Jenis
+              class="flex items-center w-full p-1 text-white transition duration-75 rounded-lg pl-9 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Jenis
               Barang</a>
           </li>
           <li>
             <a href="{{ route('peruntukan.index') }}"
-              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Peruntukan</a>
+              class="flex items-center w-full p-1 text-white transition duration-75 rounded-lg pl-9 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Peruntukan</a>
           </li>
           <li>
             <a href="#"
-              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Jabatan</a>
+              class="flex items-center w-full p-1 text-white transition duration-75 rounded-lg pl-9 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Jabatan</a>
           </li>
         </ul>
       </li>
@@ -58,14 +63,6 @@
         <small class="mx-2 text-white opacity-65">BARANG</small>
         <hr class="h-px flex-grow bg-gray-200 border-0 opacity-20">
       </div>
-
-      <li>
-        <a href="{{ route('barang.index') }}"
-          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-white hover:text-tvri_base_color dark:hover:bg-gray-700 group">
-          <i class="fa-solid fa-cube"></i>
-          <span class="ms-3">Data Barang</span>
-        </a>
-      </li>
 
       <li>
         <a href="{{ route('peminjaman.index') }}"

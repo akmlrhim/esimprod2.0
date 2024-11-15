@@ -59,6 +59,7 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 font-bold">
             <tr>
+              <th scope="col" class="px-6 py-3 text-center">No.</th>
               <th scope="col" class="px-6 py-3 text-center">Kode User</th>
               <th scope="col" class="px-6 py-3 text-center">Nama Lengkap</th>
               <th scope="col" class="px-6 py-3 text-center">Role</th>
@@ -71,8 +72,9 @@
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <th scope="row"
                   class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
-                  {!! $row->kode_user !!}
+                  {{ $user->firstItem() + $loop->index }}
                 </th>
+                <td class="px-6 py-4 text-center">{!! $row->kode_user !!}</td>
                 <td class="px-6 py-4 text-center">{!! $row->nama_lengkap !!}</td>
                 <td class="px-6 py-4 text-center">
                   @if ($row->role == 'admin')
@@ -135,7 +137,8 @@
         <button type="button"
           class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
           data-modal-hide="delete-modal">
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 14 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
           </svg>

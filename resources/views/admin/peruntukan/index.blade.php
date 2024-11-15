@@ -26,14 +26,18 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 font-bold">
             <tr>
-              <th scope="col" class="px-6 py-3">Jenis Barang</th>
+              <th scope="col" class="px-6 py-3">No.</th>
+              <th scope="col" class="px-6 py-3">Peruntukan</th>
               <th scope="col" class="px-6 py-3">Action</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($peruntukan as $row)
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="px-6 py-4">{!! $row->peruntukan !!}</td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {{ $peruntukan->firstItem() + $loop->index }}</td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{!! $row->peruntukan !!}
+                </td>
                 <td class="flex items-center px-6 py-4">
                   <button type="button" data-uuid="{{ $row->uuid }}"
                     class="edit-item font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
@@ -163,7 +167,7 @@
             @csrf
             @method('DELETE')
             <button type="submit"
-              class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+              class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
               Ya
             </button>
             <button data-modal-hide="delete-modal" type="button"

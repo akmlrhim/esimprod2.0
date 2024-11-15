@@ -2,7 +2,7 @@
 @section('content')
   <div class="flex items-center justify-between p-3 ml-3 mr-3">
     <button id="dropdownRightButton" data-dropdown-toggle="dropdownRight" data-dropdown-placement="right"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
       type="button" title="Menu"><i class="fa solid fa-gear mr-2"></i> Opsi
     </button>
 
@@ -159,7 +159,7 @@
             @csrf
             @method('DELETE')
             <button type="submit"
-              class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+              class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
               Ya
             </button>
             <button data-modal-hide="delete-modal" type="button"
