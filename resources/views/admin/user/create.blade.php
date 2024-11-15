@@ -76,10 +76,9 @@
                   <option value="" {{ old('jabatan') == '' ? 'selected' : '' }}>--- Pilih Jabatan ---</option>
                   <option value="Technical Director" {{ old('jabatan') == 'Technical Director' ? 'selected' : '' }}>
                     Technical Director</option>
-                  <option value="Cameramen" {{ old('jabatan') == 'Cameramen' ? 'selected' : '' }}>Cameramen</option>
-                  <option value="Mahasiswa PKL" {{ old('jabatan') == 'Mahasiswa PKL' ? 'selected' : '' }}>Mahasiswa PKL
-                  </option>
-                  <option value="Editor" {{ old('jabatan') == 'Editor' ? 'selected' : '' }}>Editor</option>
+                  <option value="Petugas Khusus" {{ old('jabatan') == 'Petugas Khusus' ? 'selected' : '' }}>Petugas
+                    Khusus</option>
+
                 </select>
                 @error('jabatan')
                   <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>

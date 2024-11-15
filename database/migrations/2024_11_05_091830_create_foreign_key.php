@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('foreign_key_det_pengembalian_and_det_peminjaman');
+        Schema::dropIfExists('foreign_key');
     }
 };

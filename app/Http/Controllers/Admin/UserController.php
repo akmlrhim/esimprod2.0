@@ -109,9 +109,14 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $uuid)
     {
-        //
+        $data = [
+            'title' => 'Detail User',
+            'user' => User::where('uuid', $uuid)->first(),
+        ];
+
+        // return view()
     }
 
     /**
@@ -225,4 +230,6 @@ class UserController extends Controller
 
         return view('admin.user.index', compact('user', 'title', 'role'));
     }
+
+    // public function search
 }
