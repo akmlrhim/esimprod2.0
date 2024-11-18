@@ -13,6 +13,6 @@ class JabatanSeeder extends Seeder
      */
     public function run(): void
     {
-        Jabatan::factory()->count(10)->create();
+        Jabatan::factory()->count(40)->create();
     }
 }

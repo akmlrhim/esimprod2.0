@@ -86,7 +86,6 @@
     </div>
   </div>
 
-
   <script>
     setTimeout(() => {
       const toast = document.getElementById('toast-success');

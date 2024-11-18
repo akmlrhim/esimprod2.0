@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('limit');
             $table->integer('sisa_limit');
             $table->string('foto', 2048)->nullable();
-            $table->foreign('jenis_barang_id')->references('id')->on('jenis_barang');
+            $table->foreign('jenis_barang_id')->references('id')->on('jenis_barang')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -53,7 +53,7 @@ class AuthController extends Controller
             }
         }
 
-        return redirect()->back()->with('error', 'Kode user tidak valid atau tidak terdaftar !');
+        return redirect()->back()->with('error', 'Kode user tidak terdaftar !');
     }
 
     public function passwordValidation(Request $request)

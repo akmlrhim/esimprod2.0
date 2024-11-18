@@ -79,11 +79,11 @@ class JabatanController extends Controller
             if ($isRelate) {
                 notify()->error('Jabatan ini tidak dapat dihapus karena masih digunakan pada data user lainnya.');
                 return redirect()->route('jabatan.index');
+            } else {
+                Jabatan::where('uuid', $uuid)->delete();
+                notify()->success('Data Berhasil Dihapus');
+                return redirect()->route('jabatan.index');
             }
-        } else {
-            Jabatan::where('uuid', $uuid)->delete();
-            notify()->success('Data Berhasil Dihapus');
-            return redirect()->route('jabatan.index');
         }
     }
 }
