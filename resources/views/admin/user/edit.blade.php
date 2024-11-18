@@ -55,17 +55,15 @@
 
               <div>
                 <label for="jabatan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jabatan</label>
-                <select id="jabatan" name="jabatan"
+                <select id="jabatan" name="jabatan_id"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                  <option value="{{ $user->jabatan }}" {{ old('jabatan') == '' ? 'selected' : '' }}>
-                    {{ $user->jabatan }}
-                  </option>
-                  <option value="Technical Director" {{ old('jabatan') == 'Technical Director' ? 'selected' : '' }}>
-                    Technical Director</option>
-                  <option value="Cameramen" {{ old('jabatan') == 'Cameramen' ? 'selected' : '' }}>Cameramen</option>
-                  <option value="Mahasiswa PKL" {{ old('jabatan') == 'Mahasiswa PKL' ? 'selected' : '' }}>Mahasiswa PKL
-                  </option>
-                  <option value="Editor" {{ old('jabatan') == 'Editor' ? 'selected' : '' }}>Editor</option>
+                  <option value="" disabled>Pilih jabatan</option>
+                  @foreach ($jabatan as $j)
+                    <option value="{{ $j->id }}"
+                      {{ old('jabatan_id', $user->jabatan_id) == $j->id ? 'selected' : '' }}>
+                      {{ $j->jabatan }}
+                    </option>
+                  @endforeach
                 </select>
                 @error('jabatan')
                   <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>

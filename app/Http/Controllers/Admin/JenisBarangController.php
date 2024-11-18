@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Barang;
 use App\Models\JenisBarang;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class JenisBarangController extends Controller
@@ -98,9 +99,19 @@ class JenisBarangController extends Controller
      */
     public function destroy(string $uuid)
     {
-        JenisBarang::where('uuid', $uuid)->delete();
+        $jenisBarang = JenisBarang::where('uuid', $uuid)->first();
 
-        notify()->success('Data Berhasil Dihapus');
-        return redirect()->route('jenis-barang.index');
+        if ($jenisBarang) {
+            $isRelate = Barang::where('jenis_barang_id', $jenisBarang->id)->first();
+
+            if ($isRelate) {
+                notify()->error('Jenis barang ini tidak dapat dihapus karena masih digunakan pada data barang lainnya.');
+                return redirect()->route('jenis-barang.index');
+            } else {
+                JenisBarang::where('uuid', $uuid)->delete();
+                notify()->success('Data Berhasil Dihapus');
+                return redirect()->route('jenis-barang.index');
+            }
+        }
     }
 }

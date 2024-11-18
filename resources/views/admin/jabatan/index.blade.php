@@ -3,13 +3,27 @@
 @section('content')
   <div class="flex p-3 ml-3 mr-3">
     <button data-modal-target="create-modal" data-modal-toggle="create-modal"
-      class="mr-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
       Tambah Data
     </button>
   </div>
 
+  {{-- search form --}}
+  <form class="flex items-center max-w-sm mx-auto p-3 ml-3" action="{{ route('jabatan.search') }}" method="GET">
+    <label for="simple-search" class="sr-only">Search</label>
+    <div class="w-full relative">
+      <input type="text" id="search" autocomplete="off"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Masukkan kata kunci...." name="search" />
+      <svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-tvri_base_color" aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="m19 19-4-4m0-7A7 7 0 1 1   1 8a7 7 0 0 1 14 0Z" />
+      </svg>
+    </div>
+  </form>
 
-  @if ($jenis_barang->isEmpty())
+  @if ($jabatan->isEmpty())
     <div class="flex flex-col p-3 ml-3">
       <div class="flex items-center p-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
         role="alert">
@@ -26,24 +40,23 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 font-bold">
             <tr>
-              <th scope="col" class="px-6 py-3">No</th>
-              <th scope="col" class="px-6 py-3">Jenis Barang</th>
+              <th scope="col" class="px-6 py-3">No.</th>
+              <th scope="col" class="px-6 py-3">jabatan</th>
               <th scope="col" class="px-6 py-3">Action</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($jenis_barang as $row)
+            @foreach ($jabatan as $row)
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {{ $jenis_barang->firstItem() + $loop->index }}
-                </td>
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $row->jenis_barang }}
+                  {{ $jabatan->firstItem() + $loop->index }}</td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{!! $row->jabatan !!}
                 </td>
                 <td class="flex items-center px-6 py-4">
                   <button type="button" data-uuid="{{ $row->uuid }}"
                     class="edit-item font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
                   <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
-                    onclick="confirmDelete('{{ route('jenis-barang.destroy', ['uuid' => $row->uuid]) }}')"
+                    onclick="confirmDelete('{{ route('jabatan.destroy', ['uuid' => $row->uuid]) }}')"
                     class="font-medium text-red-600 dark:text-red-500 hover:underline ml-2" type="button">
                     Hapus
                   </button>
@@ -57,7 +70,7 @@
   @endif
 
   <div class="p-3 ml-6 mr-1">
-    {{ $jenis_barang->links() }}
+    {{ $jabatan->links() }}
   </div>
 
   {{-- modal tambah data  --}}
@@ -67,7 +80,7 @@
       <div class="relative bg-white rounded-lg shadow-xl border-gray-400 dark:bg-gray-700">
         <div class="flex items-center justify-between p-3 md:p-4 border-b rounded-t dark:border-gray-600">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Tambah Jenis Barang
+            Tambah Jabatan
           </h3>
           <button type="button"
             class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -80,14 +93,14 @@
           </button>
         </div>
         <div class="p-4">
-          <form action="{{ route('jenis-barang.store') }}" method="POST">
+          <form action="{{ route('jabatan.store') }}" method="POST">
             @csrf
             <div class="space-y-4">
               <div>
-                <label for="jenis_barang" class="block text-sm font-medium text-gray-900">Jenis Barang</label>
-                <input type="text" name="jenis_barang" id="jenis_barang" autocomplete="off"
+                <label for="jabatan" class="block text-sm font-medium text-gray-900">Jabatan</label>
+                <input type="text" name="jabatan" id="jabatan" autocomplete="off"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2" />
-                @error('jenis_barang')
+                @error('jabatan')
                   <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                 @enderror
               </div>
@@ -106,7 +119,7 @@
     <div class="flex items-center justify-center min-h-screen">
       <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
         <div class="flex items-center justify-between p-4 border-b">
-          <h3 class="text-lg font-semibold text-gray-900">Edit Jenis Barang</h3>
+          <h3 class="text-lg font-semibold text-gray-900">Edit Jabatan</h3>
           <button type="button" class="text-gray-400 hover:text-gray-900 close-modal">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg">
@@ -119,13 +132,13 @@
           <form id="updateForm">
             @csrf
             @method('PUT')
-            <input type="hidden" id="jenis_barang_uuid" name="uuid">
+            <input type="hidden" id="jabatan_uuid" name="uuid">
             <div class="space-y-4">
               <div>
-                <label for="jenis_barang" class="block text-sm font-medium text-gray-900">Jenis Barang</label>
-                <input type="text" name="jenis_barang" id="jenis_barang" autocomplete="off"
+                <label for="jabatan" class="block text-sm font-medium text-gray-900">Jabatan</label>
+                <input type="text" name="jabatan" id="jabatan" autocomplete="off"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2">
-                <div class="text-red-500 text-sm mt-1" id="error-jenis_barang"></div>
+                <div class="text-red-500 text-sm mt-1" id="error-jabatan"></div>
               </div>
             </div>
 
@@ -227,11 +240,11 @@
       });
 
       function fetchItemData(uuid) {
-        fetch(`/jenis-barang/edit/${uuid}`)
+        fetch(`/jabatan/edit/${uuid}`)
           .then(response => response.json())
           .then(data => {
-            document.getElementById('jenis_barang_uuid').value = uuid;
-            form['jenis_barang'].value = data.jenis_barang;
+            document.getElementById('jabatan_uuid').value = uuid;
+            form['jabatan'].value = data.jabatan;
           });
       }
 
@@ -240,9 +253,9 @@
         clearErrors();
 
         const formData = new FormData(form);
-        const uuid = form['jenis_barang_uuid'].value;
+        const uuid = form['jabatan_uuid'].value;
 
-        fetch(`/jenis-barang/update/${uuid}`, {
+        fetch(`/jabatan/update/${uuid}`, {
             method: 'POST',
             body: formData,
             headers: {

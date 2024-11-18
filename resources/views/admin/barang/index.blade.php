@@ -32,21 +32,19 @@
 
 
   {{-- search form --}}
-  @if (!$barang->isEmpty())
-    <form class="flex items-center max-w-sm mx-auto p-3 ml-3 mr-3" action="{{ route('barang.search') }}" method="GET">
-      <label for="simple-search" class="sr-only">Search</label>
-      <div class="w-full relative">
-        <input type="text" id="search" autocomplete="off"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Masukkan kata kunci...." required name="search" />
-        <svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-tvri_base_color" aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="m19 19-4-4m0-7A7 7 0 1 1   1 8a7 7 0 0 1 14 0Z" />
-        </svg>
-      </div>
-    </form>
-  @endif
+  <form class="flex items-center max-w-sm mx-auto p-3 ml-3 mr-3" action="{{ route('barang.search') }}" method="GET">
+    <label for="simple-search" class="sr-only">Search</label>
+    <div class="w-full relative">
+      <input type="text" id="search" autocomplete="off"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Masukkan kata kunci, + Enter" name="search" />
+      <svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-tvri_base_color" aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="m19 19-4-4m0-7A7 7 0 1 1   1 8a7 7 0 0 1 14 0Z" />
+      </svg>
+    </div>
+  </form>
 
   @if ($barang->isEmpty())
     <div class="flex flex-col p-3 ml-3">
@@ -126,11 +124,9 @@
     </div>
   </div>
 
-  @if ($count > 5)
-    <div class="p-3 ml-3 mr-3">
-      {{ $barang->links() }}
-    </div>
-  @endif
+  <div class="p-3 ml-3 mr-3">
+    {{ $barang->links() }}
+  </div>
 
 
   {{-- modal konfirmasi hapus --}}

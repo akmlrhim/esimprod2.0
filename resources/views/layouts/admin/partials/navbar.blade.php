@@ -46,7 +46,7 @@
                 <strong>NIP</strong> : {{ Auth::user()->nip }}
               </p>
               <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                <strong>Jabatan</strong> : {{ Auth::user()->jabatan }}
+                <strong>Jabatan</strong> : {{ Auth::user()->jabatan->jabatan }}
               </p>
             </div>
             <ul class="py-1" role="none">

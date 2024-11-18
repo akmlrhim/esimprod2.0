@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Jabatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -21,6 +22,7 @@ class UserController extends Controller
     {
         $data = [
             'title' => 'User',
+            'jabatan' => Jabatan::get(['id', 'jabatan']),
             'user' => User::where('id', '!=', Auth::id())->paginate(5),
         ];
         return view('admin.user.index', $data);
@@ -32,7 +34,8 @@ class UserController extends Controller
     public function create()
     {
         $title = 'Tambah User';
-        return view('admin.user.create', compact('title'));
+        $jabatan = Jabatan::get(['id', 'jabatan']);
+        return view('admin.user.create', compact('title', 'jabatan'));
     }
 
     /**
@@ -47,7 +50,7 @@ class UserController extends Controller
                 'email' => 'required|email|unique:users,email',
                 'nomor_hp' => 'required|numeric',
                 'role' => 'required',
-                'jabatan' => 'required',
+                'jabatan_id' => 'required',
                 'nip' => 'required|numeric',
                 'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
             ],
@@ -59,7 +62,7 @@ class UserController extends Controller
                 'nomor_hp.required' => 'Nomor HP wajib diisi.',
                 'nomor_hp.numeric' => 'Nomor HP harus berupa angka.',
                 'role.required' => 'Role wajib diisi.',
-                'jabatan.required' => 'Jabatan wajib diisi.',
+                'jabatan_id.required' => 'Jabatan wajib diisi.',
                 'nip.required' => 'NIP wajib diisi.',
                 'nip.numeric' => 'NIP harus berupa angka.',
                 'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
@@ -95,7 +98,7 @@ class UserController extends Controller
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
             'password' => $password,
-            'jabatan' => $request->jabatan,
+            'jabatan_id' => $request->jabatan_id,
             'nomor_hp' => $request->nomor_hp,
             'nip' => $request->nip,
             'role' => $request->role,
@@ -128,8 +131,8 @@ class UserController extends Controller
         $data = [
             'title' => 'Edit User',
             'user' => User::where('uuid', $uuid)->first(),
+            'jabatan' => Jabatan::get(['id', 'jabatan']),
         ];
-        // dd($data);
         return view('admin.user.edit', $data);
     }
 
@@ -145,7 +148,7 @@ class UserController extends Controller
                 'email' => 'required|email',
                 'nomor_hp' => 'required|numeric',
                 'role' => 'required',
-                'jabatan' => 'required',
+                'jabatan_id' => 'required',
                 'nip' => 'required|numeric',
                 'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
             ],
@@ -156,7 +159,7 @@ class UserController extends Controller
                 'nomor_hp.required' => 'Nomor HP wajib diisi.',
                 'nomor_hp.numeric' => 'Nomor HP harus berupa angka.',
                 'role.required' => 'Role wajib diisi.',
-                'jabatan.required' => 'Jabatan wajib diisi.',
+                'jabatan_id.required' => 'Jabatan wajib diisi.',
                 'nip.required' => 'NIP wajib diisi.',
                 'nip.numeric' => 'NIP harus berupa angka.',
                 'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
@@ -185,7 +188,7 @@ class UserController extends Controller
             'email' => $request->email,
             'nomor_hp' => $request->nomor_hp,
             'role' => $request->role,
-            'jabatan' => $request->jabatan,
+            'jabatan_id' => $request->jabatan_id,
             'nip' => $request->nip,
             'foto' => $filename
         ]);
@@ -219,6 +222,7 @@ class UserController extends Controller
     {
         $title = 'User';
         $role = $request->role;
+        $jabatan = Jabatan::get(['id', 'jabatan']);
 
         if ($role) {
             $user = User::where('role', $role)->paginate(5);
@@ -229,8 +233,42 @@ class UserController extends Controller
         $user = $user->appends(['role' => $role]);
 
 
-        return view('admin.user.index', compact('user', 'title', 'role'));
+        return view('admin.user.index', compact('user', 'title', 'role', 'jabatan'));
     }
 
-    // public function search
+    public function filterByJabatan(Request $request)
+    {
+        $title = 'User';
+        $jabatanId = $request->id;
+
+        if ($jabatanId) {
+            $user = User::where('jabatan_id', $jabatanId)->paginate(5);
+        } else {
+            $user = User::paginate(5);
+        }
+
+        $jabatan = Jabatan::get(['id', 'jabatan']);
+
+        $user->appends(['id' => $jabatanId]);
+
+        return view('admin.user.index', compact('title', 'user', 'jabatan'));
+    }
+
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $user = User::where('nama_lengkap', 'like', '%' . $search . '%')
+            ->paginate(5)
+            ->appends(['search' => $search]);
+
+        $data = [
+            'title' => 'User',
+            'user' => $user,
+            'count' => User::count()
+        ];
+
+        return view('admin.user.index', $data);
+    }
 }

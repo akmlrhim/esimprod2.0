@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\Admin\CreditController;
 use App\Http\Controllers\User\OptionsController;
+use App\Http\Controllers\Admin\JabatanController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PerawatanController;
 use App\Http\Controllers\Admin\PeminjamanController;
@@ -73,7 +74,18 @@ Route::prefix('users')->group(function () {
     Route::get('/edit/{uuid}', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/update/{uuid}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/destroy/{uuid}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/filter', [UserController::class, 'filterByRole'])->name('users.role');
+    Route::get('/roles', [UserController::class, 'filterByRole'])->name('users.role');
+    Route::get('/jabatan', [UserController::class, 'filterByJabatan'])->name('users.jabatan');
+    Route::get('/result', [UserController::class, 'search'])->name('users.search');
+});
+
+Route::prefix('jabatan')->group(function () {
+    Route::get('/', [JabatanController::class, 'index'])->name('jabatan.index');
+    Route::post('/store', [JabatanController::class, 'store'])->name('jabatan.store');
+    Route::get('/edit/{uuid}', [JabatanController::class, 'edit'])->name('jabatan.edit');
+    Route::put('/update/{uuid}', [JabatanController::class, 'update'])->name('jabatan.update');
+    Route::delete('/destroy/{uuid}', [JabatanController::class, 'destroy'])->name('jabatan.destroy');
+    Route::get('/result', [JabatanController::class, 'search'])->name('jabatan.search');
 });
 
 Route::prefix('peruntukan')->group(function () {
@@ -82,6 +94,7 @@ Route::prefix('peruntukan')->group(function () {
     Route::get('/edit/{uuid}', [PeruntukanController::class, 'edit'])->name('peruntukan.edit');
     Route::put('/update/{uuid}', [PeruntukanController::class, 'update'])->name('peruntukan.update');
     Route::delete('/destroy/{uuid}', [PeruntukanController::class, 'destroy'])->name('peruntukan.destroy');
+    Route::get('/result', [PeruntukanController::class, 'search'])->name('peruntukan.search');
 });
 
 Route::prefix('peminjaman')->group(function () {

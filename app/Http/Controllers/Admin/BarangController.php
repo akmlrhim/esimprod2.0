@@ -22,7 +22,6 @@ class BarangController extends Controller
         $data = [
             'title' => 'Barang',
             'barang' => Barang::where('sisa_limit', '>', 0)->paginate(5),
-            'count' => Barang::count()
         ];
 
         return view('admin.barang.index', $data);
@@ -263,12 +262,12 @@ class BarangController extends Controller
         $barang = Barang::where('nama_barang', 'like', '%' . $search . '%')
             ->orWhereHas('jenisBarang', function ($q) use ($search) {
                 $q->where('jenis_barang', 'like', '%' . $search . '%');
-            })->simplePaginate(5);
+            })->paginate(5)
+            ->appends(['search' => $search]);
 
         $data = [
             'title' => 'Barang',
             'barang' => $barang,
-            'count' => Barang::count()
         ];
 
         return view('admin.barang.index', $data);

@@ -73,4 +73,20 @@ class PeruntukanController extends Controller
         notify()->success('Data Berhasil Dihapus');
         return redirect()->route('peruntukan.index');
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $peruntukan = Peruntukan::where('peruntukan', 'like', '%' . $search . '%')
+            ->paginate(5)
+            ->appends(['search' => $search]);
+
+        $data = [
+            'title' => 'Peruntukan',
+            'peruntukan' => $peruntukan,
+        ];
+
+        return view('admin.peruntukan.index', $data);
+    }
 }
