@@ -1,30 +1,12 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="stylesheet" href="{{ asset('css/login.css') }}">
-  <link rel="shortcut icon" href="{{ asset('img/assets/esimprod_logo_bg.png') }}" type="image/x-icon">
-  <link rel="stylesheet" href="{{ asset('fa/css/all.min.css') }}">
-
-  <title>ESIMPR0D - Password</title>
-
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-</head>
-
-<body>
+@extends('auth.template')
+@section('content')
   @if (session('success'))
     <div id="toast-success"
-      class="fixed top-5 right-5 z-50 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+      class="font-sans fixed top-5 right-5 z-50 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
       role="alert">
       <div
         class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-          viewBox="0 0 20 20">
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
           <path
             d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
         </svg>
@@ -45,7 +27,7 @@
 
   @if (session('error'))
     <div id="toast-danger"
-      class="fixed top-5 right-5 z-50 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+      class="font-sans fixed top-5 right-5 z-50 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
       role="alert">
       <div
         class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
@@ -69,35 +51,60 @@
     </div>
   @endif
 
-  <div class="left-container">
-  </div>
-  <div class="right-container">
-    <div class="right-container__box">
-      <div class="input-container flex flex-col items-center space-y-2">
-        <h2 class="text-2xl font-bold">Password</h2>
-        <p class="text-gray-500">Masukkan Password</p>
-        <form action="{{ route('password.validation') }}" method="POST" class="w-full max-w-xs">
-          @csrf
+  <div class="flex items-center justify-center h-screen font-sans m-8">
+    <div
+      class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-lg sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div class="flex flex-col items-center mb-4">
+        <img src="{{ asset('img/assets/esimprod_logo.png') }}" alt="Logo" class="w-1/2">
+        <p class="mt-2 text-sm font-medium text-gray-600 dark:text-gray-300">Version 2.0</p>
+      </div>
+      <form class="space-y-6" action="{{ route('password.validation') }}" method="POST">
+        @csrf
+        <div>
+          <div
+            class="flex items-center p-3 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800"
+            role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+              Masukkan Password
+            </div>
+          </div>
+
+          <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
           <div class="relative">
-            <input type="password" id="password"
-              class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-300 focus:border-blue-500 focus:outline-none"
-              placeholder="Password" autofocus autocomplete="off" name="password" />
+            <input type="password" name="password" id="password" placeholder="********" autocomplete="off"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-10 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
             <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onclick="togglePassword()">
               <i id="eyeIcon" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>
             </span>
           </div>
-
+        </div>
+        <div class="flex items-start">
+          <a href="{{ route('password.request') }}"
+            class="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500 font-bold">Lupa
+            Password?</a>
+        </div>
+        <button type="submit"
+          class="w-full text-white bg-tvri_base_color hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Masuk
+        </button>
+      </form>
+      <div class="text-sm font-medium text-gray-500 dark:text-gray-300 mt-4">
+        <form action="{{ route('logout') }}" method="POST">
+          @csrf
+          <button type="submit" class="text-blue-700 hover:underline dark:text-blue-500">Kembali?</button>
         </form>
       </div>
-
-      <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button class="btn-kembali mt-8">Kembali ?</button>
-      </form>
     </div>
   </div>
+@endsection
 
-
+@section('scripts')
   <script>
     setTimeout(() => {
       const toast = document.getElementById('toast-success');
@@ -115,21 +122,18 @@
 
 
     function togglePassword() {
-      const passwordInput = document.getElementById("password");
-      const eyeIcon = document.getElementById("eyeIcon");
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
 
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.classList.remove("fa-eye");
-        eyeIcon.classList.add("fa-eye-slash");
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
       } else {
-        passwordInput.type = "password";
-        eyeIcon.classList.remove("fa-eye-slash");
-        eyeIcon.classList.add("fa-eye");
+        passwordInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
       }
     }
   </script>
-
-</body>
-
-</html>
+@endsection

@@ -11,6 +11,7 @@
   <link rel="shortcut icon" href="{{ asset('img/assets/esimprod_logo_bg.png') }}" type="image/x-icon">
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <link href="https://db.onlinewebfonts.com/c/7dd5f4bf5d38875ca1822a830b6e6fe4?family=Aptos" rel="stylesheet">
 </head>
 
 <body>
@@ -70,6 +71,7 @@
 
   <div class="left-container">
   </div>
+
   <div class="right-container">
     <div class="right-container__box">
       <div class="right-container-box">

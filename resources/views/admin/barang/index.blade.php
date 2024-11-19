@@ -97,20 +97,25 @@
               @endif
             </p>
             <div class="mt-3">
-              <a href="{{ route('barang.edit', $b->uuid) }}" title="Edit"
-                class="inline-flex text-yellow-700 hover:text-white border border-yellow-700 hover:bg-yellow-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-600">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </a>
               <a href="{{ route('barang.show', $b->uuid) }}" title="Detail"
                 class="inline-flex text-green-700 hover:text-white border border-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600">
                 <i class="fa-solid fa-circle-info"></i>
               </a>
-              <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
-                onclick="confirmDelete('{{ route('barang.destroy', ['uuid' => $b->uuid]) }}')"
-                class="inline-flex text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600"
-                type="button" title="Hapus">
-                <i class="fa-solid fa-trash"></i>
-              </button>
+
+
+              @if (Auth::user()->role == 'superadmin')
+                <a href="{{ route('barang.edit', $b->uuid) }}" title="Edit"
+                  class="inline-flex text-yellow-700 hover:text-white border border-yellow-700 hover:bg-yellow-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-600">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
+                  onclick="confirmDelete('{{ route('barang.destroy', ['uuid' => $b->uuid]) }}')"
+                  class="inline-flex text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600"
+                  type="button" title="Hapus">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              @endif
+
               {{-- <button data-modal-target="reset-modal" data-modal-toggle="reset-modal"
                 onclick="resetLimit('{{ route('barang.reset-limit', ['uuid' => $b->uuid]) }}')"
                 class="inline-flex text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600"

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BarangController;
-use App\Http\Controllers\Admin\CreditController;
 use App\Http\Controllers\User\OptionsController;
 use App\Http\Controllers\Admin\JabatanController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -22,18 +21,15 @@ Route::prefix('/')->group(function () {
     Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
     Route::post('/password', [AuthController::class, 'passwordValidation'])->name('password.validation');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.request')->middleware('guest');
+    Route::post('/forgot-password', [AuthController::class, 'forgotPasswordProcess'])->name('password.email')->middleware('guest');
+    Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('password.reset')->middleware('guest');
+    Route::post('/reset-password', [AuthController::class, 'resetPasswordProcess'])->name('password.update')->middleware('guest');
 });
 
 Route::get('/options', [OptionsController::class, 'index'])->name('options');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-
-Route::prefix('credit')->group(function () {
-    Route::get('/', [CreditController::class, 'index'])->name('credit.index');
-    Route::get('/edit/{uuid}', [CreditController::class, 'edit'])->name('credit.edit');
-    Route::get('/{uuid}/guidebook', [CreditController::class, 'guidebook'])->name('credit.guidebook');
-    Route::put('/update/{uuid}', [CreditController::class, 'update'])->name('credit.update');
-});
 
 Route::prefix('barang')->group(function () {
     Route::get('/', [BarangController::class, 'index'])->name('barang.index');
