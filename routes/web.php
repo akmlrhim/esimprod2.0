@@ -21,10 +21,10 @@ Route::prefix('/')->group(function () {
     Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
     Route::post('/password', [AuthController::class, 'passwordValidation'])->name('password.validation');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.request')->middleware('guest');
-    Route::post('/forgot-password', [AuthController::class, 'forgotPasswordProcess'])->name('password.email')->middleware('guest');
-    Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('password.reset')->middleware('guest');
-    Route::post('/reset-password', [AuthController::class, 'resetPasswordProcess'])->name('password.update')->middleware('guest');
+    Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.request');
+    Route::post('/forgot-password', [AuthController::class, 'forgotPasswordProcess'])->name('password.email');
+    Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('password.reset');
+    Route::post('/reset-password', [AuthController::class, 'resetPasswordProcess'])->name('password.update');
 });
 
 Route::get('/options', [OptionsController::class, 'index'])->name('options');

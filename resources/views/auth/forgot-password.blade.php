@@ -32,7 +32,6 @@
             </div>
           @endif
 
-
           <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
           <div class="relative">
             <input type="email" name="email" id="email" placeholder="Contoh. user@gmail.com" autocomplete="off"

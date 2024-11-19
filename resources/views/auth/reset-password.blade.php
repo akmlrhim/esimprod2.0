@@ -40,7 +40,7 @@
         <div>
           <label for="password" class="block text-sm font-medium text-gray-900 dark:text-white">Password</label>
           <div class="relative">
-            <input type="password" name="password" id="password" placeholder="********" autocomplete="off"
+            <input type="password" name="password" id="password" placeholder="Masukkan Password" autocomplete="off"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-10 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
             <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onclick="togglePassword()">
               <i id="eyeIcon" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>
@@ -49,11 +49,11 @@
         </div>
 
         <div>
-          <label for="confirm_password"
-            class="block text-sm font-medium text-gray-900 dark:text-white">ConfirmPassword</label>
+          <label for="confirm_password" class="block text-sm font-medium text-gray-900 dark:text-white">Confirm
+            Password</label>
           <div class="relative">
-            <input type="password" name="password_confirmation" id="confirm_password" placeholder="********"
-              autocomplete="off"
+            <input type="password" name="password_confirmation" id="confirm_password"
+              placeholder="Masukkan Konfirmasi Password" autocomplete="off"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-10 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
             <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onclick="togglePassword()">
               <i id="eyeIcon" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>
