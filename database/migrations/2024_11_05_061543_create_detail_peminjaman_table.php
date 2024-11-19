@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('kode_barang');
             $table->timestamps();
 
+            $table->foreign('kode_peminjaman')->references('kode_peminjaman')->on('peminjaman')->onDelete('cascade');
             $table->foreign('kode_barang')->references('kode_barang')->on('barang')->onDelete('cascade');
         });
     }
