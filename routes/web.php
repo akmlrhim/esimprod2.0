@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PeruntukanController;
 use App\Http\Controllers\Admin\JenisBarangController;
 
+use App\Http\Controllers\User\PeminjamanController as PeminjamanUserController;
+
 
 Route::prefix('/')->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
@@ -101,3 +103,5 @@ Route::prefix('peminjaman')->group(function () {
     Route::put('/update/{uuid}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
     Route::delete('/destroy/{uuid}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
 });
+
+Route::get('user/peminjaman', [PeminjamanUserController::class, 'index'])->name('user.peminjaman');

@@ -63,10 +63,12 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'password' => 'required',
+        ], [
+            'password.required' => 'Password harus diisi',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->with('error', 'Password tidak boleh kosong !');
+            return redirect()->back()->withInput()->withErrors($validator);
         }
 
         $user = Auth::user();

@@ -100,7 +100,7 @@
           src="{{ asset('storage/uploads/foto_user/' . Auth::user()->foto) }}" alt="Bonnie image" />
         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Selamat Datang
           {{ Auth::user()->nama_lengkap }}</h5>
-        <span class="text-sm text-black dark:text-gray-400">{{ Auth::user()->jabatan }}</span>
+        <span class="text-sm text-black dark:text-gray-400">{{ Auth::user()->jabatan->jabatan }}</span>
         <span class="text-sm text-black dark:text-gray-400">{{ Auth::user()->nip }}</span>
         <div class="flex mt-4 md:mt-6">
           <a href="/peminjaman"

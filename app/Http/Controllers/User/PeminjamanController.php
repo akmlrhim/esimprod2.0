@@ -10,9 +10,6 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $pdf = Pdf::loadView('user.laporan.index')
-            ->setPaper('a4', 'landscape');
-
-        return $pdf->download('Pinjam-' . time() . '.pdf');
+        return view('user.peminjaman.index');
     }
 }

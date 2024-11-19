@@ -10,6 +10,11 @@
       <form class="space-y-6" action="{{ route('password.update') }}" method="POST">
         @csrf
 
+        <div class="flex justify-center items-center mb-5">
+          Reset Password
+        </div>
+
+
         <input type="hidden" name="token" value="{{ request()->route('token') }}">
 
         @if (session('status'))
@@ -42,7 +47,8 @@
           <div class="relative">
             <input type="password" name="password" id="password" placeholder="Masukkan Password" autocomplete="off"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-10 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
-            <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onclick="togglePassword()">
+            <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+              onclick="togglePassword('password', 'eyeIcon')">
               <i id="eyeIcon" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>
             </span>
           </div>
@@ -55,11 +61,13 @@
             <input type="password" name="password_confirmation" id="confirm_password"
               placeholder="Masukkan Konfirmasi Password" autocomplete="off"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-10 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
-            <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onclick="togglePassword()">
-              <i id="eyeIcon" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>
+            <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+              onclick="togglePassword('confirm_password', 'eyeIconConfirm')">
+              <i id="eyeIconConfirm" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>
             </span>
           </div>
         </div>
+
 
         <button type="submit"
           class="w-full text-white bg-tvri_base_color hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -90,19 +98,18 @@
       }
     }, 6000);
 
+    function togglePassword(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
 
-    function togglePassword() {
-      const passwordInput = document.getElementById('password' && 'confirm_password');
-      const eyeIcon = document.getElementById('eyeIcon');
-
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        eyeIcon.classList.remove('fa-eye');
-        eyeIcon.classList.add('fa-eye-slash');
+      if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
       } else {
-        passwordInput.type = 'password';
-        eyeIcon.classList.remove('fa-eye-slash');
-        eyeIcon.classList.add('fa-eye');
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
       }
     }
   </script>
