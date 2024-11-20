@@ -12,4 +12,10 @@ class PeminjamanController extends Controller
     {
         return view('user.peminjaman.index');
     }
+
+    public function cetak()
+    {
+        $pdf = Pdf::loadview('user.laporan.index')->setPaper('a4', 'landscape');
+        return $pdf->download('peminjaman.pdf');
+    }
 }

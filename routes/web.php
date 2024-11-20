@@ -105,3 +105,4 @@ Route::prefix('peminjaman')->group(function () {
 });
 
 Route::get('user/peminjaman', [PeminjamanUserController::class, 'index'])->name('user.peminjaman');
+Route::get('print', [PeminjamanUserController::class, 'cetak'])->name('print.index');

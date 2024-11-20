@@ -115,7 +115,7 @@
     </div>
 
     <div class="margin-top">
-      <table class="products" style="width: 100%; border-collapse: collapse;">
+      <table class="products" style="width: 100%; border-collapse: collapse;" border="1">
         <tr>
           <th style="text-align: left;">NO</th>
           <th style="text-align: left;">Nama Barang</th>
