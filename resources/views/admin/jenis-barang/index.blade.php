@@ -62,7 +62,7 @@
 
   {{-- modal tambah data  --}}
   <div id="create-modal" tabindex="-1" aria-hidden="true"
-    class="{{ session('showModal') || $errors->any() ? 'flex' : 'hidden' }} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    class="{{ session('showModal') || $errors->any() ? 'flex' : 'hidden' }} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm">
     <div class="relative p-4 w-full max-w-md max-h-full font-sans">
       <div class="relative bg-white rounded-lg shadow-xl border-gray-400 dark:bg-gray-700">
         <div class="flex items-center justify-between p-3 md:p-4 border-b rounded-t dark:border-gray-600">
@@ -86,9 +86,9 @@
               <div>
                 <label for="jenis_barang" class="block text-sm font-medium text-gray-900">Jenis Barang</label>
                 <input type="text" name="jenis_barang" id="jenis_barang" autocomplete="off"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2" />
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 mb-2" />
                 @error('jenis_barang')
-                  <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
+                  <small class="text-red-500 text-sm"> {{ $message }}</small>
                 @enderror
               </div>
             </div>
@@ -102,7 +102,7 @@
   </div>
 
   {{-- edit modal  --}}
-  <div id="edit-modal" class="fixed inset-0 z-50 hidden overflow-auto bg-black bg-opacity-50 font-sans">
+  <div id="edit-modal" class="fixed inset-0 z-50 hidden overflow-auto bg-black bg-opacity-50 font-sans backdrop-blur-sm">
     <div class="flex items-center justify-center min-h-screen">
       <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
         <div class="flex items-center justify-between p-4 border-b">
@@ -143,7 +143,7 @@
 
   {{-- modal konfirmasi hapus ? --}}
   <div id="delete-modal" tabindex="-1"
-    class="font-sans hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    class="font-sans hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm">
     <div class="relative p-4 w-full max-w-md max-h-full">
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <button type="button"

@@ -12,7 +12,6 @@ export default {
         extend: {
             fontFamily: {
                 sans: ["Aptos", "system-ui", "sans-serif"],
-                gotham: ["Gotham", "sans-serif", "system-ui"],
             },
             colors: {
                 tvri_base_color: "#1e3164",

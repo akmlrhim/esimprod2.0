@@ -94,7 +94,7 @@
           <span class="ms-3">Logout</span>
         </a>
 
-        <form id="logoutForm" action="{{ route('logout') }}" method="POST" style="display: none;">
+        <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">
           @csrf
         </form>
       </li>

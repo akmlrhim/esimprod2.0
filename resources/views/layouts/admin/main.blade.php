@@ -11,7 +11,6 @@
 
   <link rel="stylesheet" href="{{ asset('css/output.css') }}">
   <link rel="stylesheet" href="{{ asset('fa/css/all.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/loader.css') }}">
 
   <link href="https://db.onlinewebfonts.com/c/7dd5f4bf5d38875ca1822a830b6e6fe4?family=Aptos" rel="stylesheet">
   <link
@@ -41,29 +40,7 @@
     @notifyJs
   </div>
 
-  .
-  {{-- animasi loading --}}
-  <div class="flex justify-center items-center h-screen w-screen fixed top-0 left-0 bg-white z-50 pointer-events-none"
-    id="loader">
-    <div class="relative inline-flex">
-      <div class="w-8 h-8 bg-blue-500 rounded-full"></div>
-      <div class="w-8 h-8 bg-blue-500 rounded-full absolute top-0 left-0 animate-ping"></div>
-      <div class="w-8 h-8 bg-blue-500 rounded-full absolute top-0 left-0 animate-pulse"></div>
-    </div>
-  </div>
-
   @yield('scripts')
-
-  <script>
-    setTimeout(function() {
-      const loader = document.getElementById("loader");
-      loader.style.opacity = "0";
-
-      loader.addEventListener("transitionend", function() {
-        loader.style.display = "none";
-      });
-    }, 1000);
-  </script>
 
 </body>
 

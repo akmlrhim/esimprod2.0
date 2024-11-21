@@ -2,6 +2,15 @@
 
 @section('content')
   <div class="flex p-3 ml-3 mr-3">
+    @if (Route::currentRouteName() == 'users.search' || Route::currentRouteName() == 'users.jabatan')
+      @if ($user->isEmpty())
+        <a href="{{ route('users.index') }}"
+          class="mr-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+          Kembali
+        </a>
+      @endif
+    @endif
+
     <a href="{{ route('users.create') }}"
       class="mr-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
       Tambah User
@@ -9,12 +18,12 @@
   </div>
 
 
-  <div class="flex items-center space-x-3 w-full p-3 mr-4 ml-3">
-    <form class="flex items-center w-1/3 justify-center" action="{{ route('users.search') }}" method="GET">
+  <div class="flex flex-col md:flex-row items-center lg:space-x-3 space-y-3 md:space-y-0 w-full p-3 mr-6 ml-3">
+    <form class="flex items-center w-60 justify-center" action="{{ route('users.search') }}" method="GET">
       <div class="w-full relative flex">
         <input type="text" id="search" autocomplete="off"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Masukkan nama lengkap, + Enter" name="search" />
+          placeholder="Masukkan kata kunci,+ Enter" name="search" />
         <svg class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-tvri_base_color" aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -23,7 +32,7 @@
       </div>
     </form>
 
-    <form class="flex items-center w-1/3 justify-center" action="{{ route('users.role') }}" method="GET">
+    <form class="flex items-center w-60 justify-center" action="{{ route('users.role') }}" method="GET">
       <div class="w-full relative flex">
         <select id="role" name="role"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -38,7 +47,7 @@
       </div>
     </form>
 
-    <form class="flex items-center w-1/3 justify-center" action="{{ route('users.jabatan') }}" method="GET">
+    <form class="flex items-center w-60 justify-center" action="{{ route('users.jabatan') }}" method="GET">
       <div class="w-full relative flex">
         <select id="jabatan" name="id"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -55,6 +64,8 @@
       </div>
     </form>
   </div>
+
+
 
 
   @if ($user->isEmpty())
@@ -92,37 +103,33 @@
                 <td class="px-6 py-4 text-center">{{ $row->kode_user }}</td>
                 <td class="px-6 py-4 text-center">{{ $row->nama_lengkap }}</td>
                 <td class="px-6 py-4 text-center">
-                  @if ($row->role == 'admin')
-                    <span
-                      class="bg-blue-100 text-blue-800 text-md font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Admin</span>
-                  @elseif($row->role == 'superadmin')
-                    <span
-                      class="bg-green-100 text-green-800 text-md font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Superadmin</span>
-                  @else
-                    <span
-                      class="bg-red-100 text-red-800 text-md font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">User</span>
-                  @endif
+                  <span
+                    class="{{ $row->role == 'superadmin' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ($row->role == 'admin' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300') }} text-sm font-medium me-2 px-2.5 py-0.5 rounded">
+                    {{ $row->role == 'superadmin' ? 'Superadmin' : ($row->role == 'admin' ? 'Admin' : 'User') }}
+                  </span>
                 </td>
                 <td class="px-6 py-4 text-center">{{ $row->jabatan->jabatan }}</td>
                 <td class="flex items-center px-6 py-4 justify-center space-x-2">
-                  <button type="button" data-uuid="{{ $row->uuid }}"
+                  <a href="{{ route('users.show', $row->uuid) }}"
                     class="edit-item focus:outline-none text-white bg-green-400 hover:bg-green-500 font-medium rounded-lg text-sm px-2 py-1"
                     title="Detail">
                     <i class="fas fa-info-circle"></i>
-                  </button>
-
-                  <a href="{{ route('users.edit', $row->uuid) }}"
-                    class="edit-item focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-2 py-1"
-                    title="Ubah">
-                    <i class="fas fa-edit"></i>
                   </a>
 
-                  <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
-                    onclick="confirmDelete('{{ route('users.destroy', ['uuid' => $row->uuid]) }}')"
-                    class="focus:outline-none text-white bg-red-600 hover:bg-red-500 font-medium rounded-lg text-sm px-2 py-1"
-                    type="button" title="Hapus">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
+                  @if (Auth::user()->role == 'superadmin')
+                    <a href="{{ route('users.edit', $row->uuid) }}"
+                      class="edit-item focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-2 py-1"
+                      title="Ubah">
+                      <i class="fas fa-edit"></i>
+                    </a>
+
+                    <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
+                      onclick="confirmDelete('{{ route('users.destroy', ['uuid' => $row->uuid]) }}')"
+                      class="focus:outline-none text-white bg-red-600 hover:bg-red-500 font-medium rounded-lg text-sm px-2 py-1"
+                      type="button" title="Hapus">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  @endif
 
                   <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
                     onclick="confirmDelete('{{ route('users.destroy', ['uuid' => $row->uuid]) }}')"
@@ -139,7 +146,7 @@
     </div>
   @endif
 
-  <div class="p-3 ml-3 mr-3">
+  <div class="p-3 ml-3">
     {{ $user->links() }}
   </div>
 

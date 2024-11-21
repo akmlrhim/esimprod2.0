@@ -69,6 +69,7 @@ Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');
     Route::get('/tambah', [UserController::class, 'create'])->name('users.create');
     Route::post('/store', [UserController::class, 'store'])->name('users.store');
+    Route::get('/detail/{uuid}', [UserController::class, 'show'])->name('users.show');
     Route::get('/edit/{uuid}', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/update/{uuid}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/destroy/{uuid}', [UserController::class, 'destroy'])->name('users.destroy');

@@ -1,8 +1,8 @@
 @extends('auth.template')
 @section('content')
-  <div class="flex items-center justify-center h-screen font-sans m-8">
+  <div class="flex items-center justify-center h-screen font-sans px-4 sm:px-8">
     <div
-      class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg sm:p-3 md:p-6 dark:bg-gray-800 dark:border-gray-700">
+      class="w-full sm:max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg p-4 sm:p-6 dark:bg-gray-800 dark:border-gray-700">
       <div class="flex flex-col items-center mb-4">
         <img src="{{ asset('img/assets/esimprod_logo.png') }}" alt="Logo" class="w-1/2">
         <p class="mt-2 text-sm font-medium text-gray-600 dark:text-gray-300">Version 2.0</p>

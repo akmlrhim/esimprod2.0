@@ -120,7 +120,7 @@ class UserController extends Controller
             'user' => User::where('uuid', $uuid)->first(),
         ];
 
-        // return view()
+        return view('admin.user.detail', $data);
     }
 
     /**

@@ -1,9 +1,9 @@
 @extends('auth.template')
 
 @section('content')
-  <div class="flex items-center justify-center h-screen font-sans m-8">
+  <div class="flex items-center justify-center h-screen font-sans px-4 sm:px-8">
     <div
-      class="w-full max-w-sm p-2 bg-white border border-gray-200 rounded-lg shadow-lg sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+      class="w-full sm:max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-lg sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
       <div class="flex flex-col items-center mb-4">
         <img src="{{ asset('img/assets/esimprod_logo.png') }}" alt="Logo" class="w-1/2">
         <p class="mt-2 text-sm font-medium text-gray-600 dark:text-gray-300">Version 2.0</p>
@@ -11,8 +11,7 @@
       <form class="space-y-6" action="{{ route('password.email') }}" method="POST">
         @csrf
         <div>
-
-          <div class="flex justify-center items-center mb-5">
+          <div class="flex justify-center items-center mb-5 text-sm font-medium text-gray-600 dark:text-gray-300">
             Masukkan Email yang terdaftar
           </div>
 
@@ -31,7 +30,6 @@
               </div>
             </div>
           @endif
-
 
           <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
           <div class="relative">

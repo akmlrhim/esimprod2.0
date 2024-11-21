@@ -1,6 +1,16 @@
 @extends('layouts.admin.main')
 @section('content')
-  <div class="flex items-center justify-between p-3 ml-3 mr-3">
+  <div class="flex items-center p-3 ml-3 mr-3">
+
+    @if (Route::currentRouteName() == 'barang.search')
+      @if ($barang->isEmpty())
+        <a href="{{ route('barang.index') }}"
+          class="mr-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+          Kembali
+        </a>
+      @endif
+    @endif
+
     <button id="dropdownRightButton" data-dropdown-toggle="dropdownRight" data-dropdown-placement="right"
       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
       type="button" title="Menu"><i class="fa solid fa-gear mr-2"></i> Opsi
@@ -133,10 +143,9 @@
     {{ $barang->links() }}
   </div>
 
-
   {{-- modal konfirmasi hapus --}}
   <div id="delete-modal" tabindex="-1"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-sm">
     <div class="relative p-4 w-full max-w-md max-h-full">
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <button type="button"
