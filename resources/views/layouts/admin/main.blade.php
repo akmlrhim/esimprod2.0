@@ -8,7 +8,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
   <link rel="stylesheet" href="{{ asset('css/output.css') }}">
   <link rel="stylesheet" href="{{ asset('fa/css/all.min.css') }}">
 
@@ -24,10 +23,7 @@
   <title>ESIMPROD | {{ $title }}</title>
 </head>
 
-
-
 <body class="bg-gray-50 dark:bg-neutral-900">
-
 
   @include('layouts.admin.partials.navbar')
 
@@ -41,7 +37,10 @@
   </div>
 
   @yield('scripts')
+  </div>
+  </div>
 
 </body>
+
 
 </html>
