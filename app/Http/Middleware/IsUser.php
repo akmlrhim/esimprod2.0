@@ -16,8 +16,7 @@ class IsUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user();
-        if ($user->role != 'user') {
+        if (Auth::user()->role != 'user') {
             return redirect()->back()->with('error', 'Akses tidak diizinkan.');
         }
         return $next($request);

@@ -13,7 +13,7 @@ class DashboardController extends Controller
     {
         $data = [
             'title' => 'Dashboard',
-            'barang' => Barang::count(),
+            'barang' => Barang::where('sisa_limit', '>', 0)->count(),
             'user' => User::count(),
             'perawatan' => Barang::where('sisa_limit', 0)->count(),
         ];

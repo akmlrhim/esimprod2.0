@@ -47,7 +47,7 @@
       if (toast) {
         toast.style.display = 'none';
       }
-    }, 3000);
+    }, 6000);
   </script>
 
 </body>

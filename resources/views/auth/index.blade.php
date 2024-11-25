@@ -22,16 +22,16 @@
       role="alert">
       <div
         class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 
-        {{ session('success')
-            ? 'text-green-500 bg-green-100 dark:bg-green-800 dark:text-green-200'
-            : (session('status')
-                ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-800 dark:text-yellow-200'
-                : 'text-red-500 bg-red-100 dark:bg-red-800 dark:text-red-200') }} 
-        rounded-lg">
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-          viewBox="0 0 20 20">
+		{{ session('success')
+      ? 'text-green-500 bg-green-100 dark:bg-green-800 dark:text-green-200'
+      : (session('status')
+          ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-800 dark:text-yellow-200'
+          : 'text-red-500 bg-red-100 dark:bg-red-800 dark:text-red-200') }} 
+		rounded-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-5 h-5" fill="currentColor"
+          aria-hidden="true">
           <path
-            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
         </svg>
         <span class="sr-only">Icon</span>
       </div>
@@ -49,6 +49,7 @@
       </button>
     </div>
   @endif
+
 
 
   <div class="left-container">

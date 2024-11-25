@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsAdmin
+class IsSuperadminOrAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user();
-        if (!in_array($user->role, ['admin', 'superadmin'])) {
+        if (!in_array(Auth::user()->role, ['admin', 'superadmin'])) {
             return redirect()->back()->with('error', 'Akses tidak diizinkan.');
         }
 
