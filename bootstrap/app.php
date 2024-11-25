@@ -12,6 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->trustHosts(at: ['esimprod2.0.test']);
+        $middleware->alias([
+            'auth' => \App\Http\Middleware\IsLogin::class,
+            'admin' => \App\Http\Middleware\IsAdmin::class,
+            'user' => \App\Http\Middleware\IsUser::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

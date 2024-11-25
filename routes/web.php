@@ -18,18 +18,23 @@ use App\Http\Controllers\User\PeminjamanController as PeminjamanUserController;
 
 
 Route::prefix('/')->group(function () {
+
     Route::get('/', [AuthController::class, 'index'])->name('login');
-    Route::get('/password', [AuthController::class, 'password'])->name('password');
     Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
-    Route::post('/password', [AuthController::class, 'passwordValidation'])->name('password.validation');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.request');
-    Route::post('/forgot-password', [AuthController::class, 'forgotPasswordProcess'])->name('password.email');
-    Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('password.reset');
-    Route::post('/reset-password', [AuthController::class, 'resetPasswordProcess'])->name('password.update');
+    Route::get('/options', [OptionsController::class, 'index'])->name('options')->middleware(['auth', 'user']);
+
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/password', [AuthController::class, 'password'])->name('password');
+        Route::post('/password', [AuthController::class, 'passwordValidation'])->name('password.validation');
+        Route::get('/password', [AuthController::class, 'password'])->name('password');
+        Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.request');
+        Route::post('/forgot-password', [AuthController::class, 'forgotPasswordProcess'])->name('password.email');
+        Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('password.reset');
+        Route::post('/reset-password', [AuthController::class, 'resetPasswordProcess'])->name('password.update');
+    });
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 });
 
-Route::get('/options', [OptionsController::class, 'index'])->name('options');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 

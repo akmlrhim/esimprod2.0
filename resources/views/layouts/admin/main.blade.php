@@ -25,11 +25,14 @@
 
 <body class="bg-gray-50 dark:bg-neutral-900">
 
+
   @include('layouts.admin.partials.navbar')
+
+  @include('layouts.admin.partials.validation')
 
   @include('layouts.admin.partials.sidebar')
 
-  <div class="p-4 sm:ml-64 font-sans" id="primary-content">
+  <div class="p-4 sm:ml-64 font-sans">
     @include('layouts.admin.partials.breadcrumb')
     @yield('content')
     <x-notify::notify />
@@ -37,8 +40,15 @@
   </div>
 
   @yield('scripts')
-  </div>
-  </div>
+
+  <script>
+    setTimeout(() => {
+      const toast = document.getElementById('toast-message');
+      if (toast) {
+        toast.style.display = 'none';
+      }
+    }, 3000);
+  </script>
 
 </body>
 
