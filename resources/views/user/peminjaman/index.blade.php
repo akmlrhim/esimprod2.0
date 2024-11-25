@@ -360,7 +360,6 @@
   </button>
 </div>
 
-
 <!-- Toast Redundant Item -->
 <div id="toast-danger"
   class="flex items-center fixed bottom-9 right-5 w-full max-w-xs p-4 mb-4 border border-gray-400 text-gray-600 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
