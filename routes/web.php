@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\User\OptionsController;
+use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
 use App\Http\Controllers\Admin\JabatanController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PerawatanController;
@@ -122,30 +123,31 @@ Route::prefix('perawatan')->group(function () {
     Route::put('reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');
 });
 
-Route::get('user/peminjaman', [PeminjamanUserController::class, 'index'])->name('user.peminjaman');
-Route::get('print', [PeminjamanUserController::class, 'cetak'])->name('print.index');
+// Route::get('user/peminjaman', [PeminjamanUserController::class, 'index'])->name('user.peminjaman');
+// Route::get('print', [PeminjamanUserController::class, 'cetak'])->name('print.index');
 
-// Route to rot in hell
-Route::get('/peminjaman', function () {
-    return view('user.peminjaman.index');
-});
+// // Route to rot in hell
+    // return view('user.peminjaman.index');
+// });// Route::get('/peminjaman', function () {
+// 
 
-Route::get('/pengembalian', function () {
-    return view('user.pengembalian.index');
-});
+// Route::get('/pengembalian', function () {
+//     return view('user.pengembalian.index');
+// });
 
-Route::get('/login', function () {
-    return view('auth');
-});
+// Route::get('/login', function () {
+//     return view('auth');
+// });
 
-Route::get('/laporan', function () {
-    return view('user.laporan.index');
-});
+ Route::get('/laporan', function () {
+     return view('user.laporan.index');
+ });
 
-Route::get('/opsi', function () {
-    return view('options');
-});
+ Route::get('/cetak', [PeminjamanUser::class,'cetak']);
+// Route::get('/opsi', function () {
+//     return view('options');
+// });
 
-Route::get('/test', function () {
-    return view('user.pengembalian.test');
-});
+// Route::get('/test', function () {
+//     return view('user.pengembalian.test');
+// });

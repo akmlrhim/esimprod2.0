@@ -58,7 +58,7 @@
       </div>
 
       <li>
-        <a href="{{ route('peminjaman.index') }}"
+        <a href="#"
           class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
           <i class="fa-solid fa-paper-plane"></i>
           <span class="ms-3">Data Peminjaman</span>
@@ -73,51 +73,6 @@
         </a>
       </li>
 
-<<<<<<< HEAD
-      {{-- optional dropdown sidebar  --}}
-      {{-- <li>
-        <button type="button"
-          class="flex items-center w-full p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
-          aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-          <i class="fa-solid fa-cube"></i>
-          <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">?</span>
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m1 1 4 4 4-4" />
-          </svg>
-        </button>
-        <ul id="dropdown-example" class="hidden py-2 space-y-2">
-          <li>
-            <a href="#"
-<<<<<<< HEAD
-              class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
-          </li>
-          <li>
-            <a href="#"
-              class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Billing</a>
-          </li>
-          <li>
-            <a href="#"
-              class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>
-          </li>
-        </ul>
-      </li>
-=======
-              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Products</a>
-          </li>
-          <li>
-            <a href="#"
-              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Billing</a>
-          </li>
-          <li>
-            <a href="#"
-              class="flex items-center w-full p-2 text-white transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">Invoice</a>
-          </li>
-        </ul>
-      </li> --}}
-
-=======
->>>>>>> 5b36e98ae857e750d6a6c52c7ced064dac58e4dc
       <div class="flex items-center my-2">
         <small class="mx-2 text-white opacity-65">USER</small>
         <hr class="h-px flex-grow bg-gray-200 border-0 opacity-20">
