@@ -15,8 +15,8 @@ use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PeruntukanController;
 use App\Http\Controllers\Admin\JenisBarangController;
 
-use App\Http\Controllers\User\PeminjamanController as PeminjamanUserController;
-
+use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
+use App\Http\Controllers\User\PengembalianController as PengembalianUser;
 
 Route::prefix('/')->group(function () {
 
@@ -123,8 +123,8 @@ Route::prefix('perawatan')->group(function () {
     Route::put('reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');
 });
 
-// Route::get('user/peminjaman', [PeminjamanUserController::class, 'index'])->name('user.peminjaman');
-// Route::get('print', [PeminjamanUserController::class, 'cetak'])->name('print.index');
+Route::get('user/peminjaman', [PeminjamanUserController::class, 'index'])->name('user.peminjaman');
+Route::get('print', [PeminjamanUserController::class, 'cetak'])->name('print.index');
 
 // // Route to rot in hell
     // return view('user.peminjaman.index');

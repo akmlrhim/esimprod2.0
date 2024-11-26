@@ -68,7 +68,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator);
+            return redirect()->back()->with('error', 'Password tidak boleh kosong');
         }
 
         $user = Auth::user();
