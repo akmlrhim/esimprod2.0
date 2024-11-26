@@ -490,8 +490,7 @@ async function savePeminjaman() {
       // Tombol "Selesai" dalam modal
       const selesaiButton = document.getElementById('successButton');
       selesaiButton.addEventListener('click', () => {
-        window.location.href = '{{ route('
-        user.peminjaman.laporan ') }}'; // Redirect ke halaman laporan
+        window.location.href = '{{ route("user.peminjaman.laporan") }}';
       });
 
     } else {

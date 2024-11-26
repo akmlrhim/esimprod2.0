@@ -125,8 +125,6 @@ Route::prefix('perawatan')->group(function () {
 // Route::get('user/peminjaman', [PeminjamanUserController::class, 'index'])->name('user.peminjaman');
 // Route::get('print', [PeminjamanUserController::class, 'cetak'])->name('print.index');
 
-Route::view('/laporan', 'user.laporan.index');
-
 
 Route::prefix('user/peminjaman')->group(function () {
     Route::get('/', [PeminjamanUser::class, 'index'])->name('user.peminjaman.index');
@@ -144,3 +142,5 @@ Route::prefix('user/pengembalian')->group(function () {
     Route::post('/store', [PengembalianUser::class, 'store'])->name('user.pengembalian.store');
     Route::get('/report', [PengembalianUser::class, 'report'])->name('user.pengembalian.report');
 });
+
+Route::view('/laporan_pengembalian', 'user.laporan.index');
