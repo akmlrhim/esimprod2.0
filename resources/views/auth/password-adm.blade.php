@@ -18,14 +18,6 @@
             <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onclick="togglePassword()">
               <i id="eyeIcon" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>
             </span>
-
-            @if (session('error'))
-              <small class="text-red-500 text-sm mt-1"> {{ session('error') }}</small>
-            @endif
-
-            @error('password')
-              <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-            @enderror
           </div>
         </div>
         <div class="flex items-start">

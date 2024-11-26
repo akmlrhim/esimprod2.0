@@ -47,6 +47,10 @@
             <span class="leading-tight font-bold">NIP : </span><span> {{ $user->nip }}</span>
           </li>
           <li class="flex space-x-2 rtl:space-x-reverse items-center">
+            <i class="fa-solid fa-envelope"></i>
+            <span class="leading-tight font-bold">Email : </span><span> {{ $user->email }}</span>
+          </li>
+          <li class="flex space-x-2 rtl:space-x-reverse items-center">
             <i class="fa-solid fa-phone"></i>
             <span class="leading-tight font-bold">Nomor HP : </span><span>{{ $user->nomor_hp }}</span>
           </li>
