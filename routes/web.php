@@ -14,8 +14,8 @@ use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PeruntukanController;
 use App\Http\Controllers\Admin\JenisBarangController;
 
-use App\Http\Controllers\User\PeminjamanController as PeminjamanUserController;
-
+use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
+use App\Http\Controllers\User\PengembalianController as PengembalianUser;
 
 Route::prefix('/')->group(function () {
 
@@ -122,5 +122,23 @@ Route::prefix('perawatan')->group(function () {
     Route::put('reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');
 });
 
-Route::get('user/peminjaman', [PeminjamanUserController::class, 'index'])->name('user.peminjaman');
-Route::get('print', [PeminjamanUserController::class, 'cetak'])->name('print.index');
+// Route::get('user/peminjaman', [PeminjamanUserController::class, 'index'])->name('user.peminjaman');
+// Route::get('print', [PeminjamanUserController::class, 'cetak'])->name('print.index');
+
+
+Route::prefix('user/peminjaman')->group(function () {
+    Route::get('/', [PeminjamanUser::class, 'index'])->name('user.peminjaman.index');
+    Route::post('/scan', [PeminjamanUser::class, 'scan'])->name('user.peminjaman.scan');
+    Route::delete('/remove/{uuid}', [PeminjamanUser::class, 'removeItem'])->name('user.peminjaman.remove');
+    Route::post('/store', [PeminjamanUser::class, 'store'])->name('user.peminjaman.store');
+    Route::get('/laporan', [PeminjamanUser::class, 'laporan'])->name('user.peminjaman.laporan');
+    Route::get('/pdf', [PeminjamanUser::class, 'printDocs'])->name('user.peminjaman.pdf');
+});
+
+Route::prefix('user/pengembalian')->group(function () {
+    Route::get('/', [PengembalianUser::class, 'index'])->name('user.pengembalian.index');
+    Route::post('/check', [PengembalianUser::class, 'checkPeminjaman'])->name('user.pengembalian.check');
+    Route::post('/validation', [PengembalianUser::class, 'validateItem'])->name('user.pengembalian.validate');
+    Route::post('/store', [PengembalianUser::class, 'store'])->name('user.pengembalian.store');
+    Route::get('/report', [PengembalianUser::class, 'report'])->name('user.pengembalian.report');
+});

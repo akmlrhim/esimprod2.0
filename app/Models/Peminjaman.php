@@ -20,7 +20,6 @@ class Peminjaman extends Model
         'tanggal_peminjaman',
         'tanggal_kembali',
         'peminjam',
-        'petugas'
     ];
 
     public function peruntukan(): BelongsTo
