@@ -97,7 +97,6 @@ class PengembalianController extends Controller
                 'kode_pengembalian' => 'PG' . time(),
                 'kode_peminjaman' => session('nomor_peminjaman'),
                 'tanggal_kembali' => now(),
-                'petugas' => 'admin',
                 'peminjam' => 'uuid',
             ]);
 

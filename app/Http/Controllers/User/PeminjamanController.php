@@ -109,7 +109,6 @@ class PeminjamanController extends Controller
 				'tanggal_peminjaman' => $request->tanggal_peminjaman,
 				'tanggal_kembali' => $request->tanggal_kembali,
 				'peminjam' => auth()->user()->name ?? "reza", // Gunakan user yang terautentikasi
-				'petugas' => 'akmal',
 				'status' => 'pending'
 			]);
 
