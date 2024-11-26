@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('barang', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_barang')->unique();
+            $table->string('uuid');
+            $table->string('kode_barang')->unique();
+            $table->string('nama_barang');
+            $table->string('nomor_seri');
+            $table->string('merk');
             $table->unsignedBigInteger('jenis_barang_id');
             $table->string('status');
-            $table->string('qr_code')->unique();
+            $table->text('deskripsi')->nullable();
+            $table->string('qr_code');
             $table->integer('limit');
             $table->integer('sisa_limit');
             $table->string('foto', 2048)->nullable();

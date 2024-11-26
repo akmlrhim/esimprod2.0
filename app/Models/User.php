@@ -3,7 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -17,16 +20,27 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $with = ['jabatan'];
+
     protected $fillable = [
-        'name',
+        'uuid',
+        'kode_user',
+        'nama_lengkap',
         'password',
         'email',
+        'nomor_hp',
         'role',
         'qr_code',
-        'jabatan',
+        'jabatan_id',
         'foto',
-        'NIP',
+        'nip',
     ];
+
+    public function jabatan(): BelongsTo
+    {
+        return $this->belongsTo(Jabatan::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Model::preventLazyLoading();
+        Paginator::useTailwind();
     }
 }
