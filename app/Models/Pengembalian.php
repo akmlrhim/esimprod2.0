@@ -18,6 +18,7 @@ class Pengembalian extends Model
         'kode_peminjaman',
         'tanggal_kembali',
         'peminjam',
+        'status',
     ];
 
     public function peminjaman(): BelongsTo
