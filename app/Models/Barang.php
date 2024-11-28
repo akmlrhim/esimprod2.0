@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\DetailPeminjaman;
 
 class Barang extends Model
 {
@@ -41,5 +42,10 @@ class Barang extends Model
     public function perawatan(): HasMany
     {
         return $this->hasMany(Perawatan::class, 'kode_barang', 'kode_barang');
+    }
+
+    public function detail_peminjaman(): HasMany
+    {
+        return $this->hasMany(DetailPeminjaman::class, 'kode_barang', 'kode_barang');
     }
 }

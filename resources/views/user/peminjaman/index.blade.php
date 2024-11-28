@@ -342,7 +342,7 @@
             lastScanned = '';
           }, 100);
         }
-        console.log(lastScanned);
+        // console.log(lastScanned);
       });
 
       function processBarcodeInput(qrcode) {
@@ -363,14 +363,12 @@
               document.querySelector("#toast-success-add .text-sm").textContent = data
                 .message; // Set success message
               document.getElementById("toast-success-add").style.display = "flex"; // Show success toast
-              // console.log(data.message);
               setTimeout(() => {
-                document.getElementById("toast-success").style.display = "none";
+                document.getElementById("toast-success-add").style.display = "none";
               }, 1000);
             } else {
               document.querySelector("#toast-warning .text-sm").textContent = data.message; // Set failure message
               document.getElementById("toast-warning").style.display = "flex"; // Show warning toast
-              // console.log(data.message);
               setTimeout(() => {
                 document.getElementById("toast-warning").style.display = "none";
               }, 1000);
@@ -454,7 +452,7 @@
 
       // Validasi input
       if (!suratTugas || !tanggalPeminjaman || !tanggalPengembalian || !peruntukanId) {
-        // alert('Semua input harus diisi.');
+
         document.querySelector("#toast-danger-2 .text-sm").textContent = data.message; // Set success message
         document.getElementById("toast-danger-2").style.display = "flex"; // Show success toast
         // console.log(data.message);
@@ -494,7 +492,7 @@
           // Tombol "Selesai" dalam modal
           const selesaiButton = document.getElementById('successButton');
           selesaiButton.addEventListener('click', () => {
-            window.location.href = '{{ route('user.peminjaman.laporan') }}'; // Redirect ke halaman laporan
+            window.location.href = '/user/peminjaman/laporan'; // Redirect ke halaman laporan
           });
         } else {
           document.querySelector("#toast-danger-2 .text-sm").textContent = data.message; // Set failure message

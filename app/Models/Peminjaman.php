@@ -10,7 +10,6 @@ class Peminjaman extends Model
 {
     use HasFactory;
     protected $table = 'peminjaman';
-    protected $with = ['barang'];
 
     protected $fillable = [
         'uuid',
@@ -20,6 +19,8 @@ class Peminjaman extends Model
         'tanggal_peminjaman',
         'tanggal_kembali',
         'peminjam',
+        'qr_code',
+        'status'
     ];
 
     public function peruntukan(): BelongsTo

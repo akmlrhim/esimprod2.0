@@ -17,7 +17,6 @@ class Pengembalian extends Model
         'kode_pengembalian',
         'kode_peminjaman',
         'tanggal_kembali',
-        'petugas',
         'peminjam',
     ];
 

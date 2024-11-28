@@ -37,6 +37,7 @@ class PengembalianController extends Controller
                     'kode_barang' => $dataBarang->kode_barang,
                     'nomor_seri' => $dataBarang->nomor_seri,
                     'status' => $dataBarang->status,
+                    'isChecked' => false,
                     // Tambahkan atribut lain sesuai kebutuhan
                 ];
             }
@@ -77,7 +78,7 @@ class PengembalianController extends Controller
 
     public function store(Request $request)
     {
-        DB::beginTransaction();
+        //        DB::beginTransaction();
         try {
             $request->validate([
                 '*.item_uuid' => 'required|string',
@@ -95,11 +96,13 @@ class PengembalianController extends Controller
             $pengembalian = Pengembalian::create([
                 'uuid' => Str::uuid(),
                 'kode_pengembalian' => 'PG' . time(),
-                'kode_peminjaman' => session('nomor_peminjaman'),
+                'kode_peminjaman' => session()->get('peminjamanCode'),
                 'tanggal_kembali' => now(),
+                'petugas' => 'admin',
                 'peminjam' => 'uuid',
             ]);
 
+            Log::info($pengembalian);
             // Simpan data DetailPengembalian
             foreach ($valData as $item) {
                 DetailPengembalian::create([
@@ -107,8 +110,8 @@ class PengembalianController extends Controller
                     'kode_detail_pengembalian' => 'DPG' . Str::random(8),
                     'kode_pengembalian' => $pengembalian->kode_pengembalian,
                     'kode_barang' => $item['item_code'],
-                    'status' => $item['condition'],
-                    'deskripsi' => $item['isChecked'] ? null : 'Barang Telah Dikembalikan',
+                    'status' => $item['isChecked'] ? $item['condition'] : 'hilang',
+                    'deskripsi' => $item['isChecked'] ? 'Barang Telah Dikembalikan' : null,
                 ]);
             }
 
@@ -117,7 +120,7 @@ class PengembalianController extends Controller
                 'message' => 'Data pengembalian berhasil disimpan',
             ], 200);
         } catch (Exception $e) {
-            DB::rollBack();
+            //            DB::rollBack();
             Log::error($e);
             return response()->json([
                 'status' => 'error',
@@ -159,7 +162,35 @@ class PengembalianController extends Controller
         return view('user.laporan.pengembalian.index');
     }
 
-    public function editDescription(Request $request) {}
+    public function editDescription(Request $request)
+    {
+        $validateData = request()->validate([
+            'barang' => 'required|array',
+            'barang.*.kode_barang' => 'required|string',
+            'barang.*.description' => 'required|string',
+        ]);
+
+        $updatedRecords = 0;
+        foreach ($validateData['barang'] as $barangData) {
+            $detailPengembalian = DetailPengembalian::where('kode_barang', $barangData['kode_barang'])->first();
+
+            if ($detailPengembalian) {
+                $detailPengembalian->description = $barangData['description'];
+                $detailPengembalian->save();
+                $updatedRecords++;
+            }
+        }
+
+        if ($updatedRecords > 0) {
+            return response()->json([
+                'message' => 'Deskripsi barang berhasil diubah'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Tidak ada barang yang ditemukan'
+            ], 404);
+        }
+    }
 
     public function print(Request $request) {}
 }

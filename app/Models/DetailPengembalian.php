@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class DetailPengembalian extends Model
 {
     use HasFactory;
-    protected $table = 'detail_pengembalian';
-    //    protected $with = ['barang'];
 
+    protected $table = 'detail_pengembalian';
     protected $fillable = [
         'uuid',
         'kode_detail_pengembalian',

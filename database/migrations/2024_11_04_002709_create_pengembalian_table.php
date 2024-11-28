@@ -18,13 +18,11 @@ return new class extends Migration
             $table->string('kode_peminjaman');
             $table->date('tanggal_kembali');
             $table->string('peminjam');
-            $table->string('deskripsi');
+            $table->string('status');
             $table->timestamps();
-
             $table->foreign('kode_peminjaman')->references('kode_peminjaman')->on('peminjaman')->onDelete('cascade');
         });
     }
-
     /**
      * Reverse the migrations.
      */

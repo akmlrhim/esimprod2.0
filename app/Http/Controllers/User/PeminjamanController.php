@@ -11,6 +11,7 @@ use App\Models\Peruntukan;
 use App\Models\Peminjaman;
 use App\Models\DetailPeminjaman;
 use Barryvdh\DomPDF\Facade\Pdf as Pdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -108,7 +109,7 @@ class PeminjamanController extends Controller
 				'peruntukan_id' => $request->peruntukan_id,
 				'tanggal_peminjaman' => $request->tanggal_peminjaman,
 				'tanggal_kembali' => $request->tanggal_kembali,
-				'peminjam' => auth()->user()->name ?? "reza", // Gunakan user yang terautentikasi
+				'peminjam' => Auth::user()->nama_lengkap, // Gunakan user yang terautentikasi
 				'status' => 'pending'
 			]);
 
@@ -150,7 +151,7 @@ class PeminjamanController extends Controller
 			DB::rollback();
 			Log::error('Terjadi kesalahan saat menyimpan peminjaman.', [
 				'error' => $e->getMessage(),
-				'user_id' => auth()->id(),
+				'user_id' => Auth::user()->kode_user,
 			]);
 
 			return response()->json([

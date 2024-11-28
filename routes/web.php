@@ -122,10 +122,6 @@ Route::prefix('perawatan')->group(function () {
     Route::put('reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');
 });
 
-// Route::get('user/peminjaman', [PeminjamanUserController::class, 'index'])->name('user.peminjaman');
-// Route::get('print', [PeminjamanUserController::class, 'cetak'])->name('print.index');
-
-
 Route::prefix('user/peminjaman')->group(function () {
     Route::get('/', [PeminjamanUser::class, 'index'])->name('user.peminjaman.index');
     Route::post('/scan', [PeminjamanUser::class, 'scan'])->name('user.peminjaman.scan');
