@@ -46,6 +46,14 @@
             <span class="leading-tight font-bold">Kode Barang : </span><span> {{ $barang->kode_barang }}</span>
           </li>
           <li class="flex space-x-2 rtl:space-x-reverse items-center">
+            <i class="fa-solid fa-6 text-sm"></i>
+            <span class="leading-tight font-bold">Nomor Seri : </span><span>{{ $barang->nomor_seri }}</span>
+          </li>
+          <li class="flex space-x-2 rtl:space-x-reverse items-center">
+            <i class="fa-solid fa-copyright text-sm"></i>
+            <span class="leading-tight font-bold">Merk : </span><span>{{ $barang->merk }}</span>
+          </li>
+          <li class="flex space-x-2 rtl:space-x-reverse items-center">
             <i class="fa-solid fa-arrows-up-to-line text-sm"></i>
             <span class="leading-tight font-bold">Limit : </span><span>{{ $barang->limit }}</span>
           </li>
@@ -66,8 +74,9 @@
             @else
               <i class="fa-solid fa-circle-xmark text-sm text-red-600"></i>
               <span class="leading-tight font-bold text-red-600">Status :</span>
-              <span class="text-red-600">Tidak Tersedia</span>
+              <span class="text-red-600">Habis</span>
             @endif
+
           </li>
         </ul>
       </div>

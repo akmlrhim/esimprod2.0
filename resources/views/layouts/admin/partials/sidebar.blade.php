@@ -90,8 +90,8 @@
         <a href="#"
           class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
           onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
-          <i class="fa-solid fa-sign-out"></i>
-          <span class="ms-3">Logout</span>
+          <i class="fa-solid fa-sign-out text-red-500"></i>
+          <span class="ms-3 text-red-500">Logout</span>
         </a>
 
         <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">

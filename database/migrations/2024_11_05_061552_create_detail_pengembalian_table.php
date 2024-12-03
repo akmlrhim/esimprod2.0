@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('kode_detail_pengembalian')->unique();
             $table->string('kode_pengembalian');
             $table->string('kode_barang');
-            $table->string('status');
             $table->string('deskripsi')->nullable();
             $table->timestamps();
 

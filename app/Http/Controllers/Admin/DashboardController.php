@@ -11,12 +11,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $data = [
-            'title' => 'Dashboard',
-            'barang' => Barang::where('sisa_limit', '>', 0)->count(),
-            'user' => User::count(),
-            'perawatan' => Barang::where('sisa_limit', 0)->count(),
-        ];
+        $data['title'] = 'Dashboard';
         return view('admin.dashboard.index', $data);
     }
 }

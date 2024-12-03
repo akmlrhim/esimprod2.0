@@ -11,14 +11,15 @@
         @csrf
         <div>
           <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-          <div class="relative">
+          <div class="relative w-full">
             <input type="password" name="password" id="password" placeholder="Masukkan Password" autocomplete="off"
               autofocus
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-10 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-12 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
             <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onclick="togglePassword()">
               <i id="eyeIcon" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>
             </span>
           </div>
+
         </div>
         <div class="flex items-start">
           <a href="{{ route('password.request') }}"

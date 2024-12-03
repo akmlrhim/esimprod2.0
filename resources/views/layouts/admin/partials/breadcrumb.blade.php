@@ -1,11 +1,10 @@
 <div class="p-3 mt-12">
-  <nav class="flex justify-between items-center px-3 py-3 " aria-label="Breadcrumb">
+  <nav class="flex justify-between items-center px-3 py-3" aria-label="Breadcrumb">
     <!-- Left side with larger title -->
     <div class="text-3xl font-bold text-tvri_base_color dark:text-white">
       {{ $title }}
     </div>
 
-    <!-- Right side with Home/$title -->
     <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
       <li class="inline-flex items-center">
         <a href="{{ route('dashboard.index') }}"

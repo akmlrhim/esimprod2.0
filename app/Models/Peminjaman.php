@@ -10,6 +10,7 @@ class Peminjaman extends Model
 {
     use HasFactory;
     protected $table = 'peminjaman';
+    protected $with = 'peruntukan';
 
     protected $fillable = [
         'uuid',

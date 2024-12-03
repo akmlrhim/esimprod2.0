@@ -17,7 +17,7 @@
                       Barang</label>
                     <input type="text" id="nama_barang" name="nama_barang" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ old('nama_barang') }}" />
+                      value="{{ old('nama_barang') }}" placeholder="Masukkan Nama Barang" />
                     @error('nama_barang')
                       <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
                     @enderror
@@ -48,7 +48,7 @@
                       Seri</label>
                     <input type="text" id="nomor_seri" name="nomor_seri" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ old('nomor_seri') }}" />
+                      value="{{ old('nomor_seri') }}" placeholder="Masukkan Nomor Seri" />
                     @error('nomor_seri')
                       <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
                     @enderror
@@ -59,7 +59,7 @@
                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Merk</label>
                     <input type="text" id="merk" name="merk" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ old('merk') }}" />
+                      value="{{ old('merk') }}" placeholder="Masukkan Merk" />
                     @error('merk')
                       <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
                     @enderror
@@ -72,7 +72,7 @@
                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Limit</label>
                     <input type="number" id="limit" name="limit" min="1" autocomplete="off"
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      value="{{ old('limit') }}" />
+                      value="{{ old('limit') }}" placeholder="Masukkan Limit" />
                     @error('limit')
                       <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
                     @enderror
@@ -82,7 +82,8 @@
                     <label for="foto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Foto
                       Barang</label>
                     <input type="file" id="foto" name="foto"
-                      class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                      class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                      placeholder="Upload Foto Barang" />
                     @error('foto')
                       <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
                     @enderror

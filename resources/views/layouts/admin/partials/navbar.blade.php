@@ -20,7 +20,7 @@
           <img src="{{ asset('img/assets/esimprod_logo.png') }}" class="h-8 me-3 bg-white p-1 rounded-lg"
             alt="FlowBite Logo" />
           <span class="self-center text-xl font-semibold whitespace-nowrap text-white"> <small
-              class="text-xs font-thin">Version 2.0</small></span>
+              class="text-xs font-bold">Version 2.0</small></span>
         </a>
 
       </div>
