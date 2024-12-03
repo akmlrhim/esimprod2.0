@@ -43,7 +43,12 @@ class PeminjamanController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = [
+            'title' => 'Detail Peminjaman',
+            'peminjaman' => Peminjaman::where('uuid', $id)->first(),
+        ];
+
+        return view('admin.peminjaman.detail', $data);
     }
 
     /**

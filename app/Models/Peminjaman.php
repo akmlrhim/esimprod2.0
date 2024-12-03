@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Peruntukan;
+use App\Models\DetailPeminjaman;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Peminjaman extends Model
 {
@@ -28,6 +31,11 @@ class Peminjaman extends Model
 
     public function peruntukan(): BelongsTo
     {
-        return $this->belongsTo(Peruntukan::class, 'peruntukan_id');
+        return $this->belongsTo(Peruntukan::class, 'peruntukan_id', 'id');
+    }
+
+    public function detailPeminjaman(): HasMany
+    {
+        return $this->hasMany(DetailPeminjaman::class, 'kode_peminjaman', 'kode_peminjaman');
     }
 }

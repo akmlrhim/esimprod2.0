@@ -111,6 +111,8 @@ Route::prefix('peminjaman')->group(function () {
     Route::get('/edit/{uuid}', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
     Route::put('/update/{uuid}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
     Route::delete('/destroy/{uuid}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
+    Route::get('/detail/{uuid}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
+    Route::get('/result', [PeminjamanController::class, 'search'])->name('peminjaman.search');
 });
 
 Route::prefix('perawatan')->group(function () {

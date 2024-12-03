@@ -11,6 +11,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
+                // sans: ["Aptos", "system-ui", "sans-serif"],
                 sans: ["system-ui", "sans-serif"],
             },
             colors: {
