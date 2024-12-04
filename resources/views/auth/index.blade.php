@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="{{ asset('css/login.css') }}">
   <link rel="shortcut icon" href="{{ asset('img/assets/esimprod_logo_bg.png') }}" type="image/x-icon">
 
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
   <link href="https://db.onlinewebfonts.com/c/7dd5f4bf5d38875ca1822a830b6e6fe4?family=Aptos" rel="stylesheet">
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
@@ -63,7 +63,7 @@
         @csrf
         <div class="mb-6">
           <input type="text" id="kode_user" name="kode_user" placeholder="Masukkan kode user anda jika tidak bisa !"
-            class="w-full border border-gray-300 rounded-lg shadow-lg py-2 px-3 focus:outline-none focus:border-blue-500"
+            class="w-full border border-gray-300 rounded-3xl shadow-lg py-2 px-3 focus:outline-none focus:border-blue-500"
             autocomplete="off">
         </div>
       </form>

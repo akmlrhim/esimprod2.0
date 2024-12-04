@@ -36,10 +36,6 @@
       <p class="mb-6 text-lg font-medium text-gray-500 dark:text-gray-400">
         @yield('message')
       </p>
-      <a href="{{ url()->previous() }}"
-        class="inline-flex items-center justify-center gap-x-2 text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 text-center dark:focus:ring-indigo-800 transition-transform transform hover:scale-105">
-        Back to Previous
-      </a>
     </div>
   </div>
 
