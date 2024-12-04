@@ -51,22 +51,21 @@
   @endif
 
 
+  <div class="flex justify-center items-center w-full h-screen bg-blue-100">
+    <div class="w-1/2 h-full hidden lg:block">
+      <img src="{{ asset('img/assets/login_1.png') }}" alt="Placeholder Image" class="object-cover w-full h-full">
+    </div>
 
-  <div class="left-container">
-  </div>
-
-  <div class="right-container">
-    <div class="right-container__box">
-      <div class="right-container-box">
-        <h3 class="right-container__h2 font-bold">Login</h3>
-        <p class="right-container__p text-sm">Scan QR Anda Untuk Masuk</p>
-      </div>
-      <div class="input-container">
-        <form action="{{ route('login.process') }}" method="POST">
-          @csrf
-          <input type="text" class="right-container__input rounded-lg shadow-md border-gray-300" placeholder=""
-            autofocus autocomplete="off" name="kode_user" />
-      </div>
+    <div class="flex flex-col justify-center items-center lg:p-36 md:p-52 sm:p-20 p-8 w-full lg:w-1/2">
+      <h1 class="text-3xl font-semibold mb-4 text-center text-black">Login</h1>
+      <p class="mb-10 text-black">Scan QR Code untuk Masuk !</p>
+      <form action="{{ route('login.process') }}" method="POST" class="w-full max-w-md">
+        @csrf
+        <div class="mb-6">
+          <input type="text" id="kode_user" name="kode_user" placeholder="Masukkan kode user anda jika tidak bisa !"
+            class="w-full border border-gray-300 rounded-lg shadow-lg py-2 px-3 focus:outline-none focus:border-blue-500"
+            autocomplete="off">
+        </div>
       </form>
     </div>
   </div>

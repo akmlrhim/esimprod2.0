@@ -10,7 +10,7 @@
 
 
   <div class="flex flex-wrap lg:flex-nowrap justify-center gap-6 p-6">
-    <div class="w-full lg:w-1/2 bg-white shadow-lg rounded-lg">
+    <div class="w-full lg:w-1/2">
       <div class="flex flex-col items-center py-6 px-6">
         <img class="w-32 h-32 rounded-full shadow-lg border-4 border-gray-200"
           src="{{ asset('storage/uploads/foto_user/' . Auth::user()->foto) }}" alt="User Profile Picture">
