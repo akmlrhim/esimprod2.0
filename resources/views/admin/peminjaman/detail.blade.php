@@ -45,6 +45,7 @@
                 <th scope="col" class="px-6 py-3">Kode Barang</th>
                 <th scope="col" class="px-6 py-3">Nama Barang</th>
                 <th scope="col" class="px-6 py-3">Nomor Seri</th>
+                <th scope="col" class="px-6 py-3">Jenis Barang</th>
               </tr>
             </thead>
             <tbody>
@@ -57,6 +58,9 @@
                   </td>
                   <td class="px-6 py-4 text-black">
                     {{ $detail->barang->nomor_seri ?? 'Tidak Diketahui' }}
+                  </td>
+                  <td class="px-6 py-4 text-black">
+                    {{ $detail->barang->jenisBarang->jenis_barang ?? 'Tidak Diketahui' }}
                   </td>
                 </tr>
               @endforeach

@@ -2,12 +2,36 @@
 
 @section('content')
   <div class="flex p-3 ml-3 mr-3">
+
+    @if (Route::currentRouteName() == 'jenis-barang.search')
+      @if ($jenis_barang->isEmpty())
+        <a href="{{ route('jenis-barang.index') }}"
+          class="mr-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+          Kembali
+        </a>
+      @endif
+    @endif
+
     <button data-modal-target="create-modal" data-modal-toggle="create-modal"
       class="mr-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
       Tambah Data
     </button>
   </div>
 
+  {{-- search form --}}
+  <form class="flex items-center max-w-sm mx-auto p-3 ml-3" action="{{ route('jenis-barang.search') }}" method="GET">
+    <label for="simple-search" class="sr-only">Search</label>
+    <div class="w-full relative">
+      <input type="text" id="search" autocomplete="off"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Masukkan kata kunci...." name="search" />
+      <svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-tvri_base_color" aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="m19 19-4-4m0-7A7 7 0 1 1   1 8a7 7 0 0 1 14 0Z" />
+      </svg>
+    </div>
+  </form>
 
   @if ($jenis_barang->isEmpty())
     <div class="flex flex-col p-3 ml-3">

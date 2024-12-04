@@ -11,8 +11,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                // sans: ["Aptos", "system-ui", "sans-serif"],
-                sans: ["system-ui", "sans-serif"],
+                sans: ["Aptos", "system-ui", "sans-serif"],
+                // sans: ["system-ui", "sans-serif"],
             },
             colors: {
                 tvri_base_color: "#1e3164",

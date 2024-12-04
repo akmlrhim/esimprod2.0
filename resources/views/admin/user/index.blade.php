@@ -38,7 +38,9 @@
         <select id="role" name="role"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" {{ request('role') == '' ? 'selected' : '' }}>-- Pilih Role --</option>
-          <option value="Superadmin" {{ request('role') == 'Superadmin' ? 'selected' : '' }}>Superadmin</option>
+          @if (Auth::user()->role == 'superadmin')
+            <option value="Superadmin" {{ request('role') == 'Superadmin' ? 'selected' : '' }}>Superadmin</option>
+          @endif
           <option value="Admin" {{ request('role') == 'Admin' ? 'selected' : '' }}>Admin</option>
           <option value="User" {{ request('role') == 'User' ? 'selected' : '' }}>User</option>
         </select>

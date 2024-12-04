@@ -86,4 +86,20 @@ class JabatanController extends Controller
             }
         }
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $jabatan = Jabatan::where('jabatan', 'like', '%' . $search . '%')
+            ->paginate(5)
+            ->appends(['search' => $search]);
+
+        $data = [
+            'title' => 'Jabatan',
+            'jabatan' => $jabatan,
+        ];
+
+        return view('admin.jabatan.index', $data);
+    }
 }

@@ -45,7 +45,7 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'nama_barang' => 'required',
             'merk' => 'required',
             'nomor_seri' => 'required',
@@ -63,10 +63,6 @@ class BarangController extends Controller
             'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
             'foto.max' => 'Ukuran file maksimal adalah 2MB.',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         $kode_barang = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 12);
         $qrCode = QrCode::format('png')->size(200)->generate($kode_barang);
@@ -133,7 +129,7 @@ class BarangController extends Controller
      */
     public function update(Request $request, string $uuid)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'nama_barang' => 'required',
             'nomor_seri' => 'required',
             'merk' => 'required',
@@ -154,10 +150,6 @@ class BarangController extends Controller
             'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
             'foto.max' => 'Ukuran file maksimal adalah 2MB.',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         $barang = Barang::where('uuid', $uuid)->firstOrFail();
 

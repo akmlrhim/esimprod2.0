@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Jabatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,11 +20,19 @@ class UserController extends Controller
      */
     public function index()
     {
+        $currentUser = Auth::user();
+        $query = User::query();
+
+        if ($currentUser->role !== 'superadmin') {
+            $query->whereIn('role', ['admin', 'user']);
+        }
+
         $data = [
             'title' => 'User',
             'jabatan' => Jabatan::get(['id', 'jabatan']),
-            'user' => User::where('id', '!=', Auth::id())->paginate(5),
+            'user' => $query->where('id', '!=', $currentUser->id)->paginate(5),
         ];
+
         return view('admin.user.index', $data);
     }
 
@@ -43,8 +51,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
+
+        $request->validate(
             [
                 'nama_lengkap' => 'required',
                 'email' => 'required|email|unique:users,email',
@@ -69,10 +77,6 @@ class UserController extends Controller
                 'foto.max' => 'Ukuran file maksimal adalah 2MB.',
             ]
         );
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         $kode_user = 'USR' . random_int(1, 999999);
         $qrCode = QrCode::format('png')->size(200)->generate($kode_user);
@@ -141,8 +145,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $uuid)
     {
-        $validator = Validator::make(
-            $request->all(),
+        $request->validate(
             [
                 'nama_lengkap' => 'required',
                 'email' => 'required|email',
@@ -166,10 +169,6 @@ class UserController extends Controller
                 'foto.max' => 'Ukuran file maksimal adalah 2MB.',
             ]
         );
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         $user = User::where('uuid', $uuid)->firstOrFail();
 
@@ -271,4 +270,6 @@ class UserController extends Controller
 
         return view('admin.user.index', $data);
     }
+
+    public function printIDCard() {}
 }

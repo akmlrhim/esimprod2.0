@@ -8,12 +8,13 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\User\OptionsController;
 use App\Http\Controllers\Admin\JabatanController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PerawatanController;
 use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PeruntukanController;
-use App\Http\Controllers\Admin\JenisBarangController;
 
+use App\Http\Controllers\Admin\JenisBarangController;
 use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
 use App\Http\Controllers\User\PengembalianController as PengembalianUser;
 
@@ -64,6 +65,7 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
         Route::get('/edit/{uuid}', [JenisBarangController::class, 'edit'])->name('jenis-barang.edit');
         Route::put('/update/{uuid}', [JenisBarangController::class, 'update'])->name('jenis-barang.update');
         Route::delete('/destroy/{uuid}', [JenisBarangController::class, 'destroy'])->name('jenis-barang.destroy');
+        Route::get('/result', [JenisBarangController::class, 'search'])->name('jenis-barang.search');
     });
 
     Route::prefix('peruntukan')->group(function () {
@@ -85,6 +87,13 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     });
 });
 
+Route::prefix('profil')->middleware('auth')->group(function () {
+    Route::get('/', [ProfileController::class, 'index'])->name('profil.index');
+    Route::get('/ubah-profil', [ProfileController::class, 'editProfil'])->name('profil.ubah-profil');
+    Route::get('/ubah-password', [ProfileController::class, 'editPassword'])->name('profil.ubah-password');
+    Route::patch('/ubah-password', [ProfileController::class, 'updatePassword'])->name('profil.update-password');
+    Route::patch('/ubah-profil', [ProfileController::class, 'updateProfil'])->name('profil.update-profil');
+});
 
 Route::prefix('users')->middleware('auth')->group(function () {
     Route::middleware(['auth', 'admin-or-superadmin'])->group(function () {

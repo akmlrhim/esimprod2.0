@@ -114,4 +114,19 @@ class JenisBarangController extends Controller
             }
         }
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $jenis_barang = JenisBarang::where('jenis_barang', 'like', '%' . $search . '%')
+            ->paginate(5)
+            ->appends(['search' => $search]);
+
+        $data = [
+            'title' => 'Jenis Barang',
+            'jenis_barang' => $jenis_barang,
+        ];
+        return view('admin.jenis-barang.index', $data);
+    }
 }
