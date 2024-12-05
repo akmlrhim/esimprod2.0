@@ -127,7 +127,7 @@
             <div>Sampai : 2023-01-01</div>
           </td>
           <td class="w-half">
-            <div>QR Pengembalian : <img src="{{ public_path('storage/uploads/qr_codes/1730858608_qr.png') }}""
+            <div>QR Pengembalian : <img src="{{ public_path('storage/uploads/qr_codes/1730858608_qr.png') }}"
                 alt="" width="50px"></div>
             <div>Kode : PMB014</div>
           </td>

@@ -14,11 +14,11 @@
 
 
   <div class="flex flex-col md:flex-row items-center lg:space-x-3 space-y-3 md:space-y-0 w-full p-3 mr-6 ml-3">
-    <form class="flex items-center w-60 justify-center" action="{{ route('peminjaman.search') }}" method="GET">
+    <form class="flex items-center w-80 justify-center" action="{{ route('peminjaman.search') }}" method="GET">
       <div class="w-full relative flex">
         <input type="text" id="search" autocomplete="off"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Masukkan kata kunci,+ Enter" name="search" />
+          placeholder="Masukkan Kode Peminjaman + Enter" name="search" />
         <svg class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-tvri_base_color" aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -53,7 +53,6 @@
               <th scope="col" class="px-6 py-3 text-center">Tanggal Peminjaman</th>
               <th scope="col" class="px-6 py-3 text-center">Status</th>
               <th scope="col" class="px-6 py-3 text-center">Aksi</th>
-
             </tr>
           </thead>
           <tbody>
@@ -104,13 +103,4 @@
     {{ $peminjaman->links() }}
   </div>
 
-@endsection
-
-@section('scripts')
-  <script>
-    function confirmDelete(url) {
-      const form = document.getElementById('deleteForm');
-      form.action = url;
-    }
-  </script>
 @endsection
