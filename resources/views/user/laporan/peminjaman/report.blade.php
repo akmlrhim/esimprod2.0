@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Laporan Peminjaman</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Invoice</title>
 </head>
 
 <style>
@@ -74,49 +74,49 @@
 </style>
 
 <body>
-  <div class="content-border">
+<div class="content-border">
     <table style="width: 100%;">
-      <tr>
-        <td style="width: 50%;">
-          <div style="font-weight: bold; font-size: 30px;">Daftar Barang Pinjam</div>
-          <div style="font-size: 20px;">Nomor Peminjaman: 3526830510190</div>
-          <div>Tanggal Pinjam: 2021</div>
-        </td>
-        <td style="width: 50%; text-align: right;">
-          <img src="{{ public_path('img/assets/esimprod_logo.png') }}" alt="Esimprod" width="100" />
-          <div>Version 2.0</div>
-        </td>
-      </tr>
+        <tr>
+            <td style="width: 50%;">
+                <div style="font-weight: bold; font-size: 30px;">Daftar Barang Pinjam</div>
+                <div style="font-size: 20px;">Nomor Peminjaman: 3526830510190</div>
+                <div>Tanggal Pinjam: 2021</div>
+            </td>
+            <td style="width: 50%; text-align: right;">
+                <img src="{{ public_path('img/assets/esimprod_logo.png') }}" alt="Esimprod" width="100"/>
+                <div>Version 2.0</div>
+            </td>
+        </tr>
     </table>
 
 
     <div class="margin-top">
-      <table class="w-full">
-        <tr>
-          <td class="w-half">
-            <div>Peminjam : John Doe</div>
-            <div>NIP : 123456</div>
-            <div>No. HP : 08123456789</div>
-            <div>Jabatan : Technical Director</div>
-          </td>
-          <td class="w-half">
-            <div>Surat Tugas : AGCSVD/123/45/1019</div>
-            <div>Peruntukan : PT. ABC</div>
-            <div>Tgl. Penggunaan : 2023-01-01</div>
-            <div>Sampai : 2023-01-01</div>
-          </td>
-          <td class="w-half">
-            <div>QR Pengembalian : <img src="{{ public_path('storage/uploads/qr_codes/1730858608_qr.png') }}""
-                alt="" width="50px"></div>
-            <div>Kode : PMB014</div>
-          </td>
-        </tr>
-      </table>
+        <table class="w-full">
+            <tr>
+                <td class="w-half">
+                    <div>Peminjam : {{ $peminjaman->peminjaman }}</div>
+                    <div>NIP : 123456</div>
+                    <div>No. HP : 08123456789</div>
+                    <div>Jabatan : Technical Director</div>
+                </td>
+                <td class="w-half">
+                    <div>Surat Tugas : {{ $peminjaman->nomor_surat }}</div>
+                    <div>Peruntukan : {{ $peminjaman->peruntukan->peruntukan }}</div>
+                    <div>Tgl. Penggunaan : {{ $peminjaman->tanggal_peminjaman }}</div>
+                    <div>Sampai : {{ $peminjaman->tanggal_kembali  }}</div>
+                </td>
+                <td class="w-half">
+                    <div>QR Pengembalian : <img src="{{ public_path('storage/uploads/qr_codes/1730858608_qr.png') }}"
+                        alt="" width="50px">
+                    </div>
+                    <div>Kode : {{ $peminjaman->kode_peminjaman }}</div>
+                </td>
+            </tr>
+        </table>
     </div>
 
-    {{-- table peminjaman --}}
     <div class="margin-top">
-      <table class="products" style="width: 100%; border-collapse: collapse;" border="1">
+        <table class="products" style="width: 100%; border-collapse: collapse;" border="1">
         <tr>
           <th style="text-align: left;">NO</th>
           <th style="text-align: left;">Nama Barang</th>
@@ -126,16 +126,18 @@
         </tr>
         {{-- looping data  --}}
         {{-- @foreach  --}}
-        <tr class="items">
-          <td style="text-align: left;">Data 1</td>
-          <td style="text-align: left;">Data 2</td>
-          <td style="text-align: left;">Data 3</td>
-          <td style="text-align: left;">Data 3</td>
-          <td style="text-align: left;">Data 3</td>
-        </tr>
+        @foreach($barang as $index => $item)
+            <tr>
+                <td style="text-align: left;">{{ $index + 1 }}</td>
+                <td style="text-align: left;">{{ $item['nama_barang'] }}</td>
+                <td style="text-align: left;">{{ $item['merk'] }}</td>
+                <td style="text-align: left;">{{ $item['nomor_seri'] }}</td>
+                <td style="text-align: left;"></td>
+            </tr>
+        @endforeach
       </table>
     </div>
-  </div>
+</div>
 </body>
 
 </html>

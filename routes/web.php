@@ -23,7 +23,6 @@ Route::prefix('/')->group(function () {
 
     Route::get('/', [AuthController::class, 'index'])->name('login');
     Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
-    Route::get('/options', [OptionsController::class, 'index'])->name('options')->middleware(['auth', 'user']);
 
     Route::middleware(['auth', 'admin-or-superadmin'])->group(function () {
         Route::get('/password', [AuthController::class, 'password'])->name('password');
@@ -134,24 +133,28 @@ Route::prefix('perawatan')->group(function () {
     Route::put('reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');
 });
 
+//Route Opsi
+Route::prefix('user/option')->group(function () {
+    Route::get('/', [OptionsController::class, 'index'])->name('user.option');
+});
+
+//Route Peminjaman User
 Route::prefix('user/peminjaman')->group(function () {
     Route::get('/', [PeminjamanUser::class, 'index'])->name('user.peminjaman.index');
     Route::post('/scan', [PeminjamanUser::class, 'scan'])->name('user.peminjaman.scan');
     Route::delete('/remove/{uuid}', [PeminjamanUser::class, 'removeItem'])->name('user.peminjaman.remove');
     Route::post('/store', [PeminjamanUser::class, 'store'])->name('user.peminjaman.store');
-    Route::get('/laporan', [PeminjamanUser::class, 'laporan'])->name('user.peminjaman.laporan');
-    Route::get('/pdf', [PeminjamanUser::class, 'printDocs'])->name('user.peminjaman.pdf');
+    Route::get('/report', [PeminjamanUser::class, 'report'])->name('user.peminjaman.report');
+    Route::get('/pdf', [PeminjamanUser::class, 'printReport'])->name('user.peminjaman.pdf');
 });
 
+//Route Pengembalian User
 Route::prefix('user/pengembalian')->group(function () {
     Route::get('/', [PengembalianUser::class, 'index'])->name('user.pengembalian.index');
     Route::post('/check', [PengembalianUser::class, 'checkPeminjaman'])->name('user.pengembalian.check');
-    Route::post('/validation', [PengembalianUser::class, 'validateItem'])->name('user.pengembalian.validate');
+    Route::post('/validation', [PengembalianUser::class, 'validateItem'])->name('user.pengembalian.validation');
     Route::post('/store', [PengembalianUser::class, 'store'])->name('user.pengembalian.store');
     Route::get('/report', [PengembalianUser::class, 'report'])->name('user.pengembalian.report');
-});
-
-Route::get('/test',  function () {
-    $pdf = Pdf::loadView('user.laporan.peminjaman.report')->setPaper('a4', 'landscape');
-    return $pdf->stream('laporan-peminjaman-' . time() . '.pdf');
+    Route::post('/update_desc', [PengembalianUser::class, 'desc_update'])->name('user.pengembalian.update_desc');
+    route::get('/pdf', [PengembalianUser::class, 'printReport'])->name('user.pengembalian.pdf');
 });

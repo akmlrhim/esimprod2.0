@@ -9,6 +9,14 @@ class OptionsController extends Controller
 {
     public function index()
     {
+        if (session()->has('kodePeminjaman')) {
+            session()->forget('kodePeminjaman');
+        }
+        if (session()->has('kodePengembalian')) {
+            session()->forget('kodePengembalian');
+        }
+        Session()->forget(['dataPeminjaman', 'BarangData']);
+
         return view('user.options');
     }
 }
