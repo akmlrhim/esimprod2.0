@@ -44,7 +44,7 @@
                       d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                   </svg>
                 </div>
-                <input id="tanggal-pinjam" type="date"
+                <input id="tanggal-penggunaan" type="date"
                   class="w-full pl-10 p-2 text-sm border-gray-300  rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
                   placeholder="Tanggal peminjaman" />
               </div>
@@ -158,7 +158,7 @@
               Daftar?</h3>
             <input type="hidden" id="modal-uuid">
             <div class="flex justify-center space-x-2 mt-4">
-              <button data-modal-hide="popup-modal" type="button" onclick="confirmDelete()"
+              <button data-modal-hide="popup-modal" type="button" onclick="ModalHandler.confirmDelete()"
                 class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                 Ya
               </button>
@@ -224,11 +224,12 @@
         </div>
       </div>
     </div>
+
   </div>
 
   {{-- button --}}
   <div class="flex justify-center space-x-2 mt-4">
-    <a href="/options">
+    <a href="{{ route('user.option') }}">
       <button type="button"
         class="text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
         Kembali
@@ -297,60 +298,145 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const modalTriggers = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
-      modalTriggers.forEach(trigger => {
-        trigger.addEventListener('click', function() {
-          const uuid = this.getAttribute('data-uuid');
-          document.getElementById('modal-uuid').value = uuid;
+    // Constants and Configuration
+    const CONFIG = {
+      API_ENDPOINTS: {
+        SCAN_ITEM: 'http://127.0.0.1:8000/user/peminjaman/scan',
+        REMOVE_ITEM: '/user/peminjaman/remove/',
+        STORE_LOAN: '/user/peminjaman/store'
+      },
+      TIMEOUT_DURATION: 1500,
+      SCANNER_INPUT_TIMEOUT: 100
+    };
+
+    // Utility Functions
+    const Utils = {
+      getCsrfToken() {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+      },
+      formatDate(date) {
+        return date.toISOString().split('T')[0];
+      },
+      showToast(toastId, message) {
+        const toast = document.getElementById(toastId);
+        toast.querySelector('.text-sm').textContent = message;
+        toast.style.display = 'flex';
+
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, CONFIG.TIMEOUT_DURATION);
+      }
+    };
+
+    // Modal Handling
+    const ModalHandler = {
+      init() {
+        const modalTriggers = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
+        modalTriggers.forEach(trigger => {
+          trigger.addEventListener('click', () => {
+            const uuid = trigger.getAttribute('data-uuid');
+            document.getElementById('modal-uuid').value = uuid;
+          });
         });
-      });
-    });
+      },
+      confirmDelete() {
+        const uuid = document.getElementById('modal-uuid').value;
+        ItemManager.removeItem(uuid);
+      }
+    };
 
-    function confirmDelete() {
-      const uuid = document.getElementById('modal-uuid').value;
-      removeItem(uuid); // Panggil fungsi delete dengan UUID
-    }
+    // Item Management
+    const ItemManager = {
+      addItemToTable(item) {
+        const tbody = document.querySelector('table tbody');
+        const rowCount = tbody.children.length + 1;
+        const tr = document.createElement('tr');
 
-    document.addEventListener('DOMContentLoaded', function() {
-      const datepickerInput = document.getElementById('datepicker');
-      // Initialize Flowbite's datepicker with minDate
-      const datepicker = new Datepicker(datepickerInput, {
-        minDate: new Date(), // Disable past dates
-        todayHighlight: true // Highlight today's date
-      });
-    });
+        tr.className =
+          'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+        tr.dataset.itemId = item.uuid;
+        tr.innerHTML = `
+                    <td class="w-4 p-4">
+                        <div class="flex items-center">
+                            <p>${rowCount}</p>
+                        </div>
+                    </td>
+                    <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                        <div class="ps-2">
+                            <div class="text-base font-semibold">${item.name}</div>
+                        </div>
+                    </th>
+                    <td class="px-6 py-4">${item.merk}</td>
+                    <td class="px-6 py-4">${item.serial_number}</td>
+                    <td class="px-6 py-4">
+                        <a href="#" onclick="ItemManager.removeItem('${item.uuid}')" class="text-blue-600 dark:text-blue-500 hover:text-red-600 hover:underline">
+                            <i class="fa-regular fa-trash-can fa-lg ml-3"></i>
+                        </a>
+                    </td>
+                `;
 
-    // Scanner Input Program
-    document.addEventListener('DOMContentLoaded', function() {
-      let lastScanned = '';
-      let lastScannedTimeout;
+        tbody.appendChild(tr);
+        this.updateRowNumbers();
+      },
 
-      document.addEventListener('keydown', function(e) {
-        if (['Shift', 'Control', 'Alt'].includes(e.key)) return;
+      removeItem(uuid) {
+        fetch(`${CONFIG.API_ENDPOINTS.REMOVE_ITEM}${uuid}`, {
+            method: 'DELETE',
+            headers: {
+              'X-CSRF-TOKEN': Utils.getCsrfToken()
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              const tbody = document.querySelector('table tbody');
+              const row = tbody.querySelector(`tr[data-item-id="${uuid}"]`);
+              if (row) {
+                tbody.removeChild(row);
+                this.updateRowNumbers();
+              }
+            }
+          })
+          .catch(console.error);
+      },
+      updateRowNumbers() {
+        const tbody = document.querySelector('table tbody');
+        Array.from(tbody.children).forEach((row, index) => {
+          row.querySelector('td p').textContent = index + 1;
+        });
+      }
+    };
 
-        if (e.key === 'Enter') {
-          if (lastScanned) {
-            processBarcodeInput(lastScanned);
-            lastScanned = '';
+    // Scanner Handler
+    const ScannerHandler = {
+      init() {
+        let lastScanned = '';
+        let lastScannedTimeout;
+
+        document.addEventListener('keydown', (e) => {
+          if (['Shift', 'Control', 'Alt'].includes(e.key)) return;
+
+          if (e.key === 'Enter') {
+            if (lastScanned) {
+              this.processBarcodeInput(lastScanned);
+              lastScanned = '';
+              clearTimeout(lastScannedTimeout);
+            }
+          } else {
+            lastScanned += e.key;
             clearTimeout(lastScannedTimeout);
+            lastScannedTimeout = setTimeout(() => {
+              lastScanned = '';
+            }, CONFIG.SCANNER_INPUT_TIMEOUT);
           }
-        } else {
-          lastScanned += e.key;
-          clearTimeout(lastScannedTimeout);
-          lastScannedTimeout = setTimeout(() => {
-            lastScanned = '';
-          }, 100);
-        }
-        // console.log(lastScanned);
-      });
-
-      function processBarcodeInput(qrcode) {
-        fetch('http://127.0.0.1:8000/user/peminjaman/scan', {
+        });
+      },
+      processBarcodeInput(qrcode) {
+        fetch(CONFIG.API_ENDPOINTS.SCAN_ITEM, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+              'X-CSRF-TOKEN': Utils.getCsrfToken()
             },
             body: JSON.stringify({
               qrcode
@@ -359,175 +445,104 @@
           .then(response => response.json())
           .then(data => {
             if (data.success) {
-              addItemToTable(data.item);
-              document.querySelector("#toast-success-add .text-sm").textContent = data
-                .message; // Set success message
-              document.getElementById("toast-success-add").style.display = "flex"; // Show success toast
-              setTimeout(() => {
-                document.getElementById("toast-success-add").style.display = "none";
-              }, 1000);
+              ItemManager.addItemToTable(data.item);
+              Utils.showToast('toast-success-add', data.message);
             } else {
-              document.querySelector("#toast-warning .text-sm").textContent = data.message; // Set failure message
-              document.getElementById("toast-warning").style.display = "flex"; // Show warning toast
-              setTimeout(() => {
-                document.getElementById("toast-warning").style.display = "none";
-              }, 1000);
+              Utils.showToast('toast-warning', data.message);
             }
           })
-          .catch(error => {
-            console.error('Error:', error);
-          });
+          .catch(console.error);
       }
+    };
 
-      // Menambahkan data yang di scan ke tabel & update penomoran
-      function addItemToTable(item) {
-        const tbody = document.querySelector('table tbody');
-        const rowCount = tbody.children.length + 1;
-        const tr = document.createElement('tr');
-        tr.className =
-          'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
-        tr.dataset.itemId = item.uuid;
-
-        tr.innerHTML = `
-            <td class="w-4 p-4">
-                <div class="flex items-center">
-                    <p>${rowCount}</p>
-                </div>
-            </td>
-            <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                <div class="ps-2">
-                    <div class="text-base font-semibold">${item.name}</div>
-                </div>
-            </th>
-            <td class="px-6 py-4">
-                ${item.merk}
-            </td>
-            <td class="px-6 py-4">
-                <div class="flex items-center">
-                    ${item.serial_number}
-                </div>
-            </td>
-            <td class="px-6 py-4">
-                <a href="#" onclick="removeItem('${item.uuid}')" class="text-blue-600 dark:text-blue-500 hover:text-red-600 hover:underline">
-                    <i class="fa-regular fa-trash-can fa-lg ml-3"></i>
-                </a>
-            </td>
-        `;
-
-        tbody.appendChild(tr);
-      }
-    });
-
-    // Remove data barang ditabel scan
-    function removeItem(uuid) {
-      fetch(`/user/peminjaman/remove/${uuid}`, {
-          method: 'DELETE',
-          headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-          }
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            const tbody = document.querySelector('table tbody');
-            const row = tbody.querySelector(`tr[data-item-id="${uuid}"]`);
-            if (row) {
-              tbody.removeChild(row); // Hapus baris dari tabel
-              updateRowNumbers(); // Perbarui nomor urut
-            }
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    }
-
-    // Store data peminjaman
-    async function savePeminjaman() {
-      // Ambil nilai dari input form
-      const suratTugas = document.getElementById('nomor-surat').value;
-      const tanggalPeminjaman = document.getElementById('tanggal-pinjam').value;
-      const tanggalPengembalian = document.getElementById('tanggal-kembali').value;
-      const peruntukanId = document.getElementById('peruntukan').value;
-
-      // Validasi input
-      if (!suratTugas || !tanggalPeminjaman || !tanggalPengembalian || !peruntukanId) {
-
-        document.querySelector("#toast-danger-2 .text-sm").textContent = data.message; // Set success message
-        document.getElementById("toast-danger-2").style.display = "flex"; // Show success toast
-        // console.log(data.message);
-        setTimeout(() => {
-          document.getElementById("toast-danger-2").style.display = "none";
-        }, 1500);
-        return;
-      }
-      try {
-        // Dapatkan CSRF token dari meta tag
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        // Buat payload
-        const data = {
-          nomor_surat: suratTugas,
-          peruntukan_id: peruntukanId,
-          tanggal_peminjaman: tanggalPeminjaman,
-          tanggal_kembali: tanggalPengembalian,
+    // Loan Management
+    const LoanManager = {
+      async savePeminjaman() {
+        const inputs = {
+          suratTugas: document.getElementById('nomor-surat').value,
+          tanggalPenggunaan: document.getElementById('tanggal-penggunaan').value,
+          tanggalPengembalian: document.getElementById('tanggal-kembali').value,
+          peruntukanId: document.getElementById('peruntukan').value
         };
-
-        // Kirim data ke REST API
-        const response = await fetch('/user/peminjaman/store', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(data),
-        });
-
-        const result = await response.json();
-        if (result.success) {
-          const successModal = document.getElementById('successModal');
-          successModal.classList.remove('hidden'); // Hapus kelas 'hidden' untuk menampilkan modal
-
-          // Tombol "Selesai" dalam modal
-          const selesaiButton = document.getElementById('successButton');
-          selesaiButton.addEventListener('click', () => {
-            window.location.href = '/user/peminjaman/laporan'; // Redirect ke halaman laporan
-          });
-        } else {
-          document.querySelector("#toast-danger-2 .text-sm").textContent = data.message; // Set failure message
-          document.getElementById("toast-danger-2").style.display = "flex"; // Show warning toast
-          setTimeout(() => {
-            document.getElementById("toast-danger-2").style.display = "none";
-          }, 1500);
+        console.log(inputs);
+        // Validate inputs
+        if (Object.values(inputs).some(value => !value)) {
+          Utils.showToast('toast-danger-2', 'Please fill all required fields');
+          return;
         }
-      } catch (error) {
-        console.error('Error:', error);
+
+        try {
+          const response = await fetch(CONFIG.API_ENDPOINTS.STORE_LOAN, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': Utils.getCsrfToken(),
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              nomor_surat: inputs.suratTugas,
+              peruntukan_id: inputs.peruntukanId,
+              tanggal_penggunaan: inputs.tanggalPenggunaan,
+              tanggal_kembali: inputs.tanggalPengembalian
+            })
+          });
+
+          const result = await response.json();
+          console.log(result);
+          if (result.success) {
+            this.showSuccessModal();
+          } else {
+            Utils.showToast('toast-danger-2', result.message);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      },
+      showSuccessModal() {
+        const successModal = document.getElementById('successModal');
+        successModal.classList.remove('hidden');
+
+        const selesaiButton = document.getElementById('successButton');
+        selesaiButton.addEventListener('click', () => {
+          window.location.href = "{{ route('user.peminjaman.report') }}";
+        });
+      },
+      initDateInputs() {
+        const today = Utils.formatDate(new Date());
+        const tanggalPinjam = document.getElementById('tanggal-penggunaan');
+        const tanggalKembali = document.getElementById('tanggal-kembali');
+
+        tanggalPinjam.min = today;
+        tanggalPinjam.value = today;
+        tanggalKembali.min = today;
+
+        // Add event listener for date change
+        tanggalPinjam.addEventListener('change', function() {
+          tanggalKembali.min = this.value;
+        });
       }
-    }
+    };
 
-    function formatDate(date) {
-      return date.toISOString().split('T')[0];
-    }
+    // Initialize on DOM Load
+    document.addEventListener('DOMContentLoaded', () => {
+      ModalHandler.init();
+      ScannerHandler.init();
+      LoanManager.initDateInputs();
 
-    document.getElementById('saveButton').addEventListener('click', function(e) {
-      e.preventDefault(); // Mencegah form submit default
-      savePeminjaman();
-    });
-    ocument.getElementById('tanggal-pinjam').addEventListener('change', function() {
-      const tanggalKembali = document.getElementById('tanggal-kembali');
-      tanggalKembali.min = this.value; // Set minimum tanggal kembali
-    });
+      // Bind save button
+      document.getElementById('saveButton').addEventListener('click', (e) => {
+        e.preventDefault();
+        LoanManager.savePeminjaman();
+      });
 
-    // Initialize date inputs dengan tanggal minimal hari ini
-    document.addEventListener('DOMContentLoaded', function() {
-      const today = formatDate(new Date());
-      const tanggalPinjam = document.getElementById('tanggal-pinjam');
-      const tanggalKembali = document.getElementById('tanggal-kembali');
-
-      tanggalPinjam.min = today;
-      tanggalPinjam.value = today;
-      tanggalKembali.min = today;
+      // Optional: Datepicker initialization if Flowbite is used
+      const datepickerInput = document.getElementById('datepicker');
+      if (datepickerInput) {
+        new Datepicker(datepickerInput, {
+          minDate: new Date(),
+          todayHighlight: true
+        });
+      }
     });
   </script>
 @endsection

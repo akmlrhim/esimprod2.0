@@ -96,7 +96,7 @@
     </div>
 
     <h3 style="font-weight: normal;"><strong>No Peminjaman:</strong> 2023-10-0007</h3>
-    <p><strong>Waktu Peminjaman:</strong> 10 Oktober 2023, 19:23 WITA</p>
+    <p><strong>Waktu Peminjaman:</strong>{{ Carbon::parse($peminjaman->tanggal_peminjaman)->format('d F Y H:i') }}</p>
 
     <div class="info-section">
       <div class="item">
@@ -109,7 +109,7 @@
         <p><strong>Surat Tugas:</strong> {{ $peminjaman->nomor_surat }}</p>
         <p><strong>Peruntukan:</strong> {{ $peminjaman->peruntukan->peruntukan }}</p>
         <p><strong>Tgl
-            Penggunaan:</strong> {{ Carbon::parse($peminjaman->tanggal_peminjaman)->format('d F Y') }}
+            Penggunaan:</strong> {{ Carbon::parse($peminjaman->tanggal_penggunaan)->format('d F Y') }}
         </p>
         <p><strong>Sampai:</strong> {{ Carbon::parse($peminjaman->tanggal_kembali)->format('d F Y') }}</p>
       </div>
@@ -146,7 +146,7 @@
     <div class="btn-group">
       <a href="{{ route('user.peminjaman.pdf') }}" type="button" class="btn">Download PDF</a>
       {{--      <button class="btn">Cetak</button> --}}
-      <a href="{{ route('options') }}" type="button" class="btn">Selesai</a>
+      <a href="{{ route('user.option') }}" type="button" class="btn">Selesai</a>
     </div>
   </div>
   <!-- Pastikan QRCode.js sudah disertakan sebelum skrip ini -->
