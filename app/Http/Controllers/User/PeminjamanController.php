@@ -4,12 +4,18 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Barang;
 use App\Models\Peminjaman;
+use App\Models\Peminjaman;
 use App\Models\Peruntukan;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\DetailPeminjaman;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf as Pdf;
@@ -45,6 +51,14 @@ class PeminjamanController extends Controller
 				'message' => 'Item sudah dipindai sebelumnya.',
 			], 400);
 		}
+
+		if ($item->status == 'tidak-tersedia') {
+			return response()->json([
+				'success' => false,
+				'message' => 'Barang Tidak dapat Di Pinjam.',
+			], 400);
+		}
+
 
 		if ($item->status == 'tidak-tersedia') {
 			return response()->json([
@@ -93,6 +107,7 @@ class PeminjamanController extends Controller
 			'peruntukan_id' => 'required|integer|exists:peruntukan,id',
 			'nomor_surat' => 'required|string|max:255',  // Sesuaikan dengan field yang dikirim
 			'tanggal_penggunaan' => 'required|date|after_or_equal:today',
+			'tanggal_penggunaan' => 'required|date|after_or_equal:today',
 			'tanggal_kembali' => 'required|date|after:tanggal_peminjaman',
 		]);
 
@@ -113,7 +128,10 @@ class PeminjamanController extends Controller
 				'kode_peminjaman' => "PMB-" . $borrowTime,
 				'nomor_surat' => $request->nomor_surat,
 				'nomor_peminjaman' => 'azfoafghaeigog',
+				'nomor_peminjaman' => 'azfoafghaeigog',
 				'peruntukan_id' => $request->peruntukan_id,
+				'tanggal_penggunaan' => $request->tanggal_penggunaan,
+				'tanggal_peminjaman' => now(),
 				'tanggal_penggunaan' => $request->tanggal_penggunaan,
 				'tanggal_peminjaman' => now(),
 				'tanggal_kembali' => $request->tanggal_kembali,
@@ -151,14 +169,17 @@ class PeminjamanController extends Controller
 			session()->forget('borrowed_items');
 			DB::commit();
 			session()->put('kodePeminjaman', $borrowing->kode_peminjaman);
+			session()->put('kodePeminjaman', $borrowing->kode_peminjaman);
 			return response()->json([
 				'success' => true,
 				'message' => 'Borrowing saved successfully'
 			], 200);
 		} catch (\Exception $e) {
+		} catch (\Exception $e) {
 			DB::rollback();
 			Log::error('Terjadi kesalahan saat menyimpan peminjaman.', [
 				'error' => $e->getMessage(),
+				'user_id' => Auth::user()->nama_lengkap,
 				'user_id' => Auth::user()->nama_lengkap,
 			]);
 
@@ -191,6 +212,14 @@ class PeminjamanController extends Controller
 		$kodePeminjaman = session()->get('kodePeminjaman');
 		$detailpeminjaman = DetailPeminjaman::where('kode_peminjaman', $kodePeminjaman)->get();
 		$peminjaman = Peminjaman::where('kode_peminjaman', $kodePeminjaman)->first();
+	public function report()
+	{
+		if (!session()->has('kodePeminjaman')) {
+			return redirect()->route('user.option');
+		}
+		$kodePeminjaman = session()->get('kodePeminjaman');
+		$detailpeminjaman = DetailPeminjaman::where('kode_peminjaman', $kodePeminjaman)->get();
+		$peminjaman = Peminjaman::where('kode_peminjaman', $kodePeminjaman)->first();
 		$barang = [];
 		foreach ($detailpeminjaman as $detail) {
 			// Ambil data barang berdasarkan kode_barang
@@ -210,7 +239,12 @@ class PeminjamanController extends Controller
 	}
 
 	public function printReport()
+	public function printReport()
 	{
+		if (!session()->has('kodePeminjaman')) {
+			return redirect()->route('user.option');
+		}
+		$kodePeminjaman = session()->get('kodePeminjaman');
 		if (!session()->has('kodePeminjaman')) {
 			return redirect()->route('user.option');
 		}
