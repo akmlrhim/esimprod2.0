@@ -54,9 +54,9 @@
       <form method="POST" action="{{ route('profil.update-password') }}" class="space-y-5">
         @csrf
         @method('PATCH')
-        <div class="relative">
+        <div class="relative w-full">
           <label for="current_password" class="block text-sm font-medium text-black mb-2">Password Lama</label>
-          <div class="relative w-full">
+          <div class="relative">
             <input type="password" id="current_password" name="current_password" autocomplete="off"
               value="{{ old('current_password') }}"
               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -103,4 +103,21 @@
       </form>
     </div>
   </div>
+@endsection
+
+@section('scripts')
+  <script>
+    document.querySelectorAll('[id^=toggle-]').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const input = toggle.previousElementSibling;
+        if (input.type === 'password') {
+          input.type = 'text';
+          toggle.innerHTML = '<i class="fas fa-eye-slash text-gray-700"></i>';
+        } else {
+          input.type = 'password';
+          toggle.innerHTML = '<i class="fas fa-eye text-gray-700"></i>';
+        }
+      });
+    });
+  </script>
 @endsection

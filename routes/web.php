@@ -152,6 +152,6 @@ Route::prefix('user/pengembalian')->group(function () {
 });
 
 Route::get('/test',  function () {
-    $pdf = Pdf::loadView('user.laporan.pengembalian.report')->setPaper('a4', 'landscape');
+    $pdf = Pdf::loadView('user.laporan.peminjaman.report')->setPaper('a4', 'landscape');
     return $pdf->stream('laporan-peminjaman-' . time() . '.pdf');
 });

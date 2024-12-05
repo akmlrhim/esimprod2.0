@@ -74,4 +74,16 @@ class PeminjamanController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $data = [
+            'title' => 'Peminjaman',
+            'peminjaman' => Peminjaman::where('kode_peminjaman', 'like', "%$search%")->paginate(10),
+        ];
+
+        return view('admin.peminjaman.index', $data);
+    }
 }

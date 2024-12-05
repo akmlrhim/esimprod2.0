@@ -6,7 +6,7 @@
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Peminajaman Laporan</title>
+  <title>Laporan Peminjaman</title>
 </head>
 
 <style>
@@ -94,29 +94,29 @@
       <table class="w-full">
         <tr>
           <td class="w-half">
-            <div>Peminjam : {{ $peminjaman->peminjaman }}</div>
+            <div>Peminjam : John Doe</div>
             <div>NIP : 123456</div>
             <div>No. HP : 08123456789</div>
             <div>Jabatan : Technical Director</div>
           </td>
           <td class="w-half">
-            <div>Surat Tugas : {{ $peminjaman->nomor_surat }}</div>
-            <div>Peruntukan : {{ $peminjaman->peruntukan->peruntukan }}</div>
-            <div>Tgl. Penggunaan : {{ $peminjaman->tanggal_peminjaman }}</div>
-            <div>Sampai : {{ $peminjaman->tanggal_kembali }}</div>
+            <div>Surat Tugas : AGCSVD/123/45/1019</div>
+            <div>Peruntukan : PT. ABC</div>
+            <div>Tgl. Penggunaan : 2023-01-01</div>
+            <div>Sampai : 2023-01-01</div>
           </td>
           <td class="w-half">
             <div>QR Pengembalian : <img src="{{ public_path('storage/uploads/qr_codes/1730858608_qr.png') }}""
-                alt="" width="50px">
-            </div>
-            <div>Kode : {{ $peminjaman->kode_peminjaman }}</div>
+                alt="" width="50px"></div>
+            <div>Kode : PMB014</div>
           </td>
         </tr>
       </table>
     </div>
 
+    {{-- table peminjaman --}}
     <div class="margin-top">
-      <table class="products" style="width: 100%;">
+      <table class="products" style="width: 100%; border-collapse: collapse;" border="1">
         <tr>
           <th style="text-align: left;">NO</th>
           <th style="text-align: left;">Nama Barang</th>
@@ -124,15 +124,15 @@
           <th style="text-align: left;">No. Seri</th>
           <th style="text-align: left;">Checklist</th>
         </tr>
-        @foreach ($barang as $index => $item)
-          <tr>
-            <td>{{ $index + 1 }}</td>
-            <td>{{ $item['nama_barang'] }}</td>
-            <td>{{ $item['merk'] }}</td>
-            <td>{{ $item['nomor_seri'] }}</td>
-            <td></td>
-          </tr>
-        @endforeach
+        {{-- looping data  --}}
+        {{-- @foreach  --}}
+        <tr class="items">
+          <td style="text-align: left;">Data 1</td>
+          <td style="text-align: left;">Data 2</td>
+          <td style="text-align: left;">Data 3</td>
+          <td style="text-align: left;">Data 3</td>
+          <td style="text-align: left;">Data 3</td>
+        </tr>
       </table>
     </div>
   </div>
