@@ -51,7 +51,7 @@
   @endif
 
 
-  <div class="flex justify-center items-center w-full h-screen bg-blue-100">
+  <div class="flex justify-center items-center w-full h-screen">
     <div class="w-1/2 h-full hidden lg:block">
       <img src="{{ asset('img/assets/login_1.png') }}" alt="Placeholder Image" class="object-cover w-full h-full">
     </div>

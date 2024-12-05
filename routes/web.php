@@ -1,8 +1,9 @@
 <?php
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
+
 use Illuminate\Support\Facades\Route;
-
-
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BarangController;
@@ -12,8 +13,8 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PerawatanController;
 use App\Http\Controllers\Admin\PeminjamanController;
-use App\Http\Controllers\Admin\PeruntukanController;
 
+use App\Http\Controllers\Admin\PeruntukanController;
 use App\Http\Controllers\Admin\JenisBarangController;
 use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
 use App\Http\Controllers\User\PengembalianController as PengembalianUser;
@@ -148,4 +149,9 @@ Route::prefix('user/pengembalian')->group(function () {
     Route::post('/validation', [PengembalianUser::class, 'validateItem'])->name('user.pengembalian.validate');
     Route::post('/store', [PengembalianUser::class, 'store'])->name('user.pengembalian.store');
     Route::get('/report', [PengembalianUser::class, 'report'])->name('user.pengembalian.report');
+});
+
+Route::get('/test',  function () {
+    $pdf = Pdf::loadView('user.laporan.pengembalian.report')->setPaper('a4', 'landscape');
+    return $pdf->stream('laporan-peminjaman-' . time() . '.pdf');
 });
