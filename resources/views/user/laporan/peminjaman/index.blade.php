@@ -5,6 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Daftar Barang Pinjam</title>
   <!-- QRCode.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -92,7 +93,7 @@
     <!-- Header section with h1 and logo aligned -->
     <div class="header">
       <h1>Daftar Barang Pinjam</h1>
-      <img src="img/assets/esimprod_logo.png" alt="Logo" class="logo">
+      <img src="{{ asset('img/assets/esimprod_logo.png') }}" alt="Logo" class="logo">
     </div>
 
     <h3 style="font-weight: normal;"><strong>No Peminjaman:</strong> 2023-10-0007</h3>
@@ -101,9 +102,9 @@
     <div class="info-section">
       <div class="item">
         <p><strong>Peminjam:</strong> {{ $peminjaman->peminjam }}</p>
-        <p><strong>NIP:</strong> 199004232022031007</p>
-        <p><strong>No HP:</strong> 085386612234</p>
-        <p><strong>Jabatan:</strong> Teknisi Siaran</p>
+        <p><strong>NIP:</strong> {{ Auth::user()->nip }}</p>
+        <p><strong>No HP:</strong> {{ Auth::user()->nomor_hp }}</p>
+        <p><strong>Jabatan:</strong> {{ Auth::user()->jabatan->jabatan }}</p>
       </div>
       <div class="item">
         <p><strong>Surat Tugas:</strong> {{ $peminjaman->nomor_surat }}</p>

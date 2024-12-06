@@ -503,7 +503,7 @@
 
         const selesaiButton = document.getElementById('successButton');
         selesaiButton.addEventListener('click', () => {
-          window.location.href = '{{ route('user.peminjaman.report') }}';
+          window.location.href = '/user/peminjaman/report';
         });
       },
       initDateInputs() {
