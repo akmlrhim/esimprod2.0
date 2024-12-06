@@ -12,7 +12,7 @@
   <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ asset('fa/css/all.min.css') }}">
 
-  <link href="https://db.onlinewebfonts.com/c/7dd5f4bf5d38875ca1822a830b6e6fe4?family=Aptos" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/avenir" rel="stylesheet">
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <title>@yield('title', 'Default Title')</title>

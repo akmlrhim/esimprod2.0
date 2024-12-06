@@ -27,5 +27,12 @@ class JabatanSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        Jabatan::create([
+            'uuid' => Str::uuid(),
+            'jabatan' => 'Administrator',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }
