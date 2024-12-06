@@ -13,6 +13,8 @@ use App\Models\Barang;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
+
 class PengembalianController extends Controller
 {
     public function index()
@@ -97,10 +99,10 @@ class PengembalianController extends Controller
                 'kode_peminjaman' => session()->get('kodePeminjaman'),
                 'tanggal_kembali' => now(),
                 'status' => 'incomplete',
-                'peminjam' => 'uuid',
+                'peminjam' => Auth::user()->id ?? null,
             ]);
 
-            $peminjaman = Peminjaman::where('kode_peminjaman',$pengembalian->kode_peminjaman )->first();
+            $peminjaman = Peminjaman::where('kode_peminjaman', $pengembalian->kode_peminjaman)->first();
             $peminjaman->status = 'selesai';
             $peminjaman->save();
 
@@ -111,7 +113,7 @@ class PengembalianController extends Controller
                     'kode_pengembalian' => $pengembalian->kode_pengembalian,
                     'kode_barang' => $item['item_code'],
                     'status' => $item['isChecked'] ? $item['condition'] : 'hilang',
-                    'deskripsi' => $item['isChecked'] ? 'Barang Telah Dikembalikan': null,
+                    'deskripsi' => $item['isChecked'] ? 'Barang Telah Dikembalikan' : null,
                 ]);
             }
 
@@ -159,17 +161,17 @@ class PengembalianController extends Controller
 
     public function report()
     {
-        if(!session()->has('kodePengembalian')){
+        if (!session()->has('kodePengembalian')) {
             return redirect()->route('user.option');
         }
         $kodePengembalian = session()->get('kodePengembalian');
-        $detailPengembalian = DetailPengembalian::where('kode_pengembalian',$kodePengembalian)->get();
+        $detailPengembalian = DetailPengembalian::where('kode_pengembalian', $kodePengembalian)->get();
         $pengembalian = Pengembalian::where('kode_pengembalian', $kodePengembalian)->first();
         $barangKembali = [];
         $barangHilang = [];
 
         foreach ($detailPengembalian as $detail) {
-            if($detail->status != 'hilang') {
+            if ($detail->status != 'hilang') {
                 $dataBarangKembali = Barang::where('kode_barang', $detail->kode_barang)->first();
 
                 if ($dataBarangKembali) {
@@ -182,7 +184,7 @@ class PengembalianController extends Controller
                 }
             }
 
-            if($detail->status == 'hilang') {
+            if ($detail->status == 'hilang') {
                 $dataBarangHilang = Barang::where('kode_barang', $detail->kode_barang)->first();
 
                 if ($dataBarangHilang) {
@@ -195,7 +197,7 @@ class PengembalianController extends Controller
                 }
             }
         }
-        return view('user.laporan.pengembalian.index', compact('detailPengembalian', 'pengembalian','barangKembali', 'barangHilang'));
+        return view('user.laporan.pengembalian.index', compact('detailPengembalian', 'pengembalian', 'barangKembali', 'barangHilang'));
     }
 
     public function desc_update(Request $request)
@@ -230,17 +232,17 @@ class PengembalianController extends Controller
 
     public function printReport()
     {
-        if(!session()->has('kodePengembalian')){
+        if (!session()->has('kodePengembalian')) {
             return redirect()->route('user.option');
         }
         $kodePengembalian = session()->get('kodePengembalian');
-        $detailPengembalian = DetailPengembalian::where('kode_pengembalian',$kodePengembalian)->get();
+        $detailPengembalian = DetailPengembalian::where('kode_pengembalian', $kodePengembalian)->get();
         $pengembalian = Pengembalian::where('kode_pengembalian', $kodePengembalian)->first();
         $barangKembali = [];
         $barangHilang = [];
 
         foreach ($detailPengembalian as $detail) {
-            if($detail->status != 'hilang') {
+            if ($detail->status != 'hilang') {
                 $dataBarangKembali = Barang::where('kode_barang', $detail->kode_barang)->first();
 
                 if ($dataBarangKembali) {
@@ -253,7 +255,7 @@ class PengembalianController extends Controller
                 }
             }
 
-            if($detail->status == 'hilang') {
+            if ($detail->status == 'hilang') {
                 $dataBarangHilang = Barang::where('kode_barang', $detail->kode_barang)->first();
 
                 if ($dataBarangHilang) {

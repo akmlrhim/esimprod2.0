@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('kode_pengembalian');
             $table->string('kode_barang');
             $table->string('deskripsi')->nullable();
+            $table->string('status');
             $table->timestamps();
             $table->foreign('kode_barang')->references('kode_barang')->on('barang')->onDelete('cascade');
         });
