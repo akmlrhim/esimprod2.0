@@ -16,7 +16,7 @@ class PeminjamanController extends Controller
 
         $data = [
             'title' => 'Peminjaman',
-            'peminjaman' => Peminjaman::paginate(10),
+            'peminjaman' => Peminjaman::paginate(5),
         ];
 
         return view('admin.peminjaman.index', $data);

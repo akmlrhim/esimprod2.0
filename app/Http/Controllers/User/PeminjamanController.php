@@ -45,6 +45,15 @@ class PeminjamanController extends Controller
                 'message' => 'Item sudah dipindai sebelumnya.',
             ], 400);
         }
+
+        //jika sisa limit barang habis maka tidak bisa di pinjam
+        if ($item->status == 'tidak-tersedia') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Barang tidak dapat dipinjam'
+            ], 400);
+        }
+
         $response = [
             'success' => !!$item,
             'message' => $item ? 'Barang Telah Ditambahkan.' : 'Barang Tidak Tersedia.',
@@ -111,7 +120,7 @@ class PeminjamanController extends Controller
                 'tanggal_kembali' => $request->tanggal_kembali,
                 'qr_code' => null,
                 'peminjam' => Auth::user()->nama_lengkap, // Gunakan user yang terautentikasi
-                'status' => 'proses'
+                'status' => 'Proses'
             ]);
 
             // Create borrowing details
@@ -131,14 +140,6 @@ class PeminjamanController extends Controller
 
                     // Update sisa_limit
                     $updatedItem->update(['sisa_limit' => $newLimit]);
-
-                    //jika sisa limit barang habis maka tidak bisa di pinjam
-                    if ($item->status == 'tidak-tersedia') {
-                        return response()->json([
-                            'success' => false,
-                            'message' => 'Barang tidak dapat dipinjam'
-                        ], 400);
-                    }
 
                     // Check if sisa_limit == 0
                     if ($newLimit == 0) {

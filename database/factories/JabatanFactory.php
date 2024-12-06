@@ -15,13 +15,8 @@ class JabatanFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
-        return [
-            'uuid' => Str::uuid(),
-            'jabatan' => fake()->jobTitle(),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ];
+        //
     }
 }
