@@ -11,7 +11,9 @@ use App\Models\Peminjaman;
 use App\Models\DetailPeminjaman;
 use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+
 class PeminjamanController extends Controller
 {
     public function index()
@@ -97,10 +99,10 @@ class PeminjamanController extends Controller
         $borrowTime = time();
         try {
             DB::beginTransaction();
-                // Pastikan data yang dimasukkan sesuai dengan field di database
+            // Pastikan data yang dimasukkan sesuai dengan field di database
             $borrowing = Peminjaman::create([
                 'uuid' => Str::uuid(),
-                'kode_peminjaman' => "PMB-".$borrowTime,
+                'kode_peminjaman' => "PMB-" . $borrowTime,
                 'nomor_surat' => $request->nomor_surat,
                 'nomor_peminjaman' => 'azfoafghaeigog',
                 'peruntukan_id' => $request->peruntukan_id,
@@ -108,7 +110,7 @@ class PeminjamanController extends Controller
                 'tanggal_peminjaman' => now(),
                 'tanggal_kembali' => $request->tanggal_kembali,
                 'qr_code' => null,
-                'peminjam' => auth()->user()->name ?? "Unknow", // Gunakan user yang terautentikasi
+                'peminjam' => Auth::user()->nama_lengkap, // Gunakan user yang terautentikasi
                 'status' => 'proses'
             ]);
 
@@ -130,6 +132,14 @@ class PeminjamanController extends Controller
                     // Update sisa_limit
                     $updatedItem->update(['sisa_limit' => $newLimit]);
 
+                    //jika sisa limit barang habis maka tidak bisa di pinjam
+                    if ($item->status == 'tidak-tersedia') {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Barang tidak dapat dipinjam'
+                        ], 400);
+                    }
+
                     // Check if sisa_limit == 0
                     if ($newLimit == 0) {
                         $updatedItem->update(['status' => 'tidak-tersedia']);
@@ -144,12 +154,12 @@ class PeminjamanController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Borrowing saved successfully'
-            ],200);
+            ], 200);
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('Terjadi kesalahan saat menyimpan peminjaman.', [
                 'error' => $e->getMessage(),
-                'user_id' => auth()->id(),
+                'user_id' => Auth::user()->id,
             ]);
 
             return response()->json([
@@ -164,7 +174,7 @@ class PeminjamanController extends Controller
         $borrowedItems = session()->get('borrowed_items', []);
 
         // Cari index item berdasarkan 'uuid' dan hapus jika ditemukan
-        $borrowedItems = array_filter($borrowedItems, function($item) use ($uuid) {
+        $borrowedItems = array_filter($borrowedItems, function ($item) use ($uuid) {
             return $item['uuid'] !== $uuid;
         });
         // Simpan kembali ke session
@@ -175,7 +185,7 @@ class PeminjamanController extends Controller
 
     public function report()
     {
-        if(!session()->has('kodePeminjaman')) {
+        if (!session()->has('kodePeminjaman')) {
             return redirect()->route('user.option');
         }
         $kodePeminjaman = session()->get('kodePeminjaman');
@@ -201,7 +211,7 @@ class PeminjamanController extends Controller
 
     public function printReport()
     {
-        if(!session()->has('kodePeminjaman')) {
+        if (!session()->has('kodePeminjaman')) {
             return redirect()->route('user.option');
         }
         $kodePeminjaman = session()->get('kodePeminjaman');

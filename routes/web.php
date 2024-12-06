@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
@@ -112,7 +113,7 @@ Route::prefix('peminjaman')->group(function () {
     Route::get('/', [PeminjamanController::class, 'index'])->name('peminjaman.index');
     Route::get('/tambah', [PeminjamanController::class, 'create'])->name('peminjaman.create');
     Route::post('/store', [PeminjamanController::class, 'store'])->name('peminjaman.store');
-    Route::get('/edit/{uuid}', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
+    Route::get('/edbit/{uuid}', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
     Route::put('/update/{uuid}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
     Route::delete('/destroy/{uuid}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
     Route::get('/detail/{uuid}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
