@@ -15,7 +15,7 @@ export default {
                 // sans: ["system-ui", "sans-serif"],
             },
             colors: {
-                tvri_base_color: "#1e3164",
+                tvri_base_color: "#1E3164",
                 primary: {
                     50: "#eff6ff",
                     100: "#dbeafe",
@@ -29,6 +29,9 @@ export default {
                     900: "#1e3a8a",
                     950: "#172554",
                 },
+            },
+            backgroundImage: {
+                gedung_tvri: "url('../public//img/assets/gedung_tvri.jpg')",
             },
         },
     },
