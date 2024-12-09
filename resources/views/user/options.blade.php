@@ -9,15 +9,16 @@
   <link rel="stylesheet" href="{{ asset('css/output.css') }}">
   <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ asset('fa/css/all.min.css') }}">
-  <link href="https://db.onlinewebfonts.com/c/7dd5f4bf5d38875ca1822a830b6e6fe4?family=Aptos" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/avenir" rel="stylesheet">
   <title>Opsi Login</title>
+  @notifyCss
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body style="background-color: #156082;" class=" dark:bg-neutral-900 flex flex-col min-h-screen">
+<body
+  class="bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply flex flex-col min-h-screen">
 
-  <nav style="background-color: #156082;"
-    class="fixed top-0 z-50 w-full dark:bg-gray-800 dark:border-gray-700 font-aptos">
+  <nav class="bg-blue-600" class="fixed top-0 z-50 w-full dark:bg-gray-800 dark:border-gray-700 font-aptos">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-start rtl:justify-end">
@@ -121,7 +122,10 @@
     </div>
   </div>
 
+  <x-notify::notify />
+  @notifyJs
 </body>
+
 
 <script>
   // Configuration Constants

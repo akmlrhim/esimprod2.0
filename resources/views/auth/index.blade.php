@@ -12,6 +12,7 @@
 
   <link href="https://fonts.cdnfonts.com/css/avenir" rel="stylesheet">
 
+
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 

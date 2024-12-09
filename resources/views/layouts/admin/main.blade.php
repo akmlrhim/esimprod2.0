@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{{ asset('css/output.css') }}">
 
   <link href="https://fonts.cdnfonts.com/css/avenir" rel="stylesheet">
+
   <link rel="shortcut icon" href="{{ asset('img/assets/esimprod_logo_bg.png') }}" type="image/x-icon">
 
   @notifyCss

@@ -51,8 +51,7 @@ class AuthController extends Controller
                 return redirect()->route('password')->with('success', 'Berhasil, silahkan isi password anda');
             } elseif ($user->role == 'user') {
                 notify()->success('Login Berhasil');
-                return redirect()->route('user.option')
-                    ->with('success', 'Berhasil login, silahkan pilih apakah anda ingin meminjam atau mengembalikan ?');
+                return redirect()->route('user.option');
             }
         }
 
