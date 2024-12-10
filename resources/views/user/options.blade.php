@@ -55,7 +55,6 @@
     @csrf
   </form>
 
-
   <section class="flex flex-1 justify-center items-center pt-19">
     <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
       <div class="mr-auto place-self-center lg:col-span-7">
@@ -78,16 +77,23 @@
           Pengembalian Barang
         </button>
       </div>
-      <div class="hidden lg:mt-0 lg:col-span-5 lg:flex flex-wrap gap-4 justify-center">
-        <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
-        <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
-        <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
+      <div class="hidden lg:mt-0 lg:col-span-5 lg:grid grid-cols-2 gap-4 justify-center">
+        <!-- Tiga gambar kecil -->
+        <div class="flex flex-col gap-4 -ml-6">
+          <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
+          <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
+          <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
+        </div>
+        <!-- Gambar besar di samping -->
+        <div class="flex items-center justify-center ml-16">
+          <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs h-96 object-cover"
+            alt="mockup" />
+        </div>
       </div>
     </div>
   </section>
 
-
-
+  {{-- scan modal  --}}
   <div id="scan-modal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
