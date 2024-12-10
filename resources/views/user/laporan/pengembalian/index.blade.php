@@ -273,19 +273,30 @@
         }
 
         validateAllInputs() {
+          const lostItemRows = document.querySelectorAll('#barangDesc');
+
+          // If no lost item rows exist, return true
+          if (lostItemRows.length === 0) {
+            return true;
+          }
+
           let isValid = true;
-          rows.forEach(row => {
-            const barangDescInput = row.querySelector('#barangDesc');
-            if (barangDescInput) {
-              if (!this.validateInput(barangDescInput)) {
-                isValid = false;
-              }
+          lostItemRows.forEach(barangDescInput => {
+            if (!this.validateInput(barangDescInput)) {
+              isValid = false;
             }
           });
           return isValid;
         }
 
         validateItems() {
+          const lostItemRows = document.querySelectorAll('#barangDesc');
+
+          // If no lost item rows, consider it a valid scenario
+          if (lostItemRows.length === 0) {
+            return true;
+          }
+
           if (this.lostItemsArray.length === 0) {
             alert('Tidak ada barang hilang yang diinput!');
             return false;
@@ -301,6 +312,13 @@
         }
 
         async sendToAPI(redirect_route) {
+          // If no inputs exist for lost items, proceed directly
+          const lostItemRows = document.querySelectorAll('#barangDesc');
+          if (lostItemRows.length === 0) {
+            this.redirectBasedOnRoute(redirect_route);
+            return;
+          }
+
           if (!this.validateAllInputs()) {
             return;
           }
@@ -310,6 +328,11 @@
           }
 
           try {
+            // If there are no lost items, send an empty array
+            const dataToSend = this.lostItemsArray.length > 0
+              ? { barang: this.lostItemsArray }
+              : { barang: [] };
+
             const response = await fetch('update_desc', {
               method: 'POST',
               headers: {
@@ -317,27 +340,17 @@
                 'Accept': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
               },
-              body: JSON.stringify({
-                barang: this.lostItemsArray
-              }) // Mengonversi data ke JSON
+              body: JSON.stringify(dataToSend)
             });
 
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            // Tangkap respons dari server
             const responseData = await response.json();
             console.log('Response from server:', responseData);
-            if (response.ok) {
-              if (redirect_route === 'printpdf') {
-                // Redirect ke route 'user.pengembalian.pdf'
-                window.location.href = "{{ route('user.pengembalian.pdf') }}";
-              } else if (redirect_route === 'clear') {
-                // Redirect ke route 'user.option'
-                window.location.href = "{{ route('user.option') }}";
-              }
-            }
+
+            this.redirectBasedOnRoute(redirect_route);
 
           } catch (error) {
             console.error('Error:', error);
@@ -345,13 +358,19 @@
           }
         }
 
+        redirectBasedOnRoute(redirect_route) {
+          if (redirect_route === 'printpdf') {
+            window.location.href = "{{ route('user.pengembalian.pdf') }}";
+          } else if (redirect_route === 'clear') {
+            window.location.href = "{{ route('user.option') }}";
+          }
+        }
+
         resetData() {
-          rows.forEach(row => {
-            const barangDescInput = row.querySelector('#barangDesc');
-            if (barangDescInput) {
-              barangDescInput.value = '';
-              barangDescInput.classList.remove('is-invalid');
-            }
+          const lostItemRows = document.querySelectorAll('#barangDesc');
+          lostItemRows.forEach(barangDescInput => {
+            barangDescInput.value = '';
+            barangDescInput.classList.remove('is-invalid');
           });
           this.lostItemsArray.length = 0;
         }
