@@ -28,7 +28,10 @@
               </div>
               <input type="text" id="nomor-surat"
                 class="w-full pl-10 p-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-70 dark:text-white"
-                placeholder="Masukkan Surat Tugas" required>
+                placeholder="Masukkan Surat Tugas">
+              @error('nomor_surat')
+                <small class="text-red-500 text-sm"> {{ $message }}</small>
+              @enderror
             </div>
           </form>
         </div>
@@ -46,7 +49,7 @@
                 </div>
                 <input id="tanggal-penggunaan" type="date"
                   class="w-full pl-10 p-2 text-sm border-gray-300  rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                  placeholder="Tanggal peminjaman" />
+                  placeholder="Tanggal peminjaman" onclick="this.showPicker();" />
               </div>
               <span class="mx-4 text-gray-500">Sampai</span>
               <div class="relative">
@@ -59,7 +62,7 @@
                 </div>
                 <input id="tanggal-kembali" name="end" type="date"
                   class="w-full pl-10 p-2 text-sm border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                  placeholder="Tanggal pengembalian" />
+                  placeholder="Tanggal pengembalian" onclick="this.showPicker();" />
               </div>
             </div>
             <div class="col-span-1">
@@ -142,7 +145,8 @@
           <button type="button"
             class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
             data-modal-hide="popup-modal">
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 14 14">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
             </svg>

@@ -78,13 +78,11 @@
         </button>
       </div>
       <div class="hidden lg:mt-0 lg:col-span-5 lg:grid grid-cols-2 gap-4 justify-center">
-        <!-- Tiga gambar kecil -->
         <div class="flex flex-col gap-4 -ml-6">
           <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
           <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
           <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
         </div>
-        <!-- Gambar besar di samping -->
         <div class="flex items-center justify-center ml-16">
           <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs h-96 object-cover"
             alt="mockup" />

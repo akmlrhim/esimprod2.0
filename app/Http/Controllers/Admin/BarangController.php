@@ -9,7 +9,6 @@ use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class BarangController extends Controller
@@ -67,7 +66,7 @@ class BarangController extends Controller
         $kode_barang = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 12);
         $qrCode = QrCode::format('png')->size(200)->generate($kode_barang);
         $qrCodeFileName = time() . '_qr.png';
-        Storage::disk('public')->put('uploads/qr_codes/' . $qrCodeFileName, $qrCode);
+        Storage::disk('public')->put('uploads/qr_codes_barang/' . $qrCodeFileName, $qrCode);
 
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');

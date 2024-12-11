@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Models\Barang;
-use App\Models\Peruntukan;
 use App\Models\Peminjaman;
+use App\Models\Peruntukan;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Models\DetailPeminjaman;
-use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf as Pdf;
+use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PeminjamanController extends Controller
 {
@@ -89,13 +91,28 @@ class PeminjamanController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input yang disesuaikan dengan data yang dikirim
-        $validatedData = $request->validate([
-            'peruntukan_id' => 'required|integer|exists:peruntukan,id',
-            'nomor_surat' => 'required|string|max:255',  // Sesuaikan dengan field yang dikirim
-            'tanggal_penggunaan' => 'required|date|after_or_equal:today',
-            'tanggal_kembali' => 'required|date|after:tanggal_peminjaman',
-        ]);
+        $request->validate(
+            [
+                'peruntukan_id' => 'required|integer|exists:peruntukan,id',
+                'nomor_surat' => 'required|string|max:255',
+                'tanggal_penggunaan' => 'required|date|after_or_equal:today',
+                'tanggal_kembali' => 'required|date|after:tanggal_peminjaman',
+            ],
+            [
+                'peruntukan_id.required' => 'Peruntukan wajib diisi',
+                'peruntukan_id.integer' => 'Peruntukan harus berupa angka',
+                'peruntukan_id.exists' => 'Peruntukan tidak ditemukan',
+                'nomor_surat.required' => 'Nomor Surat wajib diisi',
+                'nomor_surat.string' => 'Nomor Surat harus berupa string',
+                'nomor_surat.max' => 'Nomor Surat maksimal 255 karakter',
+                'tanggal_penggunaan.required' => 'Tanggal Penggunaan wajib diisi',
+                'tanggal_penggunaan.date' => 'Tanggal Penggunaan harus berupa tanggal',
+                'tanggal_penggunaan.after_or_equal' => 'Tanggal Penggunaan harus lebih besar atau sama dengan tanggal sekarang',
+                'tanggal_kembali.required' => 'Tanggal Kembali wajib diisi',
+                'tanggal_kembali.date' => 'Tanggal Kembali harus berupa tanggal',
+                'tanggal_kembali.after' => 'Tanggal Kembali harus lebih dari tanggal penggunaan',
+            ]
+        );
 
         $borrowedItems = session()->get('borrowed_items', []);
         Log::info('Received request data:', $request->all());
@@ -105,21 +122,28 @@ class PeminjamanController extends Controller
                 'message' => 'Tidak ada barang yang dipilih untuk dipinjam'
             ], 400);
         }
-        $borrowTime = time();
+
+
+        $kd_peminjaman = "PMB-" . time();
+
+        // generate qr 
+        $qrCode = QrCode::format('png')->size(200)->generate($kd_peminjaman);
+        $qrCodeFilename = time() . '_qr.png';
+        Storage::disk('public')->put('uploads/qr_codes_peminjaman/' . $qrCodeFilename, $qrCode);
+
         try {
             DB::beginTransaction();
-            // Pastikan data yang dimasukkan sesuai dengan field di database
             $borrowing = Peminjaman::create([
                 'uuid' => Str::uuid(),
-                'kode_peminjaman' => "PMB-" . $borrowTime,
+                'kode_peminjaman' => $kd_peminjaman,
                 'nomor_surat' => $request->nomor_surat,
-                'nomor_peminjaman' => 'azfoafghaeigog',
+                'nomor_peminjaman' => '?',
                 'peruntukan_id' => $request->peruntukan_id,
                 'tanggal_penggunaan' => $request->tanggal_penggunaan,
                 'tanggal_peminjaman' => now(),
                 'tanggal_kembali' => $request->tanggal_kembali,
-                'qr_code' => null,
-                'peminjam' => Auth::user()->nama_lengkap, // Gunakan user yang terautentikasi
+                'qr_code' => $qrCodeFilename,
+                'peminjam' => Auth::user()->nama_lengkap,
                 'status' => 'Proses'
             ]);
 
@@ -132,16 +156,13 @@ class PeminjamanController extends Controller
 
                 ]);
 
-                // Update item availability
                 $updatedItem = Barang::where('uuid', $item['uuid'])->first();
 
                 if ($updatedItem) {
                     $newLimit = $updatedItem->sisa_limit - 1;
 
-                    // Update sisa_limit
                     $updatedItem->update(['sisa_limit' => $newLimit]);
 
-                    // Check if sisa_limit == 0
                     if ($newLimit == 0) {
                         $updatedItem->update(['status' => 'tidak-tersedia']);
                     }
@@ -174,13 +195,10 @@ class PeminjamanController extends Controller
     {
         $borrowedItems = session()->get('borrowed_items', []);
 
-        // Cari index item berdasarkan 'uuid' dan hapus jika ditemukan
         $borrowedItems = array_filter($borrowedItems, function ($item) use ($uuid) {
             return $item['uuid'] !== $uuid;
         });
-        // Simpan kembali ke session
         session()->put('borrowed_items', array_values($borrowedItems));
-        // Kembalikan respons JSON untuk AJAX
         return response()->json(['success' => true, 'message' => 'Item berhasil dihapus']);
     }
 
