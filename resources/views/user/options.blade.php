@@ -57,35 +57,43 @@
 
   <section class="flex flex-1 justify-center items-center pt-19">
     <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-      <div class="mr-auto place-self-center lg:col-span-7">
+      <div class="mr-auto place-self-center lg:col-span-7" data-aos="fade-right" data-aos-duration="1500">
         <h1
-          class="text-white max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-          Selamat Datang {{ Auth::user()->nama_lengkap }}</h1>
+          class="text-white
+        max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+          Selamat Datang</h1>
+        <h3
+          class="text-white
+        max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl dark:text-white">
+          {{ Auth::user()->nama_lengkap }}</h3>
         <p class="max-w-2xl font-light text-white lg:mb-8 md:text-lg lg:text-xl mb-4 dark:text-gray-400">
           {{ Auth::user()->jabatan->jabatan }} <br>
           {{ Auth::user()->nip }}
         </p>
 
-        <a href="{{ route('user.peminjaman.index') }}"
-          class="text-white bg-blue-700 hover:bg-blue-800
-          focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600
-          dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          Peminjaman Barang
-        </a>
-        <button type="button" button type="button" data-modal-target="scan-modal" data-modal-toggle="scan-modal"
-          class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-          Pengembalian Barang
-        </button>
+        <div class="bg-white rounded-lg p-2 shadow-lg flex gap-1">
+          <a href="{{ route('user.peminjaman.index') }}"
+            class="text-white bg-blue-950 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            Peminjaman Barang
+          </a>
+          <button type="button" data-modal-target="scan-modal" data-modal-toggle="scan-modal"
+            class="focus:outline-none text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Pengembalian Barang
+          </button>
+        </div>
       </div>
       <div class="hidden lg:mt-0 lg:col-span-5 lg:grid grid-cols-2 gap-4 justify-center">
         <div class="flex flex-col gap-4 -ml-6">
-          <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
-          <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
-          <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs max-h-48" alt="mockup" />
+          <img data-aos="zoom-out" data-aos-duration="1500" src="{{ asset('img/assets/IMG_6908.jpg') }}"
+            class="rounded-lg max-w-xs max-h-48 border-gray-400 border-2" alt="foto" />
+          <img data-aos="zoom-out" data-aos-duration="1500" src="{{ asset('img/assets/IMG_8835.jpg') }}"
+            class="rounded-lg max-w-xs max-h-48 border-gray-400 border-2" alt="foto" />
+          <img data-aos="zoom-out" data-aos-duration="1500" src="{{ asset('img/assets/studio_1_kamis_27.jpg') }}"
+            class="rounded-lg max-w-xs max-h-48 border-gray-400 border-2" alt="foto" />
         </div>
         <div class="flex items-center justify-center ml-16">
-          <img src="{{ asset('img/assets/IMG_6908.jpg') }}" class="rounded-lg max-w-xs h-96 object-cover"
-            alt="mockup" />
+          <img data-aos="zoom-out" data-aos-duration="1500" src="{{ asset('img/assets/studio_2_27_kamis.jpg') }}"
+            class="rounded-lg max-w-xs h-96 object-cover border-gray-400 border-2" alt="foto" />
         </div>
       </div>
     </div>
@@ -95,9 +103,7 @@
   <div id="scan-modal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
-      <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-        <!-- Modal header -->
         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
           <h3 class="text-xl text-center font-semibold text-gray-900 dark:text-white">
             Scan QR Pengembalian
@@ -105,15 +111,14 @@
           <button type="button"
             class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
             data-modal-hide="scan-modal">
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/1500/svg" fill="none"
               viewBox="0 0 14 14">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                d=" m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
             </svg>
             <span class="sr-only">Close modal</span>
           </button>
         </div>
-        <!-- Modal body -->
         <div class="p-4 md:p-5">
           <div>
             <input type="text" name="code" id="code"

@@ -26,7 +26,7 @@
               <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <i class="fa-solid fa-file-lines text-gray-500 dark:text-gray-400"></i>
               </div>
-              <input type="text" id="nomor-surat"
+              <input type="text" id="nomor-surat" name="nonor_surat"
                 class="w-full pl-10 p-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-70 dark:text-white"
                 placeholder="Masukkan Surat Tugas">
               @error('nomor_surat')

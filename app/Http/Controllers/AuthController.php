@@ -100,7 +100,7 @@ class AuthController extends Controller
 
     public function forgotPasswordProcess(Request $request)
     {
-        $request->validate(['email' => 'required|email|exists:users,email']);
+        $request->validate(['email' => 'required|email|exists:users,email',]);
 
         $status = Password::sendResetLink(
             $request->only('email')

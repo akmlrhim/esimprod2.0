@@ -73,7 +73,7 @@
                       class="inline-flex items-center px-3 py-1 text-sm font-medium text-yellow-800 bg-yellow-100 rounded-full">
                       Proses
                     </span>
-                  @elseif($row->status == 'Selesai')
+                  @elseif($row->status == 'selesai')
                     <span
                       class="inline-flex items-center px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full">
                       Selesai

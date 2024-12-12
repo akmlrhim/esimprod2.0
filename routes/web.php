@@ -100,6 +100,7 @@ Route::prefix('users')->middleware('auth')->group(function () {
         Route::get('/roles', [UserController::class, 'filterByRole'])->name('users.role');
         Route::get('/jabatan', [UserController::class, 'filterByJabatan'])->name('users.jabatan');
         Route::get('/result', [UserController::class, 'search'])->name('users.search');
+        Route::get('/id-card/{uuid}', [UserController::class, 'printIDCard'])->name('users.id.card');
     });
 
     Route::middleware('superadmin')->group(function () {

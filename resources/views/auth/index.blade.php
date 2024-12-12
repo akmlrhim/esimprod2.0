@@ -65,7 +65,7 @@
         @csrf
         <div class="mb-6">
           <input type="text" id="kode_user" name="kode_user" placeholder="Masukkan kode user anda jika tidak bisa !"
-            class="w-full border border-gray-300 rounded-3xl shadow-lg py-2 px-3 focus:outline-none focus:border-blue-500"
+            class="w-full border border-gray-300 rounded-lg shadow-lg py-2 px-3 focus:outline-none focus:border-blue-500"
             autocomplete="off" autofocus>
         </div>
       </form>

@@ -7,10 +7,12 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Jabatan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Type\Time;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UserController extends Controller
@@ -42,7 +44,7 @@ class UserController extends Controller
     public function create()
     {
         $title = 'Tambah User';
-        $jabatan = Jabatan::get(['id', 'jabatan']);
+        $jabatan = Jabatan::where('jabatan', '!=', 'Administrator')->get(['id', 'jabatan']);
         return view('admin.user.create', compact('title', 'jabatan'));
     }
 
@@ -135,7 +137,7 @@ class UserController extends Controller
         $data = [
             'title' => 'Edit User',
             'user' => User::where('uuid', $uuid)->first(),
-            'jabatan' => Jabatan::get(['id', 'jabatan']),
+            'jabatan' => Jabatan::where('jabatan', '!=', 'Administrator')->get(['id', 'jabatan'])
         ];
         return view('admin.user.edit', $data);
     }
@@ -219,12 +221,13 @@ class UserController extends Controller
 
     public function filterByRole(Request $request)
     {
+        $currentUser = Auth::user();
         $title = 'User';
         $role = $request->role;
         $jabatan = Jabatan::get(['id', 'jabatan']);
 
         if ($role) {
-            $user = User::where('role', $role)->paginate(5);
+            $user = User::where('role', $role)->where('id', '!=', $currentUser->id)->paginate(5);
         } else {
             $user = User::paginate(5);
         }
@@ -237,11 +240,12 @@ class UserController extends Controller
 
     public function filterByJabatan(Request $request)
     {
+        $currentUser = Auth::user();
         $title = 'User';
         $jabatanId = $request->id;
 
         if ($jabatanId) {
-            $user = User::where('jabatan_id', $jabatanId)->paginate(5);
+            $user = User::where('jabatan_id', $jabatanId)->where('id', '!=', $currentUser->id)->paginate(5);
         } else {
             $user = User::paginate(5);
         }
@@ -256,9 +260,11 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
+        $currentUser = Auth::user();
         $search = $request->search;
 
         $user = User::where('nama_lengkap', 'like', '%' . $search . '%')
+            ->where('id', '!=', $currentUser->id)
             ->paginate(5)
             ->appends(['search' => $search]);
 
@@ -271,5 +277,14 @@ class UserController extends Controller
         return view('admin.user.index', $data);
     }
 
-    public function printIDCard() {}
+    public function printIDCard($uuid)
+    {
+        $user = User::where('uuid', $uuid)->first();
+        if (!$user) {
+            notify()->error('User tidak ditemukan !');
+            return redirect()->back();
+        }
+        $pdf = Pdf::loadView('admin.user.id-card', ['user' => $user])->setPaper('catalog #10 1/2 envelope', 'portrait');
+        return $pdf->download('ID-Card-' . $user->nama_lengkap . '-' . time() . '.pdf');
+    }
 }

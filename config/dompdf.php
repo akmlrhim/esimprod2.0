@@ -11,6 +11,13 @@ return [
     | in dompdf_config.inc.php. You can also override the entire config file.
     |
     */
+
+    'fontDirs' => [
+        public_path('fonts'),
+        storage_path('fonts'),
+    ],
+
+
     'show_warnings' => false,   // Throw an Exception on warnings from dompdf
 
     'public_path' => null,  // Override the public path if needed
