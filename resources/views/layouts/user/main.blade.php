@@ -22,14 +22,12 @@
 
   @include('layouts.user.partials.navbar')
 
-  {{-- Main content --}}
   <div class="p-5 mt-12 bg-indigo-50">
     @yield('content')
   </div>
 
   @include('layouts.user.partials.footer')
 
-  <!-- Flowbite JS CDN -->
 </body>
 
 </html>

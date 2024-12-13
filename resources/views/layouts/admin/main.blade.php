@@ -32,7 +32,11 @@
   <div class="p-4 sm:ml-64 font-sans">
     @include('layouts.admin.partials.breadcrumb')
     @yield('content')
-    <x-notify::notify />
+
+    <div class="absolute top-0 left-0 right-0 z-50">
+      <x-notify::notify />
+    </div>
+
     @notifyJs
   </div>
 
