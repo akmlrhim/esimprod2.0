@@ -17,7 +17,7 @@
 </head>
 
 <body
-  class="bg-center bg-cover bg-no-repeat bg-[url('../../public/img/assets/gedung_tvri.jpg')] bg-tvri_base_color bg-opacity-40 bg-blend-multiply flex flex-col min-h-screen">
+  class="bg-cover bg-center bg-[url('../../public/img/assets/option-bg-1.png')] bg-opacity-40 bg-blend-multiply flex flex-col min-h-screen">
   {{-- Navbar --}}
   <nav class="fixed top-0 z-50 w-full dark:bg-gray-800 dark:border-gray-700 font-sans">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -49,57 +49,46 @@
     </div>
   </nav>
 
-
   {{-- trigger logout with <a>  --}}
   <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">
     @csrf
   </form>
 
-  <section class="flex flex-1 justify-center items-center pt-19">
-    <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-      <div class="mr-auto place-self-center lg:col-span-7" data-aos="fade-right" data-aos-duration="1500">
+
+  <section
+    class="flex flex-1 justify-center items-center sm:justify-start sm:items-start pt-10 bg-transparent lg:mt-16">
+    <div class="lg:ml-32 md:ml-16 sm:ml-8 px-4 w-full lg:w-auto">
+      <div class="mr-auto place-self-center lg:col-span-7 w-full" data-aos="fade-right" data-aos-duration="1500">
         <h1
-          class="text-white
-        max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-          Selamat Datang</h1>
+          class="text-white max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none sm:text-5xl md:text-6xl xl:text-6xl dark:text-white text-left">
+          Selamat Datang
+        </h1>
         <h3
-          class="text-white
-        max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl dark:text-white">
-          {{ Auth::user()->nama_lengkap }}</h3>
-        <p class="max-w-2xl font-light text-white lg:mb-8 md:text-lg lg:text-xl mb-4 dark:text-gray-400">
+          class="text-white max-w-2xl mb-4 text-3xl font-extrabold tracking-tight leading-none sm:text-4xl md:text-5xl xl:text-5xl dark:text-white text-left">
+          {{ Auth::user()->nama_lengkap }}
+        </h3>
+        <h3 class="max-w-2xl font-light text-white text-2xl mb-4 dark:text-gray-400 text-left">
           {{ Auth::user()->jabatan->jabatan }} <br>
           {{ Auth::user()->nip }}
-        </p>
+        </h3>
 
-        <div class="bg-white rounded-lg p-2 shadow-lg flex gap-1">
+        <div
+          class="bg-white rounded-lg p-2 shadow-lg flex flex-col sm:flex-row gap-2 items-center justify-center lg:mt-36">
           <a href="{{ route('user.peminjaman.index') }}"
-            class="text-white bg-blue-950 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            class="text-white bg-blue-950 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base sm:text-lg px-10 sm:px-24 py-3 w-full sm:w-auto text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             Peminjaman Barang
           </a>
           <button type="button" data-modal-target="scan-modal" data-modal-toggle="scan-modal"
-            class="focus:outline-none text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            class="focus:outline-none text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base sm:text-lg px-10 sm:px-24 py-3 w-full sm:w-auto text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Pengembalian Barang
           </button>
-        </div>
-      </div>
-      <div class="hidden lg:mt-0 lg:col-span-5 lg:grid grid-cols-2 gap-4 justify-center">
-        <div class="flex flex-col gap-4 -ml-6">
-          <img data-aos="zoom-out" data-aos-duration="1500" src="{{ asset('img/assets/IMG_6908.jpg') }}"
-            class="rounded-lg max-w-xs max-h-48 border-gray-400 border-2" alt="foto" />
-          <img data-aos="zoom-out" data-aos-duration="1500" src="{{ asset('img/assets/IMG_8835.jpg') }}"
-            class="rounded-lg max-w-xs max-h-48 border-gray-400 border-2" alt="foto" />
-          <img data-aos="zoom-out" data-aos-duration="1500" src="{{ asset('img/assets/studio_1_kamis_27.jpg') }}"
-            class="rounded-lg max-w-xs max-h-48 border-gray-400 border-2" alt="foto" />
-        </div>
-        <div class="flex items-center justify-center ml-16">
-          <img data-aos="zoom-out" data-aos-duration="1500" src="{{ asset('img/assets/studio_2_27_kamis.jpg') }}"
-            class="rounded-lg max-w-xs h-96 object-cover border-gray-400 border-2" alt="foto" />
         </div>
       </div>
     </div>
   </section>
 
-  {{-- scan modal  --}}
+
+  {{-- scan modal --}}
   <div id="scan-modal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
@@ -138,6 +127,7 @@
 </body>
 
 
+
 <script>
   // User dropdown 
   document.addEventListener("DOMContentLoaded", function() {
@@ -151,6 +141,20 @@
   });
 
 
+  window.onLoad = function() {
+    var screenSize = window.innerWidth;
+
+    fetch("/user/option", {
+      method: "GET", // Bisa menggunakan POST jika perlu
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+      },
+      body: JSON.stringify({
+        screen_size: screenSize
+      })
+    });
+  }
 
   // Configuration Constants
   const CONFIG = {

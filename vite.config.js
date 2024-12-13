@@ -11,9 +11,5 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    resolve: {
-        alias: {
-            "~jquery": path.resolve(__dirname, "node_modules/jquery"),
-        },
-    },
+    resolve: {},
 });

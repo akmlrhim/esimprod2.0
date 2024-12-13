@@ -4,10 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use mysql_xdevapi\Session;
+
 class OptionsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (session()->has('kodePeminjaman')) {
             session()->forget('kodePeminjaman');
