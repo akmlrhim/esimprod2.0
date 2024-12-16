@@ -2,83 +2,78 @@
 <html>
 
 <head>
-
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>QR Code Barang</title>
+  <title>Daftar Barang</title>
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 20px;
-    }
-
-    h5,
-    h6 {
-      margin: 0;
-      padding: 0;
-    }
-
-    h5 {
-      font-size: 16px;
-    }
-
-    h6 {
+    * {
+      font-family: Arial, Helvetica, sans-serif;
       font-size: 12px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
     }
 
-    .center-text p {
-      margin: 4px 0;
-    }
-
-    .center-text img {
-      margin-bottom: 5px;
-    }
-
+    th,
     td {
-      padding: 8px;
-      text-align: left;
-      font-size: 10pt;
-    }
-
-    tr {
       border: 1px solid black;
-    }
-
-    .center-text {
       text-align: center;
+      padding: 5px;
     }
 
-    .center-text p {
-      margin: 4px 0;
-    }
-
-    .center-text img {
-      margin-bottom: 5px;
+    img {
+      display: block;
+      margin: auto;
     }
   </style>
 </head>
 
 <body>
-  <center>
-    <h5>QR Code Barang</h5>
-  </center>
+  <h3 style="text-align: center;">Daftar Barang</h3>
+  <table width="100%">
+    <tr>
+      <td width="50%" valign="top">
+        <table border="1" width="100%" cellspacing="0" cellpadding="5">
+          <thead>
+            <tr>
+              <th>QR Code</th>
+              <th>Nama Barang</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($barang->slice(0, ceil($barang->count() / 2)) as $b)
+              <tr>
+                <td>
+                  <img src="{{ public_path('storage/uploads/qr_codes_barang/' . $b->qr_code) }}" width="40px">
+                </td>
+                <td>{{ $b->nama_barang }}</td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </td>
 
-  <table>
-    <tbody>
-      @foreach ($barang as $b)
-        <tr>
-          <td class="center-text">
-            <img src="{{ public_path('storage/uploads/qr_codes/' . $b->qr_code) }}" width="45px">
-          <td class="center-text"> {{ $b->nama_barang }}
-          </td>
-        </tr>
-      @endforeach
-    </tbody>
+      <td width="50%" valign="top">
+        <table border="1" width="100%" cellspacing="0" cellpadding="5">
+          <thead>
+            <tr>
+              <th>QR Code</th>
+              <th>Nama Barang</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($barang->slice(ceil($barang->count() / 2)) as $b)
+              <tr>
+                <td>
+                  <img src="{{ public_path('storage/uploads/qr_codes_barang/' . $b->qr_code) }}" width="40px">
+                </td>
+                <td>{{ $b->nama_barang }}</td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </td>
+    </tr>
   </table>
 </body>
 

@@ -1,6 +1,6 @@
 @extends('layouts.admin.main')
 @section('content')
-  <div class="flex items-center p-3 ml-3 mr-3">
+  <div class="flex items-center ml-6 mr-3">
 
     @if (Route::currentRouteName() == 'barang.search')
       @if ($barang->isEmpty())
@@ -42,7 +42,7 @@
 
 
   {{-- search form --}}
-  <form class="flex items-center max-w-sm mx-auto p-3 ml-3 mr-3" action="{{ route('barang.search') }}" method="GET">
+  <form class="flex items-center max-w-sm mx-auto ml-6 mr-3 mt-2" action="{{ route('barang.search') }}" method="GET">
     <label for="simple-search" class="sr-only">Search</label>
     <div class="w-full relative">
       <input type="text" id="search" autocomplete="off"
@@ -108,19 +108,19 @@
             </p>
             <div class="mt-3">
               <a href="{{ route('barang.show', $b->uuid) }}" title="Detail"
-                class="inline-flex text-green-700 hover:text-white border border-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600">
+                class="inline-flex focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-2 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                 <i class="fa-solid fa-circle-info"></i>
               </a>
 
 
               @if (Auth::user()->role == 'superadmin')
                 <a href="{{ route('barang.edit', $b->uuid) }}" title="Edit"
-                  class="inline-flex text-yellow-700 hover:text-white border border-yellow-700 hover:bg-yellow-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-600">
-                  <i class="fa-solid fa-pen-to-square"></i>
+                  class="inline-flex focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-2 py-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                  <i class="fa-solid fa-pen"></i>
                 </a>
                 <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
                   onclick="confirmDelete('{{ route('barang.destroy', ['uuid' => $b->uuid]) }}')"
-                  class="inline-flex text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600"
+                  class="inline-flex focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                   type="button" title="Hapus">
                   <i class="fa-solid fa-trash"></i>
                 </button>

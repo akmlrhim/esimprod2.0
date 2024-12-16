@@ -74,12 +74,11 @@
       </tr>
     </thead>
     <tbody>
-      @php $i = 1 @endphp
       @foreach ($barang as $b)
         <tr>
-          <td class="center-text">{{ $i++ }}</td>
+          <td class="center-text">{{ $loop->iteration }}</td>
           <td class="center-text">
-            <img src="{{ public_path('storage/uploads/qr_codes/' . $b->qr_code) }}" width="45px">
+            <img src="{{ public_path('storage/uploads/qr_codes_barang/' . $b->qr_code) }}" width="45px">
           </td>
           <td class="center-text">{{ $b->kode_barang }}</td>
           <td class="center-text">{{ $b->nama_barang }}</td>

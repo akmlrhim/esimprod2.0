@@ -45,7 +45,7 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_barang' => 'required',
+            'nama_barang' => 'required|unique:barang,nama_barang',
             'merk' => 'required',
             'nomor_seri' => 'required',
             'jenis_barang_id' => 'required|exists:jenis_barang,id',
@@ -53,6 +53,7 @@ class BarangController extends Controller
             'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         ], [
             'nama_barang.required' => 'Nama barang wajib diisi.',
+            'nama_barang.unique' => 'Nama barang sudah ada.',
             'merk.required' => 'Merk wajib diisi.',
             'nomor_seri.required' => 'Nomor Seri wajib diisi.',
             'jenis_barang_id.required' => 'Jenis Barang wajib diisi.',
@@ -78,7 +79,7 @@ class BarangController extends Controller
         }
 
         Barang::create([
-            'uuid' => Str::random(16),
+            'uuid' => Str::uuid(),
             'kode_barang' => $kode_barang,
             'nama_barang' => $request->nama_barang,
             'nomor_seri' => $request->nomor_seri,
@@ -188,8 +189,9 @@ class BarangController extends Controller
     {
         $barang = Barang::where('uuid', $uuid)->first();
         if ($barang) {
+
             if ($barang->qr_code) {
-                Storage::disk('public')->delete('uploads/qr_codes/' . $barang->qr_code);
+                Storage::disk('public')->delete('uploads/qr_codes_barang/' . $barang->qr_code);
             }
 
             if ($barang->foto && $barang->foto !== 'default.jpg') {
@@ -202,30 +204,12 @@ class BarangController extends Controller
         }
     }
 
-    // public function resetLimit(string $uuid)
-    // {
-    //     $barang = Barang::where('uuid', $uuid)->first();
-    //     if ($barang) {
-    //         if ($barang->sisa_limit == $barang->limit) {
-    //             notify()->warning('Barang sudah direset sebelumnya');
-    //             return redirect()->back();
-    //         }
-
-    //         $barang->update([
-    //             'sisa_limit' => $barang->limit
-    //         ]);
-    //         notify()->success('Limit Berhasil Direset');
-    //         return redirect()->route('barang.index');
-    //     }
-    // }
-
-
     public function printBarang()
     {
-        $data['barang'] = Barang::all();
+        $data['barang'] = Barang::get();
 
         if ($data['barang']->isEmpty()) {
-            emotify('error', 'Barang tidak ditemukan');
+            notify()->error('Barang tidak ditemukan');
             return redirect()->route('barang.index');
         }
 
@@ -238,7 +222,7 @@ class BarangController extends Controller
         $data['barang'] = Barang::all();
 
         if ($data['barang']->isEmpty()) {
-            emotify('error', 'Barang tidak ditemukan');
+            notify()->error('Barang tidak ditemukan');
             return redirect()->route('barang.index');
         }
 
@@ -266,7 +250,7 @@ class BarangController extends Controller
 
     public function jenisBarang(JenisBarang $jenisBarang)
     {
-        $barang = $jenisBarang->barang()->with('jenisBarang')->simplePaginate(5);
+        $barang = $jenisBarang->barang()->with('jenisBarang')->paginate(5);
 
         $data = [
             'title' => 'Jenis Barang : ' . $jenisBarang->jenis_barang,

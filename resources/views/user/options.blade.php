@@ -11,7 +11,7 @@
 
   <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/x-icon">
   <link href="https://fonts.cdnfonts.com/css/avenir" rel="stylesheet">
-  <title>User Login | Redirect Page</title>
+  <title>User Options</title>
   @notifyCss
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -32,20 +32,32 @@
           </p>
         </div>
 
-        <div class="relative">
-          <button class="flex items-center space-x-2 text-white focus:outline-none">
-            <img src="{{ asset('storage/uploads/foto_user/' . Auth::user()->foto) }}" alt="User"
-              class="h-10 w-10 rounded-full" />
-          </button>
-          <div
-            class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
-            <ul class="py-1 text-gray-700">
-              <li><a href="#" class="block px-4 py-2 text-sm"
-                  onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">Logout</a></li>
-            </ul>
+        <div class="flex items-center">
+          <div class="flex items-center">
+            <div>
+              <button type="button"
+                class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                <span class="sr-only">Open user menu</span>
+                <img class="w-8 h-8 rounded-full" src="{{ asset('storage/uploads/foto_user/' . Auth::user()->foto) }}"
+                  alt="user photo">
+              </button>
+            </div>
+            <div
+              class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+              id="dropdown-user">
+              <ul class="py-1" role="none">
+                <li>
+                  <a href="#" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    role="menuitem">Logout</a>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
+
+    </div>
     </div>
   </nav>
 
@@ -122,7 +134,10 @@
     </div>
   </div>
 
-  <x-notify::notify />
+  <div class="absolute top-0 left-0 right-0 z-50">
+    <x-notify::notify />
+  </div>
+
   @notifyJs
 </body>
 
