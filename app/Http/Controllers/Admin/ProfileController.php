@@ -100,7 +100,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if (!Hash::check($request->current_password, $user->password)) {
-            return back()->with('notValid', 'Password saat ini salah.');
+            return back()->with('notValid', 'Password saat ini salah.')->withInput();
         }
 
         if ($user instanceof User) {
@@ -112,6 +112,6 @@ class ProfileController extends Controller
         }
 
         notify()->success('Password berhasil diubah.');
-        return redirect()->route('profil.index');
+        return redirect()->route('profil.index')->withInput();
     }
 }

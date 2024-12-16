@@ -177,7 +177,7 @@ class BarangController extends Controller
         ]);
 
         notify()->success('Barang Berhasil Diupdate');
-        return redirect()->route('barang.index');
+        return redirect()->route('barang.index')->withInput();
     }
 
 
