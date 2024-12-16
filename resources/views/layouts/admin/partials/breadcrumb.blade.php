@@ -1,14 +1,13 @@
 <div class="p-3 mt-12">
-  <nav class="flex justify-between items-center px-3 py-3" aria-label="Breadcrumb">
-    <!-- Left side with larger title -->
-    <div class="text-3xl font-bold text-tvri_base_color dark:text-white">
+  <nav class="flex flex-col md:flex-row justify-between items-start md:items-center px-3 py-3" aria-label="Breadcrumb">
+    <div class="text-3xl font-bold text-tvri_base_color dark:text-white mb-2 md:mb-0">
       {{ $title }}
     </div>
 
-    <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+    <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse text-gray-700 dark:text-gray-400">
       <li class="inline-flex items-center">
         <a href="{{ route('dashboard.index') }}"
-          class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-tvri_base_color dark:text-gray-400 dark:hover:text-white">
+          class="inline-flex items-center text-sm font-medium hover:text-tvri_base_color dark:hover:text-white">
           Home
         </a>
       </li>

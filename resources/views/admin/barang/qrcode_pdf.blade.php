@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <title>Daftar Barang</title>
@@ -29,7 +29,7 @@
 </head>
 
 <body>
-  <h3 style="text-align: center;">Daftar Barang</h3>
+  <h1 style="text-align: center; font-size:23px;">Daftar Barang</h1>
   <table width="100%">
     <tr>
       <td width="50%" valign="top">
