@@ -153,7 +153,6 @@ class PeminjamanController extends Controller
                     'uuid' => Str::uuid(),
                     'kode_peminjaman' => $borrowing->kode_peminjaman,
                     'kode_barang' => $item['kode_barang'],
-
                 ]);
 
                 $updatedItem = Barang::where('uuid', $item['uuid'])->first();

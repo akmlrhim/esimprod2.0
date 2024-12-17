@@ -284,7 +284,7 @@ class UserController extends Controller
             notify()->error('User tidak ditemukan !');
             return redirect()->back();
         }
-        $pdf = Pdf::loadView('admin.user.id-card', ['user' => $user])->setPaper('catalog #10 1/2 envelope', 'portrait');
-        return $pdf->download('ID-Card-' . $user->nama_lengkap . '-' . time() . '.pdf');
+        $pdf = Pdf::loadView('admin.user.id-card', ['user' => $user])->setPaper('A4', 'portrait');
+        return $pdf->stream('ID-Card-' . $user->nama_lengkap . '-' . time() . '.pdf');
     }
 }

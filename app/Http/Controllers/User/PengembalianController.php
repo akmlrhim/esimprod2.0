@@ -98,12 +98,12 @@ class PengembalianController extends Controller
                 'kode_pengembalian' => 'PG-' . time(),
                 'kode_peminjaman' => session()->get('kodePeminjaman'),
                 'tanggal_kembali' => now(),
-                'status' => 'incomplete',
-                'peminjam' => Auth::user()->id ?? null,
+                'status' => 'Incomplete',
+                'peminjam' => Auth::user()->nama_lengkap ?? null,
             ]);
 
             $peminjaman = Peminjaman::where('kode_peminjaman', $pengembalian->kode_peminjaman)->first();
-            $peminjaman->status = 'selesai';
+            $peminjaman->status = 'Selesai';
             $peminjaman->save();
 
             // Simpan data DetailPengembalian

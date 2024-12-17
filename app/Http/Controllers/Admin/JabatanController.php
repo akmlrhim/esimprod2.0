@@ -16,7 +16,7 @@ class JabatanController extends Controller
     {
         $data = [
             'title' => 'Jabatan',
-            'jabatan' => Jabatan::paginate(5)
+            'jabatan' => Jabatan::where('jabatan', '!=', 'Administrator')->paginate(5)
         ];
 
         return view('admin.jabatan.index', $data);

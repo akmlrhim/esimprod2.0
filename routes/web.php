@@ -12,11 +12,11 @@ use App\Http\Controllers\Admin\PerawatanController;
 use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PeruntukanController;
 use App\Http\Controllers\Admin\JenisBarangController;
+use App\Http\Controllers\Admin\PengembalianController;
 use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
 use App\Http\Controllers\User\PengembalianController as PengembalianUser;
 
 
-// autentikasi user
 Route::prefix('/')->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
     Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
@@ -114,17 +114,29 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::prefix('peminjaman')->middleware('admin-or-superadmin')->group(function () {
-        Route::get('/', [PeminjamanController::class, 'index'])->name('peminjaman.index');
-        Route::get('/detail/{uuid}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
-        Route::get('/result', [PeminjamanController::class, 'search'])->name('peminjaman.search');
+    Route::middleware('admin-or-superadmin')->group(function () {
+        Route::prefix('peminjaman')->group(function () {
+            Route::get('/', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+            Route::get('/detail/{uuid}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
+            Route::get('/result', [PeminjamanController::class, 'search'])->name('peminjaman.search');
+            Route::get('print/{uuid}', [PeminjamanController::class, 'print'])->name('peminjaman.print');
+        });
+
+        Route::prefix('pengembalian')->group(function () {
+            Route::get('/', [PengembalianController::class, 'index'])->name('pengembalian.index');
+            Route::get('/detail/{uuid}', [PengembalianController::class, 'show'])->name('pengembalian.show');
+            Route::get('/result', [PengembalianController::class, 'search'])->name('pengembalian.search');
+        });
+
+        Route::prefix('perawatan')->group(function () {
+            Route::get('/', [PerawatanController::class, 'barangTidakTersedia'])->name('perawatan.index');
+            Route::get('/barang/detail/{uuid}', [PerawatanController::class, 'detailBarang'])->name('perawatan.barang.detail');
+            Route::put('reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');
+        });
     });
 
-    Route::prefix('perawatan')->middleware('admin-or-superadmin')->group(function () {
-        Route::get('/', [PerawatanController::class, 'barangTidakTersedia'])->name('perawatan.index');
-        Route::get('/barang/detail/{uuid}', [PerawatanController::class, 'detailBarang'])->name('perawatan.barang.detail');
-        Route::put('reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');
-    });
+
+
 
 
     // User Route

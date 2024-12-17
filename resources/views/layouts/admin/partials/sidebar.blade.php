@@ -66,6 +66,14 @@
       </li>
 
       <li>
+        <a href="{{ route('pengembalian.index') }}"
+          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
+          <i class="fa-solid fa-rotate-left"></i>
+          <span class="ms-3">Data Pengembalian</span>
+        </a>
+      </li>
+
+      <li>
         <a href="{{ route('perawatan.index') }}"
           class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
           <i class="fa-solid fa-screwdriver-wrench"></i>

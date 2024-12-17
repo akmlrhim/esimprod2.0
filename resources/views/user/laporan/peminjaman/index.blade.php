@@ -145,7 +145,7 @@
     </table>
 
     <div class="btn-group">
-      <a href="{{ route('user.peminjaman.pdf') }}" type="button" class="btn">Download PDF</a>
+      <a href="{{ route('user.peminjaman.pdf') }}" target="_blank" class="btn">Download PDF</a>
       {{--      <button class="btn">Cetak</button> --}}
       <a href="{{ route('user.option') }}" type="button" class="btn">Selesai</a>
     </div>

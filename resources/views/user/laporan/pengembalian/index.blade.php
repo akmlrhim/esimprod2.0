@@ -329,9 +329,11 @@
 
           try {
             // If there are no lost items, send an empty array
-            const dataToSend = this.lostItemsArray.length > 0
-              ? { barang: this.lostItemsArray }
-              : { barang: [] };
+            const dataToSend = this.lostItemsArray.length > 0 ? {
+              barang: this.lostItemsArray
+            } : {
+              barang: []
+            };
 
             const response = await fetch('update_desc', {
               method: 'POST',

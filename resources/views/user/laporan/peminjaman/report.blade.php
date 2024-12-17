@@ -106,8 +106,9 @@
             <div>Sampai : {{ date('d F Y', strtotime($peminjaman->tanggal_kembali)) }}</div>
           </td>
           <td class="w-half">
-            <div>QR Pengembalian : <img src="{{ public_path('storage/uploads/qr_codes/1730858608_qr.png') }}"
-                alt="" width="50px">
+            <div>QR Pengembalian : <img
+                src="{{ public_path('storage/uploads/qr_codes_peminjaman/', $peminjaman->qr_code) }}" alt=""
+                width="50px">
             </div>
             <div>Kode : {{ $peminjaman->kode_peminjaman }}</div>
           </td>

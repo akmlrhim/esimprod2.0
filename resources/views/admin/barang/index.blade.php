@@ -25,13 +25,13 @@
           </a>
         </li>
         <li>
-          <a href="{{ route('barang.print-qrcode') }}"
+          <a href="{{ route('barang.print-qrcode') }}" target="_blank"
             class="block px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
             Cetak Semua QR Code
           </a>
         </li>
         <li>
-          <a href="{{ route('barang.print-barang') }}"
+          <a href="{{ route('barang.print-barang') }}" target="_blank"
             class="block px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
             Cetak Semua Barang
           </a>

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\Controller;
 
 class PeminjamanController extends Controller
 {
@@ -41,11 +42,11 @@ class PeminjamanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $uuid)
     {
         $data = [
             'title' => 'Detail Peminjaman',
-            'peminjaman' => Peminjaman::where('uuid', $id)->first(),
+            'peminjaman' => Peminjaman::where('uuid', $uuid)->first(),
         ];
 
         return view('admin.peminjaman.detail', $data);
@@ -78,12 +79,28 @@ class PeminjamanController extends Controller
     public function search(Request $request)
     {
         $search = $request->search;
+        $peminjaman = Peminjaman::where('kode_peminjaman', 'like', "%" . $search . "%")
+            ->paginate(10)
+            ->appends(['search' => $search]);
 
         $data = [
             'title' => 'Peminjaman',
-            'peminjaman' => Peminjaman::where('kode_peminjaman', 'like', "%$search%")->paginate(10),
+            'peminjaman' => $peminjaman,
         ];
 
         return view('admin.peminjaman.index', $data);
+    }
+
+    public function print(string $uuid)
+    {
+        $peminjaman = Peminjaman::where('uuid', $uuid)->first();
+
+        if (!$peminjaman) {
+            notify()->error('Peminjaman tidak ditemukan');
+            return redirect()->back();
+        }
+
+        $pdf = Pdf::loadView('admin.peminjaman.pdf', ['peminjaman' => $peminjaman])->setPaper('A4', 'landscape');
+        return $pdf->stream('Peminjaman-' . $peminjaman->kode_peminjaman . '-' . time() . '.pdf');
     }
 }

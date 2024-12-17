@@ -6,33 +6,63 @@
 
     <div class="container mx-auto py-8">
       <div class="bg-white shadow rounded-lg p-6 mb-6">
-        <h3 class="text-lg font-bold text-black">Data Peminjaman</h3>
-        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h3 class="text-lg font-bold text-black mb-4">Data Peminjaman</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
           <div>
-            <p class="text-black"><span class="font-medium">Kode Peminjaman:</span> {{ $peminjaman->kode_peminjaman }}</p>
-            <p class="text-black"><span class="font-medium">Nomor Surat:</span> {{ $peminjaman->nomor_surat }}</p>
-            <p class="text-black"><span class="font-medium">Peminjam:</span> {{ $peminjaman->peminjam }}</p>
-            <p class="text-black"><span class="font-medium">Status:</span>
-              <span
-                class="{{ $peminjaman->status === 'Proses' ? 'text-yellow-500 font-bold' : 'text-green-500 font-bold' }}">
-                {{ $peminjaman->status }}
-              </span>
+            <p class="text-gray-700 mb-2">
+              <span class="font-bold text-black">Kode Peminjaman:</span>
+              {{ $peminjaman->kode_peminjaman }}
+            </p>
+            <p class="text-gray-700 mb-2">
+              <span class="font-bold text-black">Nomor Surat:</span>
+              {{ $peminjaman->nomor_surat }}
+            </p>
+            <p class="text-gray-700 mb-2">
+              <span class="font-bold text-black">Peminjam:</span>
+              {{ $peminjaman->peminjam }}
+            </p>
+            <p class="text-gray-700 mb-2">
+              <span class="font-bold text-black">Status:</span>
+              @if ($peminjaman->status === 'Proses')
+                <span
+                  class="bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"><i
+                    class="fa-solid fa-spinner mr-2"></i>Proses</span>
+              @else
+                <span
+                  class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"><i
+                    class="fa-solid fa-circle-check mr-2"></i>Selesai</span>
+              @endif
             </p>
           </div>
 
           <div>
-            <p class="text-black"><span class="font-medium">Peruntukan:</span> {{ $peminjaman->peruntukan->peruntukan }}
+            <p class="text-gray-700 mb-2">
+              <span class="font-bold text-black">Peruntukan:</span>
+              {{ $peminjaman->peruntukan->peruntukan }}
             </p>
-            <p class="text-black"><span class="font-medium">Tanggal Penggunaan:</span>
-              {{ date('d F Y', strtotime($peminjaman->tanggal_penggunaan)) }}</p>
-            <p class="text-black"><span class="font-medium">Tanggal Peminjaman:</span>
-              {{ date('d F Y', strtotime($peminjaman->tanggal_peminjaman)) }}</p>
-            <p class="text-black"><span class="font-medium">Tanggal Kembali:</span>
+            <p class="text-gray-700 mb-2">
+              <span class="font-bold text-black">Tanggal Penggunaan:</span>
+              {{ date('d F Y', strtotime($peminjaman->tanggal_penggunaan)) }}
+            </p>
+            <p class="text-gray-700 mb-2">
+              <span class="font-bold text-black">Tanggal Peminjaman:</span>
+              {{ date('d F Y', strtotime($peminjaman->tanggal_peminjaman)) }}
+            </p>
+            <p class="text-gray-700 mb-2">
+              <span class="font-bold text-black">Tanggal Kembali:</span>
               {{ date('d F Y', strtotime($peminjaman->tanggal_kembali)) }}
             </p>
           </div>
+
+          <div class="flex flex-col items-center justify-center">
+            <img src="{{ asset('/storage/uploads/qr_codes_peminjaman/' . $peminjaman->qr_code) }}"
+              alt="QR Code {{ $peminjaman->kode_peminjaman }}" class="h-20 w-20 shadow-md mb-2">
+            <p class="text-sm font-medium text-gray-700">QR Code</p>
+          </div>
         </div>
       </div>
+
+
 
 
       <div class="bg-white shadow rounded-lg p-6">
@@ -52,14 +82,14 @@
               @foreach ($peminjaman->detailPeminjaman as $key => $detail)
                 <tr class="bg-white border-b">
                   <td class="px-6 py-4 font-medium text-gray-900">{{ $key + 1 }}</td>
-                  <td class="px-6 py-4 text-black">{{ $detail->kode_barang }}</td>
-                  <td class="px-6 py-4 text-black">
+                  <td class="px-6 py-4 text-gray-700">{{ $detail->kode_barang }}</td>
+                  <td class="px-6 py-4 text-gray-700">
                     {{ $detail->barang->nama_barang ?? 'Tidak Diketahui' }}
                   </td>
-                  <td class="px-6 py-4 text-black">
+                  <td class="px-6 py-4 text-gray-700">
                     {{ $detail->barang->nomor_seri ?? 'Tidak Diketahui' }}
                   </td>
-                  <td class="px-6 py-4 text-black">
+                  <td class="px-6 py-4 text-gray-700">
                     {{ $detail->barang->jenisBarang->jenis_barang ?? 'Tidak Diketahui' }}
                   </td>
                 </tr>
