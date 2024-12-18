@@ -2,9 +2,8 @@
 
 @section('title', 'Peminjaman')
 
-{{-- Now --}}
 @section('content')
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
+  <div class="overflow-x-auto shadow-md sm:rounded-lg mt-2">
     <div
       class="w-full p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
       <div class="flex flex-col items-center pb-1">
@@ -78,61 +77,64 @@
       </div>
     </div>
 
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-x-auto max-h-32">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <th scope="col" class="p-4">
+    <div class="max-h-72 overflow-y-auto">
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="p-4">
+              No
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Nama Barang
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Merk
+            </th>
+            <th scope="col" class="px-6 py-3">
+              No Seri
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (session('borrowed_items'))
+            @foreach (session('borrowed_items') as $index => $item)
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                data-item-id="{{ $item['uuid'] }}" id="item-{{ $item['uuid'] }}">
+                <td class="w-4 p-4">
+                  <div class="flex items-center">
+                    <p>{{ $index + 1 }}</p>
+                  </div>
+                </td>
+                <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                  <div class="ps-2">
+                    <div class="text-base font-semibold">{{ $item['name'] }}</div>
+                  </div>
+                </th>
+                <td class="px-6 py-4">
+                  {{ $item['merk'] }}
+                </td>
+                <td class="px-6 py-4">
+                  <div class="flex items-center">
+                    {{ $item['serial_number'] }}
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <a href="#" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                    data-uuid="{{ $item['uuid'] }}"
+                    class="text-blue-600 dark:text-blue-500 hover:text-red-600 hover:underline">
+                    <i class="fa-regular fa-trash-can fa-lg ml-3"></i>
+                  </a>
+                </td>
+              </tr>
+            @endforeach
+          @endif
+        </tbody>
+      </table>
+    </div>
 
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Nama Barang
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Merk
-          </th>
-          <th scope="col" class="px-6 py-3">
-            No Seri
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Action
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        @if (session('borrowed_items'))
-          @foreach (session('borrowed_items') as $index => $item)
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-              data-item-id="{{ $item['uuid'] }}">
-              <td class="w-4 p-4">
-                <div class="flex items-center">
-                  <p>{{ $index + 1 }}</p>
-                </div>
-              </td>
-              <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                <div class="ps-2">
-                  <div class="text-base font-semibold">{{ $item['name'] }}</div>
-                </div>
-              </th>
-              <td class="px-6 py-4">
-                {{ $item['merk'] }}
-              </td>
-              <td class="px-6 py-4">
-                <div class="flex items-center">
-                  {{ $item['serial_number'] }}
-                </div>
-              </td>
-              <td class="px-6 py-4">
-                <a href="#" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                  data-uuid="{{ $item['uuid'] }}"
-                  class="text-blue-600 dark:text-blue-500 hover:text-red-600 hover:underline">
-                  <i class="fa-regular fa-trash-can fa-lg ml-3"></i>
-                </a>
-              </td>
-            </tr>
-          @endforeach
-        @endif
-      </tbody>
-    </table>
 
     {{-- Delete Modal Confirmation --}}
     <div id="popup-modal" tabindex="-1"
@@ -544,6 +546,22 @@
         new Datepicker(datepickerInput, {
           minDate: new Date(),
           todayHighlight: true
+        });
+      }
+    });
+
+
+
+    document.getElementById('peruntukan').addEventListener('change', function() {
+      this.blur();
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const newItem = document.querySelector('[data-item-id]');
+      if (newItem) {
+        newItem.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
         });
       }
     });
