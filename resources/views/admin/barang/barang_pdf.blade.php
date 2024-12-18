@@ -54,6 +54,7 @@
 
     .center-text {
       text-align: center;
+      font-size: 12px
     }
   </style>
 </head>
@@ -70,7 +71,11 @@
         <th class="center-text">Kode QR</th>
         <th class="center-text">Kode Barang</th>
         <th class="center-text">Nama Barang</th>
+        <th class="center-text">Nomor Seri</th>
+        <th class="center-text">Merk</th>
         <th class="center-text">Jenis Barang</th>
+        <th class="center-text">Limit Peminjaman (Harian)</th>
+        <th class="center-text">Catatan</th>
       </tr>
     </thead>
     <tbody>
@@ -82,7 +87,11 @@
           </td>
           <td class="center-text">{{ $b->kode_barang }}</td>
           <td class="center-text">{{ $b->nama_barang }}</td>
+          <td class="center-text">{{ $b->nomor_seri }}</td>
+          <td class="center-text">{{ $b->merk }}</td>
           <td class="center-text">{{ $b->jenisBarang->jenis_barang }}</td>
+          <td class="center-text">{{ $b->limit }}</td>
+          <td class="center-text">{{ $b->deskripsi }}</td>
         </tr>
       @endforeach
     </tbody>

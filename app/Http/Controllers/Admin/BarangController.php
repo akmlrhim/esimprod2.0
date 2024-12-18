@@ -20,7 +20,9 @@ class BarangController extends Controller
     {
         $data = [
             'title' => 'Barang',
-            'barang' => Barang::where('sisa_limit', '>', 0)->paginate(5),
+            'barang' => Barang::where('sisa_limit', '>', 0)
+                ->orderBy('created_at', 'DESC')
+                ->paginate(5),
         ];
 
         return view('admin.barang.index', $data);
@@ -213,7 +215,7 @@ class BarangController extends Controller
             return redirect()->route('barang.index');
         }
 
-        $pdf = Pdf::loadView('admin.barang.barang_pdf', $data)->setPaper('a4', 'potrait');
+        $pdf = Pdf::loadView('admin.barang.barang_pdf', $data)->setPaper('a4', 'landscape');
         return $pdf->stream('Barang-' . time() . '.pdf');
     }
 
