@@ -96,7 +96,7 @@
       <img src="{{ asset('img/assets/esimprod_logo.png') }}" alt="Logo" class="logo">
     </div>
 
-    <h3 style="font-weight: normal;"><strong>No Peminjaman:</strong> 2023-10-0007</h3>
+    <h3 style="font-weight: normal;"><strong>No Peminjaman:</strong>{{ $peminjaman->nomor_peminjaman }}</h3>
     <p><strong>Waktu Peminjaman:</strong>{{ Carbon::parse($peminjaman->tanggal_peminjaman)->format('d F Y H:i') }}</p>
 
     <div class="info-section">

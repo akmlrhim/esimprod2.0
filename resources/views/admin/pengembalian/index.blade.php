@@ -64,7 +64,7 @@
                 </th>
                 <td class="px-6 py-4 text-center font-medium">{{ $row->kode_pengembalian }}</td>
                 <td class="px-6 py-4 text-center">{{ $row->kode_peminjaman }}</td>
-                <td class="px-6 py-4 text-center">{{ $row->tanggal_kembali }}</td>
+                <td class="px-6 py-4 text-center">{{ date('d F Y', strtotime($row->tanggal_kembali)) }}</td>
                 <td class="px-6 py-4 text-center">{{ $row->peminjam }}</td>
                 <td class="px-6 py-4 text-center">
                   @if ($row->status == 'Incomplete')

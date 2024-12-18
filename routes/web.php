@@ -35,7 +35,8 @@ Route::prefix('/')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware(['auth', 'admin-or-superadmin']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('admin-or-superadmin');
+    Route::get('/dashboard_settings', [DashboardController::class, 'settings'])->name('dashboard.settings')->middleware('admin-or-superadmin');
 
     Route::prefix('barang')->group(function () {
         Route::middleware('admin-or-superadmin')->group(function () {
@@ -119,7 +120,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [PeminjamanController::class, 'index'])->name('peminjaman.index');
             Route::get('/detail/{uuid}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
             Route::get('/result', [PeminjamanController::class, 'search'])->name('peminjaman.search');
-            Route::get('print/{uuid}', [PeminjamanController::class, 'print'])->name('peminjaman.print');
+            Route::get('pdf/{uuid}', [PeminjamanController::class, 'print'])->name('peminjaman.print');
         });
 
         Route::prefix('pengembalian')->group(function () {

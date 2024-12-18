@@ -17,7 +17,6 @@
         <span class="text-sm text-gray-500 dark:text-gray-400">{{ Auth::user()->nomor_hp }}</span>
       </div>
     </div>
-    <!-- Start coding here -->
     <div class="relative bg-white dark:bg-gray-800 sm:rounded-lg">
       <div class="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
         <div class="w-full md:w-1/2">
@@ -26,7 +25,7 @@
               <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <i class="fa-solid fa-file-lines text-gray-500 dark:text-gray-400"></i>
               </div>
-              <input type="text" id="nomor-surat" name="nonor_surat"
+              <input type="text" id="nomor-surat" name="nomo"
                 class="w-full pl-10 p-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-70 dark:text-white"
                 placeholder="Masukkan Surat Tugas">
               @error('nomor_surat')
@@ -78,10 +77,8 @@
         </div>
       </div>
     </div>
-    <div
-      class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 bg-white dark:bg-gray-900">
-    </div>
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-x-auto max-h-32">
       <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
         <tr>
           <th scope="col" class="p-4">
@@ -243,6 +240,8 @@
       Simpan
     </button>
   </div>
+
+
   {{-- Toast Success --}}
   <div id="toast-success-add"
     class="hidden items-center fixed bottom-9 right-5 w-full max-w-xs p-4 mb-4 border border-gray-400 text-gray-600 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
@@ -258,6 +257,7 @@
     </div>
     <div class="ms-3 text-sm font-normal"></div>
   </div>
+
 
   <!-- Toast Redundant Item -->
   <div id="toast-warning"

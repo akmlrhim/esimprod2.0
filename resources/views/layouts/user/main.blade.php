@@ -22,7 +22,7 @@
 
   @include('layouts.user.partials.navbar')
 
-  <div class="p-5 mt-12 bg-indigo-50">
+  <div class="p-5 mt-12">
     @yield('content')
   </div>
 

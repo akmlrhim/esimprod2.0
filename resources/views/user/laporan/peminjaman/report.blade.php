@@ -107,7 +107,7 @@
           </td>
           <td class="w-half">
             <div>QR Pengembalian : <img
-                src="{{ public_path('storage/uploads/qr_codes_peminjaman/', $peminjaman->qr_code) }}" alt=""
+                src="{{ public_path('storage/uploads/qr_codes_peminjaman/' . $peminjaman->qr_code) }}" alt=""
                 width="50px">
             </div>
             <div>Kode : {{ $peminjaman->kode_peminjaman }}</div>

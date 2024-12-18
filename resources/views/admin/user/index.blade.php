@@ -132,7 +132,7 @@
                     </button>
                   @endif
 
-                  <a href="{{ route('users.id.card', $row->uuid) }}"
+                  <a href="{{ route('users.id.card', $row->uuid) }}" target="_blank"
                     class="focus:outline-none text-white bg-black hover:bg-gray-800 font-medium rounded-lg text-sm px-2 py-1"
                     title="Cetak ID Card">
                     <i class="fas fa-print"></i>

@@ -137,7 +137,7 @@ class PeminjamanController extends Controller
                 'uuid' => Str::uuid(),
                 'kode_peminjaman' => $kd_peminjaman,
                 'nomor_surat' => $request->nomor_surat,
-                'nomor_peminjaman' => 'PMJ' . date('F'),
+                'nomor_peminjaman' => 'PMJ-' . date('Ym') . '-' . str_pad(Peminjaman::whereYear('tanggal_peminjaman', date('Y'))->whereMonth('tanggal_peminjaman', date('m'))->count() + 1, 2, '0', STR_PAD_LEFT),
                 'peruntukan_id' => $request->peruntukan_id,
                 'tanggal_penggunaan' => $request->tanggal_penggunaan,
                 'tanggal_peminjaman' => now(),
