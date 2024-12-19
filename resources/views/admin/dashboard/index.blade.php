@@ -66,13 +66,13 @@
   </div>
 
   {{-- data card  --}}
-  <div class="grid gap-4 lg:gap-3 md:grid-cols-4 ml-5 mr-3">
+  <div class="grid gap-4 lg:gap-3 md:grid-cols-2 ml-5 mr-3">
     <div class="relative p-6 rounded-2xl bg-blue-50 shadow dark:bg-gray-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
           <span>Barang Tersedia</span>
         </div>
-        <div class="text-3xl dark:text-gray-100">
+        <div class="text-xl dark:text-gray-100 font-bold">
           {{ $barang_tersedia }}
         </div>
       </div>
@@ -83,7 +83,7 @@
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
           <span>Barang Tidak Tersedia</span>
         </div>
-        <div class="text-3xl dark:text-gray-100">
+        <div class="text-xl dark:text-gray-100 font-bold">
           {{ $barang_tidak_tersedia }}
         </div>
       </div>
@@ -94,7 +94,7 @@
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
           <span>Peminjaman</span>
         </div>
-        <div class="text-3xl dark:text-gray-100">
+        <div class="text-xl dark:text-gray-100 font-bold">
           {{ $peminjaman }}
           <span
             class="bg-yellow-100 text-yellow-800 text-xs font-medium me-1 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $peminjaman_proses }}
@@ -106,12 +106,12 @@
       </div>
     </div>
 
-    <div class="relative p-6 rounded-2xl bg-orange-50 shadow dark:bg-gray-800">
+    <div class="flex p-6 rounded-2xl bg-orange-50 shadow dark:bg-gray-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
           <span>Pengembalian</span>
         </div>
-        <div class="text-3xl dark:text-gray-100">
+        <div class="text-xl dark:text-gray-100 font-bold">
           {{ $pengembalian }}
           <span
             class="bg-red-100 text-red-800 text-xs font-medium me-1 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $pengembalian_incomplete }}
