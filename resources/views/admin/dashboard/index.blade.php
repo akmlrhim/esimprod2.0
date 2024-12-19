@@ -2,10 +2,8 @@
 
 @section('content')
   <div class="flex flex-col md:flex-row w-full">
-    <!-- Carousel wrapper (full width on small screens, 50% on larger) -->
-    <div id="controls-carousel" class="relative w-full md:w-1/2" data-carousel="slide">
-      <!-- Carousel wrapper -->
-      <div class="relative h-56 overflow-hidden rounded-lg md:h-96 opacity-50">
+    <div id="controls-carousel" class="relative w-full md:w-1/2 translate-x-0 sm:translate-x-6 py-4" data-carousel="slide">
+      <div class="relative overflow-hidden rounded-lg h-56 opacity-50">
         <!-- Item 1 -->
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
           <img src="{{ asset('img/assets/studio2.JPG') }}"
@@ -58,15 +56,72 @@
     </div>
 
     <div class="w-full md:w-1/2 flex flex-col justify-center items-center py-4">
-      <div class="bg-white p-6 rounded-lg shadow-lg w-3/4 text-center mb-4">
-        <img src="{{ asset('storage/uploads/foto_user/' . Auth::user()->foto) }}" alt="Profile Picture"
-          class="w-24 h-24 rounded-full mx-auto mb-4">
-        <h3 class="text-lg font-semibold text-gray-900">Welcome, {{ Auth::user()->nama_lengkap }}!</h3>
-        <p class="text-sm text-gray-700 font-semibold">NIP: {{ Auth::user()->nip }}</p>
-        <p class="text-sm text-gray-700 font-semibold">Role: {{ Auth::user()->role }}</p>
+      <div class="bg-white shadow-sm w-3/4 text-center relative h-56 overflow-hidden rounded-lg">
+        <img src="{{ asset('img/assets/dashboard.png') }}" alt="Profile Picture"
+          class="w-36 h-36 rounded-lg mx-auto mb-4">
+        <h3 class="text-lg font-semibold text-black">Selamat Datang, {{ Auth::user()->nama_lengkap }}!</h3>
+        <p class="text-md text-black font-medium">di Sistem Informasi Manajemen Peralatan Produksi </p>
+      </div>
+    </div>
+  </div>
+
+  {{-- data card  --}}
+  <div class="grid gap-4 lg:gap-3 md:grid-cols-4 ml-5 mr-3">
+    <div class="relative p-6 rounded-2xl bg-blue-50 shadow dark:bg-gray-800">
+      <div class="space-y-2">
+        <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
+          <span>Barang Tersedia</span>
+        </div>
+        <div class="text-3xl dark:text-gray-100">
+          {{ $barang_tersedia }}
+        </div>
       </div>
     </div>
 
+    <div class="relative p-6 rounded-2xl bg-red-50 shadow dark:bg-gray-800">
+      <div class="space-y-2">
+        <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
+          <span>Barang Tidak Tersedia</span>
+        </div>
+        <div class="text-3xl dark:text-gray-100">
+          {{ $barang_tidak_tersedia }}
+        </div>
+      </div>
+    </div>
+
+    <div class="relative p-6 rounded-2xl bg-gray-100 shadow dark:bg-gray-800">
+      <div class="space-y-2">
+        <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
+          <span>Peminjaman</span>
+        </div>
+        <div class="text-3xl dark:text-gray-100">
+          {{ $peminjaman }}
+          <span
+            class="bg-yellow-100 text-yellow-800 text-xs font-medium me-1 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $peminjaman_proses }}
+            Proses</span>
+          <span
+            class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $peminjaman_selesai }}
+            Selesai</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative p-6 rounded-2xl bg-orange-50 shadow dark:bg-gray-800">
+      <div class="space-y-2">
+        <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
+          <span>Pengembalian</span>
+        </div>
+        <div class="text-3xl dark:text-gray-100">
+          {{ $pengembalian }}
+          <span
+            class="bg-red-100 text-red-800 text-xs font-medium me-1 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $pengembalian_incomplete }}
+            Incomplete</span>
+          <span
+            class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $pengembalian_complete }}
+            Complete</span>
+        </div>
+      </div>
+    </div>
 
   </div>
 @endsection

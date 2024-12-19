@@ -16,9 +16,6 @@ export default {
             colors: {
                 tvri_base_color: "#1E3164",
             },
-            backgroundImage: {
-                gedung_tvri: "url('../public//img/assets/gedung_tvri.jpg')",
-            },
         },
     },
 
