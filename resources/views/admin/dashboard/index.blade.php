@@ -66,25 +66,20 @@
   </div>
 
   {{-- data card  --}}
-  <div class="grid gap-4 lg:gap-3 md:grid-cols-2 ml-5 mr-3">
-    <div class="relative p-6 rounded-2xl bg-blue-50 shadow dark:bg-gray-800">
+  <div class="grid gap-4 lg:gap-4 md:grid-cols-2 ml-5 mr-3">
+    <div class="relative p-6 rounded-2xl bg-orange-50 shadow dark:bg-blue-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
-          <span>Barang Tersedia</span>
+          <span>Peminjaman</span>
         </div>
         <div class="text-xl dark:text-gray-100 font-bold">
-          {{ $barang_tersedia }}
-        </div>
-      </div>
-    </div>
-
-    <div class="relative p-6 rounded-2xl bg-red-50 shadow dark:bg-gray-800">
-      <div class="space-y-2">
-        <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
-          <span>Barang Tidak Tersedia</span>
-        </div>
-        <div class="text-xl dark:text-gray-100 font-bold">
-          {{ $barang_tidak_tersedia }}
+          {{ $barang }}
+          <span
+            class="bg-green-100 text-green-800 text-xs font-medium me-1 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $barang_tersedia }}
+            Tersedia</span>
+          <span
+            class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">{{ $barang_tidak_tersedia }}
+            Tidak Tersedia</span>
         </div>
       </div>
     </div>
@@ -106,7 +101,7 @@
       </div>
     </div>
 
-    <div class="flex p-6 rounded-2xl bg-orange-50 shadow dark:bg-gray-800">
+    <div class="flex p-6 rounded-2xl bg-red-50 shadow dark:bg-gray-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
           <span>Pengembalian</span>
@@ -115,10 +110,10 @@
           {{ $pengembalian }}
           <span
             class="bg-red-100 text-red-800 text-xs font-medium me-1 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $pengembalian_incomplete }}
-            Incomplete</span>
+            Tidak Lengkap</span>
           <span
             class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ $pengembalian_complete }}
-            Complete</span>
+            Lengkap</span>
         </div>
       </div>
     </div>

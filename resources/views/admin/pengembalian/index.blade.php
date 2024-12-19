@@ -67,14 +67,14 @@
                 <td class="px-6 py-4 text-center">{{ date('d F Y', strtotime($row->tanggal_kembali)) }}</td>
                 <td class="px-6 py-4 text-center">{{ $row->peminjam }}</td>
                 <td class="px-6 py-4 text-center">
-                  @if ($row->status == 'Incomplete')
+                  @if ($row->status == 'Tidak Lengkap')
                     <span
-                      class="bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"><i
-                        class="fa-solid fa-circle-xmark mr-2"></i>Incomplete</span>
+                      class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"><i
+                        class="fa-solid fa-circle-xmark mr-2"></i>Tidak Lengkap</span>
                   @else
                     <span
                       class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"><i
-                        class="fa-solid fa-circle-check mr-2"></i>Complete</span>
+                        class="fa-solid fa-circle-check mr-2"></i>Lengkap</span>
                   @endif
                 </td>
 
