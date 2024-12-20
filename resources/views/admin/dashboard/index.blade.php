@@ -60,14 +60,14 @@
         <img src="{{ asset('img/assets/dashboard.png') }}" alt="Profile Picture"
           class="w-36 h-36 rounded-lg mx-auto mb-4">
         <h3 class="text-lg font-semibold text-black">Selamat Datang, {{ Auth::user()->nama_lengkap }}!</h3>
-        <p class="text-md text-black font-medium">di Sistem Informasi Manajemen Peralatan Produksi </p>
+        <p class="text-sm text-black font-medium">di Sistem Informasi Manajemen Peralatan Produksi </p>
       </div>
     </div>
   </div>
 
-  {{-- data card  --}}
-  <div class="grid gap-4 lg:gap-4 md:grid-cols-3 ml-5 mr-3">
-    <div class="relative p-6 rounded-2xl bg-orange-50 shadow dark:bg-blue-800">
+  {{-- data card --}}
+  <div class="grid gap-4 lg:grid-cols-3 ml-5 mr-3">
+    <div class="relative p-6 rounded-2xl bg-orange-100 shadow dark:bg-blue-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
           <span>Peminjaman</span>
@@ -128,6 +128,7 @@
         </div>
       </div>
     </div>
+
     <div class="flex p-6 rounded-2xl bg-red-200 shadow dark:bg-gray-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -138,6 +139,7 @@
         </div>
       </div>
     </div>
+
     <div class="flex p-6 rounded-2xl bg-blue-200 shadow dark:bg-gray-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -148,6 +150,7 @@
         </div>
       </div>
     </div>
+
     <div class="flex p-6 rounded-2xl bg-gray-300 shadow dark:bg-gray-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">

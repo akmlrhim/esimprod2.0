@@ -31,7 +31,7 @@ class UserController extends Controller
 
         $data = [
             'title' => 'User',
-            'jabatan' => Jabatan::get(['id', 'jabatan']),
+            'jabatan' => Jabatan::where('jabatan', '!=', 'Administrator')->get(['id', 'jabatan']),
             'user' => $query->where('id', '!=', $currentUser->id)->paginate(5),
         ];
 
@@ -44,7 +44,10 @@ class UserController extends Controller
     public function create()
     {
         $title = 'Tambah User';
-        $jabatan = Jabatan::where('jabatan', '!=', 'Administrator')->get(['id', 'jabatan']);
+        $jabatan = Jabatan::select('id', 'jabatan')
+            ->where('jabatan', '!=', 'Administrator')
+            ->get();
+
         return view('admin.user.create', compact('title', 'jabatan'));
     }
 
