@@ -101,7 +101,7 @@
       </div>
     </div>
 
-    <div class="flex p-6 rounded-2xl bg-red-50 shadow dark:bg-gray-800">
+    <div class="flex p-6 rounded-2xl bg-violet-100 shadow dark:bg-gray-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
           <span>Pengembalian</span>
@@ -129,7 +129,7 @@
       </div>
     </div>
 
-    <div class="flex p-6 rounded-2xl bg-red-200 shadow dark:bg-gray-800">
+    <div class="flex p-6 rounded-2xl bg-rose-100 shadow dark:bg-gray-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
           <span>Jenis Barang</span>
