@@ -1,15 +1,12 @@
 @extends('layouts.admin.main')
 @section('content')
   <div class="flex p-3 ml-3 mr-3">
-    <a href="{{ route('barang.index') }}"
+    <a href="{{ url()->previous() }}"
       class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none font-bold rounded-lg text-sm text-center px-5 py-2.5 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
       type="button">
       Kembali
     </a>
-
-
   </div>
-
 
   {{-- detail content   --}}
   <div class="p-3 ml-6 mr-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

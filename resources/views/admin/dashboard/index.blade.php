@@ -66,7 +66,7 @@
   </div>
 
   {{-- data card  --}}
-  <div class="grid gap-4 lg:gap-4 md:grid-cols-2 ml-5 mr-3">
+  <div class="grid gap-4 lg:gap-4 md:grid-cols-3 ml-5 mr-3">
     <div class="relative p-6 rounded-2xl bg-orange-50 shadow dark:bg-blue-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -118,5 +118,45 @@
       </div>
     </div>
 
+    <div class="flex p-6 rounded-2xl bg-gray-200 shadow dark:bg-gray-800">
+      <div class="space-y-2">
+        <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
+          <span>Jabatan</span>
+        </div>
+        <div class="text-xl dark:text-gray-100 font-bold">
+          {{ $jabatan }}
+        </div>
+      </div>
+    </div>
+    <div class="flex p-6 rounded-2xl bg-red-200 shadow dark:bg-gray-800">
+      <div class="space-y-2">
+        <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
+          <span>Jenis Barang</span>
+        </div>
+        <div class="text-xl dark:text-gray-100 font-bold">
+          {{ $jenis_barang }}
+        </div>
+      </div>
+    </div>
+    <div class="flex p-6 rounded-2xl bg-blue-200 shadow dark:bg-gray-800">
+      <div class="space-y-2">
+        <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
+          <span>Peruntukan</span>
+        </div>
+        <div class="text-xl dark:text-gray-100 font-bold">
+          {{ $peruntukan }}
+        </div>
+      </div>
+    </div>
+    <div class="flex p-6 rounded-2xl bg-gray-300 shadow dark:bg-gray-800">
+      <div class="space-y-2">
+        <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
+          <span>User</span>
+        </div>
+        <div class="text-xl dark:text-gray-100 font-bold">
+          {{ $user }}
+        </div>
+      </div>
+    </div>
   </div>
 @endsection

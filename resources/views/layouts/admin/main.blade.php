@@ -20,7 +20,7 @@
   <title>ESIMPROD | {{ $title }}</title>
 </head>
 
-<body class="bg-gray-50 dark:bg-neutral-900">
+<body class="bg-gray-50 dark:bg-neutral-900 antialiased">
 
 
   @include('layouts.admin.partials.navbar')
