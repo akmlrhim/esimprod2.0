@@ -19,7 +19,7 @@ class JenisBarangController extends Controller
     {
         $data = [
             'title' => 'Jenis Barang',
-            'jenis_barang' => JenisBarang::paginate(5),
+            'jenis_barang' => JenisBarang::paginate(10),
         ];
         return view('admin.jenis-barang.index', $data);
     }

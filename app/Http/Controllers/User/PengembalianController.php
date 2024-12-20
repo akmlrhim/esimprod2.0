@@ -98,7 +98,7 @@ class PengembalianController extends Controller
                 'kode_pengembalian' => 'PG-' . time(),
                 'kode_peminjaman' => session()->get('kodePeminjaman'),
                 'tanggal_kembali' => now(),
-                'status' => 'Incomplete',
+                'status' => 'Tidak Lengkap',
                 'peminjam' => Auth::user()->nama_lengkap ?? null,
             ]);
 

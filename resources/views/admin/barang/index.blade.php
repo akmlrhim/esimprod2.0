@@ -126,12 +126,6 @@
                 </button>
               @endif
 
-              {{-- <button data-modal-target="reset-modal" data-modal-toggle="reset-modal"
-                onclick="resetLimit('{{ route('barang.reset-limit', ['uuid' => $b->uuid]) }}')"
-                class="inline-flex text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600"
-                type="button" title="Reset Sisa Limit">
-                <i class="fa-solid fa-spinner"></i>
-              </button> --}}
             </div>
           </div>
         </div>
@@ -168,6 +162,7 @@
           <form id="deleteForm" method="POST">
             @csrf
             @method('DELETE')
+            <input type="hidden" name="page" value="{{ $barang->currentPage() }}">
             <button type="submit"
               class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
               Ya

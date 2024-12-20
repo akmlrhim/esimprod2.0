@@ -106,7 +106,6 @@
           @csrf
         </form>
       </li>
-
     </ul>
   </div>
 </aside>

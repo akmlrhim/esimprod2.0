@@ -78,71 +78,74 @@
       <div
         class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
       </div>
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" class="p-4">
-              No
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Nama Barang
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Merk
-            </th>
-            <th scope="col" class="px-6 py-3">
-              No Seri
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Kondisi
-            </th>
-            <th>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($barang as $key => $item)
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td class="w-4 p-4">
-                <div class="flex items-center">
-                  <p>{{ $key + 1 }}</p>
-                </div>
-              </td>
-              <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                <div class="ps-2">
-                  <div class="text-base font-semibold">{{ $item['nama_barang'] }} </div>
-                </div>
+
+      <div class="max-h-72 overflow-y-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="p-4">
+                No
               </th>
-              <td>{{ $item['merk'] }}</td>
-              <td class="px-6 py-4">
-                <div class="flex items-center">
-                  {{ $item['nomor_seri'] }}"
-                </div>
-              </td>
-              <td class="px-6 py-4">
-                <div class="max-w-sm mx-auto">
-                  <select id="item-conditions"
-                    class="bg-gray-50 border border-gray-400 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected value="baik">Baik</option>
-                    <option value="rusak">Rusak</option>
-                    <option value="cacat">Cacat</option>
-                  </select>
-                </div>
-              </td>
-              <td>
-                <input type="hidden" name="uuid" value="{{ $item['uuid'] }}" class="item-uuid" id="item-uuid">
-                <input type="hidden" name="kodeBarang" value="{{ $item['kode_barang'] }}" class="item-code"
-                  id="item-code">
-                <input id="bordered-checkbox-2" type="checkbox" value="" name="bordered-checkbox"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  data-code="{{ $item['kode_barang'] }}" disabled>
-                <label for="bordered-checkbox-2"
-                  class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
-              </td>
+              <th scope="col" class="px-6 py-3">
+                Nama Barang
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Merk
+              </th>
+              <th scope="col" class="px-6 py-3">
+                No Seri
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Kondisi
+              </th>
+              <th>
+              </th>
             </tr>
-          @endforeach
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            @foreach ($barang as $key => $item)
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td class="w-4 p-4">
+                  <div class="flex items-center">
+                    <p>{{ $key + 1 }}</p>
+                  </div>
+                </td>
+                <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                  <div class="ps-2">
+                    <div class="text-base font-semibold">{{ $item['nama_barang'] }} </div>
+                  </div>
+                </th>
+                <td>{{ $item['merk'] }}</td>
+                <td class="px-6 py-4">
+                  <div class="flex items-center">
+                    {{ $item['nomor_seri'] }}
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="max-w-sm mx-auto">
+                    <select id="item-conditions"
+                      class="bg-gray-50 border border-gray-400 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option selected value="baik">Baik</option>
+                      <option value="rusak">Rusak</option>
+                      <option value="cacat">Cacat</option>
+                    </select>
+                  </div>
+                </td>
+                <td>
+                  <input type="hidden" name="uuid" value="{{ $item['uuid'] }}" class="item-uuid" id="item-uuid">
+                  <input type="hidden" name="kodeBarang" value="{{ $item['kode_barang'] }}" class="item-code"
+                    id="item-code">
+                  <input id="bordered-checkbox-2" type="checkbox" value="" name="bordered-checkbox"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    data-code="{{ $item['kode_barang'] }}" disabled>
+                  <label for="bordered-checkbox-2"
+                    class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div class="flex justify-center space-x-2 mt-4">

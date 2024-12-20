@@ -22,7 +22,7 @@ class BarangController extends Controller
             'title' => 'Barang',
             'barang' => Barang::where('sisa_limit', '>', 0)
                 ->orderBy('created_at', 'DESC')
-                ->paginate(5),
+                ->paginate(10),
         ];
 
         return view('admin.barang.index', $data);
@@ -96,7 +96,7 @@ class BarangController extends Controller
         ]);
 
         notify()->success('Barang Berhasil Ditambahkan');
-        return redirect()->route('barang.index');
+        return redirect()->route(url()->previous());
     }
 
     /**
@@ -187,7 +187,7 @@ class BarangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $uuid)
+    public function destroy(Request $request, string $uuid)
     {
         $barang = Barang::where('uuid', $uuid)->first();
         if ($barang) {
@@ -202,7 +202,7 @@ class BarangController extends Controller
 
             $barang->delete();
             notify()->success('Barang Berhasil Dihapus');
-            return redirect()->route('barang.index');
+            return redirect()->route('barang.index', ['page' => $request->page]);
         }
     }
 

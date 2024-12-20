@@ -14,7 +14,7 @@ class PeruntukanController extends Controller
     {
         $data = [
             'title' => 'Peruntukan',
-            'peruntukan' => Peruntukan::paginate(5)
+            'peruntukan' => Peruntukan::paginate(10)
         ];
         return view('admin.peruntukan.index', $data);
     }
