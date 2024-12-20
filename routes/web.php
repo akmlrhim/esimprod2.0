@@ -166,3 +166,8 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
+
+
+// Route::get('/credits', function () {
+//     return view('user.credit'); 
+// });
