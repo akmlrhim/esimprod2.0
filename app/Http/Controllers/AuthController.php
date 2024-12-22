@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -45,6 +46,14 @@ class AuthController extends Controller
 
         if ($user) {
             Auth::login($user);
+
+            // simpan log login 
+            Log::create([
+                'id_user' => $user->id,
+                'waktu_login' => now(),
+                'gambar' => NULL
+            ]);
+
 
             //redirect
             if ($user->role == 'admin' || $user->role == 'superadmin') {

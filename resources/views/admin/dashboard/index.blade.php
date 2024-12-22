@@ -4,7 +4,6 @@
   <div class="flex flex-col md:flex-row w-full">
     <div id="controls-carousel" class="relative w-full md:w-1/2 translate-x-0 sm:translate-x-6 py-4" data-carousel="slide">
       <div class="relative overflow-hidden rounded-lg h-56 opacity-50">
-        <!-- Item 1 -->
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
           <img src="{{ asset('img/assets/studio2.JPG') }}"
             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">

@@ -1,4 +1,5 @@
-<footer class="left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex
+<footer
+  class="left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex
   md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
   <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">ESIMPROD TVRI
   </span>
@@ -20,10 +21,7 @@
 <div id="select-modal" tabindex="-1" aria-hidden="true"
   class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
   <div class="relative p-4 w-full max-w-xl max-h-full">
-    <!-- Changed max-w-md to max-w-lg -->
-    <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-      <!-- Modal header -->
       <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
           Credit

@@ -74,5 +74,12 @@ class JenisBarangSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        JenisBarang::create([
+            'uuid' => Str::uuid(),
+            'jenis_barang' => 'Laptop',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }
