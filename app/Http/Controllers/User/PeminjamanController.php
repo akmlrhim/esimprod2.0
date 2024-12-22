@@ -91,29 +91,6 @@ class PeminjamanController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'peruntukan_id' => 'required|integer|exists:peruntukan,id',
-                'nomor_surat' => 'required|string|max:255',
-                'tanggal_penggunaan' => 'required|date|after_or_equal:today',
-                'tanggal_kembali' => 'required|date|after:tanggal_peminjaman',
-            ],
-            [
-                'peruntukan_id.required' => 'Peruntukan wajib diisi',
-                'peruntukan_id.integer' => 'Peruntukan harus berupa angka',
-                'peruntukan_id.exists' => 'Peruntukan tidak ditemukan',
-                'nomor_surat.required' => 'Nomor Surat wajib diisi',
-                'nomor_surat.string' => 'Nomor Surat harus berupa string',
-                'nomor_surat.max' => 'Nomor Surat maksimal 255 karakter',
-                'tanggal_penggunaan.required' => 'Tanggal Penggunaan wajib diisi',
-                'tanggal_penggunaan.date' => 'Tanggal Penggunaan harus berupa tanggal',
-                'tanggal_penggunaan.after_or_equal' => 'Tanggal Penggunaan harus lebih besar atau sama dengan tanggal sekarang',
-                'tanggal_kembali.required' => 'Tanggal Kembali wajib diisi',
-                'tanggal_kembali.date' => 'Tanggal Kembali harus berupa tanggal',
-                'tanggal_kembali.after' => 'Tanggal Kembali harus lebih dari tanggal penggunaan',
-            ]
-        );
-
         $borrowedItems = session()->get('borrowed_items', []);
         Log::info('Received request data:', $request->all());
         if (empty($borrowedItems)) {
@@ -126,19 +103,54 @@ class PeminjamanController extends Controller
 
         $kd_peminjaman = "PMB-" . time();
 
-        // generate qr 
         $qrCode = QrCode::format('png')->size(200)->generate($kd_peminjaman);
         $qrCodeFilename = time() . '_qr.png';
         Storage::disk('public')->put('uploads/qr_codes_peminjaman/' . $qrCodeFilename, $qrCode);
 
+        $peruntukanId = null;
+
+        if ($request->peruntukan === 'lainnya') {
+            if (empty($request->peruntukan_lainnya)) {
+                return redirect()->back()->with('error', 'Harap isi peruntukan lainnya.');
+            }
+
+            $newPeruntukan = Peruntukan::create([
+                'uuid' => Str::uuid(),
+                'peruntukan' => $request->peruntukan_lainnya,
+            ]);
+
+            $peruntukanId = $newPeruntukan->id;
+        } else {
+            $peruntukanId = $request->peruntukan;
+        }
+
+
         try {
             DB::beginTransaction();
+
+            $peruntukanId = null;
+
+            if ($request->peruntukan === 'lainnya') {
+                if (empty($request->peruntukan_lainnya)) {
+                    return redirect()->back()->with('error', 'Harap isi peruntukan lainnya.');
+                }
+
+                $newPeruntukan = Peruntukan::create([
+                    'uuid' => Str::uuid(),
+                    'peruntukan' => $request->peruntukan_lainnya,
+                ]);
+
+                $peruntukanId = $newPeruntukan->id;
+            } else {
+                $peruntukanId = $request->peruntukan;
+            }
+
             $borrowing = Peminjaman::create([
                 'uuid' => Str::uuid(),
                 'kode_peminjaman' => $kd_peminjaman,
                 'nomor_surat' => $request->nomor_surat,
                 'nomor_peminjaman' => 'PMJ-' . date('Ym') . '-' . str_pad(Peminjaman::whereYear('tanggal_peminjaman', date('Y'))->whereMonth('tanggal_peminjaman', date('m'))->count() + 1, 2, '0', STR_PAD_LEFT),
-                'peruntukan_id' => $request->peruntukan_id,
+                'peruntukan_id' => $peruntukanId,
                 'tanggal_penggunaan' => $request->tanggal_penggunaan,
                 'tanggal_peminjaman' => now(),
                 'tanggal_kembali' => $request->tanggal_kembali,

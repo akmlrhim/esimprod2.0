@@ -106,6 +106,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/jabatan', [UserController::class, 'filterByJabatan'])->name('users.jabatan');
             Route::get('/result', [UserController::class, 'search'])->name('users.search');
             Route::get('/id-card/{uuid}', [UserController::class, 'printIDCard'])->name('users.id.card');
+            Route::get('/log/{uuid}', [UserController::class, 'log'])->name('users.log');
         });
 
         Route::middleware('superadmin')->group(function () {

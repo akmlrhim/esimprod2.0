@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="{{ asset('css/output.css') }}">
 
   <link rel="shortcut icon" href="{{ asset('img/assets/esimprod_logo_bg.png') }}" type="image/x-icon">
-  <link rel="stylesheet" href="{{ asset('fa/css/all.min.css') }}">
   <title>ESIMPR0D - Password</title>
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])

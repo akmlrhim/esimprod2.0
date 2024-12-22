@@ -290,4 +290,14 @@ class UserController extends Controller
         $pdf = Pdf::loadView('admin.user.id-card', ['user' => $user])->setPaper('A4', 'portrait');
         return $pdf->stream('ID-Card-' . $user->nama_lengkap . '-' . time() . '.pdf');
     }
+
+    public function log(string $uuid)
+    {
+        $user = User::where('uuid', $uuid)->first();
+        $title = 'Log User' . ' - ' . $user->nama_lengkap;
+
+        $logs = $user->logs()->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('admin.user.log', compact('title', 'logs'));
+    }
 }

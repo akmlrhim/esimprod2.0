@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Validator;
@@ -47,12 +48,28 @@ class AuthController extends Controller
         if ($user) {
             Auth::login($user);
 
-            // simpan log login 
+            // webcam
+            $gambarBase64 = $request->gambar;
+            $gambarFileName = null;
+
+            if ($gambarBase64) {
+                $folderPath = 'login/';
+                $fileName = uniqid() . '.jpg';
+
+                $gambar = explode(',', $gambarBase64)[1];
+                Storage::disk('public')->put($folderPath . $fileName, base64_decode($gambar));
+
+                $gambarFileName = $fileName;
+            }
+
+            // Simpan log login
             Log::create([
                 'id_user' => $user->id,
                 'waktu_login' => now(),
-                'gambar' => NULL
+                'gambar' => $gambarFileName
             ]);
+
+
 
 
             //redirect

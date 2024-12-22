@@ -138,6 +138,12 @@
                     <i class="fas fa-print"></i>
                   </a>
 
+                  <a href="{{ route('users.log', $row->uuid) }}"
+                    class="focus:outline-none text-white bg-orange-600 hover:bg-orange-800 font-medium rounded-lg text-sm px-2 py-1"
+                    title="Log User">
+                    <i class="fa-solid fa-person-circle-exclamation"></i>
+                  </a>
+
                 </td>
               </tr>
             @endforeach
