@@ -117,7 +117,8 @@
       <div class="item">
         <h3><strong>Waktu Peminjaman:</strong>
           {{ Carbon::parse($pengembalian->peminjaman->tanggal_peminjaman)->format('d F Y') }}</h3>
-        <h3><strong>Waktu Pengembalian:</strong>{{ Carbon::parse($pengembalian->tanggal_kembali)->format('d F Y') }}
+        <h3><strong>Waktu
+            Pengembalian:</strong>{{ Carbon::parse($pengembalian->tanggal_kembali)->translatedFormat('d F Y') }}
         </h3>
       </div>
     </div>
@@ -134,9 +135,11 @@
         <p><strong>Surat Tugas:</strong> {{ $pengembalian->peminjaman->nomor_surat }} </p>
         <p><strong>Peruntukan:</strong> {{ $pengembalian->peminjaman->peruntukan->peruntukan }} </p>
         <p><strong>Tgl
-            Penggunaan:</strong> {{ Carbon::parse($pengembalian->peminjaman->tanggal_penggunaan)->format('d F Y') }}
+            Penggunaan:</strong>
+          {{ Carbon::parse($pengembalian->peminjaman->tanggal_penggunaan)->translatedFormat('d F Y') }}
         </p>
-        <p><strong>Sampai:</strong> {{ Carbon::parse($pengembalian->peminjaman->tanggal_kembali)->format('d F Y') }}
+        <p><strong>Sampai:</strong>
+          {{ Carbon::parse($pengembalian->peminjaman->tanggal_kembali)->translatedFormat('d F Y') }}
         </p>
       </div>
     </div>
@@ -187,7 +190,7 @@
             <td>{{ $item['nomor_seri'] }}</td>
             <td>
               <input id="barangUUID" type="hidden" class="input-field" value="{{ $item['uuid'] }}">
-              <input id="barangDesc" type="text" class="input-field" placeholder="Hayoo mana barangnya???"
+              <input id="barangDesc" type="text" class="input-field" placeholder="Isi penjelasan !"
                 oninput="validateDescription(this)" oninvalid="this.setCustomValidity('Deskripsi barang harus diisi!')"
                 required>
               {{--                <div class="invalid-feedback">Deskripsi barang tidak boleh kosong</div> --}}
@@ -198,7 +201,7 @@
     </table>
 
     <div class="btn-group">
-      <button id="printpdf" type="button" class="btn">Download PDF</button>
+      <button id="printpdf" type="button" target="_blank" class="btn">Download PDF</button>
       <button id="clear" type="button" class="btn">Selesai</button>
     </div>
   </div>

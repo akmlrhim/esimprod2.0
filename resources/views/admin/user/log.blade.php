@@ -37,12 +37,8 @@
                 <tr class="bg-white border-b">
                   <td class="px-6 py-4 font-medium text-gray-900">{{ $key + 1 }}</td>
                   <td class="px-6 py-4 text-gray-700">
-                    {{ \Carbon\Carbon::parse($log->waktu_login)->format('d M Y, H:i:s') }}
-                    <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold py-1 px-3 ml-2">
-                      {{ \Carbon\Carbon::parse($log->waktu_login)->diffForHumans() }}
-                    </span>
+                    {{ \Carbon\Carbon::parse($log->waktu_login)->translatedFormat('d M Y, H:i:s') }}
                   </td>
-
                   <td class="px-6 py-4">
                     @if ($log->gambar)
                       <button data-modal-target="default-modal" data-modal-toggle="default-modal"
@@ -90,10 +86,6 @@
         </div>
         <div class="p-4 md:p-5 space-y-4">
           <img id="modalImage" src="" alt="Login Image" class="w-full h-auto rounded">
-        </div>
-        <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-          <button data-modal-hide="default-modal" type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tutup</button>
         </div>
       </div>
     </div>

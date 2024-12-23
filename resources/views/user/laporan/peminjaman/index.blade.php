@@ -97,7 +97,8 @@
     </div>
 
     <h3 style="font-weight: normal;"><strong>No Peminjaman:</strong>{{ $peminjaman->nomor_peminjaman }}</h3>
-    <p><strong>Waktu Peminjaman:</strong>{{ Carbon::parse($peminjaman->tanggal_peminjaman)->format('d F Y H:i') }}</p>
+    <p><strong>Waktu
+        Peminjaman:</strong>{{ Carbon::parse($peminjaman->tanggal_peminjaman)->translatedFormat('d F Y H:i') }}</p>
 
     <div class="info-section">
       <div class="item">
@@ -110,9 +111,9 @@
         <p><strong>Surat Tugas:</strong> {{ $peminjaman->nomor_surat }}</p>
         <p><strong>Peruntukan:</strong> {{ $peminjaman->peruntukan->peruntukan }}</p>
         <p><strong>Tgl
-            Penggunaan:</strong> {{ Carbon::parse($peminjaman->tanggal_penggunaan)->format('d F Y') }}
+            Penggunaan:</strong> {{ Carbon::parse($peminjaman->tanggal_penggunaan)->translatedFormat('d F Y') }}
         </p>
-        <p><strong>Sampai:</strong> {{ Carbon::parse($peminjaman->tanggal_kembali)->format('d F Y') }}</p>
+        <p><strong>Sampai:</strong> {{ Carbon::parse($peminjaman->tanggal_kembali)->translatedFormat('d F Y') }}</p>
       </div>
       <div class="item">
         <p><strong>Kode:</strong> {{ $peminjaman->kode_peminjaman }}</p>

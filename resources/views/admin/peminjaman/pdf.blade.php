@@ -63,6 +63,37 @@
   table tr.items td {
     padding: 0.5rem;
   }
+
+  .note-container {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .note-title {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .note-list {
+    padding-left: 20px;
+    margin: 0;
+    font-size: 12px
+  }
+
+  .note-list li {
+    margin-bottom: 8px;
+  }
+
+  .important {
+    color: #d9534f;
+    font-weight: bold;
+  }
 </style>
 
 <body>
@@ -93,12 +124,13 @@
         <td class="w-half">
           <div>Surat Tugas : {{ $peminjaman->nomor_surat }}</div>
           <div>Peruntukan : {{ $peminjaman->peruntukan->peruntukan }}</div>
-          <div>Tgl. Penggunaan : {{ date('d F Y', strtotime($peminjaman->tanggal_peminjaman)) }}</div>
-          <div>Sampai : {{ date('d F Y', strtotime($peminjaman->tanggal_kembali)) }}</div>
+          <div>Tgl. Penggunaan :
+            {{ \Carbon\Carbon::parse($peminjaman->tanggal_penggunaan)->translatedFormat('d F Y') }}</div>
+          <div>Sampai : {{ \Carbon\Carbon::parse($peminjaman->tanggal_kembali)->translatedFormat('d F Y') }} </div>
         </td>
         <td class="w-half">
-          <div>QR Pengembalian : <img
-              src="{{ public_path('storage/uploads/qr_codes_peminjaman/' . $peminjaman->qr_code) }}" alt=""
+          <div>QR Pengembalian :
+            <img src="{{ public_path('storage/uploads/qr_codes_peminjaman/' . $peminjaman->qr_code) }}" alt=""
               width="70px">
           </div>
           <div>Kode : {{ $peminjaman->kode_peminjaman }}</div>
@@ -132,6 +164,19 @@
         @endforeach
       </tbody>
     </table>
+  </div>
+
+  <div class="note-container">
+    <div class="note-title">Catatan</div>
+    <ul class="note-list">
+      <li>
+        Barang yang dipinjam akan dikembalikan pada tanggal
+        <strong>{{ \Carbon\Carbon::parse($peminjaman->tanggal_kembali)->translatedFormat('d F Y') }}</strong>.
+      </li>
+      <li>Pastikan barang yang dipinjam dalam kondisi baik.
+        <span class="important">Jika terjadi kerusakan, segera perbaiki!</span>
+      </li>
+    </ul>
   </div>
 </body>
 

@@ -101,9 +101,10 @@
         </td>
         <td style="width: 33%;">
           <br>
-          <div>Waktu Peminjaman: {{ Carbon::parse($pengembalian->peminjaman->tanggal_peminjaman)->format('d F Y') }}
+          <div>Waktu Peminjaman:
+            {{ Carbon::parse($pengembalian->peminjaman->tanggal_peminjaman)->translatedFormat('d F Y') }}
           </div>
-          <div>Waktu pengembalian: {{ Carbon::parse($pengembalian->tanggal_kembali)->format('d F Y') }} </div>
+          <div>Waktu pengembalian: {{ Carbon::parse($pengembalian->tanggal_kembali)->translatedFormat('d F Y') }} </div>
         </td>
         <td style="width: 33%; text-align: right;">
           <img src="{{ public_path('img/assets/esimprod_logo.png') }}" alt="Esimprod" width="100" />
@@ -127,9 +128,11 @@
           <td class="w-half">
             <div>Surat Tugas : {{ $pengembalian->peminjaman->nomor_surat }}</div>
             <div>Peruntukan : {{ $pengembalian->peminjaman->peruntukan->peruntukan }} </div>
-            <div>Tgl. Penggunaan : {{ Carbon::parse($pengembalian->peminjaman->tanggal_penggunaan)->format('d F Y') }}
+            <div>Tgl. Penggunaan :
+              {{ Carbon::parse($pengembalian->peminjaman->tanggal_penggunaan)->translatedFormat('d F Y') }}
             </div>
-            <div>Sampai :{{ Carbon::parse($pengembalian->peminjaman->tanggal_kembali)->format('d F Y') }}</div>
+            <div>Sampai :{{ Carbon::parse($pengembalian->peminjaman->tanggal_kembali)->translatedFormat('d F Y') }}
+            </div>
           </td>
         </tr>
       </table>

@@ -128,29 +128,12 @@ class PeminjamanController extends Controller
         try {
             DB::beginTransaction();
 
-            $peruntukanId = null;
-
-            if ($request->peruntukan === 'lainnya') {
-                if (empty($request->peruntukan_lainnya)) {
-                    return redirect()->back()->with('error', 'Harap isi peruntukan lainnya.');
-                }
-
-                $newPeruntukan = Peruntukan::create([
-                    'uuid' => Str::uuid(),
-                    'peruntukan' => $request->peruntukan_lainnya,
-                ]);
-
-                $peruntukanId = $newPeruntukan->id;
-            } else {
-                $peruntukanId = $request->peruntukan;
-            }
-
             $borrowing = Peminjaman::create([
                 'uuid' => Str::uuid(),
                 'kode_peminjaman' => $kd_peminjaman,
                 'nomor_surat' => $request->nomor_surat,
                 'nomor_peminjaman' => 'PMJ-' . date('Ym') . '-' . str_pad(Peminjaman::whereYear('tanggal_peminjaman', date('Y'))->whereMonth('tanggal_peminjaman', date('m'))->count() + 1, 2, '0', STR_PAD_LEFT),
-                'peruntukan_id' => $peruntukanId,
+                'peruntukan_id' => $request->peruntukan_id,
                 'tanggal_penggunaan' => $request->tanggal_penggunaan,
                 'tanggal_peminjaman' => now(),
                 'tanggal_kembali' => $request->tanggal_kembali,
