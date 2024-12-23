@@ -523,6 +523,19 @@
       SCANNER_INPUT_TIMEOUT: 100
     };
 
+<<<<<<< HEAD
+=======
+    // form lainnya untuk select peruntukan
+    function toggleLainnyaInput(value) {
+      const lainnyaInput = document.getElementById('lainnya-input');
+      if (value === 'lainnya') {
+        lainnyaInput.classList.remove('hidden');
+      } else {
+        lainnyaInput.classList.add('hidden');
+      }
+    }
+
+>>>>>>> 0d8173f (ags)
     // Utility Functions
     const Utils = {
       getCsrfToken() {
