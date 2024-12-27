@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BarangController;
+use App\Http\Controllers\Admin\CatatanController;
 use App\Http\Controllers\User\OptionsController;
 use App\Http\Controllers\Admin\JabatanController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -122,6 +123,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/detail/{uuid}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
             Route::get('/result', [PeminjamanController::class, 'search'])->name('peminjaman.search');
             Route::get('pdf/{uuid}', [PeminjamanController::class, 'print'])->name('peminjaman.print');
+            Route::get('catatan/edit/{id}', [PeminjamanController::class, 'editCatatan'])->name('peminjaman.catatan.edit');
+            Route::put('catatan/update/{id}', [PeminjamanController::class, 'updateCatatan'])->name('peminjaman.catatan.update');
         });
 
         Route::prefix('pengembalian')->group(function () {

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Catatan;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class PeminjamanController extends Controller
 {
@@ -18,6 +20,7 @@ class PeminjamanController extends Controller
         $data = [
             'title' => 'Peminjaman',
             'peminjaman' => Peminjaman::paginate(5),
+            'catatan' => Catatan::get('id', 'isi_catatan'),
         ];
 
         return view('admin.peminjaman.index', $data);
@@ -102,5 +105,37 @@ class PeminjamanController extends Controller
 
         $pdf = Pdf::loadView('admin.peminjaman.pdf', ['peminjaman' => $peminjaman])->setPaper('A4', 'landscape');
         return $pdf->stream('Peminjaman-' . $peminjaman->kode_peminjaman . '-' . time() . '.pdf');
+    }
+
+    public function editCatatan($id)
+    {
+        $catatan = Catatan::find($id);
+        if ($catatan) {
+            return response()->json(['isi_catatan' => $catatan->isi_catatan]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Catatan tidak ditemukan']);
+        }
+    }
+
+    public function updateCatatan(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'isi_catatan' => 'required',
+        ], [
+            'isi_catatan.required' => 'Catatan harus diisi',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        $data = $request->except(['_token', '_method']);
+
+        Catatan::where('id', $id)->update($data);
+        notify()->success('Data Berhasil Diperbarui');
+        return response()->json(['success' => true]);
     }
 }

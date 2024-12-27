@@ -193,7 +193,6 @@
               <input id="barangDesc" type="text" class="input-field" placeholder="Isi penjelasan !"
                 oninput="validateDescription(this)" oninvalid="this.setCustomValidity('Deskripsi barang harus diisi!')"
                 required>
-              {{--                <div class="invalid-feedback">Deskripsi barang tidak boleh kosong</div> --}}
             </td>
           </tr>
         @endforeach
@@ -205,7 +204,6 @@
       <button id="clear" type="button" class="btn">Selesai</button>
     </div>
   </div>
-  <!-- Pastikan QRCode.js sudah disertakan sebelum skrip ini -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const printPdfButton = document.getElementById('printpdf');

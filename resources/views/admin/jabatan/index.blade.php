@@ -50,7 +50,7 @@
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {{ $jabatan->firstItem() + $loop->index }}</td>
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{!! $row->jabatan !!}
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $row->jabatan }}
                 </td>
                 <td class="flex items-center px-6 py-4">
                   <button type="button" data-uuid="{{ $row->uuid }}"

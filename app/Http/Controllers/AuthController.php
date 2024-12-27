@@ -69,14 +69,11 @@ class AuthController extends Controller
                 'gambar' => $gambarFileName
             ]);
 
-
-
-
             //redirect
             if ($user->role == 'admin' || $user->role == 'superadmin') {
                 return redirect()->route('password')->with('success', 'Berhasil, silahkan isi password anda');
             } elseif ($user->role == 'user') {
-                notify()->success('Login Berhasil');
+                notify()->success('Login Berhasil, Selamat Datang ' . $user->nama_lengkap);
                 return redirect()->route('user.option');
             }
         }
@@ -99,7 +96,7 @@ class AuthController extends Controller
         $user = Auth::user();
         if ($user && ($user->role == 'admin' || $user->role == 'superadmin')) {
             if (Hash::check($request->password, $user->password)) {
-                notify()->success('Login Berhasil');
+                notify()->success('Login Berhasil, Selamat Datang ' . $user->nama_lengkap);
                 return redirect()->route('dashboard.index');
             } else {
                 return redirect()->back()->with('error', 'Password tidak valid !');

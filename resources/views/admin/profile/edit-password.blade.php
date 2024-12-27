@@ -49,7 +49,7 @@
   @endif
 
 
-  <div class="flex ml-3 mr-3 p-3">
+  <div class="flex ml-3 mr-3 p-3 bg-white shadow-lg ">
     <div class="w-full max-w-md rounded-lg">
       <form method="POST" action="{{ route('profil.update-password') }}" class="space-y-5">
         @csrf

@@ -16,7 +16,6 @@
 
   @notifyCss
   @vite(['resources/css/app.css', 'resources/js/app.js'])
-
   <title>ESIMPROD | {{ $title }}</title>
 </head>
 
@@ -51,6 +50,7 @@
       }
     }, 6000);
   </script>
+
 
 </body>
 
