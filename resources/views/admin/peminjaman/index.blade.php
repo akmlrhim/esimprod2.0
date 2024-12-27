@@ -12,10 +12,10 @@
     @endif
 
     @foreach ($catatan as $c)
-      <button data-id="{{ $c->id }}"
+      <a href="{{ route('peminjaman.catatan', $c->id) }}"
         class="edit-item text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
         Catatan
-      </button>
+      </a>
     @endforeach
   </div>
 
@@ -115,170 +115,7 @@
     {{ $peminjaman->links() }}
   </div>
 
-  {{-- modal edit catatan --}}
-  <div id="edit-modal" class="fixed inset-0 z-50 hidden overflow-auto bg-black bg-opacity-50 font-sans backdrop-blur-sm">
-    <div class="flex items-center justify-center min-h-screen">
-      <div class="bg-white rounded-lg shadow-xl w-full max-w-xl">
-        <div class="flex items-center justify-between p-4 border-b">
-          <h3 class="text-lg font-semibold text-gray-900">Edit Catatan</h3>
-          <button type="button" class="text-gray-400 hover:text-gray-900 close-modal">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-
-        <div class="p-4">
-          <form id="updateForm">
-            @csrf
-            @method('PUT')
-            <input type="hidden" id="id" name="id">
-            <div class="space-y-4">
-              <div>
-                <label for="isi_catatan" class="block text-sm font-medium text-gray-900">Catatan</label>
-                <div id="editor" class="mt-2 border border-gray-300 h-40"></div>
-                <input type="hidden" name="isi_catatan" id="isi_catatan">
-                <div class="text-red-500 text-sm mt-1" id="error-isi_catatan"></div>
-              </div>
-            </div>
-
-            <div class="flex justify-end mt-6">
-              <button type="submit"
-                class="px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Simpan
-                Data</button>
-              <button type="button" class="btn ml-2 px-4 py-2 bg-gray-200 close-modal">Kembali</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
-@endsection
 
-@section('scripts')
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const modal = document.getElementById('edit-modal');
-      const editButtons = document.querySelectorAll('.edit-item');
-      const closeButtons = document.querySelectorAll('.close-modal');
-      const form = document.getElementById('updateForm');
-
-      var quill = new Quill('#editor', {
-        theme: 'snow',
-        placeholder: 'Tulis catatan disini...',
-        modules: {
-          toolbar: [
-            [{
-              header: "1"
-            }, {
-              header: "2"
-            }, {
-              font: []
-            }],
-            [{
-              list: "ordered"
-            }, {
-              list: "bullet"
-            }],
-            ["bold", "italic", "underline"],
-            ["link"],
-            ["blockquote"],
-            [{
-              align: []
-            }],
-            ["clean"],
-          ],
-        },
-      });
-
-      function displayErrors(errors) {
-        Object.keys(errors).forEach(function(field) {
-          const errorContainer = document.getElementById(`error-${field}`);
-          if (errorContainer) {
-            errorContainer.textContent = errors[field][0];
-          }
-        });
-      }
-
-      function clearErrors() {
-        const errorFields = document.querySelectorAll('[id^="error-"]');
-        errorFields.forEach(function(errorField) {
-          errorField.textContent = '';
-        });
-      }
-
-      editButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const id = this.getAttribute('data-id');
-          fetchItemData(id);
-          modal.style.display = 'block';
-        });
-      });
-
-      closeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          modal.style.display = 'none';
-          clearErrors();
-        });
-      });
-
-      function fetchItemData(id) {
-        fetch(`/peminjaman/catatan/edit/${id}`)
-          .then(response => response.json())
-          .then(data => {
-            document.getElementById('id').value = id;
-            if (data.success === false) {
-              alert(data.message);
-              return;
-            }
-            quill.root.innerHTML = data.isi_catatan;
-          });
-      }
-
-      form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        clearErrors();
-
-        const isi_catatan = quill.root.innerHTML.trim();
-
-        if (isi_catatan === "" || isi_catatan === "<p><br></p>") {
-          displayErrors({
-            'isi_catatan': ['Catatan tidak boleh kosong']
-          });
-          return;
-        }
-
-        const formData = new FormData(form);
-        const id = form['id'].value;
-        formData.set('isi_catatan', isi_catatan);
-
-        fetch(`/peminjaman/catatan/update/${id}`, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-              'Accept': 'application/json',
-            }
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              setTimeout(function() {
-                location.reload();
-              }, 1000);
-              clearErrors();
-            } else {
-              displayErrors(data.errors);
-            }
-          })
-          .catch(error => {
-            console.log('An error occurred:', error);
-          });
-      });
-
-    });
-  </script>
 @endsection

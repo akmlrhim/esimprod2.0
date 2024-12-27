@@ -13,6 +13,7 @@
   <link href="https://fonts.cdnfonts.com/css/avenir" rel="stylesheet">
 
   <link rel="shortcut icon" href="{{ asset('img/assets/esimprod_logo_bg.png') }}" type="image/x-icon">
+  <x-head.tinymce-config />
 
   @notifyCss
   @vite(['resources/css/app.css', 'resources/js/app.js'])

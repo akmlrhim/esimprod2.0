@@ -103,39 +103,36 @@ class PeminjamanController extends Controller
             return redirect()->back();
         }
 
-        $pdf = Pdf::loadView('admin.peminjaman.pdf', ['peminjaman' => $peminjaman])->setPaper('A4', 'landscape');
+        $pdf = Pdf::loadView('admin.peminjaman.pdf', [
+            'peminjaman' => $peminjaman,
+            'catatan' => Catatan::get()
+        ])->setPaper('A4', 'landscape');
         return $pdf->stream('Peminjaman-' . $peminjaman->kode_peminjaman . '-' . time() . '.pdf');
     }
 
     public function editCatatan($id)
     {
-        $catatan = Catatan::find($id);
-        if ($catatan) {
-            return response()->json(['isi_catatan' => $catatan->isi_catatan]);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Catatan tidak ditemukan']);
-        }
+        $data = [
+            'title' => 'Edit Catatan Peminjaman',
+            'catatan' => Catatan::findOrFail($id)
+        ];
+
+        return view('admin.peminjaman.catatan', $data);
     }
 
     public function updateCatatan(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'isi_catatan' => 'required',
+        $request->validate([
+            'isi_catatan' => 'required'
         ], [
-            'isi_catatan.required' => 'Catatan harus diisi',
+            'isi_catatan.required' => 'Catatan harus diisi'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors()
-            ]);
-        }
-
-        $data = $request->except(['_token', '_method']);
+        $data = $request->only('isi_catatan');
 
         Catatan::where('id', $id)->update($data);
-        notify()->success('Data Berhasil Diperbarui');
-        return response()->json(['success' => true]);
+
+        notify()->success('Catatan berhasil diubah');
+        return redirect()->route('peminjaman.index');
     }
 }

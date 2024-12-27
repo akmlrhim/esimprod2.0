@@ -77,22 +77,10 @@
   .note-title {
     font-size: 12px;
     font-weight: bold;
-    margin-bottom: 8px;
   }
 
-  .note-list {
-    padding-left: 20px;
-    margin: 0;
-    font-size: 12px
-  }
-
-  .note-list li {
-    margin-bottom: 8px;
-  }
-
-  .important {
-    color: #d9534f;
-    font-weight: bold;
+  .note-content {
+    font-size: 12px;
   }
 </style>
 
@@ -168,15 +156,11 @@
 
   <div class="note-container">
     <div class="note-title">Catatan</div>
-    <ul class="note-list">
-      <li>
-        Barang yang dipinjam akan dikembalikan pada tanggal
-        <strong>{{ \Carbon\Carbon::parse($peminjaman->tanggal_kembali)->translatedFormat('d F Y') }}</strong>.
-      </li>
-      <li>Pastikan barang yang dipinjam dalam kondisi baik.
-        <span class="important">Jika terjadi kerusakan, segera perbaiki!</span>
-      </li>
-    </ul>
+    <div class="note-content">
+      @foreach ($catatan as $c)
+        {!! $c->isi_catatan !!}
+      @endforeach
+    </div>
   </div>
 </body>
 

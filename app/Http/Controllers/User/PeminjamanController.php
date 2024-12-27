@@ -11,6 +11,7 @@ use App\Models\DetailPeminjaman;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Catatan;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Illuminate\Support\Facades\Storage;
@@ -251,6 +252,7 @@ class PeminjamanController extends Controller
         $data = [
             'peminjaman' => $peminjaman,
             'barang' => $barang,
+            'catatan' => Catatan::get()
         ];
 
         // Generate PDF

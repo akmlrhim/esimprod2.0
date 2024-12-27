@@ -123,8 +123,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/detail/{uuid}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
             Route::get('/result', [PeminjamanController::class, 'search'])->name('peminjaman.search');
             Route::get('pdf/{uuid}', [PeminjamanController::class, 'print'])->name('peminjaman.print');
-            Route::get('catatan/edit/{id}', [PeminjamanController::class, 'editCatatan'])->name('peminjaman.catatan.edit');
-            Route::put('catatan/update/{id}', [PeminjamanController::class, 'updateCatatan'])->name('peminjaman.catatan.update');
+            Route::get('catatan/{id}', [PeminjamanController::class, 'editCatatan'])->name('peminjaman.catatan');
+            Route::patch('catatan/update/{id}', [PeminjamanController::class, 'updateCatatan'])->name('peminjaman.catatan.update');
         });
 
         Route::prefix('pengembalian')->group(function () {
