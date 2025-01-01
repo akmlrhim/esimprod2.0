@@ -12,61 +12,66 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+	/** @use HasFactory<\Database\Factories\UserFactory> */
+	use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array<int, string>
+	 */
 
-    protected $with = ['jabatan'];
+	protected $with = ['jabatan'];
 
-    protected $fillable = [
-        'uuid',
-        'kode_user',
-        'nama_lengkap',
-        'password',
-        'email',
-        'nomor_hp',
-        'role',
-        'qr_code',
-        'jabatan_id',
-        'foto',
-        'nip',
-    ];
+	protected $fillable = [
+		'uuid',
+		'kode_user',
+		'nama_lengkap',
+		'password',
+		'email',
+		'nomor_hp',
+		'role',
+		'qr_code',
+		'jabatan_id',
+		'foto',
+		'nip',
+	];
 
-    public function jabatan(): BelongsTo
-    {
-        return $this->belongsTo(Jabatan::class);
-    }
+	public function jabatan(): BelongsTo
+	{
+		return $this->belongsTo(Jabatan::class);
+	}
 
-    public function logs(): HasMany
-    {
-        return $this->hasMany(Log::class, 'id_user');
-    }
+	public function logs(): HasMany
+	{
+		return $this->hasMany(Log::class, 'id_user');
+	}
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+	public function routeNotificationForEmail()
+	{
+		return $this->email;
+	}
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+	/**
+	 * The attributes that should be hidden for serialization.
+	 *
+	 * @var array<int, string>
+	 */
+	protected $hidden = [
+		'password',
+		'remember_token',
+	];
+
+	/**
+	 * Get the attributes that should be cast.
+	 *
+	 * @return array<string, string>
+	 */
+	protected function casts(): array
+	{
+		return [
+			'email_verified_at' => 'datetime',
+			'password' => 'hashed',
+		];
+	}
 }
