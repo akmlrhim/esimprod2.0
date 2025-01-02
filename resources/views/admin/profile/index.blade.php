@@ -151,7 +151,6 @@
             method="POST"
             action="{{ route('profil.update-password') }}"
             class="space-y-5"
-            enctype="multipart/form-data"
           >
             @csrf
             @method('PATCH')

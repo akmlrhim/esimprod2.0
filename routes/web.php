@@ -17,11 +17,11 @@ use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
 use App\Http\Controllers\User\PengembalianController as PengembalianUser;
 
 
-Route::prefix('/')->group(function () {
+Route::prefix('/')->middleware('ensure.web')->group(function () {
 	Route::get('/', [AuthController::class, 'index'])->name('login');
 	Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
 
-	Route::middleware(['auth', 'role:superadmin,admin'])->group(function () {
+	Route::middleware(['auth', 'role:superadmin,admin', 'ensure.web'])->group(function () {
 		Route::get('/password', [AuthController::class, 'password'])->name('password');
 		Route::post('/password', [AuthController::class, 'passwordValidation'])->name('password.validation');
 		Route::get('/password', [AuthController::class, 'password'])->name('password');
@@ -34,7 +34,7 @@ Route::prefix('/')->group(function () {
 });
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'ensure.web'])->group(function () {
 	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('role:superadmin,admin');
 	Route::get('/dashboard_settings', [DashboardController::class, 'settings'])->name('dashboard.settings')->middleware('role:superadmin,admin');
 
@@ -87,7 +87,7 @@ Route::middleware('auth')->group(function () {
 		});
 	});
 
-	Route::prefix('profil-saya')->group(function () {
+	Route::prefix('profil')->group(function () {
 		Route::get('/', [ProfileController::class, 'index'])->name('profil.index');
 		Route::patch('/ubah-profil', [ProfileController::class, 'updateProfil'])->name('profil.update-profil');
 		Route::patch('/ubah-password', [ProfileController::class, 'updatePassword'])->name('profil.update-password');
@@ -138,10 +138,12 @@ Route::middleware('auth')->group(function () {
 
 
 	// User Route
-	Route::middleware('role:user')->group(function () {
+	Route::middleware(['role:user', 'ensure.web'])->group(function () {
 
 		Route::get('user/options', [OptionsController::class, 'index'])->name('user.option');
 
+		Route::get('user/profil', [OptionsController::class, 'profil'])->name('user.profil');
+		Route::patch('user/profil/update', [OptionsController::class, 'updateProfil'])->name('user.profil.update');
 
 		Route::prefix('user/peminjaman')->middleware(['auth', 'role:user'])->group(function () {
 			Route::get('/', [PeminjamanUser::class, 'index'])->name('user.peminjaman.index');
@@ -163,8 +165,3 @@ Route::middleware('auth')->group(function () {
 		});
 	});
 });
-
-
-// Route::get('/credits', function () {
-//     return view('user.credit'); 
-// });
