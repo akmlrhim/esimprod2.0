@@ -17,11 +17,11 @@ use App\Http\Controllers\User\PeminjamanController as PeminjamanUser;
 use App\Http\Controllers\User\PengembalianController as PengembalianUser;
 
 
-Route::prefix('/')->middleware('ensure.web')->group(function () {
+Route::prefix('/')->group(function () {
 	Route::get('/', [AuthController::class, 'index'])->name('login');
 	Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
 
-	Route::middleware(['auth', 'role:superadmin,admin', 'ensure.web'])->group(function () {
+	Route::middleware(['auth', 'role:superadmin,admin'])->group(function () {
 		Route::get('/password', [AuthController::class, 'password'])->name('password');
 		Route::post('/password', [AuthController::class, 'passwordValidation'])->name('password.validation');
 		Route::get('/password', [AuthController::class, 'password'])->name('password');
@@ -34,7 +34,7 @@ Route::prefix('/')->middleware('ensure.web')->group(function () {
 });
 
 
-Route::middleware(['auth', 'ensure.web'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('role:superadmin,admin');
 	Route::get('/dashboard_settings', [DashboardController::class, 'settings'])->name('dashboard.settings')->middleware('role:superadmin,admin');
 
@@ -138,7 +138,7 @@ Route::middleware(['auth', 'ensure.web'])->group(function () {
 
 
 	// User Route
-	Route::middleware(['role:user', 'ensure.web'])->group(function () {
+	Route::middleware(['role:user'])->group(function () {
 
 		Route::get('user/options', [OptionsController::class, 'index'])->name('user.option');
 

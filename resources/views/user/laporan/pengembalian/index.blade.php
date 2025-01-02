@@ -4,8 +4,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="csrf-token"
+    content="{{ csrf_token() }}"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
   <title>ESIMPROD | LAPORAN PENGEMBALIAN</title>
 
   <style>
@@ -106,7 +112,11 @@
   <div class="container">
     <div class="header">
       <h1>Daftar Barang Kembali</h1>
-      <img src="{{ asset('img/assets/esimprod_logo.png') }}" alt="Logo" class="logo">
+      <img
+        src="{{ asset('img/assets/esimprod_logo.png') }}"
+        alt="Logo"
+        class="logo"
+      >
     </div>
     <div class="above-section">
       <div class="item">
@@ -189,10 +199,21 @@
             <td>{{ $item['merk'] }}</td>
             <td>{{ $item['nomor_seri'] }}</td>
             <td>
-              <input id="barangUUID" type="hidden" class="input-field" value="{{ $item['uuid'] }}">
-              <input id="barangDesc" type="text" class="input-field" placeholder="Isi penjelasan !"
-                oninput="validateDescription(this)" oninvalid="this.setCustomValidity('Deskripsi barang harus diisi!')"
-                required>
+              <input
+                id="barangUUID"
+                type="hidden"
+                class="input-field"
+                value="{{ $item['uuid'] }}"
+              >
+              <input
+                id="barangDesc"
+                type="text"
+                class="input-field"
+                placeholder="Isi penjelasan !"
+                oninput="validateDescription(this)"
+                oninvalid="this.setCustomValidity('Deskripsi barang harus diisi!')"
+                required
+              >
             </td>
           </tr>
         @endforeach
@@ -200,8 +221,17 @@
     </table>
 
     <div class="btn-group">
-      <button id="printpdf" type="button" target="_blank" class="btn">Download PDF</button>
-      <button id="clear" type="button" class="btn">Selesai</button>
+      <button
+        id="printpdf"
+        type="button"
+        target="_blank"
+        class="btn"
+      >Download PDF</button>
+      <button
+        id="clear"
+        type="button"
+        class="btn"
+      >Selesai</button>
     </div>
   </div>
   <script>

@@ -11,11 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
 		health: '/up',
 	)
 	->withMiddleware(function (Middleware $middleware) {
-		$middleware->trustHosts(at: ['esimprod2.0.test']);
+		$middleware->trustHosts(at: ['esimprod2.0.test', '127.0.0.1']);
 		$middleware->alias([
 			'auth' => \App\Http\Middleware\IsLogin::class,
 			'role' => \App\Http\Middleware\CheckRole::class,
-			'ensure.web' => \App\Http\Middleware\EnsureWebRequest::class,
 		]);
 	})
 	->withExceptions(function (Exceptions $exceptions) {

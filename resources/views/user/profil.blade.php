@@ -39,7 +39,7 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="dark:bg-gray-900 antialiased bg-gradient-to-r from-cyan-500 to-blue-500 overflow-hidden">
+<body class="dark:bg-gray-900 antialiased bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 overflow-auto">
   <nav class="fixed top-0 z-50 w-full dark:bg-gray-800 dark:border-gray-700 font-sans">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
       <div class="flex items-center justify-between">
