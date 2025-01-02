@@ -18,6 +18,7 @@ use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Notifications\PeminjamanNotification;
+use Illuminate\Support\Facades\Notification;
 
 class PeminjamanController extends Controller
 {
@@ -153,13 +154,30 @@ class PeminjamanController extends Controller
 			DB::commit();
 			session()->put('kodePeminjaman', $borrowing->kode_peminjaman);
 
+			// get barang detail 
+			$barang = [];
+			foreach ($borrowedItems as $item) {
+				$barangDetail = Barang::where('kode_barang', $item['kode_barang'])->first();
+				if ($barangDetail) {
+					$barang[] = [
+						'nama_barang' => $barangDetail->nama_barang,
+						'merk' => $barangDetail->merk,
+						'nomor_seri' => $barangDetail->nomor_seri,
+					];
+				}
+			}
+
+			$catatan = Catatan::get();
 
 			// kirim notif email ke superadmin 
-			$superadmin = User::where('role', 'superadmin')->first();
+			Notification::send(
+				[
+					User::where('role', 'superadmin')->first(),
+					Auth::user()
+				],
+				new PeminjamanNotification($borrowing, $barang, $catatan)
+			);
 
-			$messages['kode_peminjaman'] = $borrowing->kode_peminjaman;
-
-			$superadmin->notify(new PeminjamanNotification($messages));
 
 
 			return response()->json([
