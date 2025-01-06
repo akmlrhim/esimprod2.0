@@ -246,8 +246,6 @@
   @notifyJs
 </body>
 
-
-
 <script>
   window.onLoad = function() {
     var screenSize = window.innerWidth;

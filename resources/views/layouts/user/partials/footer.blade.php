@@ -1,5 +1,5 @@
 <footer
-  class="fixed bottom-0 left-0 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600"
+  class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between p-2 dark:bg-gray-800 dark:border-gray-600"
 >
   <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">&copy; ESIMPROD TVRI KALIMANTAN SELATAN 2024
   </span>

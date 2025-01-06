@@ -51,7 +51,7 @@
               id="date-range-picker"
               class="flex items-center"
             >
-              <span class="mx-4 text-gray-500">Dari</span>
+              <small class="mx-4 text-gray-500">Dari</small>
               <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                   <svg
@@ -75,7 +75,7 @@
                   placeholder="Tanggal peminjaman"
                 />
               </div>
-              <span class="mx-4 text-gray-500">Sampai</span>
+              <small class="mx-4 text-gray-500">Sampai</small>
               <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                   <svg
@@ -102,7 +102,7 @@
             </div>
 
             {{-- peruntukan --}}
-            <div class="col-span-1">
+            <div>
               <select
                 id="peruntukan"
                 name="peruntukan"
@@ -519,16 +519,6 @@
       TIMEOUT_DURATION: 1500,
       SCANNER_INPUT_TIMEOUT: 100
     };
-
-    // form lainnya untuk select peruntukan 
-    function toggleLainnyaInput(value) {
-      const lainnyaInput = document.getElementById('lainnya-input');
-      if (value === 'lainnya') {
-        lainnyaInput.classList.remove('hidden');
-      } else {
-        lainnyaInput.classList.add('hidden');
-      }
-    }
 
     // Utility Functions
     const Utils = {

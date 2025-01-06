@@ -64,7 +64,7 @@ class UserController extends Controller
 				'nomor_hp' => 'required|numeric',
 				'role' => 'required',
 				'jabatan_id' => 'required',
-				'nip' => 'required|numeric',
+				'nip' => 'required|numeric|unique:users,nip',
 				'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
 			],
 			[
@@ -78,6 +78,7 @@ class UserController extends Controller
 				'jabatan_id.required' => 'Jabatan wajib diisi.',
 				'nip.required' => 'NIP wajib diisi.',
 				'nip.numeric' => 'NIP harus berupa angka.',
+				'nip.unique' => 'NIP sudah terdaftar.',
 				'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
 				'foto.max' => 'Ukuran file maksimal adalah 2MB.',
 			]
@@ -294,7 +295,7 @@ class UserController extends Controller
 	public function log(string $uuid)
 	{
 		$user = User::where('uuid', $uuid)->first();
-		$title = 'Log User' . ' - ' . $user->nama_lengkap;
+		$title = 'Log User';
 
 		$logs = $user->logs()->orderBy('created_at', 'desc')->paginate(10);
 

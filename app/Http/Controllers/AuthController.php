@@ -15,153 +15,156 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return view('auth.index');
-    }
+	/**
+	 * Display a listing of the resource.
+	 */
+	public function index()
+	{
+		return view('auth.index');
+	}
 
-    public function indexv2()
-    {
-        return view('auth.login-v2');
-    }
+	public function indexv2()
+	{
+		return view('auth.login-v2');
+	}
 
-    public function password()
-    {
-        return view("auth.password-adm");
-    }
+	public function password()
+	{
+		return view("auth.password-adm");
+	}
 
-    public function loginProcess(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'kode_user' => 'required',
-        ]);
+	public function loginProcess(Request $request)
+	{
+		$validator = Validator::make($request->all(), [
+			'kode_user' => 'required',
+		]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->with('error', 'Kolom input tidak boleh kosong !');
-        }
+		if ($validator->fails()) {
+			return redirect()->back()->withInput()->with('error', 'Kolom input tidak boleh kosong !');
+		}
 
-        $user = User::where('kode_user', $request->kode_user)->first();
+		$user = User::where('kode_user', $request->kode_user)->first();
 
-        if ($user) {
-            Auth::login($user);
+		if ($user) {
+			Auth::login($user);
 
-            // webcam
-            $gambarBase64 = $request->gambar;
-            $gambarFileName = null;
+			// webcam
+			$gambarBase64 = $request->gambar;
+			$gambarFileName = null;
 
-            if ($gambarBase64) {
-                $folderPath = 'login/';
-                $fileName = uniqid() . '.jpg';
+			if ($gambarBase64) {
+				$folderPath = 'login/';
+				$fileName = uniqid() . '.jpg';
 
-                $gambar = explode(',', $gambarBase64)[1];
-                Storage::disk('public')->put($folderPath . $fileName, base64_decode($gambar));
+				$gambar = explode(',', $gambarBase64)[1];
+				Storage::disk('public')->put($folderPath . $fileName, base64_decode($gambar));
 
-                $gambarFileName = $fileName;
-            }
+				$gambarFileName = $fileName;
+			}
 
-            // Simpan log login
-            Log::create([
-                'id_user' => $user->id,
-                'waktu_login' => now(),
-                'gambar' => $gambarFileName
-            ]);
+			// Simpan log login
+			Log::create([
+				'id_user' => $user->id,
+				'waktu_login' => now(),
+				'gambar' => $gambarFileName
+			]);
 
-            //redirect
-            if ($user->role == 'admin' || $user->role == 'superadmin') {
-                return redirect()->route('password')->with('success', 'Berhasil, silahkan isi password anda');
-            } elseif ($user->role == 'user') {
-                notify()->success('Login Berhasil, Selamat Datang ' . $user->nama_lengkap);
-                return redirect()->route('user.option');
-            }
-        }
+			//redirect
+			if ($user->role == 'admin' || $user->role == 'superadmin') {
+				return redirect()->route('password')->with('success', 'Berhasil, silahkan isi password anda');
+			} elseif ($user->role == 'user') {
+				notify()->success('Login Berhasil, Selamat Datang ' . $user->nama_lengkap);
+				return redirect()->route('user.option');
+			}
+		}
 
-        return redirect()->back()->with('error', 'Kode user tidak terdaftar !');
-    }
+		return redirect()->back()->with('error', 'Kode user tidak terdaftar !');
+	}
 
-    public function passwordValidation(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'password' => 'required',
-        ], [
-            'password.required' => 'Password harus diisi',
-        ]);
+	public function passwordValidation(Request $request)
+	{
+		$validator = Validator::make($request->all(), [
+			'password' => 'required',
+		], [
+			'password.required' => 'Password harus diisi',
+		]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->with('error', 'Password tidak boleh kosong');
-        }
+		if ($validator->fails()) {
+			return redirect()->back()->with('error', 'Password tidak boleh kosong');
+		}
 
-        $user = Auth::user();
-        if ($user && ($user->role == 'admin' || $user->role == 'superadmin')) {
-            if (Hash::check($request->password, $user->password)) {
-                notify()->success('Login Berhasil, Selamat Datang ' . $user->nama_lengkap);
-                return redirect()->route('dashboard.index');
-            } else {
-                return redirect()->back()->with('error', 'Password tidak valid !');
-            }
-        }
+		$user = Auth::user();
+		if ($user && ($user->role == 'admin' || $user->role == 'superadmin')) {
+			if (Hash::check($request->password, $user->password)) {
 
-        return redirect()->back()->with('error', 'Akses tidak sah atau sesi telah berakhir.');
-    }
+				session(['passwordVerified' => true]);
 
-    public function logout(Request $request)
-    {
-        Auth::logout();
+				notify()->success('Login Berhasil, Selamat Datang ' . $user->nama_lengkap);
+				return redirect()->route('dashboard.index');
+			} else {
+				return redirect()->back()->with('error', 'Password tidak valid !');
+			}
+		}
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+		return redirect()->back()->with('error', 'Akses tidak sah atau sesi telah berakhir.');
+	}
 
-        return redirect()->route('login')->with('success', 'Logout Berhasil');
-    }
+	public function logout(Request $request)
+	{
+		Auth::logout();
 
-    public function forgotPassword()
-    {
-        return view('auth.forgot-password');
-    }
+		$request->session()->invalidate();
+		$request->session()->regenerateToken();
 
-    public function forgotPasswordProcess(Request $request)
-    {
-        $request->validate(['email' => 'required|email|exists:users,email',]);
+		return redirect()->route('login')->with('success', 'Logout Berhasil');
+	}
 
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+	public function forgotPassword()
+	{
+		return view('auth.forgot-password');
+	}
 
-        return $status === Password::RESET_LINK_SENT
-            ? back()->with(['status' => __($status)])
-            : back()->withErrors(['email' => __($status)]);
-    }
+	public function forgotPasswordProcess(Request $request)
+	{
+		$request->validate(['email' => 'required|email|exists:users,email',]);
 
-    public function resetPassword(string $token)
-    {
-        return view('auth.reset-password', ['token' => $token]);
-    }
+		$status = Password::sendResetLink(
+			$request->only('email')
+		);
 
-    public function resetPasswordProcess(Request $request)
-    {
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
-        ]);
+		return $status === Password::RESET_LINK_SENT
+			? back()->with(['status' => __($status)])
+			: back()->withErrors(['email' => __($status)]);
+	}
 
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function (User $user, string $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
-                ])->setRememberToken(Str::random(60));
+	public function resetPassword(string $token)
+	{
+		return view('auth.reset-password', ['token' => $token]);
+	}
 
-                $user->save();
+	public function resetPasswordProcess(Request $request)
+	{
+		$request->validate([
+			'token' => 'required',
+			'email' => 'required|email',
+			'password' => 'required|min:8|confirmed',
+		]);
 
-                event(new PasswordReset($user));
-            }
-        );
+		$status = Password::reset(
+			$request->only('email', 'password', 'password_confirmation', 'token'),
+			function (User $user, string $password) {
+				$user->forceFill([
+					'password' => Hash::make($password)
+				])->setRememberToken(Str::random(60));
 
-        return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
-    }
+				$user->save();
+
+				event(new PasswordReset($user));
+			}
+		);
+
+		return $status === Password::PASSWORD_RESET
+			? redirect()->route('login')->with('status', __($status))
+			: back()->withErrors(['email' => [__($status)]]);
+	}
 }
