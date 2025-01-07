@@ -8,22 +8,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Perawatan extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'perawatan';
-    protected $with = ['barang'];
+	protected $table = 'perawatan';
+	protected $with = ['barang'];
 
-    protected $fillable = [
-        'uuid',
-        'kode_perawatan',
-        'kode_barang',
-        'jenis_perawatan',
-        'status',
-        'keterangan'
-    ];
+	protected $fillable = [
+		'uuid',
+		'kode_perawatan',
+		'kode_barang',
+		'jenis_perawatan',
+		'status',
+		'keterangan'
+	];
 
-    public function barang(): BelongsTo
-    {
-        return $this->belongsTo(Barang::class, 'kode_barang', 'kode_barang');
-    }
+	public function barang(): BelongsTo
+	{
+		return $this->belongsTo(Barang::class, 'kode_barang', 'kode_barang');
+	}
 }

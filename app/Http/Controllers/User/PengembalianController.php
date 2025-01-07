@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use App\Models\DetailPeminjaman;
 use Exception;
-use Illuminate\Http\Request;
-use App\Models\Peminjaman;
-use App\Models\Pengembalian;
-use App\Models\DetailPengembalian;
 use App\Models\Barang;
+use App\Models\Peminjaman;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
+use App\Models\Pengembalian;
+use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\DetailPeminjaman;
+use App\Models\DetailPengembalian;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class PengembalianController extends Controller
@@ -107,13 +108,22 @@ class PengembalianController extends Controller
 
 			// Simpan data DetailPengembalian
 			foreach ($valData as $item) {
+				$status = $item['isChecked'] ? $item['condition'] : 'hilang';
+				$deskripsi = $item['isChecked'] ? 'Barang Telah Dikembalikan' : null;
+
 				DetailPengembalian::create([
 					'uuid' => Str::uuid(),
 					'kode_pengembalian' => $pengembalian->kode_pengembalian,
 					'kode_barang' => $item['item_code'],
-					'status' => $item['isChecked'] ? $item['condition'] : 'hilang',
-					'deskripsi' => $item['isChecked'] ? 'Barang Telah Dikembalikan' : null,
+					'status' => $status,
+					'deskripsi' => $deskripsi,
 				]);
+
+				if ($status === 'hilang') {
+					DB::table('barang')
+						->where('kode_barang', $item['item_code'])
+						->update(['status' => 'tidak-tersedia']);
+				}
 			}
 
 			session()->put('kodePengembalian', $pengembalian->kode_pengembalian);

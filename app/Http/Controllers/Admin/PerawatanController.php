@@ -76,15 +76,12 @@ class PerawatanController extends Controller
 	public function limitHabis()
 	{
 		$data = [
-			'title' => 'Perawatan',
-			'barang' => Barang::where('sisa_limit', 0)->simplePaginate(10),
-			'count' => Barang::where('sisa_limit', 0)->count()
+			'title' => 'Limit Habis',
+			'barang' => Barang::where('sisa_limit', 0)->paginate(10),
 		];
 
-		return view('admin.perawatan.barang', $data);
+		return view('admin.perawatan.limit_habis.barang', $data);
 	}
-
-	// public function 
 
 	public function resetLimit(string $uuid)
 	{
@@ -96,20 +93,55 @@ class PerawatanController extends Controller
 			}
 
 			$barang->update([
-				'sisa_limit' => $barang->limit
+				'sisa_limit' => $barang->limit,
+				'status' => 'tersedia'
 			]);
 			notify()->success('Limit Berhasil Direset');
 			return redirect()->route('perawatan.limit.habis.index');
 		}
 	}
 
-	public function detailBarang(string $uuid)
+	public function detailBarangHabis(string $uuid)
 	{
 		$data = [
 			'title' => 'Detail Barang',
 			'barang' => Barang::where('uuid', $uuid)->first(),
 		];
 
-		return view('admin.perawatan.detail-barang', $data);
+		return view('admin.perawatan.limit_habis.detail', $data);
+	}
+
+	public function barangHilang()
+	{
+		$data = [
+			'title' => 'Barang Hilang',
+			'barang' => Barang::where('status', 'tidak-tersedia')->paginate(10),
+		];
+
+		return view('admin.perawatan.barang_hilang.barang', $data);
+	}
+
+	public function detailBarangHilang(string $uuid)
+	{
+		$data = [
+			'title' => 'Detail Barang',
+			'barang' => Barang::where('uuid', $uuid)->first(),
+		];
+
+		return view('admin.perawatan.barang_hilang.detail', $data);
+	}
+
+	public function ubahStatus(string $uuid)
+	{
+		$barang = Barang::where('uuid', $uuid)->first();
+		if ($barang) {
+			$barang->update([
+				'sisa_limit' => $barang->limit,
+				'status' => 'tersedia'
+			]);
+
+			notify()->success('Status diubah menjadi Tersedia');
+			return redirect()->route('perawatan.barang.hilang.index');
+		}
 	}
 }
