@@ -99,7 +99,7 @@ class PerawatanController extends Controller
 				'sisa_limit' => $barang->limit
 			]);
 			notify()->success('Limit Berhasil Direset');
-			return redirect()->route('perawatan.index');
+			return redirect()->route('perawatan.limit.habis.index');
 		}
 	}
 

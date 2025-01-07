@@ -210,7 +210,7 @@ class PengembalianController extends Controller
 		$barangData = $request->input('barang', []); // Ambil data barang dari request
 		$updatedRecords = 0; // Hitung jumlah record yang diperbarui
 
-		Log::info('Data yang diterima untuk pembaruan deskripsi barang:', ['barang' => $barangData]);
+		// Log::info('Data yang diterima untuk pembaruan deskripsi barang:', ['barang' => $barangData]);
 
 		foreach ($barangData as $barang) {
 			$detailPengembalian = DetailPengembalian::where('uuid', $barang['uuid'])->first();

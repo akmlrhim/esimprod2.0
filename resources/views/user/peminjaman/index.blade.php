@@ -25,7 +25,10 @@
     <div class="relative overflow-auto bg-white dark:bg-gray-800 sm:rounded-lg">
       <div class="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
         <div class="w-full md:w-1/2">
-          <form class="col-span-1">
+          <form
+            class="col-span-1"
+            id="form"
+          >
             <div class="relative">
               <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <i class="fa-solid fa-file-lines text-gray-500 dark:text-gray-400"></i>
@@ -754,8 +757,6 @@
         });
       }
     });
-
-
 
     document.getElementById('peruntukan').addEventListener('change', function() {
       this.blur();
