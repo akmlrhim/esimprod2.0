@@ -77,7 +77,9 @@ class PerawatanController extends Controller
 	{
 		$data = [
 			'title' => 'Limit Habis',
-			'barang' => Barang::where('sisa_limit', 0)->paginate(10),
+			'barang' => Barang::where('sisa_limit', 0)
+				->where('status', 'tidak-tersedia')
+				->paginate(10),
 		];
 
 		return view('admin.perawatan.limit_habis.barang', $data);
@@ -135,8 +137,8 @@ class PerawatanController extends Controller
 	{
 		$barang = Barang::where('uuid', $uuid)->first();
 		if ($barang) {
+
 			$barang->update([
-				'sisa_limit' => $barang->limit,
 				'status' => 'tersedia'
 			]);
 

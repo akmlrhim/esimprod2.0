@@ -61,9 +61,9 @@
             <div class="mt-3">
 
               <a
-                href="{{ route('perawatan.barang.detail', $b->uuid) }}"
+                href="{{ route('perawatan.limit.habis.detail', $b->uuid) }}"
                 title="Detail"
-                class="inline-flex text-green-700 hover:text-white border border-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600"
+                class="inline-flex focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 me-0.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
               >
                 <i class="fa-solid fa-circle-info"></i>
               </a>
@@ -72,11 +72,11 @@
                 data-modal-target="reset-modal"
                 data-modal-toggle="reset-modal"
                 onclick="resetLimit('{{ route('perawatan.reset-limit', ['uuid' => $b->uuid]) }}')"
-                class="inline-flex text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600"
+                class="inline-flex focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 me-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="button"
                 title="Reset Sisa Limit"
               >
-                <i class="fa-solid fa-spinner"></i>
+                <i class="fa-solid fa-rotate-left"></i>
               </button>
             </div>
           </div>
