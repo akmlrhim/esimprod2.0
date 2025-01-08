@@ -9,24 +9,23 @@ use Symfony\Component\HttpFoundation\Response;
 
 class IsLogin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
-    {
-        if (!Auth::check()) {
-            if ($request->expectsJson()) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Unauthorized. Please login first.',
-                ], 401);
-            }
+	/**
+	 * Handle an incoming request.
+	 *
+	 * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+	 */
+	public function handle(Request $request, Closure $next): Response
+	{
+		if (!Auth::check()) {
+			if ($request->expectsJson()) {
+				return response()->json([
+					'status' => 'error',
+					'message' => 'Unauthorized. Please login first.',
+				], 401);
+			}
 
-
-            return redirect()->route('login')->with('error', 'Silahkan login terlebih dahulu !');
-        }
-        return $next($request);
-    }
+			return redirect()->route('login')->with('error', 'Silahkan login terlebih dahulu !');
+		}
+		return $next($request);
+	}
 }

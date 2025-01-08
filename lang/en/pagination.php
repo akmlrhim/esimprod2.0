@@ -2,7 +2,7 @@
 
 return [
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Pagination Language Lines
     |--------------------------------------------------------------------------
@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'previous' => '&laquo; Sebelumnya',
-    'next' => 'Selanjutnya &raquo;',
+	'previous' => '<i class="fa-solid fa-circle-left"></i>',
+	'next' => '<i class="fa-solid fa-circle-right"></i>',
 
 ];

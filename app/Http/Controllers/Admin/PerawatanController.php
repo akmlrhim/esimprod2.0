@@ -16,12 +16,7 @@ class PerawatanController extends Controller
 	 */
 	public function index()
 	{
-		$data = [
-			'title' => 'Perawatan',
-			'perawatan' => Perawatan::simplePaginate(10),
-		];
-
-		return view('admin.perawatan.index', $data);
+		//
 	}
 
 	/**

@@ -10,7 +10,6 @@
     </a>
   </div>
 
-
   {{-- detail content   --}}
   <div class="p-3 ml-6 mr-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     <ul
