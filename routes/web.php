@@ -136,7 +136,7 @@ Route::middleware(['auth'])->group(function () {
 
 			Route::prefix('perawatan')->group(function () {
 				Route::get('/limit-habis', [PerawatanController::class, 'limitHabis'])->name('perawatan.limit.habis.index');
-				Route::get('/barang-limit-habis/{uuid}', [PerawatanController::class, 'detailBarang'])->name('perawatan.limit.habis.detail');
+				Route::get('/barang-limit-habis/{uuid}', [PerawatanController::class, 'detailBarangHabis'])->name('perawatan.limit.habis.detail');
 				Route::get('/barang-hilang', [PerawatanController::class, 'barangHilang'])->name('perawatan.barang.hilang.index');
 				Route::get('/barang-hilang/{uuid}', [PerawatanController::class, 'detailBarangHilang'])->name('perawatan.barang.hilang.detail');
 				Route::put('/reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');

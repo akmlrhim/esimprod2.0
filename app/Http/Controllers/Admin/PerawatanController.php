@@ -137,7 +137,6 @@ class PerawatanController extends Controller
 		if ($barang) {
 
 			$barang->update([
-				'status' => 'tersedia',
 				'sisa_limit' => 0
 			]);
 
