@@ -129,7 +129,7 @@
 
   {{-- data card --}}
   <div class="grid gap-4 lg:grid-cols-3 ml-5 mr-3">
-    <div class="relative p-6 rounded-2xl bg-orange-100 shadow dark:bg-blue-800">
+    <div class="relative p-6 rounded-2xl bg-gray-200 shadow dark:bg-blue-800">
       <div class="space-y-2">
         <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-400">
           <span>Barang</span>
@@ -141,9 +141,13 @@
           >{{ $barang_tersedia }}
             Tersedia</span>
           <span
+            class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
+          >{{ $barang_hilang }}
+            Hilang</span>
+          <span
             class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
           >{{ $barang_tidak_tersedia }}
-            Tidak Tersedia</span>
+            Habis</span>
         </div>
       </div>
     </div>

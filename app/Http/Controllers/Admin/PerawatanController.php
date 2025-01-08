@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Barang;
-use App\Models\Perawatan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -112,7 +111,11 @@ class PerawatanController extends Controller
 	{
 		$data = [
 			'title' => 'Barang Hilang',
-			'barang' => Barang::where('status', 'tidak-tersedia')->paginate(10),
+			'barang' => Barang::where('status', 'tidak-tersedia')
+				->whereHas('detail_pengembalian', function ($query) {
+					$query->where('status', 'hilang');
+				})
+				->paginate(10),
 		];
 
 		return view('admin.perawatan.barang_hilang.barang', $data);
@@ -134,7 +137,8 @@ class PerawatanController extends Controller
 		if ($barang) {
 
 			$barang->update([
-				'status' => 'tersedia'
+				'status' => 'tersedia',
+				'sisa_limit' => 0
 			]);
 
 			notify()->success('Status diubah menjadi Tersedia');

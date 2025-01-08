@@ -102,6 +102,9 @@ class PengembalianController extends Controller
 				'peminjam' => Auth::user()->nama_lengkap ?? null,
 			]);
 
+
+			$allChecked = true;
+
 			$peminjaman = Peminjaman::where('kode_peminjaman', $pengembalian->kode_peminjaman)->first();
 			$peminjaman->status = 'Selesai';
 			$peminjaman->save();
@@ -119,12 +122,23 @@ class PengembalianController extends Controller
 					'deskripsi' => $deskripsi,
 				]);
 
-				if ($status === 'hilang') {
+				if (!$item['isChecked']) {
+					$allChecked = false;
 					DB::table('barang')
 						->where('kode_barang', $item['item_code'])
 						->update(['status' => 'tidak-tersedia']);
 				}
 			}
+
+			if ($allChecked) {
+				$pengembalian->status = 'Lengkap';
+			}
+
+			$pengembalian->save();
+
+			$peminjaman = Peminjaman::where('kode_peminjaman', $pengembalian->kode_peminjaman)->first();
+			$peminjaman->status = 'Selesai';
+			$peminjaman->save();
 
 			session()->put('kodePengembalian', $pengembalian->kode_pengembalian);
 			return response()->json([
