@@ -59,9 +59,6 @@
     </div>
   @endif
 
-
-
-
   <div class="p-3 ml-3 mr-3">
     {{ $logs->links() }}
   </div>

@@ -155,7 +155,7 @@
       </li>
 
       <div class="flex items-center my-2">
-        <small class="mx-2 text-white opacity-65">USER</small>
+        <small class="mx-2 text-white opacity-65">TAMBAHAN</small>
         <hr class="h-px flex-grow bg-gray-200 border-0 opacity-20">
       </div>
 
@@ -166,6 +166,16 @@
         >
           <i class="fa-solid fa-user"></i>
           <span class="ms-3">Data User</span>
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="{{ route('buku_panduan.index') }}"
+          class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group"
+        >
+          <i class="fa-solid fa-bookmark"></i>
+          <span class="ms-3">Buku Panduan</span>
         </a>
       </li>
 
@@ -188,6 +198,8 @@
           @csrf
         </form>
       </li>
+
+
     </ul>
   </div>
 </aside>

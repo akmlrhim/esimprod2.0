@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\GuideBookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
@@ -33,12 +34,11 @@ Route::prefix('/')->group(function () {
 	Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-// cek apakah semua user sudah login atau tidak 
+// cek apakah semua user sudah login atau tidak
 Route::middleware(['auth'])->group(function () {
 
-	// pastikan admin atau superadmin sudah melakukan verifikasi dengan masukkan password 
+	// pastikan admin atau superadmin sudah melakukan verifikasi dengan masukkan password
 	Route::middleware('verified.password')->group(function () {
-
 
 		Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('role:superadmin,admin');
 		Route::get('/dashboard_settings', [DashboardController::class, 'settings'])->name('dashboard.settings')->middleware('role:superadmin,admin');
@@ -64,6 +64,10 @@ Route::middleware(['auth'])->group(function () {
 
 
 		Route::middleware('role:superadmin,admin')->group(function () {
+
+			Route::get('buku_panduan', [GuideBookController::class, 'index'])->name('buku_panduan.index');
+			Route::post('buku_panduan', [GuideBookController::class, 'store'])->name('buku_panduan.store');
+
 			Route::prefix('jenis-barang')->group(function () {
 				Route::get('/', [JenisBarangController::class, 'index'])->name('jenis-barang.index');
 				Route::post('/store', [JenisBarangController::class, 'store'])->name('jenis-barang.store');

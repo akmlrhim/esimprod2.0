@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\Process\PhpProcess;
+
+use function Laravel\Prompts\form;
 
 class AuthController extends Controller
 {
