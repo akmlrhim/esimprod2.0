@@ -105,6 +105,7 @@
       /* z-index: 1; */
       width: 100%;
     }
+
   </style>
 </head>
 
@@ -162,6 +163,7 @@
           <th>Merk</th>
           <th>No Seri</th>
           <th>Kondisi</th>
+          <th>Penjelasan</th>
         </tr>
       </thead>
       <tbody>
@@ -169,12 +171,34 @@
         @foreach ($barangKembali as $key => $item)
           <tr>
             <td>{{ $key + 1 }}</td>
-            <td>{{ $item['nama_barang'] }} </td>
+            <td>{{ $item['nama_barang'] }}</td>
             <td>{{ $item['merk'] }}</td>
             <td>{{ $item['nomor_seri'] }}</td>
             <td>{{ $item['kondisi'] }}</td>
+            <td>
+              @if ($item['kondisi'] !== 'baik')
+                <input
+                  id="barangUUID"
+                  type="hidden"
+                  class="input-field"
+                  value="{{ $item['uuid'] }}"
+                >
+                <input
+                  id="barangDesc"
+                  type="text"
+                  class="input-field"
+                  placeholder="Isi penjelasan!"
+                  oninput="validateDescription(this)"
+                  oninvalid="this.setCustomValidity('Deskripsi barang harus diisi!')"
+                  required
+                >
+              @else
+                <span>-</span> <!-- Tampilkan simbol jika tidak ada kolom input -->
+              @endif
+            </td>
           </tr>
         @endforeach
+
       </tbody>
     </table>
 
@@ -239,113 +263,122 @@
       const printPdfButton = document.getElementById('printpdf');
       const clearButton = document.getElementById('clear');
       const rows = document.querySelectorAll('tr');
+      const inputs = document.querySelectorAll('.input-field');
 
-      class LostItemManager {
-        lostItemsArray;
-        constructor() {
-          this.lostItemsArray = [];
-          this.initializeValidation();
+      inputs.forEach(input => {
+        // Periksa apakah input dalam kondisi disabled
+        if (input.disabled) {
+          input.placeholder = ''; // Hilangkan placeholder jika disabled
         }
+      });
 
-        initializeValidation() {
-          rows.forEach(row => {
-            const uuid = row.querySelector('#barangUUID');
-            const barangDescInput = row.querySelector('#barangDesc');
+        class LostItemManager {
+          lostItemsArray;
+          constructor() {
+            this.lostItemsArray = [];
+            this.initializeValidation();
+          }
 
-            if (barangDescInput) {
-              // Event listeners for validation
-              barangDescInput.addEventListener('input', () => this.validateInput(barangDescInput));
-              barangDescInput.addEventListener('blur', () => this.validateInput(barangDescInput));
+          initializeValidation() {
+            rows.forEach(row => {
+              const uuid = row.querySelector('#barangUUID');
+              const barangDescInput = row.querySelector('#barangDesc');
 
-              // Event listener for item addition
-              barangDescInput.addEventListener('change', () => {
-                if (this.validateInput(barangDescInput)) {
-                  const itemDescription = barangDescInput.value.trim();
-                  const lostItem = {
-                    uuid: uuid.value,
-                    description: itemDescription
-                  };
+              if (barangDescInput) {
+                // Event listeners for validation
+                barangDescInput.addEventListener('input', () => this.validateInput(barangDescInput));
+                barangDescInput.addEventListener('blur', () => this.validateInput(barangDescInput));
 
-                  this.addOrUpdateItem(lostItem);
-                  console.log('Data Barang Tak Kembali:', this.lostItemsArray);
-                }
-              });
+                // Event listener for item addition
+                barangDescInput.addEventListener('change', () => {
+                  if (this.validateInput(barangDescInput)) {
+                    const itemDescription = barangDescInput.value.trim();
+                    const lostItem = {
+                      uuid: uuid.value,
+                      description: itemDescription
+                    };
+
+                    this.addOrUpdateItem(lostItem);
+                    console.log('Data Barang Tak Kembali:', this.lostItemsArray); //Debug
+                  }
+                });
+              }
+            });
+          }
+
+          validateInput(input) {
+            const itemDescription = input.value.trim();
+            const isValid = itemDescription !== '';
+
+            // Toggle validation classes
+            input.classList.toggle('is-invalid', !isValid);
+
+            if (!isValid) {
+              input.setCustomValidity('Deskripsi barang harus diisi!');
+              input.reportValidity();
+            } else {
+              input.setCustomValidity('');
             }
-          });
-        }
 
-        validateInput(input) {
-          const itemDescription = input.value.trim();
-          const isValid = itemDescription !== '';
-
-          // Toggle validation classes
-          input.classList.toggle('is-invalid', !isValid);
-
-          if (!isValid) {
-            input.setCustomValidity('Deskripsi barang harus diisi!');
-            input.reportValidity();
-          } else {
-            input.setCustomValidity('');
+            return isValid;
           }
 
-          return isValid;
-        }
+          addOrUpdateItem(item) {
+            const existingItemIndex = this.lostItemsArray.findIndex(
+              existing => existing.uuid === item.uuid
+            );
 
-        addOrUpdateItem(item) {
-          const existingItemIndex = this.lostItemsArray.findIndex(
-            existing => existing.uuid === item.uuid
-          );
-
-          if (existingItemIndex !== -1) {
-            this.lostItemsArray[existingItemIndex] = item;
-          } else {
-            this.lostItemsArray.push(item);
+            if (existingItemIndex !== -1) {
+              this.lostItemsArray[existingItemIndex] = item;
+            } else {
+              this.lostItemsArray.push(item);
+            }
           }
-        }
 
-        validateAllInputs() {
-          const lostItemRows = document.querySelectorAll('#barangDesc');
+          validateAllInputs() {
+            const itemRows = document.querySelectorAll('#barangDesc');
 
-          // If no lost item rows exist, return true
-          if (lostItemRows.length === 0) {
+            // If no lost item rows exist, return true
+            if (itemRows.length === 0) {
+              return true;
+            }
+
+            let isValid = true;
+            itemRows.forEach(barangDescInput => {
+              if (!this.validateInput(barangDescInput)) {
+                isValid = false;
+              }
+            });
+            return isValid;
+          }
+
+          validateItems() {
+            const itemRows = document.querySelectorAll('#barangDesc');
+
+            // If no lost item rows, consider it a valid scenario
+            if (itemRows.length === 0) {
+              return true;
+            }
+
+            if (this.lostItemsArray.length === 0) {
+              alert('Tidak ada barang hilang yang diinput!');
+              return false;
+            }
+
+            const invalidItems = this.lostItemsArray.filter(item => !item.description);
+            if (invalidItems.length > 0) {
+              alert('Harap lengkapi deskripsi untuk semua barang!');
+              return false;
+            }
+
             return true;
           }
-
-          let isValid = true;
-          lostItemRows.forEach(barangDescInput => {
-            if (!this.validateInput(barangDescInput)) {
-              isValid = false;
-            }
-          });
-          return isValid;
-        }
-
-        validateItems() {
-          const lostItemRows = document.querySelectorAll('#barangDesc');
-
-          // If no lost item rows, consider it a valid scenario
-          if (lostItemRows.length === 0) {
-            return true;
-          }
-
-          if (this.lostItemsArray.length === 0) {
-            alert('Tidak ada barang hilang yang diinput!');
-            return false;
-          }
-
-          const invalidItems = this.lostItemsArray.filter(item => !item.description);
-          if (invalidItems.length > 0) {
-            alert('Harap lengkapi deskripsi untuk semua barang!');
-            return false;
-          }
-
-          return true;
-        }
 
         async sendToAPI(redirect_route) {
           // If no inputs exist for lost items, proceed directly
-          const lostItemRows = document.querySelectorAll('#barangDesc');
-          if (lostItemRows.length === 0) {
+          const itemRows = document.querySelectorAll('#barangDesc');
+          console.log(itemRows); //Debug
+          if (itemRows.length === 0) {
             this.redirectBasedOnRoute(redirect_route);
             return;
           }
@@ -400,8 +433,8 @@
         }
 
         resetData() {
-          const lostItemRows = document.querySelectorAll('#barangDesc');
-          lostItemRows.forEach(barangDescInput => {
+          const itemRows = document.querySelectorAll('#barangDesc');
+          itemRows.forEach(barangDescInput => {
             barangDescInput.value = '';
             barangDescInput.classList.remove('is-invalid');
           });
@@ -418,9 +451,9 @@
       }
 
       if (clearButton) {
-        clearButton.addEventListener('click', () =>
-          lostItemManager.sendToAPI('clear')
-        );
+        clearButton.addEventListener('click', () => {
+          lostItemManager.sendToAPI('clear');
+        });
       }
     });
   </script>

@@ -199,6 +199,7 @@ class PengembalianController extends Controller
 
 				if ($dataBarangKembali) {
 					$barangKembali[] = [
+            'uuid' => $detail->uuid,
 						'nama_barang' => $dataBarangKembali->nama_barang,
 						'merk' => $dataBarangKembali->merk,
 						'nomor_seri' => $dataBarangKembali->nomor_seri,
