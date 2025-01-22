@@ -65,8 +65,12 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::middleware('role:superadmin,admin')->group(function () {
 
-			Route::get('buku_panduan', [GuideBookController::class, 'index'])->name('buku_panduan.index');
-			Route::post('buku_panduan', [GuideBookController::class, 'store'])->name('buku_panduan.store');
+			Route::prefix('buku-panduan')->group(function () {
+				Route::get('/', [GuideBookController::class, 'index'])->name('buku-panduan.index');
+				Route::post('store', [GuideBookController::class, 'store'])->name('buku-panduan.store');
+				Route::patch('used/{uuid}', [GuideBookController::class, 'used'])->name('buku-panduan.used');
+				Route::patch('unused/{uuid}', [GuideBookController::class, 'unused'])->name('buku-panduan.unused');
+			});
 
 			Route::prefix('jenis-barang')->group(function () {
 				Route::get('/', [JenisBarangController::class, 'index'])->name('jenis-barang.index');

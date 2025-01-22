@@ -46,4 +46,30 @@ class GuideBookController extends Controller
 		notify()->success('Guidebook berhasil diupload !');
 		return redirect()->back();
 	}
+
+	public function unused(string $uuid)
+	{
+		$guidebook = GuideBook::where('uuid', $uuid)->firstOrFail();
+		if ($guidebook) {
+			$guidebook->update([
+				'status' => 'unused'
+			]);
+		}
+
+		notify()->warning('Guidebook tidak digunakan !');
+		return redirect()->back();
+	}
+
+	public function used(string $uuid)
+	{
+		$guidebook = GuideBook::where('uuid', $uuid)->firstOrFail();
+		if ($guidebook) {
+			$guidebook->update([
+				'status' => 'used'
+			]);
+		}
+
+		notify()->success('Guidebook digunakan !');
+		return redirect()->back();
+	}
 }
