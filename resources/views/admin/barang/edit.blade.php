@@ -5,7 +5,8 @@
       <div class="border rounded-lg shadow overflow-hidden dark:border-neutral-700">
         <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
           <div class="container mx-auto p-4">
-            <form action="{{ route('barang.update', $barang->uuid) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('barang.update', ['uuid' => $barang->uuid, 'page' => request('page')]) }}" method="POST"
+              enctype="multipart/form-data">
               @method('PUT')
               @csrf
               <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">

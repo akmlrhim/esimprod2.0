@@ -2,263 +2,277 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\BarangExport;
 use App\Http\Controllers\Controller;
+use App\Imports\BarangImport;
 use App\Models\Barang;
 use App\Models\JenisBarang;
 use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class BarangController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 */
-	public function index()
-	{
-		$data = [
-			'title' => 'Barang',
-			'barang' => Barang::where('sisa_limit', '>', 0)
-				->orderBy('created_at', 'DESC')
-				->paginate(10),
-		];
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+    $data = [
+      'title' => 'Barang',
+      'barang' => Barang::where('status', 'tersedia')
+        ->orderBy('created_at', 'DESC')
+        ->paginate(10),
+    ];
 
-		return view('admin.barang.index', $data);
-	}
+    return view('admin.barang.index', $data);
+  }
 
-	/**
-	 * Show the form for creating a new resource.
-	 */
-	public function create()
-	{
-		$data = [
-			'title' => 'Tambah Barang',
-			'jenis_barang' => JenisBarang::all()
-		];
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create()
+  {
+    $data = [
+      'title' => 'Tambah Barang',
+      'jenis_barang' => JenisBarang::all()
+    ];
 
-		return view('admin.barang.create', $data);
-	}
+    return view('admin.barang.create', $data);
+  }
 
-	/**
-	 * Store a newly created resource in storage.
-	 */
-	public function store(Request $request)
-	{
-		$request->validate([
-			'nama_barang' => 'required|unique:barang,nama_barang',
-			'merk' => 'required',
-			'nomor_seri' => 'required',
-			'jenis_barang_id' => 'required|exists:jenis_barang,id',
-			'limit' => 'required|numeric',
-			'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-		], [
-			'nama_barang.required' => 'Nama barang wajib diisi.',
-			'nama_barang.unique' => 'Nama barang sudah ada.',
-			'merk.required' => 'Merk wajib diisi.',
-			'nomor_seri.required' => 'Nomor Seri wajib diisi.',
-			'jenis_barang_id.required' => 'Jenis Barang wajib diisi.',
-			'jenis_barang_id.exists' => 'Jenis barang tidak ditemukan.',
-			'limit.required' => 'Limit wajib diisi.',
-			'limit.numeric' => 'Limit harus berupa angka.',
-			'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
-			'foto.max' => 'Ukuran file maksimal adalah 2MB.',
-		]);
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(Request $request)
+  {
+    $request->validate([
+      'nama_barang' => 'required|unique:barang,nama_barang',
+      'merk' => 'required',
+      'nomor_seri' => 'required',
+      'jenis_barang_id' => 'required|exists:jenis_barang,id',
+      'limit' => 'required|numeric',
+      'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+    ], [
+      'nama_barang.required' => 'Nama barang wajib diisi.',
+      'nama_barang.unique' => 'Nama barang sudah ada.',
+      'merk.required' => 'Merk wajib diisi.',
+      'nomor_seri.required' => 'Nomor Seri wajib diisi.',
+      'jenis_barang_id.required' => 'Jenis Barang wajib diisi.',
+      'jenis_barang_id.exists' => 'Jenis barang tidak ditemukan.',
+      'limit.required' => 'Limit wajib diisi.',
+      'limit.numeric' => 'Limit harus berupa angka.',
+      'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
+      'foto.max' => 'Ukuran file maksimal adalah 2MB.',
+    ]);
 
-		$kode_barang = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 12);
-		$qrCode = QrCode::format('png')->size(200)->generate($kode_barang);
-		$qrCodeFileName = time() . '_qr.png';
-		Storage::disk('public')->put('uploads/qr_codes_barang/' . $qrCodeFileName, $qrCode);
+    $kode_barang = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 12);
+    $qrCode = QrCode::format('png')->size(200)->generate($kode_barang);
+    $qrCodeFileName = time() . '_qr.png';
+    Storage::disk('public')->put('uploads/qr_codes_barang/' . $qrCodeFileName, $qrCode);
 
-		if ($request->hasFile('foto')) {
-			$file = $request->file('foto');
-			$filename = time() . '.' . $file->getClientOriginalExtension();
-			$file->storeAs('uploads/foto_barang', $filename, 'public');
-			$data['foto'] = $filename;
-		} else {
-			$data['foto'] = 'default.jpg';
-		}
+    if ($request->hasFile('foto')) {
+      $file = $request->file('foto');
+      $filename = time() . '.' . $file->getClientOriginalExtension();
+      $file->storeAs('uploads/foto_barang', $filename, 'public');
+      $data['foto'] = $filename;
+    } else {
+      $data['foto'] = 'default.jpg';
+    }
 
-		Barang::create([
-			'uuid' => Str::uuid(),
-			'kode_barang' => $kode_barang,
-			'nama_barang' => $request->nama_barang,
-			'nomor_seri' => $request->nomor_seri,
-			'merk' => $request->merk,
-			'jenis_barang_id' => $request->jenis_barang_id,
-			'status' => $request->limit == 0 ? 'tidak-tersedia' : 'tersedia',
-			'limit' => $request->limit,
-			'sisa_limit' => $request->limit,
-			'foto' => $data['foto'],
-			'deskripsi' => $request->deskripsi,
-			'qr_code' => $qrCodeFileName,
-		]);
+    Barang::create([
+      'uuid' => Str::uuid(),
+      'kode_barang' => $kode_barang,
+      'nama_barang' => $request->nama_barang,
+      'nomor_seri' => $request->nomor_seri,
+      'merk' => $request->merk,
+      'jenis_barang_id' => $request->jenis_barang_id,
+      'status' => $request->limit == 0 ? 'tidak-tersedia' : 'tersedia',
+      'limit' => $request->limit,
+      'sisa_limit' => $request->limit,
+      'foto' => $data['foto'],
+      'deskripsi' => $request->deskripsi,
+      'qr_code' => $qrCodeFileName,
+    ]);
 
-		notify()->success('Barang Berhasil Ditambahkan');
-		return redirect()->route(url()->previous());
-	}
+    notify()->success('Barang Berhasil Ditambahkan');
+    return redirect()->route('barang.index');
+  }
 
-	/**
-	 * Display the specified resource.
-	 */
-	public function show(string $uuid)
-	{
-		$data = [
-			'title' => 'Detail Barang',
-			'barang' => Barang::where('uuid', $uuid)->first(),
-		];
+  /**
+   * Display the specified resource.
+   */
+  public function show(string $uuid)
+  {
+    $data = [
+      'title' => 'Detail Barang',
+      'barang' => Barang::where('uuid', $uuid)->first(),
+    ];
 
-		return view('admin.barang.detail', $data);
-	}
+    return view('admin.barang.detail', $data);
+  }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 */
-	public function edit(string $uuid)
-	{
-		$data = [
-			'title' => 'Edit Barang',
-			'barang' => Barang::where('uuid', $uuid)->first(),
-			'jenis_barang' => JenisBarang::all()
-		];
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(string $uuid)
+  {
+    $data = [
+      'title' => 'Edit Barang',
+      'barang' => Barang::where('uuid', $uuid)->first(),
+      'jenis_barang' => JenisBarang::all()
+    ];
 
-		return view('admin.barang.edit', $data);
-	}
+    return view('admin.barang.edit', $data);
+  }
 
-	/**
-	 * Update the specified resource in storage.
-	 */
-	public function update(Request $request, string $uuid)
-	{
-		$request->validate([
-			'nama_barang' => 'required',
-			'nomor_seri' => 'required',
-			'merk' => 'required',
-			'jenis_barang_id' => 'required|exists:jenis_barang,id',
-			'limit' => 'required|numeric',
-			'sisa_limit' => 'required|numeric',
-			'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-		], [
-			'nama_barang.required' => 'Nama barang wajib diisi.',
-			'nomor_seri.required' => 'Nomor Seri wajib diisi.',
-			'merk.required' => 'Merk wajib diisi.',
-			'jenis_barang_id.required' => 'Jenis Barang wajib diisi.',
-			'jenis_barang_id.exists' => 'Jenis barang tidak ditemukan.',
-			'limit.required' => 'Limit wajib diisi.',
-			'limit.numeric' => 'Limit harus berupa angka.',
-			'sisa_limit.required' => 'Sisa Limit wajib diisi.',
-			'sisa_limit.numeric' => 'Sisa Limit harus berupa angka.',
-			'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
-			'foto.max' => 'Ukuran file maksimal adalah 2MB.',
-		]);
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(Request $request, string $uuid)
+  {
+    $request->validate([
+      'nama_barang' => 'required',
+      'nomor_seri' => 'required',
+      'merk' => 'required',
+      'jenis_barang_id' => 'required|exists:jenis_barang,id',
+      'limit' => 'required|numeric',
+      'sisa_limit' => 'required|numeric',
+      'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+    ], [
+      'nama_barang.required' => 'Nama barang wajib diisi.',
+      'nomor_seri.required' => 'Nomor Seri wajib diisi.',
+      'merk.required' => 'Merk wajib diisi.',
+      'jenis_barang_id.required' => 'Jenis Barang wajib diisi.',
+      'jenis_barang_id.exists' => 'Jenis barang tidak ditemukan.',
+      'limit.required' => 'Limit wajib diisi.',
+      'limit.numeric' => 'Limit harus berupa angka.',
+      'sisa_limit.required' => 'Sisa Limit wajib diisi.',
+      'sisa_limit.numeric' => 'Sisa Limit harus berupa angka.',
+      'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
+      'foto.max' => 'Ukuran file maksimal adalah 2MB.',
+    ]);
 
-		$barang = Barang::where('uuid', $uuid)->firstOrFail();
+    $barang = Barang::where('uuid', $uuid)->firstOrFail();
 
-		$filename = $barang->foto;
-		if ($request->hasFile('foto')) {
-			if ($barang->foto && $barang->foto !== 'default.jpg') {
-				Storage::disk('public')->delete('uploads/foto_barang/' . $barang->foto);
-			}
+    $filename = $barang->foto;
+    if ($request->hasFile('foto')) {
+      if ($barang->foto && $barang->foto !== 'default.jpg') {
+        Storage::disk('public')->delete('uploads/foto_barang/' . $barang->foto);
+      }
 
-			$file = $request->file('foto');
-			$filename = time() . '.' . $file->getClientOriginalExtension();
-			$file->storeAs('uploads/foto_barang', $filename, 'public');
-		}
+      $file = $request->file('foto');
+      $filename = time() . '.' . $file->getClientOriginalExtension();
+      $file->storeAs('uploads/foto_barang', $filename, 'public');
+    }
 
-		$barang->update([
-			'nama_barang' => $request->nama_barang,
-			'nomor_seri' => $request->nomor_seri,
-			'merk' => $request->merk,
-			'jenis_barang_id' => $request->jenis_barang_id,
-			'status' => $request->sisa_limit == 0 ? 'tidak-tersedia' : 'tersedia',
-			'limit' => $request->limit,
-			'sisa_limit' => $request->sisa_limit,
-			'deskripsi' => $request->deskripsi,
-			'foto' => $filename,
-		]);
+    $barang->update([
+      'nama_barang' => $request->nama_barang,
+      'nomor_seri' => $request->nomor_seri,
+      'merk' => $request->merk,
+      'jenis_barang_id' => $request->jenis_barang_id,
+      'status' => $request->sisa_limit == 0 ? 'tidak-tersedia' : 'tersedia',
+      'limit' => $request->limit,
+      'sisa_limit' => $request->sisa_limit,
+      'deskripsi' => $request->deskripsi,
+      'foto' => $filename,
+    ]);
 
-		notify()->success('Barang Berhasil Diupdate');
-		return redirect()->route('barang.index');
-	}
+    notify()->success('Barang Berhasil Diupdate');
+
+    $currentPage = $request->input('page', 1);
+    return redirect()->route('barang.index', ['page' => $currentPage]);
+  }
 
 
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(Request $request, string $uuid)
+  {
+    $barang = Barang::where('uuid', $uuid)->first();
+    if ($barang) {
 
-	/**
-	 * Remove the specified resource from storage.
-	 */
-	public function destroy(Request $request, string $uuid)
-	{
-		$barang = Barang::where('uuid', $uuid)->first();
-		if ($barang) {
+      if ($barang->qr_code) {
+        Storage::disk('public')->delete('uploads/qr_codes_barang/' . $barang->qr_code);
+      }
 
-			if ($barang->qr_code) {
-				Storage::disk('public')->delete('uploads/qr_codes_barang/' . $barang->qr_code);
-			}
+      if ($barang->foto && $barang->foto !== 'default.jpg') {
+        Storage::disk('public')->delete('uploads/foto_barang/' . $barang->foto);
+      }
 
-			if ($barang->foto && $barang->foto !== 'default.jpg') {
-				Storage::disk('public')->delete('uploads/foto_barang/' . $barang->foto);
-			}
+      $barang->delete();
+      notify()->success('Barang Berhasil Dihapus');
+      return redirect()->route('barang.index', ['page' => $request->page]);
+    }
+  }
 
-			$barang->delete();
-			notify()->success('Barang Berhasil Dihapus');
-			return redirect()->route('barang.index', ['page' => $request->page]);
-		}
-	}
+  public function printBarang()
+  {
+    $data['barang'] = Barang::get();
 
-	public function printBarang()
-	{
-		$data['barang'] = Barang::get();
+    if ($data['barang']->isEmpty()) {
+      notify()->error('Barang tidak ditemukan');
+      return redirect()->route('barang.index');
+    }
 
-		if ($data['barang']->isEmpty()) {
-			notify()->error('Barang tidak ditemukan');
-			return redirect()->route('barang.index');
-		}
+    $pdf = Pdf::loadView('admin.barang.barang_pdf', $data)->setPaper('a4', 'landscape');
+    return $pdf->stream('Barang-' . time() . '.pdf');
+  }
 
-		$pdf = Pdf::loadView('admin.barang.barang_pdf', $data)->setPaper('a4', 'landscape');
-		return $pdf->stream('Barang-' . time() . '.pdf');
-	}
+  public function printQrCode()
+  {
+    $data['barang'] = Barang::all();
 
-	public function printQrCode()
-	{
-		$data['barang'] = Barang::all();
+    if ($data['barang']->isEmpty()) {
+      notify()->error('Barang tidak ditemukan');
+      return redirect()->route('barang.index');
+    }
 
-		if ($data['barang']->isEmpty()) {
-			notify()->error('Barang tidak ditemukan');
-			return redirect()->route('barang.index');
-		}
+    $pdf = Pdf::loadView('admin.barang.qrcode_pdf', $data)->setPaper('a4', 'potrait');
+    return $pdf->stream('QRCode-Barang-' . time() . '.pdf');
+  }
 
-		$pdf = Pdf::loadView('admin.barang.qrcode_pdf', $data)->setPaper('a4', 'potrait');
-		return $pdf->stream('QRCode-Barang-' . time() . '.pdf');
-	}
+  public function search(Request $request)
+  {
+    $search = $request->search;
 
-	public function search(Request $request)
-	{
-		$search = $request->search;
+    $barang = Barang::where('nama_barang', 'like', '%' . $search . '%')
+      ->orWhereHas('jenisBarang', function ($q) use ($search) {
+        $q->where('jenis_barang', 'like', '%' . $search . '%');
+      })->paginate(10)
+      ->appends(['search' => $search]);
 
-		$barang = Barang::where('nama_barang', 'like', '%' . $search . '%')
-			->orWhereHas('jenisBarang', function ($q) use ($search) {
-				$q->where('jenis_barang', 'like', '%' . $search . '%');
-			})->paginate(5)
-			->appends(['search' => $search]);
+    $data = [
+      'title' => 'Barang',
+      'barang' => $barang,
+    ];
 
-		$data = [
-			'title' => 'Barang',
-			'barang' => $barang,
-		];
+    return view('admin.barang.index', $data);
+  }
 
-		return view('admin.barang.index', $data);
-	}
+  public function jenisBarang(JenisBarang $jenisBarang)
+  {
+    $barang = $jenisBarang->barang()->with('jenisBarang')->paginate(5);
 
-	public function jenisBarang(JenisBarang $jenisBarang)
-	{
-		$barang = $jenisBarang->barang()->with('jenisBarang')->paginate(5);
+    $data = [
+      'title' => 'Jenis Barang : ' . $jenisBarang->jenis_barang,
+      'barang' => $barang,
+      'count' => $barang->count()
+    ];
+    return view('admin.barang.index', $data);
+  }
 
-		$data = [
-			'title' => 'Jenis Barang : ' . $jenisBarang->jenis_barang,
-			'barang' => $barang,
-			'count' => $barang->count()
-		];
-		return view('admin.barang.index', $data);
-	}
+  public function export()
+  {
+    return Excel::download(new BarangExport, 'barang.xlsx');
+  }
+
+  public function import()
+  {
+    return exit;
+  }
 }

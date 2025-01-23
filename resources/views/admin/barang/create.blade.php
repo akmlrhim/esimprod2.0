@@ -14,7 +14,7 @@
                   <div>
                     <label for="nama_barang" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                       Barang</label>
-                    <input type="text" id="nama_barang" name="nama_barang" autocomplete="off"
+                    <input type="text" id="nama_barang" name="nama_barang" autocomplete="off" autofocus
                       class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       value="{{ old('nama_barang') }}" placeholder="Masukkan Nama Barang" />
                     @error('nama_barang')

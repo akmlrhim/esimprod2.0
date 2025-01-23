@@ -17,7 +17,7 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="overflow-hidden">
+<body class="overflow-hidden bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700">
 
   @include('auth.validation')
 

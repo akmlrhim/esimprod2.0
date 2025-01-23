@@ -53,6 +53,8 @@ Route::middleware(['auth'])->group(function () {
 				Route::get('/print-qrcode', [BarangController::class, 'printQrCode'])->name('barang.print-qrcode');
 				Route::get('/result', [BarangController::class, 'search'])->name('barang.search');
 				Route::get('jenis-barang/{jenisBarang:uuid}', [BarangController::class, 'jenisBarang'])->name('barang.jenis-barang');
+				Route::get('/export', [BarangController::class, 'export'])->name('barang.export');
+				Route::post('import', [BarangController::class, 'import'])->name('barang.import');
 			});
 
 			Route::middleware('role:superadmin')->group(function () {

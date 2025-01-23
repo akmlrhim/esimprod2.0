@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\Process\PhpProcess;
-
-use function Laravel\Prompts\form;
 
 class AuthController extends Controller
 {
@@ -24,11 +21,6 @@ class AuthController extends Controller
 	public function index()
 	{
 		return view('auth.index');
-	}
-
-	public function indexv2()
-	{
-		return view('auth.login-v2');
 	}
 
 	public function password()

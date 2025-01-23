@@ -59,15 +59,12 @@
     <div class="flex flex-col justify-center items-center lg:p-36 md:p-52 sm:p-20 p-8 w-full lg:w-1/2">
       <h1 class="text-3xl font-semibold mb-4 text-center text-black">Login</h1>
       <p class="mb-10 text-black">Scan QR Code untuk Masuk !</p>
-
-
       <div id="camera" style="width:320px; height:240px;" class="hidden"></div>
       <form action="{{ route('login.process') }}" method="POST" class="w-full max-w-md" enctype="multipart/form-data"
         id="loginForm">
         @csrf
         <div class="mb-6">
           <input type="hidden" name="gambar" id="gambar">
-
           <input type="text" id="kode_user" name="kode_user" placeholder="Masukkan kode user anda jika tidak bisa !"
             class="w-full border border-gray-300 rounded-lg shadow-lg py-2 px-3 focus:outline-none focus:border-blue-500"
             autocomplete="off" autofocus>
