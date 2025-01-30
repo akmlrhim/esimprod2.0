@@ -106,7 +106,6 @@
         <h3 style="color: white; text-transform: uppercase;">
           {{ $user->nama_lengkap }}
         </h3>
-        <h4 class="compact">{{ $user->kode_user }}</h4>
         <h4 class="compact">{{ $user->jabatan->jabatan }}</h4>
       </div>
     </div>
