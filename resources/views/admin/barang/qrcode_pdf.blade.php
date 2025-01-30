@@ -9,9 +9,20 @@
       font-size: 12px;
     }
 
+    body {
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-bottom: 10px;
     }
 
     th,
@@ -21,59 +32,38 @@
       padding: 5px;
     }
 
+    th {
+      background-color: #f2f2f2;
+    }
+
     img {
       display: block;
       margin: auto;
+      max-width: 40px;
+      max-height: 40px;
     }
   </style>
 </head>
 
 <body>
-  <h1 style="text-align: center; font-size:23px;">Daftar Barang</h1>
-  <table width="100%">
-    <tr>
-      <td width="50%" valign="top">
-        <table border="1" width="100%" cellspacing="0" cellpadding="5">
-          <thead>
-            <tr>
-              <th>QR Code</th>
-              <th>Nama Barang</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($barang->slice(0, ceil($barang->count() / 2)) as $b)
-              <tr>
-                <td>
-                  <img src="{{ public_path('storage/uploads/qr_codes_barang/' . $b->qr_code) }}" width="40px">
-                </td>
-                <td>{{ $b->nama_barang }}</td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </td>
-
-      <td width="50%" valign="top">
-        <table border="1" width="100%" cellspacing="0" cellpadding="5">
-          <thead>
-            <tr>
-              <th>QR Code</th>
-              <th>Nama Barang</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($barang->slice(ceil($barang->count() / 2)) as $b)
-              <tr>
-                <td>
-                  <img src="{{ public_path('storage/uploads/qr_codes_barang/' . $b->qr_code) }}" width="40px">
-                </td>
-                <td>{{ $b->nama_barang }}</td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </td>
-    </tr>
+  <h1>Daftar Barang</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>QR Code</th>
+        <th>Nama Barang</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($barang as $b)
+        <tr>
+          <td>
+            <img src="{{ public_path('storage/uploads/qr_codes_barang/' . $b->qr_code) }}" alt="QR Code">
+          </td>
+          <td>{{ $b->nama_barang }}</td>
+        </tr>
+      @endforeach
+    </tbody>
   </table>
 </body>
 

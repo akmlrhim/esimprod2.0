@@ -36,18 +36,6 @@
             Cetak Semua Barang
           </a>
         </li>
-        <li>
-          <a href="{{ route('barang.export') }}" target="_blank"
-            class="block px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-            Ekspor Data (.xlsx)
-          </a>
-        </li>
-        <li>
-          <a href="{{ route('barang.print-barang') }}" target="_blank"
-            class="block px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-            Import Data
-          </a>
-        </li>
       </ul>
     </div>
   </div>

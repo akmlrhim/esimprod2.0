@@ -15,7 +15,7 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="overflow-hidden">
 
   @if (session('success') || session('status') || session('error'))
     <div id="toast-message"
