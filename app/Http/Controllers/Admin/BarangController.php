@@ -154,7 +154,6 @@ class BarangController extends Controller
 		]);
 
 		$barang = Barang::where('uuid', $uuid)->firstOrFail();
-
 		$filename = $barang->foto;
 		if ($request->hasFile('foto')) {
 			if ($barang->foto && $barang->foto !== 'default.jpg') {
@@ -166,7 +165,7 @@ class BarangController extends Controller
 			$file->storeAs('uploads/foto_barang', $filename, 'public');
 		}
 
-		$barang->update([
+		Barang::where('uuid', $uuid)->firstOrFail()->update([
 			'nama_barang' => $request->nama_barang,
 			'nomor_seri' => $request->nomor_seri,
 			'merk' => $request->merk,
