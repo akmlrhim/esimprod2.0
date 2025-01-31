@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Barang;
 use App\Models\JenisBarang;
-use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Intervention\Image\Laravel\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class BarangController extends Controller
 {
@@ -52,7 +55,7 @@ class BarangController extends Controller
 			'nomor_seri' => 'required',
 			'jenis_barang_id' => 'required|exists:jenis_barang,id',
 			'limit' => 'required|numeric',
-			'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+			'foto' => 'nullable|file|mimes:jpg,jpeg,png',
 		], [
 			'nama_barang.required' => 'Nama barang wajib diisi.',
 			'nama_barang.unique' => 'Nama barang sudah ada.',
@@ -63,7 +66,6 @@ class BarangController extends Controller
 			'limit.required' => 'Limit wajib diisi.',
 			'limit.numeric' => 'Limit harus berupa angka.',
 			'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
-			'foto.max' => 'Ukuran file maksimal adalah 2MB.',
 		]);
 
 		$kode_barang = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 12);
@@ -74,7 +76,12 @@ class BarangController extends Controller
 		if ($request->hasFile('foto')) {
 			$file = $request->file('foto');
 			$filename = time() . '.' . $file->getClientOriginalExtension();
-			$file->storeAs('uploads/foto_barang', $filename, 'public');
+
+			// kompress foto 
+			$manager = new ImageManager(new Driver());
+			$image = $manager->read($file)->encodeByExtension(extension: $file->getClientOriginalExtension(), quality: 10);
+
+			Storage::disk('public')->put('uploads/foto_barang/' . $filename, $image);
 			$data['foto'] = $filename;
 		} else {
 			$data['foto'] = 'default.jpg';
@@ -138,7 +145,7 @@ class BarangController extends Controller
 			'jenis_barang_id' => 'required|exists:jenis_barang,id',
 			'limit' => 'required|numeric',
 			'sisa_limit' => 'required|numeric',
-			'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+			'foto' => 'nullable|file|mimes:jpg,jpeg,png',
 		], [
 			'nama_barang.required' => 'Nama barang wajib diisi.',
 			'nomor_seri.required' => 'Nomor Seri wajib diisi.',
@@ -150,7 +157,6 @@ class BarangController extends Controller
 			'sisa_limit.required' => 'Sisa Limit wajib diisi.',
 			'sisa_limit.numeric' => 'Sisa Limit harus berupa angka.',
 			'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
-			'foto.max' => 'Ukuran file maksimal adalah 2MB.',
 		]);
 
 		$barang = Barang::where('uuid', $uuid)->firstOrFail();
@@ -162,7 +168,13 @@ class BarangController extends Controller
 
 			$file = $request->file('foto');
 			$filename = time() . '.' . $file->getClientOriginalExtension();
-			$file->storeAs('uploads/foto_barang', $filename, 'public');
+
+			// kompress foto 
+			$manager = new ImageManager(new Driver());
+			$image = $manager->read($file)->encodeByExtension(extension: $file->getClientOriginalExtension(), quality: 10);
+
+			Storage::disk('public')->put('uploads/foto_barang/' . $filename, $image);
+			$data['foto'] = $filename;
 		}
 
 		Barang::where('uuid', $uuid)->firstOrFail()->update([

@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ProfileController extends Controller
 {
@@ -58,7 +60,12 @@ class ProfileController extends Controller
 			}
 			$file = $request->file('foto');
 			$filename = time() . '.' . $file->getClientOriginalExtension();
-			$file->storeAs('uploads/foto_user', $filename, 'public');
+
+			//kompres foto
+			$manager = new ImageManager(new Driver());
+			$image = $manager->read($file)->encodeByExtension(extension: $file->getClientOriginalExtension(), quality: 10);
+
+			Storage::disk('public')->put('uploads/foto_user/' . $filename, $image);
 			$data_foto = $filename;
 		} else {
 			$data_foto = $user->foto ?? 'default.jpeg';

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Jabatan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\Jabatan;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
-use Ramsey\Uuid\Type\Time;
+use Intervention\Image\Drivers\Gd\Driver;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UserController extends Controller
@@ -66,7 +66,7 @@ class UserController extends Controller
 				'role' => 'required',
 				'jabatan_id' => 'required',
 				'nip' => 'required|numeric|unique:users,nip',
-				'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+				'foto' => 'nullable|file|mimes:jpg,jpeg,png',
 			],
 			[
 				'nama_lengkap.required' => 'Nama Lengkap wajib diisi.',
@@ -81,7 +81,6 @@ class UserController extends Controller
 				'nip.numeric' => 'NIP harus berupa angka.',
 				'nip.unique' => 'NIP sudah terdaftar.',
 				'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
-				'foto.max' => 'Ukuran file maksimal adalah 2MB.',
 			]
 		);
 
@@ -90,14 +89,6 @@ class UserController extends Controller
 		$qrCodeFilename = time() . '_qr.png';
 		Storage::disk('public')->put('uploads/qr_codes_user/' . $qrCodeFilename, $qrCode);
 
-		if ($request->hasFile('foto')) {
-			$file = $request->file('foto');
-			$filename = time() . '.' . $file->getClientOriginalExtension();
-			$file->storeAs('uploads/foto_user', $filename, 'public');
-			$data['foto'] = $filename;
-		} else {
-			$data['foto'] = 'default.jpeg';
-		}
 
 		$password = in_array($request->role, ['admin', 'superadmin'])
 			? Hash::make($request->password)
@@ -114,7 +105,7 @@ class UserController extends Controller
 			'nip' => $request->nip,
 			'role' => $request->role,
 			'qr_code' => $qrCodeFilename,
-			'foto' => $data['foto'],
+			'foto' => 'default.jpeg',
 		]);
 
 		notify()->success('User Berhasil Ditambahkan');
@@ -160,7 +151,6 @@ class UserController extends Controller
 				'role' => 'required',
 				'jabatan_id' => 'required',
 				'nip' => 'required|numeric',
-				'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
 			],
 			[
 				'nama_lengkap.required' => 'Nama Lengkap wajib diisi.',
@@ -172,8 +162,6 @@ class UserController extends Controller
 				'jabatan_id.required' => 'Jabatan wajib diisi.',
 				'nip.required' => 'NIP wajib diisi.',
 				'nip.numeric' => 'NIP harus berupa angka.',
-				'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
-				'foto.max' => 'Ukuran file maksimal adalah 2MB.',
 			]
 		);
 
