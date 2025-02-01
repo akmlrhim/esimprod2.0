@@ -39,11 +39,6 @@ class Barang extends Model
 		return $this->hasMany(Peminjaman::class, 'kode_barang', 'kode_barang');
 	}
 
-	public function perawatan(): HasMany
-	{
-		return $this->hasMany(Perawatan::class, 'kode_barang', 'kode_barang');
-	}
-
 	public function detail_peminjaman(): HasMany
 	{
 		return $this->hasMany(DetailPeminjaman::class, 'kode_barang', 'kode_barang');

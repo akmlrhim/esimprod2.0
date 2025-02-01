@@ -9,24 +9,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DetailPeminjaman extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'detail_peminjaman';
-    protected $with = ['barang'];
-    protected $fillable = [
-        'uuid',
-        'kode_detail_peminjaman',
-        'kode_peminjaman',
-        'kode_barang',
-    ];
+	protected $table = 'detail_peminjaman';
+	protected $with = ['barang'];
+	protected $fillable = [
+		'uuid',
+		'kode_detail_peminjaman',
+		'kode_peminjaman',
+		'kode_barang',
+	];
 
-    public function barang(): BelongsTo
-    {
-        return $this->belongsTo(Barang::class, 'kode_barang', 'kode_barang');
-    }
-
-    public function peminjaman(): HasMany
-    {
-        return $this->hasMany(Peminjaman::class, 'kode_peminjaman', 'kode_peminjaman');
-    }
+	public function barang(): BelongsTo
+	{
+		return $this->belongsTo(Barang::class, 'kode_barang', 'kode_barang');
+	}
 }

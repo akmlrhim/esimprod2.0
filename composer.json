@@ -15,6 +15,7 @@
         "symfony/finder": "^7.2"
     },
     "require-dev": {
+        "andyabih/laravel-to-uml": "^1.0",
         "barryvdh/laravel-debugbar": "^3.14",
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.13",
