@@ -178,8 +178,6 @@ class PeminjamanController extends Controller
 				new PeminjamanNotification($borrowing, $barang, $catatan)
 			);
 
-
-
 			return response()->json([
 				'success' => true,
 				'message' => 'Borrowing saved successfully'

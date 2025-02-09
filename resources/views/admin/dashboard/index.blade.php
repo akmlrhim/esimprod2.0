@@ -5,23 +5,23 @@
     <div id="controls-carousel" class="relative w-full md:w-1/2 translate-x-0 sm:translate-x-6 py-4" data-carousel="slide">
       <div class="relative overflow-hidden rounded-lg h-56 opacity-50">
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <img src="{{ asset('img/assets/studio2.JPG') }}"
+          <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
         </div>
         <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-          <img src="{{ asset('img/assets/IMG_6908.jpg') }}"
+          <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
         </div>
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <img src="{{ asset('img/assets/studio_2_27_kamis.jpg') }}"
+          <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
         </div>
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <img src="{{ asset('img/assets/studio_1_kamis_27.jpg') }}"
+          <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
         </div>
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <img src="{{ asset('img/assets/IMG_8835.jpg') }}"
+          <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
         </div>
       </div>

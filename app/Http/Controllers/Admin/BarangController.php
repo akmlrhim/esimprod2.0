@@ -233,7 +233,7 @@ class BarangController extends Controller
 
 	public function printQrCode()
 	{
-		$data['barang'] = Barang::all();
+		$data['barang'] = Barang::get();
 
 		if ($data['barang']->isEmpty()) {
 			notify()->error('Barang tidak ditemukan');

@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: [
-          "Inter",
+          "Gotham",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",
@@ -28,7 +28,7 @@ export default {
           "Noto Color Emoji",
         ],
         sans: [
-          "Avenir",
+          "Gotham",
           "Inter",
           "ui-sans-serif",
           "system-ui",
