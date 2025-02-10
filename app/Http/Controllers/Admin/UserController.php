@@ -31,7 +31,7 @@ class UserController extends Controller
 
 		$data = [
 			'title' => 'User',
-			'jabatan' => Jabatan::where('jabatan', '!=', 'Administrator')->get(['id', 'jabatan']),
+			'jabatan' => Jabatan::where('jabatan', '!=', 'Administrator')->get(),
 			'user' => $query->where('id', '!=', $currentUser->id)->paginate(10),
 			// 'user' => User::paginate(10)
 		];
@@ -264,7 +264,7 @@ class UserController extends Controller
 		$data = [
 			'title' => 'User',
 			'user' => $user,
-			'jabatan' => Jabatan::get(['id', 'jabatan']),
+			'jabatan' => Jabatan::get(),
 		];
 
 		return view('admin.user.index', $data);
