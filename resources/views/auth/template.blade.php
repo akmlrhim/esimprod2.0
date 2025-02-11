@@ -19,7 +19,7 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="overflow-hidden bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700">
+<body class="overflow-hidden" style="background: url({{ asset('img/assets/template-auth.jpg') }})">
 
   @include('auth.validation')
 
