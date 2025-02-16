@@ -79,7 +79,7 @@
         <button type="button"
           class="flex items-center w-full p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700"
           aria-controls="dropdown-perawatan" data-collapse-toggle="dropdown-perawatan">
-          <i class="fa-solid fa-wrench"></i>
+          <i class="fa-solid fa-screwdriver-wrench"></i>
           <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Data Perawatan</span>
           <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -113,13 +113,13 @@
         </a>
       </li>
 
-      <li>
+      {{-- <li>
         <a href="{{ route('buku-panduan.index') }}"
           class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
           <i class="fa-solid fa-bookmark"></i>
           <span class="ms-3">Buku Panduan</span>
         </a>
-      </li>
+      </li> --}}
 
       <li>
         <a href="#"

@@ -42,12 +42,15 @@ class JenisBarangController extends Controller
 		]);
 
 		if ($validator->fails()) {
-			return redirect()->back()->withErrors($validator)->withInput()->with('showModal', true);
+			return redirect()->back()
+				->withErrors($validator)
+				->withInput()
+				->with('showModal', true);
 		}
 
 		JenisBarang::create([
 			'uuid' => Str::uuid(),
-			'jenis_barang' => $request->jenis_barang,
+			'jenis_barang' => $request->jenis_barang
 		]);
 
 		notify()->success('Data Berhasil Disimpan');

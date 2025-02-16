@@ -11,12 +11,12 @@
       @endif
     @endif
 
-    @foreach ($catatan as $c)
+    {{-- @foreach ($catatan as $c)
       <a href="{{ route('peminjaman.catatan', $c->id) }}"
         class="edit-item text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
         Catatan
       </a>
-    @endforeach
+    @endforeach --}}
   </div>
 
   <div class="flex flex-col md:flex-row items-center lg:space-x-3 space-y-3 md:space-y-0 w-full p-3 mr-6 ml-3">

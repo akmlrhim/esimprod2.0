@@ -137,7 +137,8 @@
               <div>
                 <label for="jabatan" class="block text-sm font-medium text-gray-900">Jabatan</label>
                 <input type="text" name="jabatan" id="jabatan" autocomplete="off"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2">
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2"
+                  autofocus />
                 <div class="text-red-500 text-sm mt-1" id="error-jabatan"></div>
               </div>
             </div>

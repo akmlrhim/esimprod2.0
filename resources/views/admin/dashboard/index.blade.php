@@ -59,7 +59,7 @@
         <img src="{{ asset('img/assets/dashboard.png') }}" alt="Profile Picture"
           class="w-36 h-36 rounded-lg mx-auto mb-4">
         <h3 class="text-lg font-semibold text-black">Selamat Datang, {{ Auth::user()->nama_lengkap }}!</h3>
-        <p class="text-sm text-black font-medium">di Sistem Informasi Manajemen Peralatan Produksi </p>
+        <p class="text-sm text-black font-medium">di Sistem Informasi Peminjaman Barang Produksi </p>
       </div>
     </div>
   </div>

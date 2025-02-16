@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="{{ asset('css/output.css') }}">
   <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/x-icon">
 
-  {{-- <link href="https://fonts.cdnfonts.com/css/avenir" rel="stylesheet"> --}}
-  <link
-    rel="https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css">
+  <link href="https://fonts.cdnfonts.com/css/avenir" rel="stylesheet">
+  {{-- <link
+    rel="https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css"> --}}
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <title>@yield('title', 'Default Title')</title>

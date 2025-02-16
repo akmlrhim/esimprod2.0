@@ -144,7 +144,6 @@ class BarangController extends Controller
 			'merk' => 'required',
 			'jenis_barang_id' => 'required|exists:jenis_barang,id',
 			'limit' => 'required|numeric',
-			'sisa_limit' => 'required|numeric',
 			'foto' => 'nullable|file|mimes:jpg,jpeg,png',
 		], [
 			'nama_barang.required' => 'Nama barang wajib diisi.',
@@ -154,8 +153,6 @@ class BarangController extends Controller
 			'jenis_barang_id.exists' => 'Jenis barang tidak ditemukan.',
 			'limit.required' => 'Limit wajib diisi.',
 			'limit.numeric' => 'Limit harus berupa angka.',
-			'sisa_limit.required' => 'Sisa Limit wajib diisi.',
-			'sisa_limit.numeric' => 'Sisa Limit harus berupa angka.',
 			'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
 		]);
 
@@ -182,9 +179,8 @@ class BarangController extends Controller
 			'nomor_seri' => $request->nomor_seri,
 			'merk' => $request->merk,
 			'jenis_barang_id' => $request->jenis_barang_id,
-			'status' => $request->sisa_limit == 0 ? 'tidak-tersedia' : 'tersedia',
+			'status' => $request->limit == 0 ? 'tidak-tersedia' : 'tersedia',
 			'limit' => $request->limit,
-			'sisa_limit' => $request->sisa_limit,
 			'deskripsi' => $request->deskripsi,
 			'foto' => $filename,
 		]);
@@ -220,7 +216,7 @@ class BarangController extends Controller
 
 	public function printBarang()
 	{
-		$data['barang'] = Barang::get();
+		$data['barang'] = Barang::orderBy('created_at', 'DESC')->get();
 
 		if ($data['barang']->isEmpty()) {
 			notify()->error('Barang tidak ditemukan');

@@ -39,21 +39,12 @@
                   </div>
 
                   <div class="flex w-full space-x-4">
-                    <div class="w-1/2">
+                    <div class="w-full">
                       <label class="block text-sm font-bold text-black">Limit</label>
                       <input type="number" name="limit" min="0" autocomplete="off"
                         class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         value="{{ old('limit', $barang->limit) }}" />
                       @error('limit')
-                        <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
-                      @enderror
-                    </div>
-                    <div class="w-1/2">
-                      <label class="block text-sm font-bold text-black">Sisa Limit</label>
-                      <input type="number" name="sisa_limit" min="0" autocomplete="off"
-                        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="{{ old('sisa_limit', $barang->sisa_limit) }}" />
-                      @error('sisa_limit')
                         <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
                       @enderror
                     </div>

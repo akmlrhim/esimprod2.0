@@ -110,7 +110,8 @@
               <div>
                 <label for="jenis_barang" class="block text-sm font-medium text-gray-900">Jenis Barang</label>
                 <input type="text" name="jenis_barang" id="jenis_barang" autocomplete="off"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 mb-2" />
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 mb-2"
+                  autofocus placeholder="Masukkan jenis barang" />
                 @error('jenis_barang')
                   <small class="text-red-500 text-sm"> {{ $message }}</small>
                 @enderror
@@ -289,7 +290,6 @@
             console.log('An error occurred:', error);
           });
       });
-
     });
 
     document.querySelector('[data-modal-hide="create-modal"]').addEventListener('click', function() {
