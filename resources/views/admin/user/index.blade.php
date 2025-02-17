@@ -33,53 +33,16 @@
       </div>
     </form>
 
-    <form class="flex items-center w-60 justify-center" action="{{ route('users.role') }}" method="GET">
-      <div class="w-full relative flex">
-        <select id="role" name="role"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option value="" {{ request('role') == '' ? 'selected' : '' }}>-- Pilih Role --</option>
-          @if (Auth::user()->role == 'superadmin')
-            <option value="Superadmin" {{ request('role') == 'Superadmin' ? 'selected' : '' }}>Superadmin</option>
-          @endif
-          <option value="Admin" {{ request('role') == 'Admin' ? 'selected' : '' }}>Admin</option>
-          <option value="User" {{ request('role') == 'User' ? 'selected' : '' }}>User</option>
-        </select>
-        <button
-          class="text-white bg-tvri_base_color hover:bg-tvri_base_color focus:outline-none focus:ring-tvri_base_color font-medium rounded-r-lg text-sm px-3 py-2"
-          type="submit">Cari</button>
-      </div>
-    </form>
+    @if (Auth::user()->role == 'superadmin')
+      <x-filter-user-by-role></x-filter-user-by-role>
+    @endif
 
-    <form class="flex items-center w-60 justify-center" action="{{ route('users.jabatan') }}" method="GET">
-      <div class="w-full relative flex">
-        <select id="jabatan" name="id"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option value="" {{ request('id') == '' ? 'selected' : '' }}>-- Pilih Jabatan --</option>
-          @foreach ($jabatan as $j)
-            <option value="{{ $j->id }}" {{ request('id') == $j->id ? 'selected' : '' }}>
-              {{ $j->jabatan }}
-            </option>
-          @endforeach
-        </select>
-        <button
-          class="text-white bg-tvri_base_color hover:bg-tvri_base_color focus:outline-none focus:ring-tvri_base_color font-medium rounded-r-lg text-sm px-3 py-2"
-          type="submit">Cari</button>
-      </div>
-    </form>
+    <x-filter-user-by-jabatan></x-filter-user-by-jabatan>
   </div>
 
 
   @if ($user->isEmpty())
-    <div class="flex flex-col p-3 ml-3">
-      <div class="flex items-center p-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-        role="alert">
-        <i class="fa-solid fa-circle-info mr-3"></i>
-        <span class="sr-only">Info</span>
-        <div>
-          <span class="font-bold">Info!</span> Tidak ada data
-        </div>
-      </div>
-    </div>
+    <x-empty-data></x-empty-data>
   @else
     <div class="flex flex-col p-3 ml-3">
       <div class="relative overflow-x-auto sm:rounded-lg border rounded-lg">
@@ -89,7 +52,7 @@
               <th scope="col" class="px-6 py-3 text-center">No.</th>
               <th scope="col" class="px-6 py-3 text-center">Kode User</th>
               <th scope="col" class="px-6 py-3 text-center">Nama Lengkap</th>
-              <th scope="col" class="px-6 py-3 text-center">Role</th>
+              {{ Auth::user()->role == 'superadmin' ? '<th scope="col" class="px-6 py-3 text-center">Role</th>' : '' }}
               <th scope="col" class="px-6 py-3 text-center">Jabatan</th>
               <th scope="col" class="px-6 py-3 text-center">Aksi</th>
             </tr>
@@ -103,12 +66,17 @@
                 </th>
                 <td class="px-6 py-4 text-center">{{ $row->kode_user }}</td>
                 <td class="px-6 py-4 text-center">{{ $row->nama_lengkap }}</td>
-                <td class="px-6 py-4 text-center">
-                  <span
-                    class="{{ $row->role == 'superadmin' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ($row->role == 'admin' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300') }} text-sm font-medium me-2 px-2.5 py-0.5 rounded">
-                    {{ $row->role == 'superadmin' ? 'Superadmin' : ($row->role == 'admin' ? 'Admin' : 'User') }}
-                  </span>
-                </td>
+
+                {{-- role user  --}}
+                @if (Auth::user()->role == 'superadmin')
+                  <td class="px-6 py-4 text-center">
+                    <span
+                      class="{{ $row->role == 'superadmin' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ($row->role == 'admin' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300') }} text-sm font-medium me-2 px-2.5 py-0.5 rounded">
+                      {{ $row->role == 'superadmin' ? 'Superadmin' : ($row->role == 'admin' ? 'Admin' : 'User') }}
+                    </span>
+                  </td>
+                @endif
+
                 <td class="px-6 py-4 text-center">{{ $row->jabatan->jabatan }}</td>
                 <td class="flex items-center px-6 py-4 justify-center space-x-2">
                   <a href="{{ route('users.show', $row->uuid) }}"
@@ -165,8 +133,7 @@
         <button type="button"
           class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
           data-modal-hide="delete-modal">
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-            viewBox="0 0 14 14">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
           </svg>

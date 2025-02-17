@@ -57,16 +57,7 @@
   </form>
 
   @if ($barang->isEmpty())
-    <div class="flex flex-col p-3 ml-3">
-      <div class="flex items-center p-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-        role="alert">
-        <i class="fa-solid fa-circle-info mr-3"></i>
-        <span class="sr-only">Info</span>
-        <div>
-          <span class="font-bold">Info!</span> Tidak ada data
-        </div>
-      </div>
-    </div>
+    <x-empty-data></x-empty-data>
   @endif
 
   {{-- card barang  --}}
@@ -111,6 +102,7 @@
                 class="inline-flex focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-2 py-1 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                 Detail
               </a>
+
 
 
               @if (Auth::user()->role == 'superadmin')

@@ -25,16 +25,7 @@
 
 
   @if ($peruntukan->isEmpty())
-    <div class="flex flex-col p-3 ml-3">
-      <div class="flex items-center p-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-        role="alert">
-        <i class="fa-solid fa-circle-info mr-3"></i>
-        <span class="sr-only">Info</span>
-        <div>
-          <span class="font-bold">Info!</span> Tidak ada data
-        </div>
-      </div>
-    </div>
+    <x-empty-data></x-empty-data>
   @else
     <div class="flex flex-col p-3 ml-3">
       <div class="relative overflow-x-auto sm:rounded-lg border rounded-lg">
@@ -100,6 +91,7 @@
               <div>
                 <label for="peruntukan" class="block text-sm font-medium text-gray-900">Peruntukan</label>
                 <input type="text" name="peruntukan" id="peruntukan" autocomplete="off"
+                  placeholder="Masukkan Peruntukan"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 mb-2" />
                 @error('peruntukan')
                   <small class="text-red-500 text-sm"> {{ $message }}</small>

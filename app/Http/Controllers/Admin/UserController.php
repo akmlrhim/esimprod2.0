@@ -31,7 +31,6 @@ class UserController extends Controller
 
 		$data = [
 			'title' => 'User',
-			'jabatan' => Jabatan::where('jabatan', '!=', 'Administrator')->get(),
 			'user' => $query->where('id', '!=', $currentUser->id)->paginate(10),
 			// 'user' => User::paginate(10)
 		];
