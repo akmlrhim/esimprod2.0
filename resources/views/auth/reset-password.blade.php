@@ -61,9 +61,6 @@
         </button>
       </form>
 
-      <div class="text-sm font-medium text-gray-500 dark:text-gray-300 mt-4">
-        <a href="{{ route('password') }}" class="text-blue-700 hover:underline dark:text-blue-500">Kembali?</a>
-      </div>
     </div>
   </div>
 @endsection

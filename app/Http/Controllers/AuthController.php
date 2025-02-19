@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -122,7 +123,13 @@ class AuthController extends Controller
 
 	public function forgotPasswordProcess(Request $request)
 	{
-		$request->validate(['email' => 'required|email|exists:users,email',]);
+		$request->validate([
+			'email' => [
+				'required',
+				'email',
+				Rule::in([Auth::user()->email])
+			],
+		]);
 
 		$status = Password::sendResetLink(
 			$request->only('email')

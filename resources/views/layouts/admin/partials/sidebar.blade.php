@@ -101,7 +101,7 @@
       </li>
 
       <div class="flex items-center my-2">
-        <small class="mx-2 text-white opacity-65">TAMBAHAN</small>
+        <small class="mx-2 text-white opacity-65">USER/TAMBAHAN</small>
         <hr class="h-px flex-grow bg-gray-200 border-0 opacity-20">
       </div>
 
