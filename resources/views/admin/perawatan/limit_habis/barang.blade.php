@@ -18,8 +18,6 @@
             {{ $b->jenisBarang->jenis_barang }}
           </span>
           <div class="p-5">
-            <div class="flex justify-between items-center">
-            </div>
             <p class="font-normal text-gray-700 dark:text-gray-400">
               <strong>{{ $b->nama_barang }}</strong>
             </p>

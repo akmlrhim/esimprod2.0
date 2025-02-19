@@ -9,7 +9,6 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="theme-color" content="#1E3164">
 
-  <link rel="stylesheet" href="{{ asset('css/output.css') }}">
 
   <link href="https://fonts.cdnfonts.com/css/avenir" rel="stylesheet">
 

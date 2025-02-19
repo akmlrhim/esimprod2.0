@@ -33,7 +33,10 @@
               aria-expanded="false" data-dropdown-toggle="user-dropdown">
               <span class="sr-only">Open user menu</span>
               <img class="w-8 h-8 rounded-full bg-white p-1"
-                src="{{ asset('storage/uploads/foto_user/' . Auth::user()->foto) }}" alt="user photo"> </button>
+                src="{{ Auth::user()->foto ? asset('storage/uploads/foto_user/' . Auth::user()->foto) : Avatar::create(Auth::user()->nama_lengkap)->toBase64() }}"
+                alt="User Avatar">
+
+            </button>
           </div>
           <div
             class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
@@ -44,11 +47,11 @@
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard
                 </a>
               </li>
-              <li>
+              {{-- <li>
                 <a href="{{ route('dashboard.settings') }}"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard
                   Settings</a>
-              </li>
+              </li> --}}
               <li>
                 <a href="{{ route('profil.index') }}"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</a>

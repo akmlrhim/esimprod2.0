@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::middleware('verified.password')->group(function () {
 
 		Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('role:superadmin,admin');
-		Route::get('/dashboard_settings', [DashboardController::class, 'settings'])->name('dashboard.settings')->middleware('role:superadmin,admin');
+		// Route::get('/dashboard_settings', [DashboardController::class, 'settings'])->name('dashboard.settings')->middleware('role:superadmin,admin');
 
 		Route::prefix('barang')->group(function () {
 			Route::middleware(['role:superadmin,admin'])->group(function () {

@@ -19,7 +19,8 @@
         <div>
           <label for="email" class="block text-sm font-medium text-gray-900 dark:text-white">Email</label>
           <input type="email" name="email" id="email" placeholder="Contoh. user@gmail.com" autocomplete="off"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            value="{{ old('email') }}" />
           @error('email')
             <small class="text-red-500 text-sm mt-1"> {{ $message }}</small>
           @enderror
@@ -30,6 +31,9 @@
           <div class="relative">
             <input type="password" name="password" id="password" placeholder="Masukkan Password" autocomplete="off"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
+            @error('password')
+              <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
+            @enderror
             <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
               onclick="togglePassword('password', 'eyeIcon')">
               <i id="eyeIcon" class="fas fa-eye text-gray-400 hover:text-blue-500"></i>

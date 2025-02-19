@@ -104,7 +104,7 @@ class UserController extends Controller
 			'nip' => $request->nip,
 			'role' => $request->role,
 			'qr_code' => $qrCodeFilename,
-			'foto' => 'default.jpeg',
+			'foto' => NULL,
 		]);
 
 		notify()->success('User Berhasil Ditambahkan');

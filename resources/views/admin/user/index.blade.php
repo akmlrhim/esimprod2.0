@@ -52,7 +52,9 @@
               <th scope="col" class="px-6 py-3 text-center">No.</th>
               <th scope="col" class="px-6 py-3 text-center">Kode User</th>
               <th scope="col" class="px-6 py-3 text-center">Nama Lengkap</th>
-              {{ Auth::user()->role == 'superadmin' ? '<th scope="col" class="px-6 py-3 text-center">Role</th>' : '' }}
+              @if (Auth::user()->role == 'superadmin')
+                <th scope="col" class="px-6 py-3 text-center">Role</th>
+              @endif
               <th scope="col" class="px-6 py-3 text-center">Jabatan</th>
               <th scope="col" class="px-6 py-3 text-center">Aksi</th>
             </tr>

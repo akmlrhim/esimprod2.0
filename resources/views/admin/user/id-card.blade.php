@@ -99,7 +99,9 @@
   <div class="id-card">
     <div class="content">
       <div class="photo">
-        <img src="{{ public_path('storage/uploads/foto_user/' . $user->foto) }}" alt="Foto Profil" />
+        <img
+          src="{{ $user->foto ? public_path('storage/uploads/foto_user/' . $user->foto) : public_path('storage/uploads/foto_user/default.jpeg') }}"
+          alt="Foto Profil" />
       </div>
       <div class="details">
         <div style="margin-top: 210px"></div>

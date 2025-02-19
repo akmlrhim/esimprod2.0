@@ -4,18 +4,11 @@
       <div class="flex items-center justify-start rtl:justify-end">
 
         {{-- Logo --}}
-        <a
-          href="/"
-          class="flex ms-2 md:me-24"
-        >
-          <img
-            src="{{ asset('img/assets/esimprod_logo.png') }}"
-            class="h-8 me-3 bg-blue-900 p-1 rounded-lg"
-            alt="ESIMPROD"
-          />
+        <a href="/" class="flex ms-2 md:me-24">
+          <img src="{{ asset('img/assets/esimprod_logo.png') }}" class="h-8 me-3 bg-blue-900 p-1 rounded-lg"
+            alt="ESIMPROD" />
           <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"> <small
-              class="text-xs font-thin text-white"
-            >Version 2.0</small></span>
+              class="text-xs font-thin text-white">Version 2.0</small></span>
         </a>
       </div>
     </div>
