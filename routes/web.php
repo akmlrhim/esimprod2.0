@@ -72,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
 				Route::post('store', [GuideBookController::class, 'store'])->name('buku-panduan.store');
 				Route::patch('used/{uuid}', [GuideBookController::class, 'used'])->name('buku-panduan.used');
 				Route::patch('unused/{uuid}', [GuideBookController::class, 'unused'])->name('buku-panduan.unused');
+				Route::get('download', [GuideBookController::class, 'download'])->name('buku-panduan.download');
 			});
 
 			Route::prefix('jenis-barang')->group(function () {

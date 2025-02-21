@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Exception;
 use App\Models\Barang;
+use App\Models\GuideBook;
 use App\Models\Peminjaman;
 use Illuminate\Support\Str;
 use App\Models\Pengembalian;
@@ -16,13 +17,20 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+use function Laravel\Prompts\alert;
+
 class PengembalianController extends Controller
 {
 	public function index()
 	{
 		if (!session()->has('kodePeminjaman')) {
+			alert('Masukkan Kode Peminjaman Terlebih Dahulu');
 			return redirect()->route('user.option');
 		}
+
+		$file = GuideBook::where('status', 'used')
+			->latest()
+			->first();
 
 		$kodePeminjaman = session('kodePeminjaman');
 		$detailpeminjaman = DetailPeminjaman::where('kode_peminjaman', $kodePeminjaman)->get();
@@ -52,7 +60,7 @@ class PengembalianController extends Controller
 		];
 		session()->put('dataPeminjaman', $dataPeminjaman);
 		session()->put('BarangData', $barang);
-		return view('user.pengembalian.index', compact('peminjaman', 'barang'));
+		return view('user.pengembalian.index', compact('peminjaman', 'barang', 'file'));
 	}
 
 	public function checkPeminjaman(Request $request)
@@ -199,7 +207,7 @@ class PengembalianController extends Controller
 
 				if ($dataBarangKembali) {
 					$barangKembali[] = [
-            'uuid' => $detail->uuid,
+						'uuid' => $detail->uuid,
 						'nama_barang' => $dataBarangKembali->nama_barang,
 						'merk' => $dataBarangKembali->merk,
 						'nomor_seri' => $dataBarangKembali->nomor_seri,

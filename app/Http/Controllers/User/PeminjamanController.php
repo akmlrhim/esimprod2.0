@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Models\User;
 use App\Models\Barang;
 use App\Models\Catatan;
+use App\Models\GuideBook;
 use App\Models\Peminjaman;
 use App\Models\Peruntukan;
 use Illuminate\Support\Str;
@@ -17,16 +18,20 @@ use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use App\Notifications\PeminjamanNotification;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\PeminjamanNotification;
 
 class PeminjamanController extends Controller
 {
 	public function index()
 	{
+		$file = GuideBook::where('status', 'used')
+			->latest()
+			->first();
+
 		$peruntukanData = Peruntukan::all();
 		$borrowedItems = session()->get('borrowed_items', []);
-		return view('user.peminjaman.index', compact('borrowedItems', 'peruntukanData'));
+		return view('user.peminjaman.index', compact('borrowedItems', 'peruntukanData', 'file'));
 	}
 
 	public function scan(Request $request)

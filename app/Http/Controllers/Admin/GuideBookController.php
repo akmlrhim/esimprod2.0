@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\GuideBook;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class GuideBookController extends Controller
 {
@@ -49,12 +50,9 @@ class GuideBookController extends Controller
 
 	public function unused(string $uuid)
 	{
-		$guidebook = GuideBook::where('uuid', $uuid)->firstOrFail();
-		if ($guidebook) {
-			$guidebook->update([
-				'status' => 'unused'
-			]);
-		}
+		GuideBook::where('uuid', $uuid)
+			->firstOrFail()
+			->update('status', 'unused');
 
 		notify()->warning('Guidebook tidak digunakan !');
 		return redirect()->back();
@@ -62,12 +60,9 @@ class GuideBookController extends Controller
 
 	public function used(string $uuid)
 	{
-		$guidebook = GuideBook::where('uuid', $uuid)->firstOrFail();
-		if ($guidebook) {
-			$guidebook->update([
-				'status' => 'used'
-			]);
-		}
+		GuideBook::where('uuid', $uuid)
+			->firstOrFail()
+			->update('status', 'used');
 
 		notify()->success('Guidebook digunakan !');
 		return redirect()->back();

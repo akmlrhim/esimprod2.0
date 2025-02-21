@@ -72,13 +72,13 @@
           </a>
           <a href="{{ route('barang.jenis-barang', $b->jenisBarang->uuid) }}"
             class="absolute top-3 left-3 bg-tvri_base_color text-white text-xs font-semibold px-2 py-0.5 rounded-full">
-            {!! $b->jenisBarang->jenis_barang !!}
+            {{ $b->jenisBarang->jenis_barang }}
           </a>
           <div class="p-5">
             <div class="flex justify-between items-center">
             </div>
             <p class="font-normal text-gray-700 dark:text-gray-400">
-              <strong>{!! $b->nama_barang !!}</strong>
+              <strong>{{ $b->nama_barang }}</strong>
             </p>
             <p class="font-normal text-gray-700 dark:text-gray-400">
               <strong>Sisa Limit : </strong> {{ $b->sisa_limit }}
