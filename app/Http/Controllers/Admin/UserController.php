@@ -44,9 +44,7 @@ class UserController extends Controller
 	public function create()
 	{
 		$title = 'Tambah User';
-		$jabatan = Jabatan::select('id', 'jabatan')
-			->where('jabatan', '!=', 'Administrator')
-			->get();
+		$jabatan = Jabatan::where('jabatan', '!=', 'Administrator')->get();
 
 		return view('admin.user.create', compact('title', 'jabatan'));
 	}

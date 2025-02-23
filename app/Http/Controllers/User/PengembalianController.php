@@ -24,8 +24,8 @@ class PengembalianController extends Controller
 	public function index()
 	{
 		if (!session()->has('kodePeminjaman')) {
-			alert('Masukkan Kode Peminjaman Terlebih Dahulu');
-			return redirect()->route('user.option');
+			return redirect()->back()
+				->with('error', 'Masukkan kode peminjaman terlebih dahulu');
 		}
 
 		$file = GuideBook::where('status', 'used')

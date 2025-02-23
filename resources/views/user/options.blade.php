@@ -101,7 +101,6 @@
     @csrf
   </form>
 
-
   <section
     class="flex flex-1 justify-center items-center sm:justify-start sm:items-start pt-10 bg-transparent lg:mt-16">
     <div class="lg:ml-32 md:ml-16 sm:ml-8 px-4 w-full lg:w-auto">
@@ -174,6 +173,12 @@
 
   @notifyJs
 </body>
+
+@if (session('error'))
+  <script>
+    alert("{{ session('error') }}");
+  </script>
+@endif
 
 <script>
   window.onLoad = function() {

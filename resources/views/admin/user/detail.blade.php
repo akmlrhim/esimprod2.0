@@ -74,10 +74,12 @@
       <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="gambar" role="tabpanel"
         aria-labelledby="gambar-tab">
         <figure class="flex flex-col items-center justify-center max-w-lg mx-auto">
-          <img class="h-auto w-64 rounded-lg shadow-md" src="{{ asset('storage/uploads/foto_user/' . $user->foto) }}"
-            alt="image description">
+          <img class="h-auto w-64 rounded-lg shadow-md"
+            src=" {{ $user->foto ? asset('storage/uploads/foto_user/' . $user->foto) : Avatar::create($user->nama_lengkap)->toBase64() }}"
+            alt="{{ $user->nama_lengkap }}">
         </figure>
       </div>
+
 
       <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="qrcode" role="tabpanel"
         aria-labelledby="qrcode-tab">
