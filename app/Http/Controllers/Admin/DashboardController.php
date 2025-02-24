@@ -40,8 +40,8 @@ class DashboardController extends Controller
 		$data['peminjaman_proses'] = Peminjaman::where('status', 'Proses')->count();
 		$data['peminjaman_selesai'] = Peminjaman::where('status', 'Selesai')->count();
 		$data['pengembalian'] = Pengembalian::count();
-		$data['pengembalian_incomplete'] = Pengembalian::where('status', 'Tidak Lengkap')->count();
-		$data['pengembalian_complete'] = Pengembalian::where('status', 'Lengkap')->count();
+		$data['pengembalian_incomplete'] = Pengembalian::where('status', 'Tidak Lengkap')->groupBy('kode_peminjaman')->count();
+		$data['pengembalian_complete'] = Pengembalian::where('status', 'Lengkap')->groupBy('kode_peminjaman')->count();
 
 		return view('admin.dashboard.index', $data);
 	}

@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade\Pdf as Pdf;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Intervention\Image\Laravel\Facades\Image;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 

@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-use function Laravel\Prompts\alert;
 
 class PengembalianController extends Controller
 {
 	public function index()
 	{
+
+		// jika tidak memasukkan kode peminjaman terlebih dahulu maka ada alert error 
 		if (!session()->has('kodePeminjaman')) {
 			return redirect()->back()
 				->with('error', 'Masukkan kode peminjaman terlebih dahulu');
@@ -72,6 +73,24 @@ class PengembalianController extends Controller
 		// Cari kode peminjaman di database
 		$peminjaman = Peminjaman::where('kode_peminjaman', $request->code)->first();
 
+		if (!$peminjaman) {
+			return response()->json([
+				'success' => false,
+				'message' => 'Kode tidak ditemukan.'
+			], 404);
+		}
+
+		$pengembalian = Pengembalian::where('kode_peminjaman', $peminjaman->kode_peminjaman)
+			->where('status', 'Lengkap')
+			->exists();
+
+		if ($peminjaman->status == 'Selesai' && $pengembalian) {
+			return response()->json([
+				'success' => false,
+				'message' => 'Peminjaman sudah selesai dan semua barang telah dikembalikan.'
+			], 400);
+		}
+
 		if ($peminjaman) {
 			session()->put('kodePeminjaman', $peminjaman->kode_peminjaman);
 			return response()->json([
@@ -79,11 +98,6 @@ class PengembalianController extends Controller
 				'message' => ' silakan lakukan pengembalian.',
 			], 200);
 		}
-		// Response jika kode tidak ditemukan
-		return response()->json([
-			'success' => false,
-			'message' => 'Kode tidak ditemukan.'
-		], 404);
 	}
 
 	public function store(Request $request)

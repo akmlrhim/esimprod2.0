@@ -15,7 +15,8 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="dark:bg-gray-900 antialiased bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 overflow-auto">
+<body class="dark:bg-gray-900 antialiased overflow-auto"
+  style="background: url({{ asset('img/assets/template-auth.jpg') }})">
   <nav class="fixed top-0 z-50 w-full dark:bg-gray-800 dark:border-gray-700 font-sans">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
       <div class="flex items-center justify-between">
@@ -34,7 +35,8 @@
               class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
               aria-expanded="false" data-dropdown-toggle="dropdown-user">
               <span class="sr-only">Open user menu</span>
-              <img class="w-8 h-8 rounded-full" src="{{ asset('storage/uploads/foto_user/' . Auth::user()->foto) }}"
+              <img class="w-8 h-8 rounded-full"
+                src="{{ Auth::user()->foto ? asset('storage/uploads/foto_user/' . Auth::user()->foto) : Avatar::create(Auth::user()->nama_lengkap)->toBase64() }}"
                 alt="user photo">
             </button>
           </div>

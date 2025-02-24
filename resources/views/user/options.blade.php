@@ -17,6 +17,7 @@
 
 <body
   class="bg-cover bg-center bg-[url('../../public/img/assets/option-bg-1.png')] bg-opacity-40 bg-blend-multiply flex flex-col min-h-screen">
+
   <div id="toast-success"
     class="hidden flex items-center fixed top-9 right-14 w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
     role="alert">
@@ -40,6 +41,7 @@
       </svg>
     </button>
   </div>
+
   {{-- Navbar --}}
   <nav class="fixed top-0 z-50 w-full dark:bg-gray-800 dark:border-gray-700 font-sans">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
