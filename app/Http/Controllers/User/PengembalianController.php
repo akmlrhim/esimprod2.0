@@ -25,8 +25,8 @@ class PengembalianController extends Controller
 
 		// jika tidak memasukkan kode peminjaman terlebih dahulu maka ada alert error 
 		if (!session()->has('kodePeminjaman')) {
-			return redirect()->back()
-				->with('error', 'Masukkan kode peminjaman terlebih dahulu');
+			notify()->error('Anda belum memasukkan kode peminjaman');
+			return redirect()->back();
 		}
 
 		$file = GuideBook::where('status', 'used')
@@ -93,6 +93,7 @@ class PengembalianController extends Controller
 
 		if ($peminjaman) {
 			session()->put('kodePeminjaman', $peminjaman->kode_peminjaman);
+			// notify()->success('Kode peminjaman ditemukan');
 			return response()->json([
 				'success' => true,
 				'message' => ' silakan lakukan pengembalian.',
