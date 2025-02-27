@@ -112,8 +112,8 @@ class PeminjamanController extends Controller
 
 		$kd_peminjaman = "PMB-" . time();
 
-		$qrCode = QrCode::format('png')->size(200)->generate($kd_peminjaman);
-		$qrCodeFilename = time() . '_qr.png';
+		$qrCode = QrCode::format('svg')->size(200)->generate($kd_peminjaman);
+		$qrCodeFilename = time() . '_qr.svg';
 		Storage::disk('public')->put('uploads/qr_codes_peminjaman/' . $qrCodeFilename, $qrCode);
 
 		try {

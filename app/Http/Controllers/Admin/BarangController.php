@@ -66,10 +66,9 @@ class BarangController extends Controller
 			'limit.numeric' => 'Limit harus berupa angka.',
 			'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
 		]);
-
 		$kode_barang = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 12);
-		$qrCode = QrCode::format('png')->size(200)->generate($kode_barang);
-		$qrCodeFileName = time() . '_qr.png';
+		$qrCode = QrCode::format('svg')->size(200)->generate($kode_barang);
+		$qrCodeFileName = time() . '_qr.svg';
 		Storage::disk('public')->put('uploads/qr_codes_barang/' . $qrCodeFileName, $qrCode);
 
 		if ($request->hasFile('foto')) {

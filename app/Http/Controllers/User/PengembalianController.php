@@ -22,7 +22,6 @@ class PengembalianController extends Controller
 {
 	public function index()
 	{
-
 		// jika tidak memasukkan kode peminjaman terlebih dahulu maka ada alert error 
 		if (!session()->has('kodePeminjaman')) {
 			notify()->error('Anda belum memasukkan kode peminjaman');
