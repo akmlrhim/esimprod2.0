@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class JenisBarang extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'jenis_barang';
+	protected $table = 'jenis_barang';
 
-    protected $fillable = [
-        'uuid',
-        'jenis_barang',
-    ];
+	protected $fillable = [
+		'uuid',
+		'jenis_barang',
+	];
 
-    public function barang(): HasMany
-    {
-        return $this->hasMany(Barang::class);
-    }
+	public function barang(): HasMany
+	{
+		return $this->hasMany(Barang::class);
+	}
 }

@@ -23,6 +23,7 @@ use App\Notifications\PeminjamanNotification;
 
 class PeminjamanController extends Controller
 {
+
 	public function index()
 	{
 		$file = GuideBook::where('status', 'used')
