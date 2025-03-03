@@ -30,7 +30,7 @@ class BarangController extends Controller
 		return view('admin.barang.index', $data);
 	}
 
-	/**
+	/**g
 	 * Show the form for creating a new resource.
 	 */
 	public function create()
