@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Jabatan extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'jabatan';
+	protected $table = 'jabatan';
 
-    protected $fillable = [
-        'uuid',
-        'jabatan',
-    ];
+	protected $fillable = [
+		'uuid',
+		'jabatan',
+	];
 
-    public function user(): HasMany
-    {
-        return $this->hasMany(User::class);
-    }
+	public function user(): HasMany
+	{
+		return $this->hasMany(User::class);
+	}
 }

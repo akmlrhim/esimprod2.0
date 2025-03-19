@@ -82,8 +82,8 @@ class UserController extends Controller
 		);
 
 		$kode_user = 'USR' . random_int(1, 999999);
-		$qrCode = QrCode::format('png')->size(200)->generate($kode_user);
-		$qrCodeFilename = time() . '_qr.png';
+		$qrCode = QrCode::format('svg')->size(200)->generate($kode_user);
+		$qrCodeFilename = time() . '_qr.svg';
 		Storage::disk('public')->put('uploads/qr_codes_user/' . $qrCodeFilename, $qrCode);
 
 
