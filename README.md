@@ -14,7 +14,7 @@
 ### 1️⃣ Clone Repository
 
 ```sh
-git clone https://github.com/username/repository.git
+git clone https://github.com/akmlrhim/esimprod2.0.git
 cd repository
 ```
 
