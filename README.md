@@ -55,19 +55,16 @@ php artisan serve
 
 Akses aplikasi di `http://127.0.0.1:8000`
 
-## 🛠 Additional Commands
+## 🛠 Panduan perbaruan fitur dalam aplikasi
 
-### Running Queue (jika menggunakan jobs)
+### Buat remote ke repository
 
 ```sh
-php artisan queue:work
+git remote add origin https://github.com/akmlrhim/esimprod2.0.git
 ```
 
-### Clearing Cache
+### Pull semua pembaruan kode program
 
 ```sh
-php artisan cache:clear
-php artisan config:clear
-php artisan route:clear
-php artisan view:clear
+git pull origin main
 ```
