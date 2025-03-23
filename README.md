@@ -53,8 +53,6 @@ Jika ingin menjalankan seeder, tambahkan `--seed`.
 php artisan serve
 ```
 
-# buka satu terminal dan jalankan
-
 ```sh
 npm run dev
 ```
