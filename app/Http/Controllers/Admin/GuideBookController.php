@@ -52,7 +52,7 @@ class GuideBookController extends Controller
 	{
 		GuideBook::where('uuid', $uuid)
 			->firstOrFail()
-			->update('status', 'unused');
+			->update(['status' => 'unused']);
 
 		notify()->warning('Guidebook tidak digunakan !');
 		return redirect()->back();
@@ -62,7 +62,7 @@ class GuideBookController extends Controller
 	{
 		GuideBook::where('uuid', $uuid)
 			->firstOrFail()
-			->update('status', 'used');
+			->update(['status' => 'used']);
 
 		notify()->success('Guidebook digunakan !');
 		return redirect()->back();

@@ -86,7 +86,6 @@ class UserController extends Controller
 		$qrCodeFilename = time() . '_qr.svg';
 		Storage::disk('public')->put('uploads/qr_codes_user/' . $qrCodeFilename, $qrCode);
 
-
 		$password = in_array($request->role, ['admin', 'superadmin'])
 			? Hash::make($request->password)
 			: null;
