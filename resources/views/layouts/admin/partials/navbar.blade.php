@@ -22,9 +22,7 @@
           <span class="self-center text-xl font-semibold whitespace-nowrap text-white"> <small
               class="text-xs font-bold">Version 2.0</small></span>
         </a>
-
       </div>
-
       <div class="flex items-center">
         <div class="flex items-center ms-3">
           <div class="mr-3">
