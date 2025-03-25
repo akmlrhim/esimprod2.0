@@ -7,18 +7,19 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class JabatanController extends Controller
 {
 	public function index()
 	{
-		$data = [
-			'title' => 'Jabatan',
-			'jabatan' => Jabatan::where('jabatan', '!=', 'Administrator')->paginate(5)
-		];
+		$title = 'Jabatan';
+		$jabatan = DB::table('jabatan')
+			->where('jabatan', '!=', 'Administrator')
+			->paginate(5);
 
-		return view('admin.jabatan.index', $data);
+		return view('admin.jabatan.index', compact('title', 'jabatan'));
 	}
 
 	public function store(Request $request)
@@ -58,7 +59,12 @@ class JabatanController extends Controller
 		]);
 
 		if ($validator->fails()) {
-			return response()->json(['success' => false, 'errors' => $validator->errors()]);
+			return response()->json(
+				[
+					'success' => false,
+					'errors' => $validator->errors()
+				]
+			);
 		}
 
 		$data = $request->except(['_token', '_method']);
