@@ -27,7 +27,7 @@
 
   @include('layouts.admin.partials.navbar')
 
-  @include('layouts.admin.partials.validation')
+  <x-validation></x-validation>
 
   @include('layouts.admin.partials.sidebar')
 

@@ -3,7 +3,6 @@
     <div class="text-3xl font-bold text-tvri_base_color dark:text-white mb-2 md:mb-0">
       {{ $title }}
     </div>
-
     <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse text-gray-700 dark:text-gray-400">
       <li class="inline-flex items-center">
         <a href="{{ route('dashboard.index') }}"

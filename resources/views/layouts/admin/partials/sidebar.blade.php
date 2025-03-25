@@ -104,7 +104,6 @@
         <small class="mx-2 text-white opacity-65">USER/TAMBAHAN</small>
         <hr class="h-px flex-grow bg-gray-200 border-0 opacity-20">
       </div>
-
       <li>
         <a href="{{ route('users.index') }}"
           class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 hover:text-tvri_base_color dark:hover:bg-gray-700 group">
