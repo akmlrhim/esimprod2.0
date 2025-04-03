@@ -53,7 +53,7 @@ class PerawatanController extends Controller
 	public function barangHilang()
 	{
 		$data = [
-			'title' => 'Barang Hilang',
+			'title' => 'Barang belum dikembalikan',
 			'barang' => Barang::where('status', 'tidak-tersedia')
 				->whereHas('detail_pengembalian', function ($query) {
 					$query->where('status', 'hilang');
