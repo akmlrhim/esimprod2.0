@@ -15,7 +15,7 @@ return new class extends Migration
 			$table->id();
 			$table->unsignedBigInteger('id_user');
 			$table->timestamp('waktu_login');
-			$table->string('gambar', 2048)->nullable();
+			$table->string('gambar', 50)->nullable();
 
 			$table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 			$table->timestamps();

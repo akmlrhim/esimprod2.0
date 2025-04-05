@@ -50,28 +50,28 @@ class PerawatanController extends Controller
 		return view('admin.perawatan.limit_habis.detail', $data);
 	}
 
-	public function barangHilang()
+	public function belumDikembalikan()
 	{
 		$data = [
-			'title' => 'Barang belum dikembalikan',
+			'title' => 'Belum dikembalikan',
 			'barang' => Barang::where('status', 'tidak-tersedia')
 				->whereHas('detail_pengembalian', function ($query) {
-					$query->where('status', 'hilang');
+					$query->where('status', 'belum_dikembalikan');
 				})
 				->paginate(10),
 		];
 
-		return view('admin.perawatan.barang_hilang.barang', $data);
+		return view('admin.perawatan.belum_dikembalikan.barang', $data);
 	}
 
-	public function detailBarangHilang(string $uuid)
+	public function detailBelumDikembalikan(string $uuid)
 	{
 		$data = [
 			'title' => 'Detail Barang',
 			'barang' => Barang::where('uuid', $uuid)->first(),
 		];
 
-		return view('admin.perawatan.barang_hilang.detail', $data);
+		return view('admin.perawatan.belum_dikembalikan.detail', $data);
 	}
 
 	public function ubahStatus(string $uuid)
@@ -80,7 +80,8 @@ class PerawatanController extends Controller
 		if ($barang) {
 
 			$barang->update([
-				'sisa_limit' => 0
+				'sisa_limit' => 0,
+				'status' => 'tersedia'
 			]);
 
 			notify()->success('Status diubah menjadi Tersedia');

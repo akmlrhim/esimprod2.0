@@ -93,7 +93,7 @@
               Limit Habis</a>
           </li>
           <li>
-            <a href="{{ route('perawatan.barang.hilang.index') }}"
+            <a href="{{ route('perawatan.barang-belum-dikembalikan.index') }}"
               class="flex items-center w-full text-sm p-1 text-white transition duration-75 rounded-lg pl-9 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700  hover:text-tvri_base_color">
               Barang belum dikembalikan</a>
           </li>

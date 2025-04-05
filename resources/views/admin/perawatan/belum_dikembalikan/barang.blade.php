@@ -41,7 +41,7 @@
               @endif
             </p>
             <div class="mt-3">
-              <a href="{{ route('perawatan.barang.hilang.detail', $b->uuid) }}" title="Detail"
+              <a href="{{ route('perawatan.barang-belum-dikembalikan.detail', $b->uuid) }}" title="Detail"
                 class="inline-flex focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 me-0.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                 <i class="fa-solid fa-circle-info"></i>
               </a>

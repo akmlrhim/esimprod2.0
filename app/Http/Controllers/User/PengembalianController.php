@@ -133,7 +133,7 @@ class PengembalianController extends Controller
 
 			// Simpan data DetailPengembalian
 			foreach ($valData as $item) {
-				$status = $item['isChecked'] ? $item['condition'] : 'hilang';
+				$status = $item['isChecked'] ? $item['condition'] : 'belum_dikembalikan';
 				$deskripsi = $item['isChecked'] ? 'Barang Telah Dikembalikan' : null;
 
 				DetailPengembalian::create([
@@ -216,7 +216,7 @@ class PengembalianController extends Controller
 		$barangHilang = [];
 
 		foreach ($detailPengembalian as $detail) {
-			if ($detail->status != 'hilang') {
+			if ($detail->status != 'belum_dikembalikan') {
 				$dataBarangKembali = Barang::where('kode_barang', $detail->kode_barang)->first();
 
 				if ($dataBarangKembali) {
@@ -230,7 +230,7 @@ class PengembalianController extends Controller
 				}
 			}
 
-			if ($detail->status == 'hilang') {
+			if ($detail->status == 'belum_dikembalikan') {
 				$dataBarangHilang = Barang::where('kode_barang', $detail->kode_barang)->first();
 
 				if ($dataBarangHilang) {
@@ -288,7 +288,7 @@ class PengembalianController extends Controller
 		$barangHilang = [];
 
 		foreach ($detailPengembalian as $detail) {
-			if ($detail->status != 'hilang') {
+			if ($detail->status != 'belum_dikembalikan') {
 				$dataBarangKembali = Barang::where('kode_barang', $detail->kode_barang)->first();
 
 				if ($dataBarangKembali) {
@@ -301,7 +301,7 @@ class PengembalianController extends Controller
 				}
 			}
 
-			if ($detail->status == 'hilang') {
+			if ($detail->status == 'belum_dikembalikan') {
 				$dataBarangHilang = Barang::where('kode_barang', $detail->kode_barang)->first();
 
 				if ($dataBarangHilang) {

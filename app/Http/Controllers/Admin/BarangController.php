@@ -37,7 +37,7 @@ class BarangController extends Controller
 	{
 		$data = [
 			'title' => 'Tambah Barang',
-			'jenis_barang' => JenisBarang::all()
+			'jenis_barang' => JenisBarang::get()
 		];
 
 		return view('admin.barang.create', $data);
@@ -111,7 +111,7 @@ class BarangController extends Controller
 	{
 		$data = [
 			'title' => 'Detail Barang',
-			'barang' => Barang::where('uuid', $uuid)->first(),
+			'barang' => Barang::where('uuid', $uuid)->firstOrFail(),
 		];
 
 		return view('admin.barang.detail', $data);
