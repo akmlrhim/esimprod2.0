@@ -75,7 +75,7 @@
         aria-labelledby="gambar-tab">
         <figure class="flex flex-col items-center justify-center max-w-lg mx-auto">
           <img class="h-auto w-64 rounded-lg shadow-md"
-            src=" {{ $user->foto ? asset('storage/uploads/foto_user/' . $user->foto) : Avatar::create($user->nama_lengkap)->toBase64() }}"
+            src=" {{ $user->foto ? asset('storage/uploads/foto_user/' . $user->foto) : asset('storage/uploads/foto_user/default.jpeg') }}"
             alt="{{ $user->nama_lengkap }}">
         </figure>
       </div>

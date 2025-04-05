@@ -26,13 +26,13 @@ class DashboardController extends Controller
 
 		$data['barang_hilang'] = Barang::where('status', 'tidak-tersedia')
 			->whereHas('detail_pengembalian', function ($query) {
-				$query->where('status', 'hilang');
+				$query->where('status', 'belum_dikembalikan');
 			})->count();
 
 		$data['barang_tidak_tersedia'] = Barang::where('status', 'tidak-tersedia')
 			->where('sisa_limit', 0)
 			->whereHas('detail_pengembalian', function ($query) {
-				$query->where('status', '!=', 'hilang');
+				$query->where('status', '!=', 'belum_dikembalikan');
 			})->count();
 
 
