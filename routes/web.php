@@ -45,16 +45,16 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::prefix('barang')->group(function () {
 			Route::middleware(['role:superadmin,admin'])->group(function () {
-				Route::get('/', [BarangController::class, 'index'])->name('barang.index');
-				Route::get('/tambah', [BarangController::class, 'create'])->name('barang.create');
-				Route::post('/store', [BarangController::class, 'store'])->name('barang.store');
-				Route::get('/detail/{uuid}', [BarangController::class, 'show'])->name('barang.show');
-				Route::get('/print-barang', [BarangController::class, 'printBarang'])->name('barang.print-barang');
-				Route::get('/print-qrcode', [BarangController::class, 'printQrCode'])->name('barang.print-qrcode');
-				Route::get('/result', [BarangController::class, 'search'])->name('barang.search');
-				Route::get('jenis-barang/{jenisBarang:uuid}', [BarangController::class, 'jenisBarang'])->name('barang.jenis-barang');
-				Route::get('/export', [BarangController::class, 'export'])->name('barang.export');
+				Route::get('', [BarangController::class, 'index'])->name('barang.index');
+				Route::get('tambah', [BarangController::class, 'create'])->name('barang.create');
+				Route::post('store', [BarangController::class, 'store'])->name('barang.store');
+				Route::get('detail/{uuid}', [BarangController::class, 'show'])->name('barang.show');
+				Route::get('print-barang', [BarangController::class, 'printBarang'])->name('barang.print-barang');
+				Route::get('print-qrcode', [BarangController::class, 'printQrCode'])->name('barang.print-qrcode');
+				Route::get('result', [BarangController::class, 'search'])->name('barang.search');
+				Route::get('export', [BarangController::class, 'export'])->name('barang.export');
 				Route::post('import', [BarangController::class, 'import'])->name('barang.import');
+				Route::get('type', [BarangController::class, 'filterByJenisBarang'])->name('barang.jenis-barang');
 			});
 
 			Route::middleware('role:superadmin')->group(function () {
@@ -148,8 +148,8 @@ Route::middleware(['auth'])->group(function () {
 			Route::prefix('perawatan')->group(function () {
 				Route::get('/limit-habis', [PerawatanController::class, 'limitHabis'])->name('perawatan.limit.habis.index');
 				Route::get('/barang-limit-habis/{uuid}', [PerawatanController::class, 'detailBarangHabis'])->name('perawatan.limit.habis.detail');
-				Route::get('/barang-hilang', [PerawatanController::class, 'belumDikembalikan'])->name('perawatan.barang-belum-dikembalikan.index');
-				Route::get('/barang-hilang/{uuid}', [PerawatanController::class, 'detailBelumDikembalikan'])->name('perawatan.barang-belum-dikembalikan.detail');
+				Route::get('/barang-belum-dikembalikan', [PerawatanController::class, 'belumDikembalikan'])->name('perawatan.barang-belum-dikembalikan.index');
+				Route::get('/barang-belum-dikembalikan/{uuid}', [PerawatanController::class, 'detailBelumDikembalikan'])->name('perawatan.barang-belum-dikembalikan.detail');
 				Route::put('/reset-limit/{uuid}', [PerawatanController::class, 'resetLimit'])->name('perawatan.reset-limit');
 				Route::put('/ubah-status/{uuid}', [PerawatanController::class, 'ubahStatus'])->name('perawatan.ubah.status');
 			});

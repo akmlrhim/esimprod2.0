@@ -1,9 +1,11 @@
 {
-    "poppins": {
-        "normal": "D:\\laragon\\www\\esimprod2.0\\storage\\fonts\/poppins_normal_16246dd83ca984bde432c3105fd17106",
-        "bold": "poppins_bold_4cadf6c0f28a4479bc567abeb52d2a1f"
+    "montserrat-bold": {
+        "bold": "montserrat_bold_bold_bfb509b7db08b298a3caad6b8bcb5aa6"
     },
-    "poppinsregular": {
-        "normal": "poppinsregular_normal_16246dd83ca984bde432c3105fd17106"
+    "montserrat-medium": {
+        "normal": "montserrat_medium_normal_b76430a56f8069c0e79c1b1e94e81fe9"
+    },
+    "montserrat-regular": {
+        "bold": "montserrat_regular_bold_d3cc59e6aafd8fe2952309e1ee51c590"
     }
 }

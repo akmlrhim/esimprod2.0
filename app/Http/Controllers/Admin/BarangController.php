@@ -256,15 +256,12 @@ class BarangController extends Controller
 		return view('admin.barang.index', $data);
 	}
 
-	public function jenisBarang(JenisBarang $jenisBarang)
+	public function filterByJenisBarang(Request $request)
 	{
-		$barang = $jenisBarang->barang()->with('jenisBarang')->paginate(5);
+		$title = 'Barang';
+		$jenisBarangId = $request->jenis_barang_id;
+		$barang = Barang::where('jenis_barang_id', $jenisBarangId)->paginate(10);
 
-		$data = [
-			'title' => 'Jenis Barang : ' . $jenisBarang->jenis_barang,
-			'barang' => $barang,
-			'count' => $barang->count()
-		];
-		return view('admin.barang.index', $data);
+		return view('admin.barang.index', compact('title', 'barang'));
 	}
 }

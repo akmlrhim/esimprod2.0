@@ -85,7 +85,7 @@ class PerawatanController extends Controller
 			]);
 
 			notify()->success('Status diubah menjadi Tersedia');
-			return redirect()->route('perawatan.barang.hilang.index');
+			return redirect()->route('perawatan.barang-belum-dikembalikan.index');
 		}
 	}
 }

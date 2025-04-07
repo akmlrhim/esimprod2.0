@@ -260,7 +260,7 @@ class UserController extends Controller
 		$data = [
 			'title' => 'User',
 			'user' => $user,
-			'jabatan' => Jabatan::get(),
+			'jabatan' => Jabatan::select('id', 'jabatan')->get(),
 		];
 
 		return view('admin.user.index', $data);
