@@ -36,7 +36,7 @@
               aria-expanded="false" data-dropdown-toggle="dropdown-user">
               <span class="sr-only">Open user menu</span>
               <img class="w-8 h-8 rounded-full"
-                src="{{ Auth::user()->foto ? asset('storage/uploads/foto_user/' . Auth::user()->foto) : Avatar::create(Auth::user()->nama_lengkap)->toBase64() }}"
+                src="{{ Auth::user()->foto ? asset('storage/uploads/foto_user/' . Auth::user()->foto) : asset('storage/uploads/foto_user/default.jpeg') }}"
                 alt="user photo">
             </button>
           </div>
