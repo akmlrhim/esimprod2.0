@@ -72,13 +72,3 @@ git remote add origin https://github.com/akmlrhim/esimprod2.0.git
 ```sh
 git pull origin main
 ```
-
-### jika terjadi error dalam pull
-
-```sh
-git fetch origin/main
-```
-
-```sh
-git reset --hard origin/main
-```
