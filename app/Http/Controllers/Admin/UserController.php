@@ -32,7 +32,7 @@ class UserController extends Controller
 		$data = [
 			'title' => 'User',
 			'user' => $query->where('id', '!=', $currentUser->id)->paginate(10),
-			// 'user' => User::paginate(10)
+			// 'user' => User::paginate(10)1
 		];
 
 		return view('admin.user.index', $data);
@@ -90,6 +90,20 @@ class UserController extends Controller
 			? Hash::make($request->password)
 			: null;
 
+		if ($request->hasFile('foto')) {
+			$file = $request->file('foto');
+			$filename = time() . '.' . $file->getClientOriginalExtension();
+
+			// kompress foto 
+			$manager = new ImageManager(new Driver());
+			$image = $manager->read($file)->encodeByExtension(extension: $file->getClientOriginalExtension(), quality: 10);
+
+			Storage::disk('public')->put('uploads/foto_user/' . $filename, $image);
+			$data['foto'] = $filename;
+		} else {
+			$data['foto'] = 'default.jpg';
+		}
+
 		User::create([
 			'uuid' => Str::uuid(),
 			'kode_user' => $kode_user,
@@ -101,7 +115,7 @@ class UserController extends Controller
 			'nip' => $request->nip,
 			'role' => $request->role,
 			'qr_code' => $qrCodeFilename,
-			'foto' => NULL,
+			'foto' => $filename,
 		]);
 
 		notify()->success('User Berhasil Ditambahkan');
@@ -147,6 +161,7 @@ class UserController extends Controller
 				'role' => 'required',
 				'jabatan_id' => 'required',
 				'nip' => 'required|numeric',
+				'foto' => 'nullable|file|mimes:jpg,jpeg,png',
 			],
 			[
 				'nama_lengkap.required' => 'Nama Lengkap wajib diisi.',
@@ -158,6 +173,7 @@ class UserController extends Controller
 				'jabatan_id.required' => 'Jabatan wajib diisi.',
 				'nip.required' => 'NIP wajib diisi.',
 				'nip.numeric' => 'NIP harus berupa angka.',
+				'foto.mimes' => 'File harus dalam format jpg, jpeg, png.',
 			]
 		);
 
@@ -169,8 +185,16 @@ class UserController extends Controller
 				Storage::disk('public')->delete('uploads/foto_user/' . $user->foto);
 			}
 			$file = $request->file('foto');
-			$filename = $user->foto ?? time() . '.' . $file->getClientOriginalExtension();
-			$file->storeAs('uploads/foto_user', $filename, 'public');
+			$filename = time() . '.' . $file->getClientOriginalExtension();
+
+			//kompres foto
+			$manager = new ImageManager(new Driver());
+			$image = $manager->read($file)->encodeByExtension(extension: $file->getClientOriginalExtension(), quality: 10);
+
+			Storage::disk('public')->put('uploads/foto_user/' . $filename, $image);
+			$data_foto = $filename;
+		} else {
+			$data_foto = $user->foto ?? 'default.jpeg';
 		}
 
 		$user->update([
@@ -180,7 +204,7 @@ class UserController extends Controller
 			'role' => $request->role,
 			'jabatan_id' => $request->jabatan_id,
 			'nip' => $request->nip,
-			'foto' => $filename
+			'foto' => $data_foto
 		]);
 
 		notify()->success('User Berhasil Diupdate');

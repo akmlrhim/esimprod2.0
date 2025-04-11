@@ -85,7 +85,18 @@
                 @enderror
               </div>
 
-              <div class="w-full relative" id="passwordContainer" style="display: none;">
+              <div>
+                <label for="foto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Foto
+                  Profil </label>
+                <input type="file" id="foto" name="foto"
+                  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  placeholder="Upload Foto Barang" />
+                @error('foto')
+                  <small class="text-red-500 text-sm mt-1">{{ $message }}</small>
+                @enderror
+              </div>
+
+              <div class="w-full relative hidden" id="passwordContainer">
                 <label for="password"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                 <div class="relative">
