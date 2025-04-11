@@ -219,7 +219,7 @@ class UserController extends Controller
 		$user = User::where('uuid', $uuid)->first();
 		if ($user) {
 			if ($user->qr_code) {
-				Storage::disk('public')->delete('uploads/qr_codes/' . $user->qr_code);
+				Storage::disk('public')->delete('uploads/qr_codes_user/' . $user->qr_code);
 			}
 
 			if ($user->foto && $user->foto !== 'default.jpeg') {
