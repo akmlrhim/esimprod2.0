@@ -101,7 +101,7 @@ class UserController extends Controller
 			Storage::disk('public')->put('uploads/foto_user/' . $filename, $image);
 			$data['foto'] = $filename;
 		} else {
-			$data['foto'] = 'default.jpg';
+			$data['foto'] = 'default.jpeg';
 		}
 
 		User::create([
@@ -115,7 +115,7 @@ class UserController extends Controller
 			'nip' => $request->nip,
 			'role' => $request->role,
 			'qr_code' => $qrCodeFilename,
-			'foto' => $filename,
+			'foto' => $data['foto'],
 		]);
 
 		notify()->success('User Berhasil Ditambahkan');
